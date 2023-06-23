@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".SplashActivity">
+
+    <!-- Start Your HealthCare Journey Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/startJourneyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/rounded_button"
+        android:paddingStart="28dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="15dp"
+        android:text="Get Started with EndoAware"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <!-- Image at the Top -->
+
+
+
+    <ImageView
+        android:id="@+id/appImage"
+        android:layout_width="304dp"
+        android:layout_height="288dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="184dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/endomet" />
+
+    <!-- Welcome To EndoAware Message -->
+
+    <TextView
+        android:id="@+id/welcomeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="189dp"
+        android:text="Welcome To EndoAware"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <!-- Circular Button with Icon -->
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/circularButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/circle_button"
+        android:drawableTop="@drawable/baseline_navigate_next_24"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="29dp" />
+
+
+</RelativeLayout>
