@@ -11,7 +11,7 @@
     </item>
 
     <!-- Middle Circle -->
-    <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
+    <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
         <shape android:shape="oval">
             <solid android:color="@android:color/transparent" />
             <stroke
@@ -21,7 +21,7 @@
     </item>
 
     <!-- Inner Circle (Button) -->
-    <item android:top="16dp" android:bottom="16dp" android:left="16dp" android:right="16dp">
+    <item android:top="20dp" android:bottom="20dp" android:left="20dp" android:right="20dp">
         <shape android:shape="oval">
             <gradient
                 android:startColor="#FFE569"
