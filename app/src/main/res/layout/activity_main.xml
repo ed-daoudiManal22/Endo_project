@@ -8,7 +8,6 @@
     tools:context=".MainActivity">
 
     <!-- Image at the Top -->
-
     <ImageView
         android:id="@+id/appImage"
         android:layout_width="304dp"
@@ -45,7 +44,6 @@
 
     </LinearLayout>
 
-
     <!-- App Description -->
     <TextView
         android:id="@+id/appDescription"
@@ -61,7 +59,6 @@
         android:gravity="center"/>
 
     <!-- Login with Email Button -->
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginWithEmailButton"
         android:layout_below="@id/appDescription"
@@ -78,10 +75,7 @@
         android:drawableStart="@drawable/baseline_mail_outline_24"
         android:drawablePadding="0dp" />
 
-
     <!-- Login with Google Button -->
-
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginWithGoogleButton"
         android:layout_width="match_parent"
@@ -98,12 +92,9 @@
         android:text="Login with Google"
         android:textColor="#ffffff"
         android:textSize="16sp"
-        android:textStyle="bold"
-        />
-
+        android:textStyle="bold" />
 
     <!-- Sign Up Button -->
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
@@ -119,5 +110,34 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:id="@+id/visitWebsiteLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signUpButton"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFDE00" />
+
+        <TextView
+            android:id="@+id/contactus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Us"
+            android:textColor="#FFDE00"
+            android:textSize="14sp"
+            android:padding="1dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFDE00" />
+
+    </LinearLayout>
 </RelativeLayout>

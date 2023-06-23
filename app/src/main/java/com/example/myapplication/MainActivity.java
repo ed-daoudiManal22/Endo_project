@@ -25,6 +25,7 @@ import com.example.myapplication.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,11 +33,57 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        private Button loginWithEmailButton;
+        private Button loginWithGoogleButton;
+        private Button signUpButton;
+        private TextView contactUsTextView;
 
-    }
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+
+            loginWithEmailButton = findViewById(R.id.loginWithEmailButton);
+            loginWithGoogleButton = findViewById(R.id.loginWithGoogleButton);
+            signUpButton = findViewById(R.id.signUpButton);
+            contactUsTextView = findViewById(R.id.contactus);
+
+            loginWithEmailButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle login with email button click
+                    // Redirect to another view or perform necessary actions
+                }
+            });
+
+            loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle login with Google button click
+                    // Redirect to another view or perform necessary actions
+                }
+            });
+
+            signUpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle sign up button click
+                    // Redirect to another view or perform necessary actions
+                }
+            });
+
+            contactUsTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle contact us text click
+                    // Redirect to another view or perform necessary actions
+                }
+            });
+        }
+
+
+
+
 
 
     @Override
