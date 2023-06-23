@@ -72,7 +72,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:drawableStart="@drawable/baseline_mail_outline_24"
-        android:drawablePadding="8dp" />
+        android:drawablePadding="8dp"
+        tools:ignore="MissingClass" />
 
 
     <!-- Login with Google Button -->
@@ -91,7 +92,8 @@
         android:layout_marginBottom="8dp"
         android:drawableStart="@drawable/baseline_g_mobiledata_24"
         android:drawablePadding="8dp"
-        android:paddingStart="12dp" />
+        android:paddingStart="12dp"
+        tools:ignore="MissingClass" />
 
 
     <!-- Sign Up Button -->
@@ -108,7 +110,8 @@
         android:background="@drawable/third_btn"
         android:padding="12dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        tools:ignore="MissingClass" />
 
 
 </RelativeLayout>
