@@ -11,19 +11,19 @@
 
     <ImageView
         android:id="@+id/appImage"
-        android:layout_width="wrap_content"
-        android:layout_height="333dp"
+        android:layout_width="304dp"
+        android:layout_height="288dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/logoendo" />
+        android:src="@drawable/endomet" />
 
     <LinearLayout
         android:id="@+id/appTitleContainer"
         android:layout_below="@id/appImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
         android:gravity="center">
 
         <TextView
@@ -55,7 +55,7 @@
         android:text="Log in to your account"
         android:textSize="22sp"
         android:textColor="@color/white"
-        android:paddingTop="12dp"
+        android:paddingTop="16dp"
         android:paddingBottom="8dp"
         android:textStyle="italic"
         android:gravity="center"/>
