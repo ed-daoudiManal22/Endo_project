@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context=".logInActivity">
+
+    <!-- Image at the Top -->
+    <ImageView
+        android:id="@+id/appImage"
+        android:layout_width="304dp"
+        android:layout_height="288dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/endomet" />
+
+    <!-- App Title -->
+    <LinearLayout
+        android:id="@+id/appTitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appImage"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login to "
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#333333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EndoAware"
+            android:textSize="30sp"
+            android:textStyle="italic"
+            android:textColor="#FFDE00" />
+
+    </LinearLayout>
+
+    <!-- App Description -->
+    <TextView
+        android:id="@+id/appDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appTitleContainer"
+        android:text="Log in to your account"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:textStyle="italic"
+        android:gravity="center"/>
+
+    <!-- Email Input -->
+    <EditText
+        android:id="@+id/emailinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appDescription"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="Enter Your E-mail..."
+        android:inputType="textEmailAddress"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="#D8D8D8"
+        android:textSize="16sp"
+        android:minHeight="48dp" />
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/passwordinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailinput"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="Enter Your Password..."
+        android:inputType="textPassword"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="#D8D8D8"
+        android:textSize="16sp"
+        android:minHeight="48dp" />
+
+
+
+    <!-- Login Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordinput"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/third_btn"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <!-- Forgot Password -->
+    <TextView
+        android:id="@+id/forgotpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginbutton"
+        android:layout_marginTop="16dp"
+        android:text="Forgot Password?"
+        android:textColor="#FFDE00"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Sign Up -->
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/forgotpassword"
+        android:layout_marginTop="16dp"
+        android:text="Don't have an account? Sign up"
+        android:textColor="#FFDE00"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

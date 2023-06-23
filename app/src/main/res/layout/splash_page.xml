@@ -64,8 +64,8 @@
         android:drawableTop="@drawable/baseline_navigate_next_24"
         android:drawablePadding="8dp"
         android:gravity="center"
-        android:padding="29dp"
-        android:text="Start" />
+        android:padding="31dp"
+        android:text="..." />
 
 
 
