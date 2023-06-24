@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context=".GoogleLoginActivity">
+
+    <!-- Image at the Top -->
+    <ImageView
+        android:id="@+id/appImage"
+        android:layout_width="304dp"
+        android:layout_height="288dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/endomet" />
+
+    <!-- App Title -->
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login with Google"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/appImage" />
+
+    <!-- Google Sign-In Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/googleSignInButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appTitle"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/second_btn"
+        android:drawableStart="@drawable/baseline_g_mobiledata_24"
+        android:drawablePadding="0dp"
+        android:padding="12dp"
+        android:paddingStart="12dp"
+        android:text="Login with Google"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+
+    <!-- Or Separator -->
+    <View
+        android:id="@+id/orSeparator"
+        android:layout_width="match_parent"
+        android:layout_height=".8dp"
+        android:layout_below="@id/googleSignInButton"
+        android:layout_marginTop="45dp"
+        android:background="@color/white" />
+
+    <!-- Or Text -->
+    <TextView
+        android:id="@+id/orText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Or"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/orSeparator"
+        android:layout_marginTop="45dp" />
+
+    <!-- Regular Login Button -->
+    <Button
+        android:id="@+id/regularLoginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orText"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/third_btn"
+        android:text="Login with E-mail"
+        android:textColor="#FFDE00"
+        android:textSize="16sp" />
+
+</RelativeLayout>
