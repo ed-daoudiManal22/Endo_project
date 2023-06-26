@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context=".Authentification">
+
+    <!-- Image at the Top -->
+    <ImageView
+        android:id="@+id/appImage"
+        android:layout_width="304dp"
+        android:layout_height="288dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/endomet" />
+
+    <LinearLayout
+        android:id="@+id/appTitleContainer"
+        android:layout_below="@id/appImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login to "
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#333333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EndoAware"
+            android:textSize="30sp"
+            android:textStyle="italic"
+            android:textColor="#FFDE00" />
+
+    </LinearLayout>
+
+    <!-- App Description -->
+    <TextView
+        android:id="@+id/appDescription"
+        android:layout_below="@id/appTitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log in to your account"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:textStyle="italic"
+        android:gravity="center"/>
+
+    <!-- Login with Email Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginWithEmailButton"
+        android:layout_below="@id/appDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login with Email"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#917FB3"
+        android:background="@drawable/first_btn"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:drawableStart="@drawable/baseline_mail_outline_24"
+        android:drawablePadding="0dp" />
+
+    <!-- Login with Google Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginWithGoogleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginWithEmailButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/second_btn"
+        android:drawableStart="@drawable/baseline_g_mobiledata_24"
+        android:drawablePadding="0dp"
+        android:padding="12dp"
+        android:paddingStart="12dp"
+        android:text="Login with Google"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Sign Up Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signUpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginWithGoogleButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/third_btn"
+        android:padding="12dp"
+        android:text="Sign Up"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/visitWebsiteLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signUpButton"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFDE00" />
+
+        <TextView
+            android:id="@+id/contactus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Us"
+            android:textColor="#FFDE00"
+            android:textSize="14sp"
+            android:padding="1dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFDE00" />
+
+    </LinearLayout>
+</RelativeLayout>

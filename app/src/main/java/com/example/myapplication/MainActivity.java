@@ -1,64 +1,41 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatTextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AppCompatButton loginWithEmailButton;
-    private AppCompatButton loginWithGoogleButton;
-    private AppCompatButton signUpButton;
-    private AppCompatTextView contactUsTextView;
+    private Button startJourneyButton;
+    private Button circularButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loginWithEmailButton = findViewById(R.id.loginWithEmailButton);
-        loginWithGoogleButton = findViewById(R.id.loginWithGoogleButton);
-        signUpButton = findViewById(R.id.signUpButton);
-        //contactUsTextView = findViewById(R.id.contactus);
+        startJourneyButton = findViewById(R.id.startJourneyButton);
+        circularButton = findViewById(R.id.circularButton);
 
-        loginWithEmailButton.setOnClickListener(new View.OnClickListener() {
+        startJourneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Redirect to login_with_email view
-                Intent intent = new Intent(MainActivity.this, logInActivity.class);
-                startActivity(intent);
+                // Handle the "Get Started" button click event
+                startActivity(new Intent(MainActivity.this, Authentification.class));
+                finish();
             }
         });
 
-        loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
+        circularButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Redirect to login_with_google view
-                Intent intent = new Intent(MainActivity.this, GoogleLoginActivity.class);
-                startActivity(intent);
+                // Handle the circular button click event
+                startActivity(new Intent(MainActivity.this, Authentification.class));
+                finish();
             }
         });
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Redirect to signUp view
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        /*contactUsTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Redirect to ContactUs view
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });*/
     }
+
 }

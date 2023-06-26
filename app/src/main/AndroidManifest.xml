@@ -26,6 +26,10 @@
 
         <!-- Add activity declarations for the redirected activities -->
         <activity
+            android:name=".Authentification"
+            android:label="Authentification" />
+
+        <activity
             android:name=".logInActivity"
             android:label="Login with Email" />
 
