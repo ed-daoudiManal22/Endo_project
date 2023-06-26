@@ -36,10 +36,12 @@
         <activity
             android:name=".SignUpActivity"
             android:label="Sign Up" />
+
         <activity
             android:name=".WelcomeActivity"
             android:label="Welcome"
             android:theme="@style/Theme.MyApplication" />
+
     </application>
 
 </manifest>
