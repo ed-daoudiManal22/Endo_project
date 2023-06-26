@@ -23,41 +23,42 @@ public class MainActivity extends AppCompatActivity {
         loginWithEmailButton = findViewById(R.id.loginWithEmailButton);
         loginWithGoogleButton = findViewById(R.id.loginWithGoogleButton);
         signUpButton = findViewById(R.id.signUpButton);
-        contactUsTextView = findViewById(R.id.contactus);
+        //contactUsTextView = findViewById(R.id.contactus);
 
         loginWithEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle login with email button click
-                // Redirect to another view or perform necessary actions
+                // Redirect to login_with_email view
+                Intent intent = new Intent(MainActivity.this, logInActivity.class);
+                startActivity(intent);
             }
         });
 
         loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle login with Google button click
-                // Redirect to another view or perform necessary actions
+                // Redirect to login_with_google view
+                Intent intent = new Intent(MainActivity.this, GoogleLoginActivity.class);
+                startActivity(intent);
             }
         });
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle sign up button click
-                // Redirect to another view or perform necessary actions
-            }
-        });
-
-        contactUsTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle contact us text click
-                // Redirect to another view or perform necessary actions
-                String url = "https://www.example.com"; // Replace with your website URL
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                // Redirect to signUp view
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
+
+        /*contactUsTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirect to ContactUs view
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });*/
     }
 }

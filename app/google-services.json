@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1063873527410",
+    "project_id": "endo-project-1acae",
+    "storage_bucket": "endo-project-1acae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063873527410:android:c7f2c661cdb2bbf60acceb",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063873527410-4pte50gh9jnn116dirrl6qm3q1ffc3o0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "ba9f843f447eb3007eeb5ee659b43fee066d642c"
+          }
+        },
+        {
+          "client_id": "1063873527410-sb1t1ncm837n20p16eaeih6q4bnu6ei0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADd6GGsKqKdEDkkrUOzEwVJaGqvmN8GXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063873527410-sb1t1ncm837n20p16eaeih6q4bnu6ei0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

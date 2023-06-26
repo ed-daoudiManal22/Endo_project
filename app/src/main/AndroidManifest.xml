@@ -23,6 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Add activity declarations for the redirected activities -->
+        <activity
+            android:name=".logInActivity"
+            android:label="Login with Email" />
+
+        <activity
+            android:name=".GoogleLoginActivity"
+            android:label="Login with Google" />
+
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Sign Up" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="Welcome"
+            android:theme="@style/Theme.MyApplication" />
     </application>
 
 </manifest>
