@@ -38,6 +38,10 @@
             android:label="Sign Up" />
 
         <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="Forgot Password" />
+
+        <activity
             android:name=".WelcomeActivity"
             android:label="Welcome"
             android:theme="@style/Theme.MyApplication" />
