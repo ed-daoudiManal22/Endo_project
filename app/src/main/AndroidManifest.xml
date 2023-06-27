@@ -26,23 +26,23 @@
 
         <!-- Add activity declarations for the redirected activities -->
         <activity
-            android:name=".Authentification"
+            android:name=".Authentification.Authentification"
             android:label="Authentification" />
 
         <activity
-            android:name=".logInActivity"
+            android:name=".Authentification.logInActivity"
             android:label="Login with Email" />
 
         <activity
-            android:name=".GoogleLoginActivity"
+            android:name=".Authentification.GoogleLoginActivity"
             android:label="Login with Google" />
 
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Authentification.SignUpActivity"
             android:label="Sign Up" />
 
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".Authentification.ForgotPasswordActivity"
             android:label="Forgot Password" />
 
         <activity
