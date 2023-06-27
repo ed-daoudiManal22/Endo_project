@@ -15,7 +15,7 @@
         android:textSize="24sp"
         android:textColor="#333333"
         android:textStyle="bold"
-        android:text="Welcome, User!"
+        android:text="Welcomeback, User!"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true" />
 
