@@ -43,7 +43,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -71,7 +71,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -99,7 +99,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -127,7 +127,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -155,7 +155,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -183,7 +183,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -211,7 +211,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -239,7 +239,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -267,7 +267,7 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_icon"
+                android:src="@drawable/baseline_g_mobiledata_24"
                 android:scaleType="centerInside" />
 
             <TextView
