@@ -50,6 +50,9 @@
             android:label="Welcome"
             android:theme="@style/Theme.MyApplication" />
 
+        <activity android:name=".Endo_InfoActivity" />
+
+
     </application>
 
 </manifest>
