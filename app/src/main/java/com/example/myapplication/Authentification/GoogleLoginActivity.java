@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Authentification;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.myapplication.R;
+import com.example.myapplication.WelcomeActivity;
 import com.google.android.gms.common.SignInButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.auth.User;
 
 import javax.annotation.Nullable;
 
@@ -85,7 +86,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                             user1.setUserId(user.getUid());
                             user1.setUserName(user.getDisplayName());
                             database.getReference().child("Users").child(user.getUid()).setValue(user1);
-                            Intent intent = new Intent(GoogleLoginActivity.this,WelcomeActivity.class);
+                            Intent intent = new Intent(GoogleLoginActivity.this, WelcomeActivity.class);
                             startActivity(intent);
                         }else {
                             Toast.makeText(GoogleLoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();

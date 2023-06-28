@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Authentification.Authentification;
+
 public class MainActivity extends AppCompatActivity {
     private Button startJourneyButton;
     private Button circularButton;

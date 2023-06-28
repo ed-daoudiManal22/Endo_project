@@ -12,8 +12,16 @@
         android:text="Welcome!"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:id="@+id/welcomeText"
         android:layout_centerInParent="true" />
 
-    <!-- Add any other content or design elements as per your requirements -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Endo Infos"
+        android:layout_below="@id/welcomeText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/gotoEndoInfosButton" />
 
 </RelativeLayout>
