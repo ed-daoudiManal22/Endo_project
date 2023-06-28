@@ -152,8 +152,10 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+
         //googleBtn.setOnClickListener(new View.OnClickListener() {
-            /*@Override
+            /*
+            @Override
             public void onClick(View view) {
                 Intent signInIntent = gClient.getSignInIntent();
                 activityResultLauncher.launch(signInIntent);

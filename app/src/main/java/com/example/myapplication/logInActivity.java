@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class logInActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText emailInput;
     private EditText passwordInput;
     private Button loginButton;
@@ -45,12 +45,12 @@ public class logInActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Login successful, navigate to the main activity
-                                    Intent intent = new Intent(logInActivity.this, WelcomeActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     // Login failed, display an error message
-                                    Toast.makeText(logInActivity.this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -60,7 +60,7 @@ public class logInActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(logInActivity.this, ForgotPasswordActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -68,7 +68,7 @@ public class logInActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(logInActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
