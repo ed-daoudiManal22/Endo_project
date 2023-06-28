@@ -1,11 +1,17 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Models.QuestionAdapter;
 import com.example.myapplication.Models.Questions;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +19,8 @@ import java.util.List;
 public class Endo_InfoActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Questions> QuestionList;
+    private QuestionAdapter questionAdapter;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,25 +28,40 @@ public class Endo_InfoActivity extends AppCompatActivity {
         setContentView(R.layout.endo_infos);
 
         recyclerView = findViewById(R.id.endo_Questions);
+        firestore = FirebaseFirestore.getInstance();
 
-        initData();
-        setRecyclerView();
-    }
-
-    private void initData() {
         QuestionList = new ArrayList<>();
-        QuestionList.add(new Questions("title 1","Answer 1"));
-        QuestionList.add(new Questions("title 2","Answer 2"));
-        QuestionList.add(new Questions("title 3","Answer 3"));
-        QuestionList.add(new Questions("title 4","Answer 4"));
-        QuestionList.add(new Questions("title 5","Answer 5"));
-        QuestionList.add(new Questions("title 6","Answer 6"));
-        QuestionList.add(new Questions("title 7","Answer 7"));
-    }
+        questionAdapter = new QuestionAdapter(QuestionList);
 
-    private void setRecyclerView() {
-        QuestionAdapter questionAdapter =new QuestionAdapter(QuestionList);
         recyclerView.setAdapter(questionAdapter);
         recyclerView.setHasFixedSize(true);
+
+        fetchDataFromFirestore();
+    }
+
+
+    private void fetchDataFromFirestore() {
+        firestore.collection("Endo_infos")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String title = document.getString("title");
+                            String answer = document.getString("answer");
+
+                            Questions question = new Questions(title, answer);
+                            QuestionList.add(question);
+                        }
+
+                        questionAdapter.notifyDataSetChanged();
+                    } else {
+                        Exception exception = task.getException();
+                        if (exception != null){
+                            Log.e("FirestoreError", "Error fetching data: " + exception.getMessage());
+                            Toast.makeText(Endo_InfoActivity.this, "Error fetching data", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
     }
 }

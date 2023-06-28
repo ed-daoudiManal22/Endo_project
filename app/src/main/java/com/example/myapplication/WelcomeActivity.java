@@ -17,7 +17,7 @@ public class WelcomeActivity extends AppCompatActivity {
         gotoEndoInfosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, Endo_InfoActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
