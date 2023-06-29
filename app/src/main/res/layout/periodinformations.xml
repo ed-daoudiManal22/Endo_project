@@ -94,8 +94,8 @@
 
     <Switch
         android:id="@+id/fertilitySwitch"
-        android:layout_width="158dp"
-        android:layout_height="47dp"
+        android:layout_width="246dp"
+        android:layout_height="66dp"
         android:layout_below="@id/fertilityLabel"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
