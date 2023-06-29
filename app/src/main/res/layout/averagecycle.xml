@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context=".CycleLengthActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/back_button_background"
+        android:src="@drawable/ic_back"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <!-- Circular Button -->
+
+    <!-- Page Title -->
+
+    <ImageButton
+        android:id="@+id/circularButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="65dp"
+        android:layout_toEndOf="@id/backButton"
+        android:background="@drawable/circle_button"
+        android:scaleType="centerInside"
+        android:src="@drawable/calendar"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <!-- Description -->
+
+    <TextView
+        android:id="@+id/pagetitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circularButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:gravity="center_horizontal"
+        android:text="How long is your average \n cycle ?"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A little hint : cycles usually last 24-38 days"
+        android:textColor="#393E46"
+        android:textSize="16sp"
+        android:layout_below="@id/pagetitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <!-- Number Picker -->
+    <RelativeLayout
+        android:id="@+id/cycleLengthPickerLayout"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:padding="8dp">
+
+        <NumberPicker
+            android:id="@+id/cycleLengthPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="55dp" />
+
+        <TextView
+            android:id="@+id/daysTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textSize="16dp"
+            android:text="days" />
+
+    </RelativeLayout>
+
+
+    <!-- Next Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/nextbutton"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:text="Next"
+        android:textColor="@android:color/white"
+        android:background="@drawable/second_btn"
+        android:layout_below="@id/cycleLengthPickerLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" />
+
+</RelativeLayout>

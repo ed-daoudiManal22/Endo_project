@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context=".Authentification.SignUpActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/back_button_background"
+        android:src="@drawable/ic_back"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+
+    <!-- Image at the Top -->
+    <ImageView
+        android:id="@+id/appImage"
+        android:layout_width="304dp"
+        android:layout_height="288dp"
+        android:layout_below="@id/backButton"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/endomet" />
+
+    <!-- App Title -->
+
+    <LinearLayout
+        android:id="@+id/appTitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appImage"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="An important step for your \n Privacy"
+            android:textSize="25sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal" />
+
+
+    </LinearLayout>
+
+
+
+    <!-- Privacy Policy and Terms of Service Paragraph -->
+    <TextView
+        android:id="@+id/policiesParagraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appTitleContainer"
+        android:layout_marginTop="20dp"
+        android:text="We promise to keep your data safe, secure and private. Please take a look at our policies before creating an account"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:gravity="center" />
+
+    <!-- Thin Line -->
+    <View
+        android:id="@+id/dividerLine"
+        android:layout_width="match_parent"
+        android:layout_height=".6dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/policiesParagraph"
+        android:background="@color/white" />
+
+    <!-- Privacy Policy Checkbox and TextView -->
+    <LinearLayout
+        android:id="@+id/privacyPolicyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividerLine"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/privacyPolicyCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I agree to EndoAware's"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Privacy Policy"
+            android:textColor="#FFDE00"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <!-- Terms of Service Checkbox and TextView -->
+    <LinearLayout
+        android:id="@+id/termsOfServiceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/privacyPolicyLayout"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/termsOfServiceCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I agree to EndoAware's"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terms of Service"
+            android:textColor="#FFDE00"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <!-- Sign Up Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signupButton"
+        android:layout_width="411dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/termsOfServiceLayout"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/second_btn"
+        android:text="Create Account"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</RelativeLayout>
