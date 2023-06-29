@@ -22,6 +22,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText nameInput;
@@ -32,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView loginLink;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.signup_page);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         nameInput = findViewById(R.id.nameInput);
         emailInput = findViewById(R.id.emailInput);
@@ -117,10 +123,28 @@ public class SignUpActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(SignUpActivity.this, WelcomeActivity.class);
-                                                    startActivity(intent);
-                                                    finish();
+                                                    // Create a user object with name and email
+                                                    Map<String, Object> newUser = new HashMap<>();
+                                                    newUser.put("name", name);
+                                                    newUser.put("email", email);
+
+                                                    // Add the user object to the "users" collection
+                                                    db.collection("Users")
+                                                            .document(user.getUid())
+                                                            .set(newUser)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                                                        Intent intent = new Intent(SignUpActivity.this, WelcomeActivity.class);
+                                                                        startActivity(intent);
+                                                                        finish();
+                                                                    } else {
+                                                                        Toast.makeText(SignUpActivity.this, "Failed to register user in Firestore", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
                                                 } else {
                                                     Toast.makeText(SignUpActivity.this, "Failed to update user profile", Toast.LENGTH_SHORT).show();
                                                 }
@@ -128,6 +152,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         });
                             }
                         } else {
+                            // Handle exceptions
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthWeakPasswordException e) {
