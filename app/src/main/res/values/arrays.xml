@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="birth_control_methods">
+        <item>Pill</item>
+        <item>IUD</item>
+        <item>Condom</item>
+        <item>Abstinence</item>
+        <item>Spermicide</item>
+    </string-array>
+</resources>

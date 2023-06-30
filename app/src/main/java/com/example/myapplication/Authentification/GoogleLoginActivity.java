@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.WelcomeActivity;
+import com.example.myapplication.UserPage_Activity;
 import com.google.android.gms.common.SignInButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -86,7 +86,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                             user1.setUserId(user.getUid());
                             user1.setUserName(user.getDisplayName());
                             database.getReference().child("Users").child(user.getUid()).setValue(user1);
-                            Intent intent = new Intent(GoogleLoginActivity.this, WelcomeActivity.class);
+                            Intent intent = new Intent(GoogleLoginActivity.this, UserPage_Activity.class);
                             startActivity(intent);
                         }else {
                             Toast.makeText(GoogleLoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
