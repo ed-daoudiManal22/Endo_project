@@ -62,6 +62,10 @@
         <activity android:name=".BasicUsersInfos.BirthControl_Activity" />
         <activity android:name=".BasicUsersInfos.Choices_Activity" />
 
+        <activity
+            android:name=".SymptomsTrack_Activity"
+            android:label="Symptoms Tracking" />
+
 
     </application>
 
