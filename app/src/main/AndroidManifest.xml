@@ -66,6 +66,14 @@
             android:name=".SymptomsTrack_Activity"
             android:label="Symptoms Tracking" />
 
+        <activity
+            android:name=".Menstrual_cycle_Activity"
+            android:label="Menstrual cycle" />
+
+        <activity
+            android:name=".Forum_Activity"
+            android:label="Forum" />
+
 
     </application>
 
