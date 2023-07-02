@@ -61,14 +61,14 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         AppCompatButton weightButton = findViewById(R.id.weightButton);
         weightButton.setOnClickListener(v -> showInputDialog("Enter Number", "weight", "Submit", (dialog, value) -> {
             int weight = Integer.parseInt(value);
-            saveToFirestore("weight", weight);
+            saveWeightToFirestore(getCurrentDate(), weight);
         }));
         // Sleep Button
         AppCompatButton sleepButton = findViewById(R.id.sleepButton);
         sleepButton.setOnClickListener(v -> {
             showInputDialog("Enter Sleep Time", "sleepTime", "Next", (dialog, sleepTime) -> {
                 showInputDialog("Enter Wake-up Time", "wakeUpTime", "Submit", (dialog1, wakeUpTime) -> {
-                    saveSleepDataToFirestore(sleepTime, wakeUpTime);
+                    saveSleepDataToFirestore(getCurrentDate(),sleepTime, wakeUpTime);
                 });
             });
         });
@@ -78,8 +78,12 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         waterButton.setOnClickListener(v -> showInputDialog("Enter Water Consumption", "cups", "Submit", (dialog, cups) -> {
             int cupCount = Integer.parseInt(cups);
             double totalWaterConsumed = cupCount * 0.25;
-            saveToFirestore("waterConsumption", totalWaterConsumed);
+            saveWaterToFirestore(getCurrentDate(),totalWaterConsumed);
         }));
+    }
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return dateFormat.format(new Date());
     }
 
     private void showHelpDialog() {
@@ -108,10 +112,12 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }
-    private void saveToFirestore(String field, Object value) {
+    private void saveWeightToFirestore(String currentDate, int weight) {
         String userId = auth.getCurrentUser().getUid();
         firestore.collection("Users").document(userId)
-                .update(field, value)
+                .collection("weight")
+                .document(currentDate)
+                .update("weight", weight)
                 .addOnSuccessListener(aVoid -> {
                     // Data saved successfully
                 })
@@ -119,9 +125,32 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
                     // Handle error while saving data
                 });
     }
-    private void saveSleepDataToFirestore(String sleepTime, String wakeUpTime) {
-        saveToFirestore("sleepTime", sleepTime);
-        saveToFirestore("wakeUpTime", wakeUpTime);
+    private void saveSleepDataToFirestore(String currentDate, String sleepTime, String wakeUpTime) {
+        String userId = auth.getCurrentUser().getUid();
+        firestore.collection("Users").document(userId)
+                .collection("sleep")
+                .document(currentDate)
+                .update("sleepTime", sleepTime, "wakeUpTime", wakeUpTime)
+                .addOnSuccessListener(aVoid -> {
+                    // Data saved successfully
+                })
+                .addOnFailureListener(e -> {
+                    // Handle error while saving data
+                });
+    }
+
+    private void saveWaterToFirestore(String currentDate, double waterConsumed) {
+        String userId = auth.getCurrentUser().getUid();
+        firestore.collection("Users").document(userId)
+                .collection("water")
+                .document(currentDate)
+                .update("waterConsumption", waterConsumed)
+                .addOnSuccessListener(aVoid -> {
+                    // Data saved successfully
+                })
+                .addOnFailureListener(e -> {
+                    // Handle error while saving data
+                });
     }
 
     interface InputDialogListener {

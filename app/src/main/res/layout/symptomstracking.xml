@@ -52,7 +52,6 @@
                 android:text="Cycle Day 7"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
-
         </RelativeLayout>
 
         <!-- Right Icon -->
@@ -64,11 +63,9 @@
             android:layout_marginRight="5dp"
             android:padding="5dp"
             android:src="@drawable/help" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Content -->
-
     <!-- Weight Section -->
     <LinearLayout
         android:id="@+id/weightButtonsLayout"
@@ -85,14 +82,12 @@
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
-
         <!-- Buttons for Weight Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -100,6 +95,13 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginEnd="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weight"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/weightButton"
@@ -109,15 +111,6 @@
                     android:drawableTop="@drawable/close"
                     android:padding="45dp"
                     tools:ignore="SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Weight"
-                    android:textSize="24sp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -126,6 +119,13 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginEnd="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sleep"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/sleepButton"
@@ -135,15 +135,6 @@
                     android:drawableTop="@drawable/close"
                     android:padding="45dp"
                     tools:ignore="SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sleep"
-                    android:textSize="24sp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -151,6 +142,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Water"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/waterButton"
@@ -160,29 +158,15 @@
                     android:drawableTop="@drawable/close"
                     android:padding="45dp"
                     tools:ignore="SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Water"
-                    android:textSize="24sp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp" />
-
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
-
-
     <!-- Thin Line -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
         android:layout_below="@id/weightButtonsLayout"
         android:background="@android:color/darker_gray" />
-
     <!-- Sex Section -->
     <LinearLayout
         android:id="@+id/sleepButtonsLayout"
@@ -190,31 +174,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/weightButtonsLayout"
         android:orientation="vertical"
-        android:gravity="start"
-        android:padding="16dp">
+        android:gravity="start">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sex and sex drive"
-            android:textSize="30sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-
+            android:textSize="23sp"
+            android:textColor="@android:color/black" />
         <!-- Buttons for Sleep Section -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
+            android:layout_height="201dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -227,21 +207,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
                     android:text="Didn't have\nsex"
-                    android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -254,21 +232,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Protected \nsex"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
                     android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
-
+                    android:gravity="center_horizontal"
+                    android:text="Protected\nsex"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -281,19 +257,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="UnProtected \nsex"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
                     android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:gravity="center_horizontal"
+                    android:text="UnProtected\n sex"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -306,19 +281,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="High sex \ndrive"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
                     android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:gravity="center_horizontal"
+                    android:text="High sex\ndrive"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -331,26 +305,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Label 5 \n"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
                     android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:gravity="center_horizontal"
+                    android:text="Masturbation\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
-
         </LinearLayout>
-
-
     </LinearLayout>
-
     <!-- Thin Line -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/sleepButtonsLayout"
         android:background="@android:color/darker_gray" />
-
     <!-- Mood Section -->
     <LinearLayout
         android:id="@+id/waterButtonsLayout"
@@ -365,24 +333,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mood"
-            android:textSize="30sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-
+            android:textSize="23sp"
+            android:textColor="@android:color/black"/>
         <!-- Buttons for  Section -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
+            android:layout_height="173dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -395,19 +360,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calm \n"
-                    android:textSize="20sp"
+                    android:text="Calm"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -420,19 +383,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Happy \n"
-                    android:textSize="20sp"
+                    android:text="Happy"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -445,74 +406,111 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Energetic \n"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="108dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/pinkcircle_button"
-                    android:drawableTop="@drawable/close"
-                    android:padding="42dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Frisky \n"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="108dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/pinkcircle_button"
-                    android:drawableTop="@drawable/close"
-                    android:padding="42dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mood \nswings"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
                     android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:text="Energetic"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/pinkcircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Mood \nswings"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/pinkcircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Sad\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/pinkcircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Anxious\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/pinkcircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Depressed\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
-
     <!-- Thin Line -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/waterButtonsLayout"
         android:background="@android:color/darker_gray" />
-
     <!-- Symptoms Section -->
     <LinearLayout
         android:id="@+id/exerciseButtonsLayout"
@@ -527,24 +525,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Symptoms"
-            android:textSize="30sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
+            android:textSize="23sp"
+            android:textColor="@android:color/black" />
 
         <!-- Buttons for Exercise Section -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
+            android:layout_height="191dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -557,20 +553,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Everything \nis fine"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Everything\nis fine"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -583,20 +577,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cramps \n"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Cramps\n"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -609,19 +601,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tender \nbreasts"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Tender\nbreasts"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -634,19 +624,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Headache \n"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Headache\n"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -659,31 +647,135 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="Acne \n"
-                    android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/greencircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Abnormal\npain"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/greencircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Backache\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/greencircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Bloating\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/greencircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Insomnia\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/greencircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Diarrhea\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
-
-
     <!-- Thin Line -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/exerciseButtonsLayout"
         android:background="@android:color/darker_gray" />
-
-
-
     <!-- Vaginal Discharge Section  -->
-
     <LinearLayout
         android:id="@+id/section1ButtonsLayout"
         android:layout_width="match_parent"
@@ -697,25 +789,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Vaginal Discharge"
-            android:textSize="30sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-
+            android:textSize="23sp"
+            android:textColor="@android:color/black" />
         <!-- Buttons for  Section  -->
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
+            android:layout_height="188dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -728,25 +816,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="No \ndischarge"
-                    android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
                     android:layout_height="108dp"
-                    android:background="@drawable/redcircle_button"
+                    android:background="@drawable/purplecircle_button"
                     android:drawableTop="@drawable/close"
                     android:padding="42dp"
                     tools:ignore="SpeakableTextPresentCheck" />
@@ -754,20 +840,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Spotting \n"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Spotting\n"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="center"
-                android:layout_marginEnd="16dp">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -776,23 +860,20 @@
                     android:drawableTop="@drawable/close"
                     android:padding="42dp"
                     tools:ignore="SpeakableTextPresentCheck" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sticky \n"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Sticky\n"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -805,19 +886,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Creamy \n"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Creamy\n"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="108dp"
@@ -830,25 +909,65 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Eggwhite \n"
-                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:text="Eggwhite\n"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/purplecircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Watery\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/purplecircle_button"
+                    android:drawableTop="@drawable/close"
+                    android:padding="42dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Unusual\n"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
     <!-- Thin Line -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/section1ButtonsLayout"
         android:background="@android:color/darker_gray" />
-
     <!-- Ovulation Section -->
     <LinearLayout
         android:id="@+id/section2ButtonsLayout"
@@ -863,18 +982,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ovulation"
-        android:textSize="30sp"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="8dp" />
-
+        android:textSize="23sp"
+        android:textColor="@android:color/black" />
         <!-- Buttons for ovulation Section  -->
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
             android:layout_marginBottom="8dp">
 
             <LinearLayout
@@ -895,12 +1009,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Didn't take \ntests"
+                    android:text="Didn't take\ntests"
                     android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
                     android:gravity="center_horizontal" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -921,12 +1033,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Test : \npositive"
+                    android:text="Test :\npositive"
                     android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
                     android:gravity="center_horizontal" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -947,12 +1057,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Test : \nnegative"
+                    android:text="Test :\nnegative"
                     android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
                     android:gravity="center_horizontal" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -972,18 +1080,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ovulation : \nmy method"
+                    android:text="Ovulation :\nmy method"
                     android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="8dp"
                     android:gravity="center_horizontal" />
-
             </LinearLayout>
-
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
 
     </LinearLayout>
-
-
-
 </RelativeLayout>
