@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="birth_control_methods">
-        <item>Pill</item>
-        <item>IUD</item>
-        <item>Condom</item>
-        <item>Abstinence</item>
         <item>Spermicide</item>
+        <item>Female Condom</item>
+        <item>Abstinence</item>
+        <item>Nothing</item>
     </string-array>
+
+    <string-array name="sexdrive_options">
+        <item>Didn not have sex</item>
+        <item>Protected sex</item>
+        <item>Unprotected sex</item>
+        <item>High sex drive</item>
+        <item>Masturbation</item>
+    </string-array>
+
+    <string-array name="symptoms_options">
+        <item>Cramps</item>
+        <item>Tender breasts</item>
+        <item>Headache</item>
+        <item>Acne</item>
+        <item>Fatique</item>
+        <item>Bloating</item>
+        <item>Craving</item>
+    </string-array>
+
+    <string-array name="vaginalDischarge_options">
+        <item>Spotting</item>
+        <item>Sticky</item>
+        <item>Creamy</item>
+        <item>Eggwhite</item>
+        <item>Watery</item>
+        <item>Unusual</item>
+    </string-array>
+
+    <string-array name="mood_options">
+        <item>Calm</item>
+        <item>Happy</item>
+        <item>Energetic</item>
+        <item>Mood swings</item>
+        <item>Sad</item>
+        <item>Anxious</item>
+        <item>Depressed</item>
+    </string-array>
+
+    <string-array name="ovulation_options">
+        <item>Did not take tests</item>
+        <item>Test: positive</item>
+        <item>Test: negative</item>
+        <item>Ovulation: my method</item>
+    </string-array>
+
 </resources>
