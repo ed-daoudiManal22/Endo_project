@@ -46,16 +46,33 @@
             android:label="Forgot Password" />
 
         <activity
-            android:name=".WelcomeActivity"
-            android:label="Welcome"
-            android:theme="@style/Theme.MyApplication" />
-
-        <activity
             android:name=".HomeActivity"
             android:label="Home"
             android:theme="@style/Theme.MyApplication" />
 
+        <activity
+            android:name=".UserPage_Activity"
+            android:label="User page" />
+
         <activity android:name=".Endo_InfoActivity" />
+
+        <activity android:name=".BasicUsersInfos.UserAge_Activity" />
+        <activity android:name=".BasicUsersInfos.AvrageCycle_activity" />
+        <activity android:name=".BasicUsersInfos.LastPeriod_Activity" />
+        <activity android:name=".BasicUsersInfos.BirthControl_Activity" />
+        <activity android:name=".BasicUsersInfos.Choices_Activity" />
+
+        <activity
+            android:name=".SymptomsTrack_Activity"
+            android:label="Symptoms Tracking" />
+
+        <activity
+            android:name=".Menstrual_cycle_Activity"
+            android:label="Menstrual cycle" />
+
+        <activity
+            android:name=".Forum_Activity"
+            android:label="Forum" />
 
 
     </application>

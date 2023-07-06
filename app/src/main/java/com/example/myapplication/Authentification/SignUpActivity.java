@@ -11,8 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.BasicUsersInfos.UserAge_Activity;
 import com.example.myapplication.R;
-import com.example.myapplication.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -137,7 +137,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
-                                                                        Intent intent = new Intent(SignUpActivity.this, WelcomeActivity.class);
+                                                                        Intent intent = new Intent(SignUpActivity.this, UserAge_Activity.class);
                                                                         startActivity(intent);
                                                                         finish();
                                                                     } else {

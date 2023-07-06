@@ -55,7 +55,7 @@
         android:inputType="textPersonName"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textColorHint="#D8D8D8"
         android:textSize="16sp"
         android:minHeight="48dp" />
@@ -72,7 +72,7 @@
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textColorHint="#D8D8D8"
         android:textSize="16sp"
         android:minHeight="48dp" />
@@ -89,7 +89,7 @@
         android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textColorHint="#D8D8D8"
         android:textSize="16sp"
         android:minHeight="48dp" />
@@ -106,7 +106,7 @@
         android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textColorHint="#D8D8D8"
         android:textSize="16sp"
         android:minHeight="48dp" />

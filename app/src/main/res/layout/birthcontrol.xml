@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@drawable/background"
-    tools:context=".BirthControlActivity">
+    tools:context=".BasicUsersInfos.BirthControl_Activity">
 
     <!-- Back Button -->
     <ImageButton
@@ -71,7 +71,8 @@
         android:layout_height="87dp"
         android:layout_below="@id/Description"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="35dp"
+        android:entries="@array/birth_control_methods"/>
 
 
     <!-- Next Button -->

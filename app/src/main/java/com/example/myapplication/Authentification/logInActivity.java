@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.WelcomeActivity;
+import com.example.myapplication.UserPage_Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -47,7 +47,7 @@ public class logInActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Login successful, navigate to the main activity
-                                    Intent intent = new Intent(logInActivity.this, WelcomeActivity.class);
+                                    Intent intent = new Intent(logInActivity.this, UserPage_Activity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
