@@ -1,85 +1,136 @@
 package com.example.myapplication;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
 public class Menstrual_cycle_Activity extends AppCompatActivity{
     private CalendarView calendarView;
-    private FirebaseAuth auth;
-    private FirebaseFirestore firestore;
+    private DatabaseReference userDataRef;
     private String userId;
+    private List<Long> periodDays;
+    private List<Long> ovulationDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menstrual_cycle);
 
+        // Initialize views
         calendarView = findViewById(R.id.calendar_view);
 
-        auth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
-        userId = auth.getCurrentUser().getUid();
+        // Get the current user ID
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+        }
 
-        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            // Create a date object from the selected date
-            Date selectedDate = new Date(year - 1900, month, dayOfMonth);
+        // Get reference to the user's menstrual cycle data
+        userDataRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
-            // Format the selected date as "dd/MM/yyyy"
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            String formattedDate = sdf.format(selectedDate);
+        // Retrieve the user's menstrual cycle data from Firebase
+        userDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Retrieve the start date of the last period and average cycle length
+                String lastPeriodStartDate = dataSnapshot.child("lastPeriodStartDate").getValue(String.class);
+                int averageCycleLength = dataSnapshot.child("averageCycleLength").getValue(Integer.class);
 
-            // Display a toast message with the selected date
-            Toast.makeText(Menstrual_cycle_Activity.this, "Selected date: " + formattedDate, Toast.LENGTH_SHORT).show();
+                // Calculate the days of periods and ovulation periods
+                periodDays = calculatePeriodDays(lastPeriodStartDate, averageCycleLength);
+                ovulationDays = calculateOvulationDays(periodDays);
 
-            // Check if the selected date is within the woman's period
-            checkPeriodDate(selectedDate);
+                // Update the calendar to highlight the period and ovulation days
+                updateCalendar();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+        Button trackSymptomsButton = findViewById(R.id.trackSymptomsButton);
+        trackSymptomsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menstrual_cycle_Activity.this, SymptomsTrack_Activity.class);
+                startActivity(intent);
+            }
         });
     }
 
-    private void checkPeriodDate(Date selectedDate) {
-        firestore.collection("users")
-                .document(userId)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document != null && document.exists()) {
-                                // Get the period duration and average cycle length from Firestore
-                                long periodDuration = document.getLong("periodDuration");
-                                long cycleLength = document.getLong("cycleLength");
+    // Calculate the days of periods based on the start date of the last period and average cycle length
+    private List<Long> calculatePeriodDays(String lastPeriodStartDate, int averageCycleLength) {
+        List<Long> periodDays = new ArrayList<>();
 
-                                // Calculate the start and end dates of the woman's period
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTime(selectedDate);
-                                calendar.add(Calendar.DAY_OF_MONTH, (int) -cycleLength);
-                                Date periodStartDate = calendar.getTime();
-                                calendar.add(Calendar.DAY_OF_MONTH, (int) periodDuration);
-                                Date periodEndDate = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        try {
+            // Parse the start date of the last period
+            Date startDate = dateFormat.parse(lastPeriodStartDate);
 
-                                // Check if the selected date falls within the woman's period
-                                if (selectedDate.after(periodStartDate) && selectedDate.before(periodEndDate)) {
-                                    Toast.makeText(Menstrual_cycle_Activity.this, "You're on your period!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(Menstrual_cycle_Activity.this, "You're not on your period", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }
-                });
+            // Set the start date as the initial reference
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(startDate);
+
+            // Calculate the period days based on the average cycle length
+            for (int i = 0; i < averageCycleLength; i++) {
+                periodDays.add(calendar.getTimeInMillis());
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return periodDays;
+    }
+
+    // Calculate the days of ovulation based on the days of periods
+    private List<Long> calculateOvulationDays(List<Long> periodDays) {
+        List<Long> ovulationDays = new ArrayList<>();
+
+        for (Long periodDay : periodDays) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(periodDay);
+
+            // Calculate the ovulation day
+            calendar.add(Calendar.DAY_OF_MONTH, -14);
+            ovulationDays.add(calendar.getTimeInMillis());
+        }
+
+        return ovulationDays;
+    }
+
+    // Update the calendar to highlight the period and ovulation days
+    private void updateCalendar() {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
+                // Customize the appearance of the selected calendar cell based on the day's classification
+                // You can use the periodDays and ovulationDays lists to determine the classification of the selected day
+                // Update the UI accordingly
+            }
+        });
     }
 }
