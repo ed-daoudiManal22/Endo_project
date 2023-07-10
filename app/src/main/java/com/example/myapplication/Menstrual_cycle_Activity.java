@@ -1,21 +1,17 @@
 package com.example.myapplication;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Adapters.PeriodAdapter;
+import com.example.myapplication.Models.PeriodDay;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,111 +22,101 @@ import java.util.List;
 import java.util.Locale;
 
 public class Menstrual_cycle_Activity extends AppCompatActivity{
-    private CalendarView calendarView;
-    private DatabaseReference userDataRef;
+    private RecyclerView periodRecyclerView;
+    private List<PeriodDay> periodDayList;
+    private PeriodAdapter periodAdapter;
+
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
     private String userId;
-    private List<Long> periodDays;
-    private List<Long> ovulationDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menstrual_cycle);
 
-        // Initialize views
-        calendarView = findViewById(R.id.calendar_view);
+        // Initialize Firebase
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
 
-        // Get the current user ID
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            userId = currentUser.getUid();
-        }
+        // Initialize RecyclerView
+        periodRecyclerView = findViewById(R.id.periodRecyclerView);
+        periodDayList = new ArrayList<>();
+        periodAdapter = new PeriodAdapter(periodDayList);
+        periodRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        periodRecyclerView.setAdapter(periodAdapter);
 
-        // Get reference to the user's menstrual cycle data
-        userDataRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-
-        // Retrieve the user's menstrual cycle data from Firebase
-        userDataRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Retrieve the start date of the last period and average cycle length
-                String lastPeriodStartDate = dataSnapshot.child("lastPeriodStartDate").getValue(String.class);
-                int averageCycleLength = dataSnapshot.child("averageCycleLength").getValue(Integer.class);
-
-                // Calculate the days of periods and ovulation periods
-                periodDays = calculatePeriodDays(lastPeriodStartDate, averageCycleLength);
-                ovulationDays = calculateOvulationDays(periodDays);
-
-                // Update the calendar to highlight the period and ovulation days
-                updateCalendar();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
-            }
-        });
-
-        Button trackSymptomsButton = findViewById(R.id.trackSymptomsButton);
-        trackSymptomsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Menstrual_cycle_Activity.this, SymptomsTrack_Activity.class);
-                startActivity(intent);
-            }
-        });
+        // Fetch period and ovulation data from Firestore
+        fetchPeriodData();
     }
 
-    // Calculate the days of periods based on the start date of the last period and average cycle length
-    private List<Long> calculatePeriodDays(String lastPeriodStartDate, int averageCycleLength) {
-        List<Long> periodDays = new ArrayList<>();
+    private void fetchPeriodData() {
+        db.collection("Users").document(userId).collection("periods")
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    periodDayList.clear();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        try {
-            // Parse the start date of the last period
-            Date startDate = dateFormat.parse(lastPeriodStartDate);
+                    // Calculate the upcoming period days based on last period and average cycle
+                    Date lastPeriodDate = null;
+                    int averageCycle = 28; // Change this value to the user's average cycle
 
-            // Set the start date as the initial reference
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(startDate);
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        String date = documentSnapshot.getString("date");
+                        boolean isPeriodDay = documentSnapshot.getBoolean("isPeriodDay");
+                        boolean isOvulationDay = documentSnapshot.getBoolean("isOvulationDay");
 
-            // Calculate the period days based on the average cycle length
-            for (int i = 0; i < averageCycleLength; i++) {
-                periodDays.add(calendar.getTimeInMillis());
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+                        PeriodDay periodDay = new PeriodDay(date, isPeriodDay || isOvulationDay);
+                        periodDayList.add(periodDay);
 
-        return periodDays;
+                        // Set the color of the date on the CalendarView based on the type of day
+                        Calendar calendar = Calendar.getInstance();
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            Date parsedDate = sdf.parse(date);
+                            calendar.setTime(parsedDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (isPeriodDay) {
+                            // Set the background color of the period day
+                            int redColor = Color.parseColor("#FF0000");
+                            // TODO: Set the background color of the date on the CalendarView
+                        } else if (isOvulationDay) {
+                            // Set the background color of the ovulation day
+                            int blueColor = Color.parseColor("#0000FF");
+                            // TODO: Set the background color of the date on the CalendarView
+                        }
+
+                        if (isPeriodDay && lastPeriodDate == null) {
+                            lastPeriodDate = calendar.getTime();
+                        }
+                    }
+
+                    // Calculate the upcoming period days
+                    if (lastPeriodDate != null) {
+                        Calendar upcomingPeriodCalendar = Calendar.getInstance();
+                        upcomingPeriodCalendar.setTime(lastPeriodDate);
+                        upcomingPeriodCalendar.add(Calendar.DAY_OF_MONTH, averageCycle);
+
+                        // Set the background color of the upcoming period day
+                        int redColor = Color.parseColor("#FF0000");
+                        // TODO: Set the background color of the date on the CalendarView
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        String upcomingPeriodDate = sdf.format(upcomingPeriodCalendar.getTime());
+
+                        PeriodDay upcomingPeriodDay = new PeriodDay(upcomingPeriodDate, false);
+                        periodDayList.add(upcomingPeriodDay);
+                    }
+
+                    periodAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    // Handle any errors
+                });
     }
 
-    // Calculate the days of ovulation based on the days of periods
-    private List<Long> calculateOvulationDays(List<Long> periodDays) {
-        List<Long> ovulationDays = new ArrayList<>();
-
-        for (Long periodDay : periodDays) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(periodDay);
-
-            // Calculate the ovulation day
-            calendar.add(Calendar.DAY_OF_MONTH, -14);
-            ovulationDays.add(calendar.getTimeInMillis());
-        }
-
-        return ovulationDays;
-    }
-
-    // Update the calendar to highlight the period and ovulation days
-    private void updateCalendar() {
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
-                // Customize the appearance of the selected calendar cell based on the day's classification
-                // You can use the periodDays and ovulationDays lists to determine the classification of the selected day
-                // Update the UI accordingly
-            }
-        });
-    }
 }
