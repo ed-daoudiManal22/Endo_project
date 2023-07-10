@@ -81,6 +81,13 @@
 
 </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/periodRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/FirstSection"
+        android:layout_marginTop="16dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
