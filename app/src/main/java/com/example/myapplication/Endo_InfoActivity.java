@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Models.QuestionAdapter;
+import com.example.myapplication.Adapters.QuestionAdapter;
 import com.example.myapplication.Models.Questions;
 
 import com.google.firebase.firestore.FirebaseFirestore;

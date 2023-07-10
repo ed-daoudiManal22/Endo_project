@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -62,17 +65,13 @@
         <activity android:name=".BasicUsersInfos.BirthControl_Activity" />
         <activity android:name=".BasicUsersInfos.Choices_Activity" />
 
-        <activity
-            android:name=".SymptomsTrack_Activity"
-            android:label="Symptoms Tracking" />
+        <activity android:name=".SymptomsTrack_Activity" />
 
-        <activity
-            android:name=".Menstrual_cycle_Activity"
-            android:label="Menstrual cycle" />
+        <activity android:name=".Menstrual_cycle_Activity" />
 
-        <activity
-            android:name=".Forum_Activity"
-            android:label="Forum" />
+        <activity android:name=".Forum_Activity" />
+
+        <activity android:name=".ReminderActivity" />
 
 
     </application>

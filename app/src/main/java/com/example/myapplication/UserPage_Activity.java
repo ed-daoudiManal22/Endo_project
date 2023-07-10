@@ -44,7 +44,7 @@ public class UserPage_Activity extends AppCompatActivity {
         setReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, SymptomsTrack_Activity.class);
+                Intent intent = new Intent(UserPage_Activity.this, ReminderActivity.class);
                 startActivity(intent);
             }
         });

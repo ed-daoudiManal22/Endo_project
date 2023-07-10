@@ -1,25 +1,33 @@
 package com.example.myapplication;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.CalendarView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.myapplication.Adapters.PeriodAdapter;
+import com.example.myapplication.Models.PeriodDay;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
 public class Menstrual_cycle_Activity extends AppCompatActivity{
-    private CalendarView calendarView;
-    private FirebaseAuth auth;
-    private FirebaseFirestore firestore;
+    private RecyclerView periodRecyclerView;
+    private List<PeriodDay> periodDayList;
+    private PeriodAdapter periodAdapter;
+
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
     private String userId;
 
     @Override
@@ -27,59 +35,88 @@ public class Menstrual_cycle_Activity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menstrual_cycle);
 
-        calendarView = findViewById(R.id.calendar_view);
+        // Initialize Firebase
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
 
-        auth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
-        userId = auth.getCurrentUser().getUid();
+        // Initialize RecyclerView
+        periodRecyclerView = findViewById(R.id.periodRecyclerView);
+        periodDayList = new ArrayList<>();
+        periodAdapter = new PeriodAdapter(periodDayList);
+        periodRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        periodRecyclerView.setAdapter(periodAdapter);
 
-        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            // Create a date object from the selected date
-            Date selectedDate = new Date(year - 1900, month, dayOfMonth);
-
-            // Format the selected date as "dd/MM/yyyy"
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            String formattedDate = sdf.format(selectedDate);
-
-            // Display a toast message with the selected date
-            Toast.makeText(Menstrual_cycle_Activity.this, "Selected date: " + formattedDate, Toast.LENGTH_SHORT).show();
-
-            // Check if the selected date is within the woman's period
-            checkPeriodDate(selectedDate);
-        });
+        // Fetch period and ovulation data from Firestore
+        fetchPeriodData();
     }
 
-    private void checkPeriodDate(Date selectedDate) {
-        firestore.collection("users")
-                .document(userId)
+    private void fetchPeriodData() {
+        db.collection("Users").document(userId).collection("periods")
+                .orderBy("date", Query.Direction.ASCENDING)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document != null && document.exists()) {
-                                // Get the period duration and average cycle length from Firestore
-                                long periodDuration = document.getLong("periodDuration");
-                                long cycleLength = document.getLong("cycleLength");
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    periodDayList.clear();
 
-                                // Calculate the start and end dates of the woman's period
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTime(selectedDate);
-                                calendar.add(Calendar.DAY_OF_MONTH, (int) -cycleLength);
-                                Date periodStartDate = calendar.getTime();
-                                calendar.add(Calendar.DAY_OF_MONTH, (int) periodDuration);
-                                Date periodEndDate = calendar.getTime();
+                    // Calculate the upcoming period days based on last period and average cycle
+                    Date lastPeriodDate = null;
+                    int averageCycle = 28; // Change this value to the user's average cycle
 
-                                // Check if the selected date falls within the woman's period
-                                if (selectedDate.after(periodStartDate) && selectedDate.before(periodEndDate)) {
-                                    Toast.makeText(Menstrual_cycle_Activity.this, "You're on your period!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(Menstrual_cycle_Activity.this, "You're not on your period", Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        String date = documentSnapshot.getString("date");
+                        boolean isPeriodDay = documentSnapshot.getBoolean("isPeriodDay");
+                        boolean isOvulationDay = documentSnapshot.getBoolean("isOvulationDay");
+
+                        PeriodDay periodDay = new PeriodDay(date, isPeriodDay || isOvulationDay);
+                        periodDayList.add(periodDay);
+
+                        // Set the color of the date on the CalendarView based on the type of day
+                        Calendar calendar = Calendar.getInstance();
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            Date parsedDate = sdf.parse(date);
+                            calendar.setTime(parsedDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (isPeriodDay) {
+                            // Set the background color of the period day
+                            int redColor = Color.parseColor("#FF0000");
+                            // TODO: Set the background color of the date on the CalendarView
+                        } else if (isOvulationDay) {
+                            // Set the background color of the ovulation day
+                            int blueColor = Color.parseColor("#0000FF");
+                            // TODO: Set the background color of the date on the CalendarView
+                        }
+
+                        if (isPeriodDay && lastPeriodDate == null) {
+                            lastPeriodDate = calendar.getTime();
                         }
                     }
+
+                    // Calculate the upcoming period days
+                    if (lastPeriodDate != null) {
+                        Calendar upcomingPeriodCalendar = Calendar.getInstance();
+                        upcomingPeriodCalendar.setTime(lastPeriodDate);
+                        upcomingPeriodCalendar.add(Calendar.DAY_OF_MONTH, averageCycle);
+
+                        // Set the background color of the upcoming period day
+                        int redColor = Color.parseColor("#FF0000");
+                        // TODO: Set the background color of the date on the CalendarView
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        String upcomingPeriodDate = sdf.format(upcomingPeriodCalendar.getTime());
+
+                        PeriodDay upcomingPeriodDay = new PeriodDay(upcomingPeriodDate, false);
+                        periodDayList.add(upcomingPeriodDay);
+                    }
+
+                    periodAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    // Handle any errors
                 });
     }
+
 }

@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -29,10 +30,14 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseAuth auth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.symptomstracking);
+        setContentView(R.layout.symptoms_tracking);
+
+        // Enable Firestore logging
+        FirebaseFirestore.setLoggingEnabled(true);
 
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -117,12 +122,14 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         firestore.collection("Users").document(userId)
                 .collection("weight")
                 .document(currentDate)
-                .update("weight", weight)
+                .set(new HashMap<String, Object>() {{
+                    put("weight", weight);
+                }})
                 .addOnSuccessListener(aVoid -> {
-                    // Data saved successfully
+                    System.out.println("Weight saved successfully");
                 })
                 .addOnFailureListener(e -> {
-                    // Handle error while saving data
+                    System.out.println("Error while saving weight: " + e.getMessage());
                 });
     }
     private void saveSleepDataToFirestore(String currentDate, String sleepTime, String wakeUpTime) {
@@ -130,12 +137,15 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         firestore.collection("Users").document(userId)
                 .collection("sleep")
                 .document(currentDate)
-                .update("sleepTime", sleepTime, "wakeUpTime", wakeUpTime)
+                .set(new HashMap<String, Object>() {{
+                    put("sleepTime", sleepTime);
+                    put("wakeUpTime", wakeUpTime);
+                }})
                 .addOnSuccessListener(aVoid -> {
-                    // Data saved successfully
+                    System.out.println("Sleep saved successfully");
                 })
                 .addOnFailureListener(e -> {
-                    // Handle error while saving data
+                    System.out.println("Error while saving sleep: " + e.getMessage());
                 });
     }
 
@@ -144,12 +154,14 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         firestore.collection("Users").document(userId)
                 .collection("water")
                 .document(currentDate)
-                .update("waterConsumption", waterConsumed)
+                .set(new HashMap<String, Object>() {{
+                    put("waterConsumption", waterConsumed);
+                }})
                 .addOnSuccessListener(aVoid -> {
-                    // Data saved successfully
+                    System.out.println("water saved successfully");
                 })
                 .addOnFailureListener(e -> {
-                    // Handle error while saving data
+                    System.out.println("Error while saving water: " + e.getMessage());
                 });
     }
 
