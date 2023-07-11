@@ -66,100 +66,40 @@
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Content -->
-    <!-- Weight Section -->
     <LinearLayout
         android:id="@+id/FirstSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:orientation="vertical"
-        android:gravity="center"
         android:padding="16dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="18sp"
+            android:text="Pain Level"
+            android:textSize="25sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-        <!-- Buttons for Weight Section -->
+            android:layout_marginTop="15dp" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <SeekBar
+                android:id="@+id/seekBar2"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginEnd="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Weight"
-                    android:textSize="24sp"
-                    android:textColor="@android:color/black"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/weightButton"
-                    android:layout_width="115dp"
-                    android:layout_height="115dp"
-                    android:background="@drawable/symptoms_button"
-                    android:drawableTop="@drawable/close"
-                    android:padding="45dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginEnd="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sleep"
-                    android:textSize="24sp"
-                    android:textColor="@android:color/black" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/sleepButton"
-                    android:layout_width="115dp"
-                    android:layout_height="115dp"
-                    android:background="@drawable/symptoms_button"
-                    android:drawableTop="@drawable/close"
-                    android:padding="45dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Water"
-                    android:textSize="24sp"
-                    android:textColor="@android:color/black" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/waterButton"
-                    android:layout_width="115dp"
-                    android:layout_height="115dp"
-                    android:background="@drawable/symptoms_button"
-                    android:drawableTop="@drawable/close"
-                    android:padding="45dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
+                android:max="9"
+                android:progress="3" />
         </LinearLayout>
+
     </LinearLayout>
     <!-- Thin Line -->
     <View
@@ -169,52 +109,53 @@
         android:background="@android:color/darker_gray" />
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/FirstSection"
-    android:orientation="vertical"
-    android:padding="16dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/FirstSection"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <!-- Sex drive Section -->
+        <!-- Sex drive Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sex and sex drive"
-            android:textSize="23sp"
             android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black" />
+            android:text="Pain location"
+            android:textColor="@android:color/black"
+            android:textSize="23sp" />
 
-    <Spinner
-        android:id="@+id/sexdriveSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:entries="@array/sexdrive_options" />
+        <Spinner
+            android:id="@+id/sexdriveSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:entries="@array/sexdrive_options" />
 
-    <!-- Mood Section -->
+        <!-- Mood Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mood"
-            android:textSize="23sp"
             android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black"/>
+            android:text="How you feel today ?"
+            android:textColor="@android:color/black"
+            android:textSize="23sp" />
 
-    <Spinner
-        android:id="@+id/moodSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:entries="@array/mood_options" />
+        <Spinner
+            android:id="@+id/moodSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/mood_options" />
 
         <!-- symptoms Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Symptoms"
-            android:textSize="23sp"
             android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black"/>
+            android:text="Symptoms"
+            android:textColor="@android:color/black"
+            android:textSize="23sp" />
 
         <Spinner
             android:id="@+id/symptomsSpinner"
@@ -227,10 +168,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vaginal Discharge"
-            android:textSize="23sp"
             android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black"/>
+            android:text="Vaginal Discharge"
+            android:textColor="@android:color/black"
+            android:textSize="23sp" />
 
         <Spinner
             android:id="@+id/vaginalDischargeSpinner"
@@ -243,10 +184,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mood"
-            android:textSize="23sp"
             android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black"/>
+            android:text="Mood"
+            android:textColor="@android:color/black"
+            android:textSize="23sp" />
 
         <Spinner
             android:id="@+id/ovulationSpinner"
@@ -255,7 +196,8 @@
             android:layout_marginBottom="10dp"
             android:entries="@array/ovulation_options" />
 
-</LinearLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
