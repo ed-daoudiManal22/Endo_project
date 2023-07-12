@@ -25,18 +25,20 @@
     <!-- Image at the Top -->
 
 
+    <!-- Welcome To EndoAware Message -->
 
     <ImageView
         android:id="@+id/appImage"
-        android:layout_width="304dp"
-        android:layout_height="288dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="245dp"
         android:scaleType="centerCrop"
         android:src="@drawable/endomet" />
 
-    <!-- Welcome To EndoAware Message -->
+    <!-- Circular Button with Icon -->
+
 
     <TextView
         android:id="@+id/welcomeMessage"
@@ -44,14 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="189dp"
+        android:layout_marginBottom="267dp"
         android:text="Welcome To EndoAware"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold" />
-
-    <!-- Circular Button with Icon -->
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/circularButton"
@@ -59,14 +58,13 @@
         android:layout_height="85dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="74dp"
         android:background="@drawable/circle_button"
         android:drawableTop="@drawable/baseline_navigate_next_24"
         android:drawablePadding="8dp"
         android:gravity="center"
         android:padding="31dp"
         android:text="..." />
-
 
 
 </RelativeLayout>
