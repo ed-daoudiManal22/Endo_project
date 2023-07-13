@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,14 +29,14 @@
 
         <TextView
             android:id="@+id/toolbarTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="Add Reminder"
+            android:layout_gravity="center"
+            android:text="Add a Reminder"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:textStyle="bold" />
+
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -51,6 +53,7 @@
             android:background="#FFFFFF">
 
             <!-- EditText fields for title and description -->
+
             <EditText
                 android:id="@+id/titleEditText"
                 android:layout_width="match_parent"
@@ -65,7 +68,7 @@
             <EditText
                 android:id="@+id/descriptionEditText"
                 android:layout_width="match_parent"
-                android:layout_height="67dp"
+                android:layout_height="100dp"
                 android:background="@drawable/edittext_background"
                 android:hint="Description..."
                 android:layout_marginTop="15dp"
@@ -82,7 +85,7 @@
                 android:layout_marginTop="15dp"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
-                android:background="#F2F2F2" />
+                android:background="@color/light_blue" />
 
             <!-- TimePicker -->
 
@@ -91,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="#F2F2F2"
+                android:background="@color/light_blue"
                 android:timePickerMode="spinner" />
 
             <!-- Add and Cancel buttons -->
