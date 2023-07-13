@@ -84,7 +84,7 @@
                 android:layout_marginTop="15dp"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
-                android:background="#F2F2F2" />
+                android:background="@color/light_blue" />
 
             <!-- TimePicker -->
 
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="#F2F2F2"
+                android:background="@color/light_blue"
                 android:timePickerMode="spinner" />
 
             <!-- Add and Cancel buttons -->
