@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -30,6 +29,17 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -207,6 +217,8 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                         Log.e("ReminderActivity", "Error saving reminder", e);
                     }
                 });
+
+        scheduleNotification(title, datetime, description);
     }
     @Override
     public void onReminderActiveStatusChange(Reminder reminder) {
@@ -253,5 +265,44 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     }
                 });
     }
+
+    private void scheduleNotification(String title, Date datetime, String description) {
+        // Create a notification channel (required for Android 8.0 Oreo and above)
+        createNotificationChannel();
+
+        // Create an Intent for the notification
+        Intent notificationIntent = new Intent(this, ReminderNotification_Activity.class);
+        notificationIntent.putExtra("title", title);
+        notificationIntent.putExtra("description", description);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Get the system AlarmManager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // Set the reminder time as the trigger time for the alarm
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(datetime);
+        long triggerTimeInMillis = calendar.getTimeInMillis();
+
+        // Schedule the alarm
+        alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "reminders_channel";
+            String channelName = "Reminders";
+            String channelDescription = "Notifications for reminders";
+
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(channelDescription);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
 
 }

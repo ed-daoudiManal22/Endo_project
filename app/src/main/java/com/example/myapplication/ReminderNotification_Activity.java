@@ -1,54 +1,39 @@
 package com.example.myapplication;
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.content.Intent;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-public class ReminderNotification_Activity extends AppCompatActivity{
-    private static final String CHANNEL_ID = "reminder_channel";
-    private static final int NOTIFICATION_ID = 1;
-
+public class ReminderNotification_Activity  extends BroadcastReceiver {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.reminder_notification);
+    public void onReceive(Context context, Intent intent) {
+        String title = intent.getStringExtra("title");
+        String description = intent.getStringExtra("description");
 
-        String title = getIntent().getStringExtra("title");
-
-        createNotificationChannel();
-        showNotification(title);
+        // Show the notification
+        showNotification(context, title, description);
     }
 
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Reminder Channel";
-            String description = "Channel for Reminders";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
+    private void showNotification(Context context, String title, String description) {
+        // Create an Intent to launch the ReminderActivity when the notification is clicked
+        Intent notificationIntent = new Intent(context, ReminderActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+        // Create the notification
+        Notification.Builder builder = new Notification.Builder(context)
+                .setSmallIcon(R.drawable.notificationsicon)
+                .setContentTitle(title)
+                .setContentText(description)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        // Show the notification
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.notify(0, builder.build());
         }
     }
 
-    private void showNotification(String title) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.notificationsicon)
-                .setContentTitle("Reminder")
-                .setContentText(title)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
-    }
 }
