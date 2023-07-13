@@ -24,12 +24,12 @@
     <!-- Image at the Top -->
     <ImageView
         android:id="@+id/appImage"
-        android:layout_width="304dp"
-        android:layout_height="288dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_below="@id/backButton"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/endomet" />
+        android:src="@drawable/uterus" />
 
     <!-- App Title -->
 
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="An important step for your \n Privacy"
             android:textSize="25sp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:layout_marginTop="8dp"
             android:textStyle="bold"
             android:gravity="center_horizontal" />
@@ -64,7 +64,7 @@
         android:layout_below="@id/appTitleContainer"
         android:layout_marginTop="20dp"
         android:text="We promise to keep your data safe, secure and private. Please take a look at our policies before creating an account"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:gravity="center" />
 
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:text="I agree to EndoAware's"
             android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:text="I agree to EndoAware's"
             android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
         android:layout_width="411dp"
         android:layout_height="55dp"
         android:layout_below="@id/termsOfServiceLayout"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/second_btn"
         android:text="Create Account"
         android:textColor="@color/white"
