@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,11 +23,19 @@ public class EndoFAQ_Activity extends AppCompatActivity {
     private List<Questions> QuestionList;
     private QuestionAdapter questionAdapter;
     private FirebaseFirestore firestore;
+    private ImageView leftIcon, rightIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.endo_faq);
+
+        leftIcon = findViewById(R.id.leftIcon);
+        leftIcon.setOnClickListener(v -> startActivity(new Intent(EndoFAQ_Activity.this, UserPage_Activity.class)));
+
+        // Right Icon
+        rightIcon = findViewById(R.id.rightIcon);
+        //rightIcon.setOnClickListener(v -> showHelpDialog());
 
         recyclerView = findViewById(R.id.endo_Questions);
         firestore = FirebaseFirestore.getInstance();
