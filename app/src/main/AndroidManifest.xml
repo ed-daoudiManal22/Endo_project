@@ -60,6 +60,9 @@
         <activity android:name=".Endo_InfoActivity" />
         <activity android:name=".EndoFAQ_Activity" />
 
+        <activity android:name=".Diag_start" />
+        <activity android:name=".DiagTest_Activity" />
+
         <activity android:name=".BasicUsersInfos.UserAge_Activity" />
         <activity android:name=".BasicUsersInfos.AvrageCycle_activity" />
         <activity android:name=".BasicUsersInfos.LastPeriod_Activity" />
