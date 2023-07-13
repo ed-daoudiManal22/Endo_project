@@ -52,7 +52,7 @@ public class UserPage_Activity extends AppCompatActivity {
         diagnosticsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, SymptomsTrack_Activity.class);
+                Intent intent = new Intent(UserPage_Activity.this, QuizActivity.class);
                 startActivity(intent);
             }
         });
