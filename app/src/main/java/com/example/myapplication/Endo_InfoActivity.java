@@ -1,67 +1,60 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.myapplication.Adapters.QuestionAdapter;
-import com.example.myapplication.Models.Questions;
-
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.cardview.widget.CardView;
 
 public class Endo_InfoActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private List<Questions> QuestionList;
-    private QuestionAdapter questionAdapter;
-    private FirebaseFirestore firestore;
+    private ImageView leftIcon, rightIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.endo_infos);
 
-        recyclerView = findViewById(R.id.endo_Questions);
-        firestore = FirebaseFirestore.getInstance();
+        leftIcon = findViewById(R.id.leftIcon);
+        leftIcon.setOnClickListener(v -> startActivity(new Intent(Endo_InfoActivity.this, UserPage_Activity.class)));
 
-        QuestionList = new ArrayList<>();
-        questionAdapter = new QuestionAdapter(QuestionList);
+        // Right Icon
+        rightIcon = findViewById(R.id.rightIcon);
+        //rightIcon.setOnClickListener(v -> showHelpDialog());
 
-        recyclerView.setAdapter(questionAdapter);
-        recyclerView.setHasFixedSize(true);
+        // Box 1 click listener
+        CardView box1 = findViewById(R.id.EndoFAQ);
+        box1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the new activity or perform desired action
+                startActivity(new Intent(Endo_InfoActivity.this, EndoFAQ_Activity.class));
+            }
+        });
 
-        fetchDataFromFirestore();
-    }
+        // Box 2 click listener
+        CardView box2 = findViewById(R.id.article1);
+        box2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the new activity or perform desired action
+                startActivity(new Intent(Endo_InfoActivity.this, SymptomsTrack_Activity.class));
+            }
+        });
 
-
-    private void fetchDataFromFirestore() {
-        firestore.collection("Endo_infos")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String title = document.getString("title");
-                            String answer = document.getString("answer");
-
-                            Questions question = new Questions(title, answer);
-                            QuestionList.add(question);
-                        }
-
-                        questionAdapter.notifyDataSetChanged();
-                    } else {
-                        Exception exception = task.getException();
-                        if (exception != null){
-                            Log.e("FirestoreError", "Error fetching data: " + exception.getMessage());
-                            Toast.makeText(Endo_InfoActivity.this, "Error fetching data", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
+        // Box 3 click listener
+        CardView box3 = findViewById(R.id.article2);
+        box3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the new activity or perform desired action
+                startActivity(new Intent(Endo_InfoActivity.this, SymptomsTrack_Activity.class));
+            }
+        });
     }
 }

@@ -13,7 +13,7 @@ public class UserPage_Activity extends AppCompatActivity {
     private Button diagnosticsButton;
     private Button calendarButton;
     private Button myInfoButton;
-    private Button contactButton;
+    private Button EndoButton;
     private Button SymptomButton;
     private Button ForumButton;
 
@@ -28,7 +28,7 @@ public class UserPage_Activity extends AppCompatActivity {
         diagnosticsButton = findViewById(R.id.button3);
         calendarButton = findViewById(R.id.button4);
         myInfoButton = findViewById(R.id.button5);
-        contactButton = findViewById(R.id.button6);
+        EndoButton = findViewById(R.id.button6);
         SymptomButton = findViewById(R.id.button7);
         ForumButton = findViewById(R.id.button8);
 
@@ -73,10 +73,10 @@ public class UserPage_Activity extends AppCompatActivity {
             }
         });
 
-        contactButton.setOnClickListener(new View.OnClickListener() {
+        EndoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, SymptomsTrack_Activity.class);
+                Intent intent = new Intent(UserPage_Activity.this, Endo_InfoActivity.class);
                 startActivity(intent);
             }
         });
