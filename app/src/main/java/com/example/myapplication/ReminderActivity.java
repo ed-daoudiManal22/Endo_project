@@ -79,7 +79,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         reminderAdapter.setOnReminderDeleteListener(this);
         reminderAdapter.setOnReminderActiveStatusChangeListener(this);
 
-        Button addReminderButton = findViewById(R.id.addReminderButton);
+        ImageView addReminderButton = findViewById(R.id.addButton);
         addReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

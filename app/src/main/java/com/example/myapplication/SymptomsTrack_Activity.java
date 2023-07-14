@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,11 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.symptoms_tracking);
+
+        TextView currentDateTextView = findViewById(R.id.currentDateTextView);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+        String currentDate = dateFormat.format(new Date());
+        currentDateTextView.setText(currentDate);
 
         leftIcon = findViewById(R.id.leftIcon);
 

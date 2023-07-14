@@ -76,7 +76,7 @@
                 android:id="@+id/image1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/Faq_background" />
+                android:src="@drawable/faq_background" />
 
             <LinearLayout
                 android:layout_width="match_parent"

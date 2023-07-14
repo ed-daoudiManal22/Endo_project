@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UserPage_Activity extends AppCompatActivity {
     private Button doctorsButton;
@@ -16,6 +20,7 @@ public class UserPage_Activity extends AppCompatActivity {
     private Button EndoButton;
     private Button SymptomButton;
     private Button ForumButton;
+    private TextView welcomeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,20 @@ public class UserPage_Activity extends AppCompatActivity {
         EndoButton = findViewById(R.id.button6);
         SymptomButton = findViewById(R.id.button7);
         ForumButton = findViewById(R.id.button8);
+        welcomeTextView = findViewById(R.id.textView);
+
+        // Retrieve the current user from Firebase Authentication
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            String userName = currentUser.getDisplayName();
+
+            if (userName != null && !userName.isEmpty()) {
+                String welcomeMessage = "Welcome back " + userName + "!";
+                welcomeTextView.setText(welcomeMessage);
+            }
+        }
 
         // Set up click listeners for the buttons
         doctorsButton.setOnClickListener(new View.OnClickListener() {
