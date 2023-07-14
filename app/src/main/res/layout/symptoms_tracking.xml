@@ -26,7 +26,7 @@
             android:padding="5dp"
             android:src="@drawable/ic_back" />
 
-        <!-- Current Date and Cycle Day -->
+        <!-- Current Date -->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,14 +36,15 @@
 
             <TextView
                 android:id="@+id/currentDateTextView"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="1 July"
+                android:text="14 July"
                 android:textColor="@android:color/white"
-                android:textSize="32sp" />
-
+                android:textSize="32sp"
+                android:gravity="center" />
         </RelativeLayout>
+
 
         <!-- Right Icon -->
         <ImageView
