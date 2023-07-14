@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="An important step for your \n Privacy"
             android:textSize="25sp"
-            android:textColor="@android:color/white"
+            android:textColor="#333333"
             android:layout_marginTop="8dp"
             android:textStyle="bold"
             android:gravity="center_horizontal" />
@@ -64,7 +64,7 @@
         android:layout_below="@id/appTitleContainer"
         android:layout_marginTop="20dp"
         android:text="We promise to keep your data safe, secure and private. Please take a look at our policies before creating an account"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:gravity="center" />
 
