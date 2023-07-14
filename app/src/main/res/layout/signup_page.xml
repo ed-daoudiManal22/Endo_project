@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/uterus" />
+        android:src="@drawable/endomet" />
 
     <TextView
         android:id="@+id/appTitle"
