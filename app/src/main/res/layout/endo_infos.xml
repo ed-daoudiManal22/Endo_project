@@ -76,21 +76,21 @@
                 android:id="@+id/image1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/background" />
+                android:src="@drawable/Faq_background" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
                 android:layout_alignParentBottom="true"
-                android:background="@color/white">
+                android:background="@color/light_grey">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Endometriosis FAQ"
                     android:gravity="center"
-                    android:textColor="@color/purple" />
+                    android:textColor="@color/white" />
             </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -117,14 +117,14 @@
             android:layout_height="50dp"
                 android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
-            android:background="@color/white">
+            android:background="@color/light_grey">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Article 1"
                 android:gravity="center"
-                android:textColor="@color/purple" />
+                android:textColor="@color/white" />
             </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -151,14 +151,14 @@
             android:layout_height="50dp"
                 android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
-            android:background="@color/white">
+            android:background="@color/light_grey">
 
             <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Article 2"
             android:gravity="center"
-            android:textColor="@color/purple" />
+            android:textColor="@color/white" />
             </LinearLayout>
             </androidx.cardview.widget.CardView>
 
