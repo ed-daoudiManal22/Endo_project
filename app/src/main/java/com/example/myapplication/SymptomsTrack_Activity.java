@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,7 +30,8 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
     private Spinner symptomsSpinner;
     private Spinner painWorseSpinner;
     private Spinner medicationSpinner;
-    private Button submitButton;
+    private ImageView leftIcon;
+    private Button submitButton, cancelButton;
     private String currentUserUid;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
@@ -37,6 +40,9 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.symptoms_tracking);
+
+        leftIcon = findViewById(R.id.leftIcon);
+
 
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -49,11 +55,28 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         painWorseSpinner = findViewById(R.id.painworseSpinner);
         medicationSpinner = findViewById(R.id.medicationSpinner);
         submitButton = findViewById(R.id.submitButton);
+        cancelButton = findViewById(R.id.cancelButton);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitSymptoms();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SymptomsTrack_Activity.this, UserPage_Activity.class);
+                startActivity(intent);
+            }
+        });
+        leftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event and redirect to UserPage_Activity
+                Intent intent = new Intent(SymptomsTrack_Activity.this, UserPage_Activity.class);
+                startActivity(intent);
             }
         });
     }
@@ -86,11 +109,12 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         userSymptomRef.set(symptomData)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(SymptomsTrack_Activity.this, "Symptoms submitted successfully!", Toast.LENGTH_SHORT).show();
-                    // Handle success or perform any other actions
+                    Intent intent = new Intent(SymptomsTrack_Activity.this, UserPage_Activity.class);
+                    startActivity(intent);
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(SymptomsTrack_Activity.this, "Failed to submit symptoms.", Toast.LENGTH_SHORT).show();
-                    // Handle failure or perform any other actions
                 });
     }
 }
