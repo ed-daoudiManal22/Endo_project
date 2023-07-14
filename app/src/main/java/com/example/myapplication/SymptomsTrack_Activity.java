@@ -1,102 +1,96 @@
 package com.example.myapplication;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.Toolbar;
 
+import com.example.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-
+import java.util.Map;
 
 public class SymptomsTrack_Activity extends AppCompatActivity {
-    private Toolbar toolbar;
-    private ImageView leftIcon;
-    private TextView currentDateTextView;
-    private TextView cycleDayTextView;
-    private ImageView rightIcon;
-    private FirebaseFirestore firestore;
-    private FirebaseAuth auth;
 
+    private SeekBar painScoreSeekBar;
+    private Spinner painLocationSpinner;
+    private Spinner feelingSpinner;
+    private Spinner symptomsSpinner;
+    private Spinner painWorseSpinner;
+    private Spinner medicationSpinner;
+    private Button submitButton;
+    private String currentUserUid;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.symptoms_tracking);
 
-        // Enable Firestore logging
-        FirebaseFirestore.setLoggingEnabled(true);
-
         firestore = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUserUid = firebaseAuth.getCurrentUser().getUid();
 
-        // Toolbar
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        painScoreSeekBar = findViewById(R.id.painscore);
+        painLocationSpinner = findViewById(R.id.painlocationSpinner);
+        feelingSpinner = findViewById(R.id.feelingSpinner);
+        symptomsSpinner = findViewById(R.id.symptomsSpinner);
+        painWorseSpinner = findViewById(R.id.painworseSpinner);
+        medicationSpinner = findViewById(R.id.medicationSpinner);
+        submitButton = findViewById(R.id.submitButton);
 
-        // Left Icon
-        leftIcon = findViewById(R.id.leftIcon);
-        leftIcon.setOnClickListener(v -> startActivity(new Intent(SymptomsTrack_Activity.this, UserPage_Activity.class)));
-
-        // Current Date and Cycle Day
-        currentDateTextView = findViewById(R.id.currentDateTextView);
-        cycleDayTextView = findViewById(R.id.cycleDayTextView);
-        // Set current date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d MMMM", Locale.getDefault());
-        String currentDate = dateFormat.format(new Date());
-        currentDateTextView.setText(currentDate);
-
-        // Right Icon
-        rightIcon = findViewById(R.id.rightIcon);
-        rightIcon.setOnClickListener(v -> showHelpDialog());
-
-
-    }
-    private String getCurrentDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        return dateFormat.format(new Date());
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitSymptoms();
+            }
+        });
     }
 
-    private void showHelpDialog() {
-        // Implement your help dialog logic here
-    }
-    @Override
-    public void onBackPressed() {
-        // Start the home activity
-        Intent intent = new Intent(this, UserPage_Activity.class);
-        startActivity(intent);
-        finish(); // Optional: Finish the current activity if you don't want to keep it in the back stack
-    }
+    private void submitSymptoms() {
+        String painScore = String.valueOf(painScoreSeekBar.getProgress());
+        String painLocation = painLocationSpinner.getSelectedItem().toString();
+        String feeling = feelingSpinner.getSelectedItem().toString();
+        String symptoms = symptomsSpinner.getSelectedItem().toString();
+        String painWorse = painWorseSpinner.getSelectedItem().toString();
+        String medication = medicationSpinner.getSelectedItem().toString();
 
-    private void saveWaterToFirestore(String currentDate, double waterConsumed) {
-        String userId = auth.getCurrentUser().getUid();
-        firestore.collection("Users").document(userId)
-                .collection("water")
-                .document(currentDate)
-                .set(new HashMap<String, Object>() {{
-                    put("waterConsumption", waterConsumed);
-                }})
-                .addOnSuccessListener(aVoid -> {
-                    System.out.println("water saved successfully");
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+        // Create a new symptom document
+        Map<String, Object> symptomData = new HashMap<>();
+        symptomData.put("painScore", painScore);
+        symptomData.put("painLocation", painLocation);
+        symptomData.put("feeling", feeling);
+        symptomData.put("symptoms", symptoms);
+        symptomData.put("painWorse", painWorse);
+        symptomData.put("medication", medication);
+
+        DocumentReference userSymptomRef = firestore
+                .collection("Users")
+                .document(currentUserUid)
+                .collection("symptoms")
+                .document(currentDate);
+
+        userSymptomRef.set(symptomData)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(SymptomsTrack_Activity.this, "Symptoms submitted successfully!", Toast.LENGTH_SHORT).show();
+                    // Handle success or perform any other actions
                 })
                 .addOnFailureListener(e -> {
-                    System.out.println("Error while saving water: " + e.getMessage());
+                    Toast.makeText(SymptomsTrack_Activity.this, "Failed to submit symptoms.", Toast.LENGTH_SHORT).show();
+                    // Handle failure or perform any other actions
                 });
-    }
-
-    interface InputDialogListener {
-        void onInputEntered(DialogInterface dialog, String value);
     }
 }

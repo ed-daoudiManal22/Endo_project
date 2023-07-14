@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
 
     <application
@@ -58,6 +60,10 @@
             android:label="User page" />
 
         <activity android:name=".Endo_InfoActivity" />
+        <activity android:name=".EndoFAQ_Activity" />
+
+        <activity android:name=".Diag_start" />
+        <activity android:name=".DiagTest_Activity" />
 
         <activity android:name=".BasicUsersInfos.UserAge_Activity" />
         <activity android:name=".BasicUsersInfos.AvrageCycle_activity" />

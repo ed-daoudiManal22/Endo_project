@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".Diag_start">
+
+    <!-- Image at the Top -->
+
+    <ImageView
+        android:id="@+id/appImage"
+        android:layout_width="2500dp"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/diag_svg" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Do you suffer from painful periods? \nTake this questionnaire to find out your risk for endometriosis."
+        android:textColor="#333333"
+
+        android:textSize="20sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/GoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/next_btn"
+        android:text="GO"
+        android:textColor="@color/purple"
+        android:textSize="18sp" />
+
+</RelativeLayout>
