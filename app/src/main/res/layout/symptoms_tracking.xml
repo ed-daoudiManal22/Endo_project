@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="99dp"
+        android:layout_height="85dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/background"
         android:elevation="4dp"
@@ -19,8 +19,8 @@
         <!-- Left Icon -->
         <ImageView
             android:id="@+id/leftIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="5dp"
@@ -57,8 +57,8 @@
         <!-- Right Icon -->
         <ImageView
             android:id="@+id/rightIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="end"
             android:layout_marginRight="5dp"
             android:padding="5dp"
