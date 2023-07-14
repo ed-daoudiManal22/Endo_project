@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="99dp"
+        android:layout_height="85dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/background"
         android:elevation="4dp"
@@ -19,8 +19,8 @@
         <!-- Left Icon -->
         <ImageView
             android:id="@+id/leftIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="5dp"
@@ -57,8 +57,8 @@
         <!-- Right Icon -->
         <ImageView
             android:id="@+id/rightIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="end"
             android:layout_marginRight="5dp"
             android:padding="5dp"
@@ -66,164 +66,181 @@
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Content -->
-    <LinearLayout
-        android:id="@+id/FirstSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pain Level"
-            android:textSize="25sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp">
-
-            <SeekBar
-                android:id="@+id/painscore"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="9"
-                android:progress="3" />
-        </LinearLayout>
-
-    </LinearLayout>
-    <!-- Thin Line -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:layout_below="@id/FirstSection"
-        android:background="@android:color/darker_gray" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/FirstSection">
+        android:layout_below="@id/toolbar">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/FirstSection"
-        android:layout_marginTop="25dp"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- pain location Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Pain location"
-            android:textColor="@android:color/black"
-            android:textSize="23sp" />
-
-        <Spinner
-            android:id="@+id/painlocationSpinner"
+        <LinearLayout
+            android:id="@+id/FirstSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:entries="@array/painLocation_options" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <!-- Feelings Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="How you feel today ?"
-            android:textColor="@android:color/black"
-            android:textSize="23sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pain Level"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
 
-        <Spinner
-            android:id="@+id/feelingSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:entries="@array/feeling_options" />
 
-        <!-- symptoms Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Symptoms"
-            android:textColor="@android:color/black"
-            android:textSize="23sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp">
 
-        <Spinner
-            android:id="@+id/symptomsSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:entries="@array/symptoms_options" />
+                <SeekBar
+                    android:id="@+id/painscore"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:max="9"
+                    android:progress="3" />
+            </LinearLayout>
 
-        <!-- pain worse Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="What made your pain worse ?"
-            android:textColor="@android:color/black"
-            android:textSize="23sp" />
+            <!-- Thin Line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/purple" />
 
-        <Spinner
-            android:id="@+id/painworseSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:entries="@array/painworse_option" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <!-- medication Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="What medication did you try for your pain ?"
-            android:textColor="@android:color/black"
-            android:textSize="23sp" />
+                <!-- pain location Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Pain Location"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/medicationSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:entries="@array/meds_options" />
+                <Spinner
+                    android:id="@+id/painlocationSpinner"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="20dp"
+                    android:entries="@array/painLocation_options"
+                    android:textSize="18sp" />
 
-    </LinearLayout>
+                <!-- Feelings Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="How You Feel Today?"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/feelingSpinner"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/feeling_options"
+                    android:textSize="18sp" />
+
+                <!-- symptoms Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Symptoms"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/symptomsSpinner"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/symptoms_options"
+                    android:textSize="18sp" />
+
+                <!-- pain worse Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="What Made Your Pain Worse?"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/painworseSpinner"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/painworse_option"
+                    android:textSize="18sp" />
+
+                <!-- medication Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="What Medication Did You Try for Your Pain?"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/medicationSpinner"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/meds_options"
+                    android:textSize="18sp" />
+
+                <!-- Submit and Cancel buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="16dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/submitButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:text="Submit"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/purple"
+                        android:background="@drawable/next_btn" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/cancelButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:text="Cancel"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/purple"
+                        android:background="@drawable/next_btn" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/background"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/submitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
-
-    </LinearLayout>
 </RelativeLayout>

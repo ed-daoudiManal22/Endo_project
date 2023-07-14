@@ -29,7 +29,7 @@
         android:layout_below="@id/backButton"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/uterus" />
+        android:src="@drawable/endomet" />
 
     <!-- App Title -->
 
@@ -65,7 +65,7 @@
         android:layout_marginTop="20dp"
         android:text="We promise to keep your data safe, secure and private. Please take a look at our policies before creating an account"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:gravity="center" />
 
     <!-- Thin Line -->
@@ -92,6 +92,7 @@
             android:layout_height="wrap_content"
             android:text="I agree to EndoAware's"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <TextView
@@ -100,6 +101,7 @@
             android:text="Privacy Policy"
             android:textColor="#FFDE00"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_marginStart="8dp" />
 
     </LinearLayout>
@@ -119,6 +121,7 @@
             android:layout_height="wrap_content"
             android:text="I agree to EndoAware's"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <TextView
@@ -127,6 +130,7 @@
             android:text="Terms of Service"
             android:textColor="#FFDE00"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_marginStart="8dp" />
 
     </LinearLayout>
