@@ -142,7 +142,7 @@ Un document réalisé en partenariat avec l'ARS des Hauts de France"
                     android:text="Read... "
                     android:clickable="true"
                     android:textColor="@color/white"
-                    android:layout_marginHorizontal="10"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_gravity="end" />
 
             </LinearLayout>
