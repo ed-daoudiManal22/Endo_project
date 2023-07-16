@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,22 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Models.Reminder;
 import com.example.myapplication.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder> {
-
     private List<Reminder> reminders;
     private OnReminderDeleteListener onReminderDeleteListener;
     private OnReminderActiveStatusChangeListener onReminderActiveStatusChangeListener;
-
     public List<Reminder> getReminders() {
         return reminders;
     }
-
     public void setReminders(List<Reminder> reminders) {
         this.reminders = reminders;
     }
-
     public ReminderAdapter(List<Reminder> reminders) {
         this.reminders = reminders;
     }
@@ -51,6 +51,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         Reminder reminder = reminders.get(position);
         holder.titleTextView.setText(reminder.getTitle());
         holder.descriptionTextView.setText(reminder.getDescription());
+        holder.dateTextView.setText(formatDateTime(reminder.getDatetime()));
         holder.activeCheckbox.setChecked(reminder.isActive());
 
         holder.activeCheckbox.setOnCheckedChangeListener(null); // Remove previous listener to avoid conflicts
@@ -82,6 +83,15 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         });
     }
 
+    private String formatDateTime(Date datetime) {
+        if (datetime == null) {
+            return "";
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(datetime);
+    }
+
     @Override
     public int getItemCount() {
         return reminders.size();
@@ -90,13 +100,15 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     class ReminderViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView descriptionTextView;
+        TextView dateTextView;
         CheckBox activeCheckbox;
-        Button deleteButton;
+        ImageView deleteButton;
 
         ReminderViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            dateTextView = itemView.findViewById(R.id.dateTextView);
             activeCheckbox = itemView.findViewById(R.id.activeCheckbox);
             deleteButton = itemView.findViewById(R.id.deleteButton);
         }

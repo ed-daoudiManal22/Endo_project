@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserPage_Activity extends AppCompatActivity {
-    private Button doctorsButton;
+    private Button quizButton;
     private Button setReminderButton;
     private Button diagnosticsButton;
     private Button calendarButton;
@@ -28,7 +28,7 @@ public class UserPage_Activity extends AppCompatActivity {
         setContentView(R.layout.user_page);
 
         // Initialize views
-        doctorsButton = findViewById(R.id.button1);
+        quizButton = findViewById(R.id.button1);
         setReminderButton = findViewById(R.id.button2);
         diagnosticsButton = findViewById(R.id.button3);
         calendarButton = findViewById(R.id.button4);
@@ -52,10 +52,10 @@ public class UserPage_Activity extends AppCompatActivity {
         }
 
         // Set up click listeners for the buttons
-        doctorsButton.setOnClickListener(new View.OnClickListener() {
+        quizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, SymptomsTrack_Activity.class);
+                Intent intent = new Intent(UserPage_Activity.this, QuizActivity.class);
                 startActivity(intent);
             }
         });
@@ -87,7 +87,7 @@ public class UserPage_Activity extends AppCompatActivity {
         myInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, SymptomsTrack_Activity.class);
+                Intent intent = new Intent(UserPage_Activity.this, User_profile.class);
                 startActivity(intent);
             }
         });
