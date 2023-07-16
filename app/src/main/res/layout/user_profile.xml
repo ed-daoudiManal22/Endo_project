@@ -83,12 +83,14 @@
                 android:textColor="@color/light_grey"
                 android:text="user_name@gmail.com" />
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/notifications"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/notificationsArrow"
@@ -125,12 +127,14 @@
             <!-- Other sections with modified ids -->
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/calendar"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/calendarArrow"
@@ -165,12 +169,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/takeTest"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/takeTestArrow"
@@ -206,12 +212,14 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/download"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/downloadArrow"
@@ -246,12 +254,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/share"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/shareArrow"
