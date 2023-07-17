@@ -79,7 +79,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         reminderAdapter.setOnReminderDeleteListener(this);
         reminderAdapter.setOnReminderActiveStatusChangeListener(this);
 
-        Button addReminderButton = findViewById(R.id.addReminderButton);
+        ImageView addReminderButton = findViewById(R.id.addButton);
         addReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,10 +134,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     }
                 });
     }
-
-
-
-
     private void showAddReminderDialog() {
         // Show a dialog to add a new reminder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -191,7 +187,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
 
         builder.show();
     }
-
 
     private void saveReminder(String title, Date datetime, String description) {
 
@@ -303,6 +298,4 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             }
         }
     }
-
-
 }

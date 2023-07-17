@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="birth_control_methods">
+        <item>Nothing</item>
         <item>Spermicide</item>
         <item>Female Condom</item>
         <item>Abstinence</item>
-        <item>Nothing</item>
     </string-array>
 
     <string-array name="painLocation_options">
+        <item>Nothing</item>
         <item>Abdomen</item>
         <item>Back</item>
         <item>Chest</item>
@@ -17,6 +18,7 @@
     </string-array>
 
     <string-array name="symptoms_options">
+        <item>Nothing</item>
         <item>Cramps</item>
         <item>Tender breasts</item>
         <item>Headache</item>

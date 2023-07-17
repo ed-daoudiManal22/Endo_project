@@ -74,7 +74,7 @@
         android:background="@drawable/button_style"
         android:drawableTop="@drawable/drs"
         android:padding="8dp"
-        android:text="Doctors"
+        android:text="Quiz"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/button2"
