@@ -88,7 +88,7 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
     }
 
     private void submitSymptoms() {
-        String painScore = String.valueOf(painScoreSeekBar.getProgress());
+        int painScore = painScoreSeekBar.getProgress();
         String painLocation = painLocationSpinner.getSelectedItem().toString();
         String feeling = feelingSpinner.getSelectedItem().toString();
         String symptoms = symptomsSpinner.getSelectedItem().toString();

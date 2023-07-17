@@ -28,7 +28,7 @@ public class User_profile extends AppCompatActivity {
         calendarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, Menstrual_cycle_Activity.class);
+                Intent intent = new Intent(User_profile.this, LineChart_Activity.class);
                 startActivity(intent);
             }
         });

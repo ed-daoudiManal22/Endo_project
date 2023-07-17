@@ -51,13 +51,11 @@
             android:label="Forgot Password" />
 
         <activity
-            android:name=".HomeActivity"
-            android:label="Home"
-            android:theme="@style/Theme.MyApplication" />
+            android:name=".HomeActivity"/>
 
         <activity
-            android:name=".UserPage_Activity"
-            android:label="User page" />
+            android:name=".UserPage_Activity" />
+        <activity android:name=".User_profile" />
 
         <activity android:name=".Endo_InfoActivity" />
         <activity android:name=".EndoFAQ_Activity" />
@@ -72,6 +70,7 @@
         <activity android:name=".BasicUsersInfos.Choices_Activity" />
 
         <activity android:name=".SymptomsTrack_Activity" />
+        <activity android:name=".LineChart_Activity" />
 
         <activity android:name=".Menstrual_cycle_Activity" />
 
