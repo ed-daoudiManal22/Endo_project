@@ -2,8 +2,8 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#654E92"
-                android:endColor="#E5BEEC"
+                android:startColor="#4942E4"
+                android:endColor="#8696FE"
                 android:angle="45" />
             <corners android:radius="0dp" />
         </shape>
@@ -11,8 +11,8 @@
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#E5BEEC"
-                android:endColor="#654E92"
+                android:startColor="#8696FE"
+                android:endColor="#4942E4"
                 android:angle="45" />
             <corners android:radius="0dp" />
         </shape>

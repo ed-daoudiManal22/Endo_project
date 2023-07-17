@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -17,51 +19,51 @@
         <!-- Left Icon -->
         <ImageView
             android:id="@+id/leftIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="5dp"
-            android:src="@drawable/backwards" />
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="All Reminders"
+            android:text="Reminders' list"
             android:layout_gravity="center"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:padding="8dp" />
 
+
         <!-- Right Icon -->
         <ImageView
             android:id="@+id/rightIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="end"
             android:layout_marginRight="5dp"
             android:padding="5dp"
-            android:src="@drawable/question" />
+            android:src="@drawable/help" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.core.widget.NestedScrollView
+    <!-- ScrollView -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_above="@id/addButton">
+        android:layout_above="@id/bottomNavigation">
 
         <LinearLayout
             android:id="@+id/FirstSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp">
+            android:gravity="center"
+            android:padding="16dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/remindersRecyclerView"
@@ -71,16 +73,21 @@
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
-    <!-- Add Button (Image) -->
-    <ImageView
-        android:id="@+id/addButton"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:src="@drawable/addbtn"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp" />
+    <!-- MeowBottomNavigation -->
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mbn_circleColor="#ffffff"
+        app:mbn_backgroundBottomColor="#8696FE"
+        app:mbn_countBackgroundColor="#F2CA4B"
+        app:mbn_countTextColor="#ffffff"
+        app:mbn_defaultIconColor="#333333"
+        app:mbn_rippleColor="#333333"
+        app:mbn_selectedIconColor="#4942E4"
+        app:mbn_shadowColor="#90a4ae"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

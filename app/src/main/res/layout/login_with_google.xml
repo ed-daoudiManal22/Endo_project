@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login with Google"
-        android:textSize="28sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#333333"
         android:layout_centerHorizontal="true"
@@ -74,8 +74,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Or"
-        android:textSize="18sp"
-        android:textColor="#333333"
+        android:textSize="26sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/orSeparator"
@@ -90,7 +90,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/third_btn"
         android:text="Login with E-mail"
-        android:textColor="#FFDE00"
-        android:textSize="16sp" />
+        android:textColor="#F2CA4B"
+        android:textSize="18sp" />
 
 </RelativeLayout>
