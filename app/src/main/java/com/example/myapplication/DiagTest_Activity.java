@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,7 +28,8 @@ public class DiagTest_Activity extends AppCompatActivity {
     private RadioGroup optionsRadioGroup;
     private LinearLayout optionsLinearLayout;
     private Button nextButton;
-
+    private ProgressBar progressBar;
+    private int totalQuestions;
     private List<Test_Questions> questions;
     private Map<String, Object> userAnswers;
     private int currentQuestionIndex = 0;
@@ -47,6 +50,8 @@ public class DiagTest_Activity extends AppCompatActivity {
         inputWeight = findViewById(R.id.inputWeight);
         inputHeight = findViewById(R.id.inputHeight);
         nextButton = findViewById(R.id.nextButton);
+        progressBar = findViewById(R.id.progressBar);
+
 
         questions = new ArrayList<>();
         userAnswers = new HashMap<>();
@@ -68,6 +73,8 @@ public class DiagTest_Activity extends AppCompatActivity {
                     // All questions answered, generate report
                     generateReport();
                 }
+                // Update the progress bar
+                updateProgressBar();
             }
         });
     }
@@ -75,6 +82,7 @@ public class DiagTest_Activity extends AppCompatActivity {
     private void retrieveQuestionsFromFirestore() {
         questionsCollection.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+                totalQuestions = task.getResult().size();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String text = document.getString("text");
                     String type = document.getString("type");
@@ -84,6 +92,8 @@ public class DiagTest_Activity extends AppCompatActivity {
                     Test_Questions question = new Test_Questions(text, options,optionScores,type);
                     questions.add(question);
                 }
+                // Update the progress bar after retrieving questions
+                updateProgressBar();
 
                 // Display the first question
                 showQuestion(currentQuestionIndex);
@@ -155,18 +165,17 @@ public class DiagTest_Activity extends AppCompatActivity {
                 double height = Double.parseDouble(heightString);
 
                 // Calculate BMI
-                double bmi = weight / (height * height);
+                double bmi = weight / Math.pow((height * 0.01), 2);
 
                 // Assign score based on BMI
                 int score;
-                if (bmi >= 18.5 && bmi <= 24.9) {
-                        userAnswers.put("Body mass index : calculate your BMI ", 1);
-                    score = 1 ;// Assign score of 1 for normal BMI
+                if (bmi <= 18.5 ){
+                    score = 0 ;// Assign score of 0 for low BMI
                 } else {
-                    userAnswers.put("Body mass index : calculate your BMI ", 0);
-                    score = 0; // Assign score of 0 for low BMI
+                    score = 1; // Assign score of 1 for normal BMI
                 }
-                userAnswers.put("Score", score);
+                userAnswers.put("Body mass index : calculate your BMI ", bmi);
+                userAnswers.put("BMI Score", score);
             }
         }
     }
@@ -196,11 +205,11 @@ public class DiagTest_Activity extends AppCompatActivity {
                         }
                     }
                 }else if (userAnswer instanceof Double) {
-                    // Handle BMI answer
-                    double bmiAnswer = (double) userAnswer;
                     if (question.getText().equals("Body mass index : calculate your BMI ")) {
+                        int bmiAnswer = (int) userAnswers.get("BMI Score");
+                        Log.d("DiagTest_Activity", "BMI Score: " + bmiAnswer); // Add this line to log the value
                         // Get the score assigned to the BMI answer
-                        totalScore += (int) bmiAnswer;
+                        totalScore += bmiAnswer;
                     }
                 }
             }
@@ -230,5 +239,9 @@ public class DiagTest_Activity extends AppCompatActivity {
 
         // You can also save the report and score to Firestore if needed
         // For that, you can create a new document in the Firestore collection and set the report and score fields.
+    }
+    private void updateProgressBar() {
+        int progress = (currentQuestionIndex + 1) * 100 / totalQuestions;
+        progressBar.setProgress(progress);
     }
 }

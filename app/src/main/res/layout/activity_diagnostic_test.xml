@@ -92,7 +92,7 @@
             android:id="@+id/inputWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your weight"
+            android:hint="Enter your weight in kg"
             android:inputType="text"
             android:layout_marginTop="25dp" />
 
@@ -100,7 +100,7 @@
             android:id="@+id/inputHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your height"
+            android:hint="Enter your height in cm"
             android:inputType="text"
             android:layout_marginTop="10dp" />
 
