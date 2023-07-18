@@ -21,25 +21,19 @@
                 android:layout_height="250dp"
                 android:background="@drawable/background">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/background_oval_1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_back" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="28dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_marginStart="16dp"
+                    app:layout_marginTop="16dp" />
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -55,13 +49,16 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="42dp"
+                    android:layout_marginTop="28dp"
                     android:text="Profile"
-                    android:textSize="30sp"
                     android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -72,22 +69,25 @@
                 android:text="User Name"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/darkgrey"
-                android:textSize="26sp"/>
+                android:textColor="#333333"
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:textColor="@color/light_grey"
+                android:textColor="@color/darkgrey"
+                android:textSize="21sp"
+                android:layout_marginTop="8dp"
                 android:text="user_name@gmail.com" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/notifications"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="match_parent"
                 android:clickable="true">
@@ -118,7 +118,7 @@
                     android:text="Notifications"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    android:textColor="@color/darkgrey"
+                    android:textColor="#333333"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
                     app:layout_constraintTop_toTopOf="@+id/notificationsIcon" />
@@ -160,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Dashboard"
-                    android:textColor="@color/darkgrey"
+                    android:textColor="#333333"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -202,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Take test"
-                    android:textColor="@color/darkgrey"
+                    android:textColor="#333333"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -245,7 +245,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Download diagnostics"
-                    android:textColor="@color/darkgrey"
+                    android:textColor="#333333"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -287,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Community"
-                    android:textColor="@color/darkgrey"
+                    android:textColor="#333333"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"

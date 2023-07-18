@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login to "
-            android:textSize="28sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="#333333" />
 
@@ -42,7 +42,7 @@
             android:text="EndoAware"
             android:textSize="30sp"
             android:textStyle="italic"
-            android:textColor="#FFDE00" />
+            android:textColor="#F2CA4B" />
 
     </LinearLayout>
 
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/appTitleContainer"
         android:text="Log in to your account"
-        android:textSize="22sp"
+        android:textSize="26sp"
         android:textColor="@color/white"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
@@ -116,7 +116,7 @@
         android:layout_below="@id/loginbutton"
         android:layout_marginTop="16dp"
         android:text="Forgot Password?"
-        android:textColor="#FFDE00"
+        android:textColor="#F2CA4B"
         android:textSize="16sp"
         android:layout_centerHorizontal="true" />
 
@@ -128,7 +128,7 @@
         android:layout_below="@id/forgotpassword"
         android:layout_marginTop="16dp"
         android:text="Don't have an account? Sign up"
-        android:textColor="#FFDE00"
+        android:textColor="#F2CA4B"
         android:textSize="16sp"
         android:layout_centerHorizontal="true" />
 

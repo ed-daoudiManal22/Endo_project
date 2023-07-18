@@ -25,7 +25,7 @@
         <shape android:shape="oval">
             <gradient
                 android:startColor="#FFE569"
-                android:endColor="#FFDE00"
+                android:endColor="#F2CA4B"
                 android:angle="45" />
         </shape>
     </item>
