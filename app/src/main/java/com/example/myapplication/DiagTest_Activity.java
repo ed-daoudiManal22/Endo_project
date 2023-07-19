@@ -1,5 +1,12 @@
 package com.example.myapplication;
 
+import android.Manifest;
+import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,14 +17,25 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.example.myapplication.Models.Test_Questions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +51,11 @@ public class DiagTest_Activity extends AppCompatActivity {
     private List<Test_Questions> questions;
     private Map<String, Object> userAnswers;
     private int currentQuestionIndex = 0;
+    private static final int pageWidth = 595;
+    private static final int pageHeight = 842;
+    private static final int leftMargin = 50;
+    private static final int topMargin = 50;
+    private static final float lineSpacing = 12f;
 
     // Initialize Firestore instance
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -216,6 +239,9 @@ public class DiagTest_Activity extends AppCompatActivity {
 
             reportBuilder.append("\n");
         }
+        // Generate the PDF report
+        generatePdfReport(totalScore, reportBuilder.toString());
+
         String report = reportBuilder.toString();
 
         // Inflate the layout for the score and report
@@ -224,24 +250,113 @@ public class DiagTest_Activity extends AppCompatActivity {
         // Find the TextViews within the inflated layout
         TextView scoreTextView = reportLayout.findViewById(R.id.scoreTextView);
         TextView reportTextView = reportLayout.findViewById(R.id.reportTextView);
+        Button openReportButton = reportLayout.findViewById(R.id.openReportButton);
 
         // Set the score and report text
         scoreTextView.setText("Score: " + totalScore);
         reportTextView.setText(report);
 
+        // Display the report or save it to Firestore
+
+        openReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Request storage permission before opening the PDF
+                Dexter.withContext(DiagTest_Activity.this)
+                        .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse response) {
+                                // Open the generated PDF report
+                                String filePath = getExternalFilesDir(null) + "/report.pdf";
+                                File file = new File(filePath);
+                                if (file.exists()) {
+                                    Uri uri = FileProvider.getUriForFile(
+                                            DiagTest_Activity.this,
+                                            getPackageName() + ".provider",
+                                            file
+                                    );
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setDataAndType(uri, "application/pdf");
+                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    startActivity(intent);
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse response) {
+                                // Handle permission denied
+                                Toast.makeText(DiagTest_Activity.this, "Storage permission denied!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                // Handle permission rationale
+                                token.continuePermissionRequest();
+                            }
+                        }).check();
+            }
+        });
+
         // Display the inflated layout containing the score and report
         setContentView(reportLayout);
-        // Display the report or save it to Firestore
-        // You can implement the desired behavior here
-        // For example, you can display the total score in a TextView
-        //TextView scoreTextView = findViewById(R.id.scoreTextView);
-        //scoreTextView.setText("Total Score: " + totalScore);
-
-        // You can also save the report and score to Firestore if needed
-        // For that, you can create a new document in the Firestore collection and set the report and score fields.
     }
     private void updateProgressBar() {
         int progress = (currentQuestionIndex + 1) * 100 / totalQuestions;
         progressBar.setProgress(progress);
     }
+    private void generatePdfReport(int totalScore, String report) {
+        // Create a new PdfDocument instance
+        PdfDocument pdfDocument = new PdfDocument();
+
+        try {
+            // Create a PageInfo for the PDF
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+
+            // Start a new page
+            PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+
+            // Get the canvas for drawing
+            Canvas canvas = page.getCanvas();
+
+            // Create paint objects for styling
+            Paint scorePaint = new Paint();
+            scorePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            scorePaint.setTextSize(18f);
+
+            Paint reportPaint = new Paint();
+            reportPaint.setTextSize(12f);
+
+            // Draw the score text
+            canvas.drawText("Score: " + totalScore, leftMargin, topMargin, scorePaint);
+
+            // Draw the report text
+            float reportY = topMargin + scorePaint.descent() + lineSpacing;
+            for (String line : report.split("\n")) {
+                canvas.drawText(line, leftMargin, reportY, reportPaint);
+                reportY += reportPaint.descent() - reportPaint.ascent() + lineSpacing;
+            }
+
+            // Finish the page
+            pdfDocument.finishPage(page);
+
+            // Define the output file path
+            String filePath = getExternalFilesDir(null) + "/report.pdf";
+
+            // Create a file output stream
+            FileOutputStream outputStream = new FileOutputStream(filePath);
+
+            // Write the PDF document to the output stream
+            pdfDocument.writeTo(outputStream);
+
+            // Close the output stream
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the PdfDocument
+            pdfDocument.close();
+        }
+    }
+
 }
