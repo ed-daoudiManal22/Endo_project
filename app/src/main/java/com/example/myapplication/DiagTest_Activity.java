@@ -323,6 +323,8 @@ public class DiagTest_Activity extends AppCompatActivity {
             Paint scorePaint = new Paint();
             scorePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             scorePaint.setTextSize(18f);
+            scorePaint.setUnderlineText(true);
+
 
             Paint reportPaint = new Paint();
             reportPaint.setTextSize(12f);
