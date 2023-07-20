@@ -8,17 +8,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.myapplication.Models.QuestionsBank;
-import com.example.myapplication.Models.QuestionsList;
+import com.example.myapplication.Models.Quiz_question;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class StartQuizActivity  extends AppCompatActivity {
+public class Quiz_Activity extends AppCompatActivity {
 
     private TextView questions;
     private TextView question;
@@ -33,7 +40,7 @@ public class StartQuizActivity  extends AppCompatActivity {
 
     private int seconds = 0;
 
-    private List<QuestionsList> questionsLists;
+    private List<Quiz_question> questionsList;
 
     private int currentQuestionPosition = 0;
 
@@ -63,17 +70,10 @@ public class StartQuizActivity  extends AppCompatActivity {
 
         selectedTopicName.setText(getSelectedTopicName);
 
-        questionsLists = QuestionsBank.getQuestions(getSelectedTopicName);
+        // Load questions from Firestore for the selected topic
+        loadQuestionsFromFirestore(getSelectedTopicName);
 
         startTimer(timer);
-
-        questions.setText((currentQuestionPosition+1)+"/"+questionsLists.size());
-        question.setText(questionsLists.get(0).getQuestion());
-        option1.setText(questionsLists.get(0).getOption1());
-        option2.setText(questionsLists.get(0).getOption2());
-        option3.setText(questionsLists.get(0).getOption3());
-        option4.setText(questionsLists.get(0).getOption4());
-
 
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class StartQuizActivity  extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
                 }
             }
         });
@@ -104,7 +104,7 @@ public class StartQuizActivity  extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
                 }
 
             }
@@ -122,7 +122,7 @@ public class StartQuizActivity  extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
                 }
 
             }
@@ -140,7 +140,7 @@ public class StartQuizActivity  extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
                 }
 
             }
@@ -152,7 +152,7 @@ public class StartQuizActivity  extends AppCompatActivity {
 
                 if (selectedOptionByUser.isEmpty())
                 {
-                    Toast.makeText(StartQuizActivity.this, "Please select an option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Quiz_Activity.this, "Please select an option", Toast.LENGTH_SHORT).show();
                 }
 
                 else
@@ -168,7 +168,7 @@ public class StartQuizActivity  extends AppCompatActivity {
                 quizTimer.purge();
                 quizTimer.cancel();
 
-                startActivity(new Intent(StartQuizActivity.this, QuizActivity.class));
+                startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
                 finish();
             }
         });
@@ -178,12 +178,12 @@ public class StartQuizActivity  extends AppCompatActivity {
     {
         currentQuestionPosition++;
 
-        if(( currentQuestionPosition+1 ) == questionsLists.size())
+        if(( currentQuestionPosition+1 ) == questionsList.size())
         {
             nextBtn.setText("Submit Quiz");
         }
 
-        if (currentQuestionPosition < questionsLists.size())
+        if (currentQuestionPosition < questionsList.size())
         {
             selectedOptionByUser = "";
 
@@ -199,17 +199,17 @@ public class StartQuizActivity  extends AppCompatActivity {
             option4.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
             option4.setTextColor(Color.parseColor("#1F6BB8"));
 
-            questions.setText((currentQuestionPosition+1)+"/"+questionsLists.size());
-            question.setText(questionsLists.get(currentQuestionPosition).getQuestion());
-            option1.setText(questionsLists.get(currentQuestionPosition).getOption1());
-            option2.setText(questionsLists.get(currentQuestionPosition).getOption2());
-            option3.setText(questionsLists.get(currentQuestionPosition).getOption3());
-            option4.setText(questionsLists.get(currentQuestionPosition).getOption4());
+            questions.setText((currentQuestionPosition+1)+"/"+questionsList.size());
+            question.setText(questionsList.get(currentQuestionPosition).getQst());
+            option1.setText(questionsList.get(currentQuestionPosition).getOpt1());
+            option2.setText(questionsList.get(currentQuestionPosition).getOpt2());
+            option3.setText(questionsList.get(currentQuestionPosition).getOpt3());
+            option4.setText(questionsList.get(currentQuestionPosition).getOpt4());
         }
 
         else
         {
-            Intent intent = new Intent(StartQuizActivity.this, QuizResults.class);
+            Intent intent = new Intent(Quiz_Activity.this, QuizResults.class);
             intent.putExtra("correct", getCorrectAnswers());
             intent.putExtra("incorrect", getInCorrectAnswers());
             startActivity(intent);
@@ -234,9 +234,9 @@ public class StartQuizActivity  extends AppCompatActivity {
                     quizTimer.purge();
                     quizTimer.cancel();
 
-                    Toast.makeText(StartQuizActivity.this, "Time Over", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Quiz_Activity.this, "Time Over", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(StartQuizActivity.this, QuizResults.class);
+                    Intent intent = new Intent(Quiz_Activity.this, QuizResults.class);
                     intent.putExtra("correct", getCorrectAnswers());
                     intent.putExtra("incorrect", getInCorrectAnswers());
                     startActivity(intent);
@@ -276,10 +276,10 @@ public class StartQuizActivity  extends AppCompatActivity {
     {
         int correctAnswers = 0;
 
-        for (int i=0; i<questionsLists.size(); i++)
+        for (int i=0; i<questionsList.size(); i++)
         {
-            final String getUserSelectedAnswer = questionsLists.get(i).getUserSelectedAnswer();
-            final String getAnswer = questionsLists.get(i).getAnswer();
+            final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
+            final String getAnswer = questionsList.get(i).getAnswer();
 
             if (getUserSelectedAnswer.equals(getAnswer))
             {
@@ -291,19 +291,19 @@ public class StartQuizActivity  extends AppCompatActivity {
 
     private int getInCorrectAnswers()
     {
-        int correctAnswers = 0;
+        int incorrectAnswers = 0;
 
-        for (int i=0; i<questionsLists.size(); i++)
+        for (int i=0; i<questionsList.size(); i++)
         {
-            final String getUserSelectedAnswer = questionsLists.get(i).getUserSelectedAnswer();
-            final String getAnswer = questionsLists.get(i).getAnswer();
+            final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
+            final String getAnswer = questionsList.get(i).getAnswer();
 
             if (!getUserSelectedAnswer.equals(getAnswer))
             {
-                correctAnswers++;
+                incorrectAnswers++;
             }
         }
-        return correctAnswers;
+        return incorrectAnswers;
     }
 
     @Override
@@ -312,13 +312,13 @@ public class StartQuizActivity  extends AppCompatActivity {
         quizTimer.purge();
         quizTimer.cancel();
 
-        startActivity(new Intent(StartQuizActivity.this, QuizActivity.class));
+        startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
         finish();
     }
 
     private void revealAnswer()
     {
-        final String getAnswer = questionsLists.get(currentQuestionPosition).getAnswer();
+        final String getAnswer = questionsList.get(currentQuestionPosition).getAnswer();
 
         if (option1.getText().toString().equals(getAnswer))
         {
@@ -336,6 +336,48 @@ public class StartQuizActivity  extends AppCompatActivity {
         else if (option4.getText().toString().equals(getAnswer)) {
             option4.setBackgroundResource(R.drawable.round_back_green10);
             option4.setTextColor(Color.WHITE);
+        }
+    }
+
+    private void loadQuestionsFromFirestore(String selectedTopic) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        CollectionReference topicsCollectionRef = firestore.collection("Quiz");
+        topicsCollectionRef.document("Topics").collection(selectedTopic)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            questionsList = new ArrayList<>();
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                // Map the document snapshot to your Quiz_question model class
+                                Quiz_question question = documentSnapshot.toObject(Quiz_question.class);
+                                questionsList.add(question);
+                            }
+                            // Here, you have the list of questions for the selected topic
+                            // Set the initial question and options in the UI
+                            setInitialQuestion();
+                        } else {
+                            // Handle case when there are no questions for the selected topic
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle any errors that occurred while fetching the questions
+                    }
+                });
+    }
+
+    private void setInitialQuestion() {
+        if (questionsList != null && !questionsList.isEmpty()) {
+            questions.setText((currentQuestionPosition + 1) + "/" + questionsList.size());
+            question.setText(questionsList.get(currentQuestionPosition).getQst());
+            option1.setText(questionsList.get(currentQuestionPosition).getOpt1());
+            option2.setText(questionsList.get(currentQuestionPosition).getOpt2());
+            option3.setText(questionsList.get(currentQuestionPosition).getOpt3());
+            option4.setText(questionsList.get(currentQuestionPosition).getOpt4());
         }
     }
 }

@@ -31,7 +31,7 @@ public class QuizResults extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(QuizResults.this, QuizActivity.class));
+                startActivity(new Intent(QuizResults.this, Quiz_main.class));
                 finish();
             }
 
@@ -41,7 +41,7 @@ public class QuizResults extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        startActivity(new Intent(QuizResults.this, QuizActivity.class));
+        startActivity(new Intent(QuizResults.this, Quiz_main.class));
         finish();
     }
 }

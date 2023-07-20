@@ -6,7 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context=".QuizActivity">
+    tools:context=".Quiz_main">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <ImageView
         android:id="@+id/quizIcon"
@@ -17,7 +26,7 @@
         android:layout_marginStart="111dp"
         android:layout_marginEnd="111dp"
         android:src="@drawable/quiz_img" />
-    
+
     <TextView
         android:id="@+id/chooseTopic"
         android:layout_width="wrap_content"
@@ -30,7 +39,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:text="Choose Topic" />
-    
+
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
@@ -43,7 +52,7 @@
         android:weightSum="2">
 
         <LinearLayout
-            android:id="@+id/topic1Layout"
+            android:id="@+id/Endometriosis"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,7 +61,7 @@
             android:layout_marginEnd="5dp"
             android:background="@drawable/round_back_white10"
             android:orientation="vertical">
-            
+
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -62,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Topic 1"
+                android:text="Endometriosis"
                 android:textColor="@color/light_grey"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
@@ -70,7 +79,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/topic2Layout"
+            android:id="@+id/Fertility_and_Contraception"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -89,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Topic 2"
+                android:text="Fertility and Contraception"
                 android:textColor="@color/light_grey"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
@@ -109,57 +118,57 @@
         android:layout_marginEnd="20dp"
         android:weightSum="2">
 
-    <LinearLayout
-        android:id="@+id/topic3Layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:padding="20dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/round_back_white10"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/topic_icon"/>
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/Intimate_Health"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Topic 3"
-            android:textColor="@color/light_grey"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/round_back_white10"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/topic_icon"/>
 
-    <LinearLayout
-        android:id="@+id/topic4Layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:padding="20dp"
-        android:layout_marginStart="5dp"
-        android:background="@drawable/round_back_white10"
-        android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Intimate Health"
+                android:textColor="@color/light_grey"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/topic_icon"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/Menstrual_Cycle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Topic 4"
-            android:textColor="@color/light_grey"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/round_back_white10"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/topic_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Menstrual Cycle"
+                android:textColor="@color/light_grey"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -179,7 +188,8 @@
         android:textSize="16sp"
         android:background="@drawable/second_btn"/>
 
-
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
