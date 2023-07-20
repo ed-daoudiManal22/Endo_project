@@ -55,6 +55,12 @@ dependencies {
 
     implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // PDF generation library
+    implementation 'com.itextpdf:itextg:5.5.10'
+    // Runtime permissions library (for handling storage permission)
+    implementation 'com.karumi:dexter:6.2.2'
 
 
 }

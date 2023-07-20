@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.myapplication.Adapters.ReminderAdapter;
 import com.example.myapplication.Models.Reminder;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,6 +49,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 public class ReminderActivity extends AppCompatActivity implements ReminderAdapter.OnReminderDeleteListener, ReminderAdapter.OnReminderActiveStatusChangeListener{
 
     private ImageView leftIcon;
@@ -56,6 +60,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private String currentUserUid;
+    private MeowBottomNavigation bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +84,40 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         reminderAdapter.setOnReminderDeleteListener(this);
         reminderAdapter.setOnReminderActiveStatusChangeListener(this);
 
-        ImageView addReminderButton = findViewById(R.id.addButton);
-        addReminderButton.setOnClickListener(new View.OnClickListener() {
+        //ImageView addReminderButton = findViewById(R.id.addButton);
+        /*addReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Show a popup or dialog to add a new reminder
                 showAddReminderDialog();
+            }
+        });*/
+        bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.add));
+        bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                // Handle the click event for the bottom navigation menu
+                switch (model.getId()) {
+                    case 1:
+                        // Show a popup or dialog to add a new reminder
+                        showAddReminderDialog();
+                        break;
+                }
+                return null;
+            }
+        });
+        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                // Handle the click event for the bottom navigation menu
+                switch (model.getId()) {
+                    case 1:
+                        // Show a popup or dialog to add a new reminder
+                        showAddReminderDialog();
+                        break;
+                }
+                return null;
             }
         });
 
@@ -196,6 +229,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         reminderData.put("title", title);
         reminderData.put("datetime", datetimeTimestamp);
         reminderData.put("description", description);
+        reminderData.put("isActive", true);
 
         firestore.collection("Users").document(currentUserUid).collection("reminders")
                 .add(reminderData)
