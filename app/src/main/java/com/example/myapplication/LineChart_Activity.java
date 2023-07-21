@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -37,6 +39,7 @@ import java.util.TreeMap;
 public class LineChart_Activity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
+    private TextView averagePainTextView;
     private String currentUserUid;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -49,8 +52,15 @@ public class LineChart_Activity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         currentUserUid = firebaseAuth.getCurrentUser().getUid();
 
+        // Calculate the date one month ago from the current date
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        Date oneMonthAgo = calendar.getTime();
+
         // Get the LineChart view from the layout
         LineChart lineChart = findViewById(R.id.lineChart);
+        averagePainTextView = findViewById(R.id.averagePain);
+
 
         // Create a list to store the pain score entries
         List<Entry> entries = new ArrayList<>();
@@ -65,7 +75,6 @@ public class LineChart_Activity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    // ...
                     for (DocumentSnapshot document : task.getResult()) {
                         // Get the document name representing the date
                         String documentName = document.getId();
@@ -78,25 +87,39 @@ public class LineChart_Activity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        // Get the pain score from the document
-                        Double painScore = document.getDouble("painScore");
+                        // Filter out entries that fall within the past month
+                        if (date != null && date.after(oneMonthAgo)) {
+                            // Get the pain score from the document
+                            Double painScore = document.getDouble("painScore");
 
-                        // Add the pain score entry to the list
-                        if (date != null && painScore != null) {
-                            entries.add(new Entry(date.getTime(), painScore.floatValue()));
+                            // Add the pain score entry to the list
+                            if (painScore != null) {
+                                entries.add(new Entry(date.getTime(), painScore.floatValue()));
+                            }
                         }
+
+                        // Calculate the average pain score
+                        float totalPainScore = 0;
+                        for (Entry entry : entries) {
+                            totalPainScore += entry.getY();
+                        }
+                        float averagePainScore = totalPainScore / entries.size();
+
+                        // Display the average pain score in the TextView
+                        averagePainTextView.setText("Pain Average : " + averagePainScore);
                     }
 
-                    // Create a TreeMap to store the entries with timestamps as keys
-                    TreeMap<Float, Entry> entryMap = new TreeMap<>();
+                    // Sort the entries by their timestamps
+                    Collections.sort(entries, new Comparator<Entry>() {
+                        @Override
+                        public int compare(Entry entry1, Entry entry2) {
+                            return Long.compare((long) entry1.getX(), (long) entry2.getX());
+                        }
+                    });
 
-                    // Add the entries to the TreeMap
-                    for (Entry entry : entries) {
-                        entryMap.put(entry.getX(), entry);
-                    }
-
-                    // Retrieve the sorted entries from the TreeMap
-                    List<Entry> sortedEntries = new ArrayList<>(entryMap.values());
+                    // Set the minimum and maximum values for the X-axis to display data points from one month ago till the current day
+                    float minimumXValue = oneMonthAgo.getTime();
+                    float maximumXValue = System.currentTimeMillis();
 
                     // Set the minimum and maximum values for the Y-axis
                     lineChart.getAxisLeft().setAxisMinimum(0f);
@@ -119,7 +142,7 @@ public class LineChart_Activity extends AppCompatActivity {
                     xAxis.setValueFormatter(xAxisFormatter);
 
                     // Create a dataset with the entries and customize it
-                    LineDataSet dataSet = new LineDataSet(sortedEntries, "Pain Scores");
+                    LineDataSet dataSet = new LineDataSet(entries, "Pain Scores");
                     dataSet.setColor(Color.RED);
                     dataSet.setValueTextColor(Color.BLACK);
                     // ... Customize other dataset properties as needed
