@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +43,7 @@ public class LineChart_Activity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private TextView averagePainTextView;
+    private ImageView leftIcon;
     private String currentUserUid;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -60,6 +64,17 @@ public class LineChart_Activity extends AppCompatActivity {
         // Get the LineChart view from the layout
         LineChart lineChart = findViewById(R.id.lineChart);
         averagePainTextView = findViewById(R.id.averagePain);
+        leftIcon = findViewById(R.id.leftIcon);
+
+        leftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event, navigate to HelloActivity
+                Intent intent = new Intent(LineChart_Activity.this, User_profile.class);
+                startActivity(intent);
+                finish(); // Optional: Close the current activity after navigating
+            }
+        });
 
 
         // Create a list to store the pain score entries
