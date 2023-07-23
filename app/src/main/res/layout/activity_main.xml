@@ -6,66 +6,48 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
-    <!-- Start Your HealthCare Journey Button -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/startJourneyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/rounded_button"
-        android:paddingStart="28dp"
-        android:paddingTop="15dp"
-        android:paddingEnd="28dp"
-        android:paddingBottom="15dp"
-        android:textStyle="bold"
-        android:text="Get Started with EndoAware"
-        android:textColor="#FFFFFF"
-        android:textSize="21sp" />
-
-    <!-- Image at the Top -->
-
-
     <!-- Welcome To EndoAware Message -->
-
     <ImageView
         android:id="@+id/appImage"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="220dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/endomet" />
-
-    <!-- Circular Button with Icon -->
+        android:src="@drawable/logo_main" />
 
 
     <TextView
         android:id="@+id/welcomeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="267dp"
-        android:text="Welcome To EndoAware"
+        android:layout_above="@id/startJourneyButton"
+        android:gravity="center"
+        android:layout_marginBottom="120dp"
+        android:text="EndoAware"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <!-- Start Your HealthCare Journey Button -->
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/circularButton"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:id="@+id/startJourneyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="74dp"
-        android:background="@drawable/circle_button"
-        android:drawableTop="@drawable/baseline_navigate_next_24"
-        android:drawablePadding="8dp"
-        android:gravity="center"
-        android:padding="31dp"
-        android:text="..." />
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/rounded_button"
+        android:paddingStart="28dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="15dp"
+        android:text="Get Started with EndoAware"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

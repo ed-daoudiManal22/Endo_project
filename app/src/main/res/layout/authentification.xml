@@ -10,16 +10,16 @@
     <!-- Image at the Top -->
     <ImageView
         android:id="@+id/appImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="180dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/endomet" />
+        android:src="@drawable/logo_main" />
 
     <LinearLayout
         android:id="@+id/appTitleContainer"
@@ -44,7 +44,7 @@
             android:text="EndoAware"
             android:textSize="30sp"
             android:textStyle="italic"
-            android:textColor="#F2CA4B" />
+            android:textColor="#FFA7B5" />
 
     </LinearLayout>
 
@@ -112,35 +112,4 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <LinearLayout
-        android:id="@+id/visitWebsiteLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signUpButton"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F2CA4B" />
-
-        <TextView
-            android:id="@+id/contactus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contact Us"
-            android:textColor="#F2CA4B"
-            android:textSize="14sp"
-            android:padding="1dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F2CA4B" />
-
-    </LinearLayout>
 </RelativeLayout>

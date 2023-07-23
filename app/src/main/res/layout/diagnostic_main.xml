@@ -39,7 +39,7 @@
         android:layout_marginTop="70dp"
         android:background="@drawable/next_btn"
         android:text="GO"
-        android:textColor="@color/purple"
+        android:textColor="@color/green"
         android:textSize="18sp" />
 
 </RelativeLayout>

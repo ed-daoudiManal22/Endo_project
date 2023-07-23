@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -48,6 +49,7 @@ public class DiagTest_Activity extends AppCompatActivity {
     private Button nextButton;
     private ProgressBar progressBar;
     private int totalQuestions;
+    private ImageButton exitButton, backButton;
     private List<Test_Questions> questions;
     private Map<String, Object> userAnswers;
     private int currentQuestionIndex = 0;
@@ -74,7 +76,29 @@ public class DiagTest_Activity extends AppCompatActivity {
         inputHeight = findViewById(R.id.inputHeight);
         nextButton = findViewById(R.id.nextButton);
         progressBar = findViewById(R.id.progressBar);
+        exitButton = findViewById(R.id.exitButton);
+        backButton = findViewById(R.id.backButton);
 
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DiagTest_Activity.this, UserPage_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If there is a previous question, show it
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    showQuestion(currentQuestionIndex);
+                }
+                // Update the progress bar
+                updateProgressBar();
+            }
+        });
 
         questions = new ArrayList<>();
         userAnswers = new HashMap<>();
@@ -100,6 +124,19 @@ public class DiagTest_Activity extends AppCompatActivity {
                 updateProgressBar();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        // If there is a previous question, show it
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        } else {
+            // If this is the first question, let the default back behavior handle it
+            super.onBackPressed();
+        }
+        // Update the progress bar
+        updateProgressBar();
     }
 
     private void retrieveQuestionsFromFirestore() {

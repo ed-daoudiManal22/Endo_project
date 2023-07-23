@@ -24,8 +24,8 @@ public class QuizResults extends AppCompatActivity {
         final int getCorrectAnswers = getIntent().getIntExtra("correct", 0);
         final int getIncorrectAnswers = getIntent().getIntExtra("incorrect", 0);
 
-        correctAnswers.setText(String.valueOf(getCorrectAnswers));
-        incorrectAnswers.setText(String.valueOf(getIncorrectAnswers));
+        correctAnswers.setText("Correct Answers : " +String.valueOf(getCorrectAnswers));
+        incorrectAnswers.setText("Wrong Answers : " +String.valueOf(getIncorrectAnswers));
 
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override

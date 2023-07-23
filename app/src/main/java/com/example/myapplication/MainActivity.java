@@ -19,21 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startJourneyButton = findViewById(R.id.startJourneyButton);
-        circularButton = findViewById(R.id.circularButton);
 
         startJourneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle the "Get Started" button click event
-                startActivity(new Intent(MainActivity.this, Authentification.class));
-                finish();
-            }
-        });
-
-        circularButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle the circular button click event
                 startActivity(new Intent(MainActivity.this, Authentification.class));
                 finish();
             }

@@ -9,9 +9,8 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="56dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/background"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
@@ -24,41 +23,32 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="5dp"
-            android:src="@drawable/backwards" />
+            android:src="@drawable/backward_icon" />
 
         <TextView
             android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Pain"
+            android:text="Pain evolution"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="24sp"
             android:padding="8dp" />
 
-        <!-- Right Icon -->
-        <ImageView
-            android:id="@+id/rightIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:src="@drawable/question" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="120dp"
+        android:id="@+id/averagePain"
+        android:layout_width="400dp"
         android:layout_height="40dp"
         android:layout_below="@id/toolbar"
-        android:layout_margin="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="Pain Severity"
+        android:text="Pain Average : "
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -66,20 +56,7 @@
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_below="@id/title"
+        android:layout_below="@id/averagePain"
         android:layout_marginHorizontal="10dp"/>
-
-    <TextView
-        android:id="@+id/averagePain"
-        android:layout_width="400dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/lineChart"
-        android:layout_margin="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="Pain Average : "
-        android:textSize="18dp"
-        android:textStyle="bold" />
 
 </RelativeLayout>

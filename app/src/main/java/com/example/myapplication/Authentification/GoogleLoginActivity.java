@@ -43,6 +43,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
 
         googleSignInButton = findViewById(R.id.googleSignInButton);
         regularLoginButton = findViewById(R.id.regularLoginButton);
+
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://endo-project-1acae-default-rtdb.firebaseio.com/");
 

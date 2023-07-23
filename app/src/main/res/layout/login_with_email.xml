@@ -10,13 +10,13 @@
     <!-- Image at the Top -->
     <ImageView
         android:id="@+id/appImage"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="200dp"
+        android:layout_height="180dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/endomet" />
+        android:src="@drawable/logo_main" />
 
     <!-- App Title -->
     <LinearLayout
@@ -42,7 +42,7 @@
             android:text="EndoAware"
             android:textSize="30sp"
             android:textStyle="italic"
-            android:textColor="#F2CA4B" />
+            android:textColor="#FFA7B5" />
 
     </LinearLayout>
 
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appDescription"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/edittext_bg"
         android:hint="Enter Your E-mail..."
         android:inputType="textEmailAddress"
@@ -114,9 +114,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginbutton"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:text="Forgot Password?"
-        android:textColor="#F2CA4B"
+        android:textColor="#FFA7B5"
         android:textSize="16sp"
         android:layout_centerHorizontal="true" />
 
@@ -126,9 +126,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/forgotpassword"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="Don't have an account? Sign up"
-        android:textColor="#F2CA4B"
+        android:textColor="#FFA7B5"
         android:textSize="16sp"
         android:layout_centerHorizontal="true" />
 

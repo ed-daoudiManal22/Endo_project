@@ -44,7 +44,7 @@
             android:text="Correct Answers : 0"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#379237"/>
+            android:textColor="#3C9C92"/>
         
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:text="Wrong Answers : 0"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#DD2C00"
+            android:textColor="#FA7F92"
             />
 
     </LinearLayout>
@@ -67,7 +67,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/second_btn"
         android:text="Start New Quiz"
         android:textColor="@color/white" />

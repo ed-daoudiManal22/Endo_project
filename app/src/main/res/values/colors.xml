@@ -8,5 +8,9 @@
     <color name="darkgrey">#525252</color>
     <color name="light_grey">#73777B</color>
     <color name="light_blue">#f2f1f6</color>
+    <color name="pink">#FFA7B5</color>
+    <color name="light_pink">#FFC9D0</color>
+    <color name="light_green">#D7EBE9</color>
+    <color name="green">#89CCC5</color>
 
 </resources>

@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="99dp"
+        android:layout_height="56dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/background"
         android:elevation="4dp"
@@ -41,17 +41,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="1 July"
                 android:textColor="@android:color/white"
-                android:textSize="32sp" />
-
-            <TextView
-                android:id="@+id/cycleDayTextView"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/currentDateTextView"
-                android:layout_centerHorizontal="true"
-                android:text="Cycle Day 7"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="26sp" />
         </RelativeLayout>
 
         <!-- Right Icon -->
