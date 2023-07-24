@@ -1,14 +1,28 @@
 package com.example.myapplication.Models;
 
 public class Users {
-    String UserId, UserName;
+    String UserId, name,email;
 
     public Users() {
     }
 
     public Users(String userId, String userName) {
         UserId = userId;
-        UserName = userName;
+        name = userName;
+    }
+
+    public Users(String userId, String userName, String email) {
+        UserId = userId;
+        name = userName;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUserId() {
@@ -19,11 +33,11 @@ public class Users {
         UserId = userId;
     }
 
-    public String getUserName() {
-        return UserName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setName(String userName) {
+        name = userName;
     }
 }

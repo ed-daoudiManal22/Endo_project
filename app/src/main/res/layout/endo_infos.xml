@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/Title"
-            android:layout_width="145dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Endo_Aware"

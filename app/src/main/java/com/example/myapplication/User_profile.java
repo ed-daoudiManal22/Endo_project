@@ -33,7 +33,7 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
 
         // Initialize Firebase components
-                firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
         // Check if the user is authenticated
