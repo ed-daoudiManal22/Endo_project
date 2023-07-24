@@ -100,8 +100,8 @@
 
                 <ImageView
                     android:id="@+id/notificationsIcon"
-                    android:layout_width="69dp"
-                    android:layout_height="79dp"
+                    android:layout_width="59dp"
+                    android:layout_height="69dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -111,8 +111,8 @@
                     android:id="@+id/notificationsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Notifications"
+                    android:layout_marginStart="14dp"
+                    android:text="Reminders"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="#333333"
@@ -123,7 +123,7 @@
 
             <!-- Other sections with modified ids -->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/calendar"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
@@ -163,7 +163,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/calendarIcon"
                     app:layout_constraintTop_toTopOf="@+id/calendarIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/takeTest"
@@ -186,8 +186,8 @@
 
                 <ImageView
                     android:id="@+id/takeTestIcon"
-                    android:layout_width="69dp"
-                    android:layout_height="79dp"
+                    android:layout_width="59dp"
+                    android:layout_height="69dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -197,8 +197,8 @@
                     android:id="@+id/takeTestTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Take test"
+                    android:layout_marginStart="14dp"
+                    android:text="Edit profile"
                     android:textColor="#333333"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -229,8 +229,8 @@
 
                 <ImageView
                     android:id="@+id/downloadIcon"
-                    android:layout_width="69dp"
-                    android:layout_height="79dp"
+                    android:layout_width="59dp"
+                    android:layout_height="69dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -240,8 +240,8 @@
                     android:id="@+id/downloadTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Download diagnostics"
+                    android:layout_marginStart="14dp"
+                    android:text="Change language"
                     android:textColor="#333333"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -271,8 +271,8 @@
 
                 <ImageView
                     android:id="@+id/shareIcon"
-                    android:layout_width="69dp"
-                    android:layout_height="79dp"
+                    android:layout_width="59dp"
+                    android:layout_height="69dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -280,10 +280,10 @@
 
                 <TextView
                     android:id="@+id/shareTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Community"
+                    android:layout_width="100dp"
+                    android:layout_height="69dp"
+                    android:layout_marginStart="14dp"
+                    android:text="Share app"
                     android:textColor="#333333"
                     android:textSize="20sp"
                     android:textStyle="bold"
