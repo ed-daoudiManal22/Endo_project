@@ -6,9 +6,6 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
-
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -94,6 +91,8 @@
         <activity android:name=".QuizResults" />
         <activity android:name=".Quiz_main" />
         <activity android:name=".Quiz_Activity" />
+
+        <activity android:name=".RecyclerviewActivity" />
 
     </application>
 

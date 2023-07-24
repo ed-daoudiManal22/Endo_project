@@ -109,7 +109,7 @@ public class UserPage_Activity extends AppCompatActivity {
         ForumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, Forum_Activity.class);
+                Intent intent = new Intent(UserPage_Activity.this, RecyclerviewActivity.class);
                 startActivity(intent);
             }
         });

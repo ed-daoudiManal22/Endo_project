@@ -1,33 +1,27 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataModel {
-
-    private List<String> nestedList;
-    private String itemText;
+    private List<String> optionsList;
+    private String title;
     private boolean isExpandable;
+    private List<String> nestedList;
 
-    public DataModel(List<String> nestedList, String itemText) {
-        this.nestedList = nestedList;
-        this.itemText = itemText;
-        isExpandable = false;
+    public DataModel(List<String> optionsList, String title) {
+        this.optionsList = optionsList;
+        this.title = title;
+        this.isExpandable = false; // Set the initial value to false
+        this.nestedList = new ArrayList<>(); // Initialize the nested list
     }
 
-    public List<String> getNestedList() {
-        return nestedList;
+    public List<String> getOptionsList() {
+        return optionsList;
     }
 
-    public void setNestedList(List<String> nestedList) {
-        this.nestedList = nestedList;
-    }
-
-    public String getItemText() {
-        return itemText;
-    }
-
-    public void setItemText(String itemText) {
-        this.itemText = itemText;
+    public String getTitle() {
+        return title;
     }
 
     public boolean isExpandable() {
@@ -36,5 +30,9 @@ public class DataModel {
 
     public void setExpandable(boolean expandable) {
         isExpandable = expandable;
+    }
+
+    public List<String> getNestedList() {
+        return nestedList;
     }
 }

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private List<DataModel> mList;
@@ -35,35 +34,31 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-
         DataModel model = mList.get(position);
-        holder.mTextView.setText(model.getItemText());
-        holder.mDescription.setText("Description Text"); // Set your description text here
+        holder.mTextView.setText(model.getTitle());
+        holder.mDescription.setText("Description Text");
 
         boolean isExpandable = model.isExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
 
-        if (isExpandable){
+        if (isExpandable) {
             holder.mArrowImage.setImageResource(R.drawable.arrow_up);
-        }
-        else {
+        } else {
             holder.mArrowImage.setImageResource(R.drawable.arrow_down);
         }
 
-        NestedAdapter adapter = new NestedAdapter(list);
+        NestedAdapter adapter = new NestedAdapter(model.getOptionsList()); // Pass the correct list here
         holder.nestedRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-        holder.nestedRecyclerView.setHasFixedSize(true);
         holder.nestedRecyclerView.setAdapter(adapter);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 model.setExpandable(!model.isExpandable());
-                list = model.getNestedList();
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });
-
     }
+
 
     @Override
     public int getItemCount() {
