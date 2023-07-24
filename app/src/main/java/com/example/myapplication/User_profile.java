@@ -26,9 +26,9 @@ public class User_profile extends AppCompatActivity {
         TextView userNameTextView = findViewById(R.id.userName);
         TextView userEmailTextView = findViewById(R.id.userEmail);
         ImageView backButton = findViewById(R.id.backButton);
-        androidx.constraintlayout.widget.ConstraintLayout notificationLayout = findViewById(R.id.notifications);
+        androidx.constraintlayout.widget.ConstraintLayout remindersLayout = findViewById(R.id.reminders);
         androidx.constraintlayout.widget.ConstraintLayout takeTestLayout = findViewById(R.id.takeTest);
-        androidx.constraintlayout.widget.ConstraintLayout downloadLayout = findViewById(R.id.download);
+        androidx.constraintlayout.widget.ConstraintLayout languageLayout = findViewById(R.id.language);
         androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
 
         // Initialize Firebase components
@@ -50,7 +50,7 @@ public class User_profile extends AppCompatActivity {
             }
         });
 
-        notificationLayout.setOnClickListener(new View.OnClickListener() {
+        remindersLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(User_profile.this, ReminderActivity.class);
@@ -64,7 +64,7 @@ public class User_profile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        downloadLayout.setOnClickListener(new View.OnClickListener() {
+        languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(User_profile.this, UserPage_Activity.class);

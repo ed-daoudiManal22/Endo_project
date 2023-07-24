@@ -2,97 +2,236 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white">
 
-    <!-- Hidden Side Menu -->
-    <LinearLayout
-        android:id="@+id/sideMenu"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:color/darker_gray"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="invisible">
-
-        <TextView
-            android:id="@+id/currentUserText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Current User"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cycle and Ovulation"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:id="@+id/menuCycleOvulation" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Endometriosis Infos"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:id="@+id/menuEndoInfos" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:id="@+id/menuSettings" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reminders"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:id="@+id/menuReminders" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Help"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:id="@+id/menuHelp" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome!"
-        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="Hi User Name"
         android:textStyle="bold"
-        android:id="@+id/welcomeText"
-        android:layout_centerInParent="true" />
+        android:textColor="#333333"
+        android:textSize="26sp"
+        android:layout_below="@id/toolbar" />
 
-    <Button
+    <!-- Box with a border -->
+    <RelativeLayout
+        android:id="@+id/boxLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/next_btn_pink"
+        android:layout_below="@id/userName">
+
+        <!-- Left section with a title and text -->
+        <LinearLayout
+            android:id="@+id/leftSection"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/leftSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last score"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/leftSectionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="update your score regurally "
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+
+        <!-- Right section with an image and score -->
+        <FrameLayout
+            android:id="@+id/rightSection"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/scoreImage"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:src="@drawable/score_background" />
+
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Low"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp"
+                android:textStyle="italic|bold"
+                android:textColor="#333333" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!-- Title below the box -->
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open Menu"
-        android:layout_below="@id/welcomeText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:id="@+id/openMenuButton" />
+        android:text="here is a title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_below="@id/boxLayout"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp" />
+
+    <!-- Cards -->
+    <LinearLayout
+        android:id="@+id/cardsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/title"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Card 1 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#e8fafe">
+
+            <!-- Add your image and title here -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/test_icon"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Diagnostic test"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card 2 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#fce9f1">
+
+            <!-- Add your image and title here -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/livres_icon"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Endo Informations"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center" />
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Card 3 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FBFBEF">
+
+            <!-- Add your image and title here -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/graph_icon"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pain Evolution"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card 4 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#F0F8E6">
+
+            <!-- Add your image and title here -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/quiz_icon"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quiz"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center" />
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
