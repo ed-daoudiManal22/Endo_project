@@ -16,7 +16,7 @@
         android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:layout_marginLeft="10dp"
         android:text="Hi User Name"
         android:textStyle="bold"
@@ -29,7 +29,7 @@
         android:id="@+id/boxLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/next_btn_pink"
@@ -99,7 +99,7 @@
         android:textStyle="bold"
         android:textColor="#333333"
         android:layout_below="@id/boxLayout"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp" />
 
     <!-- Cards -->
@@ -305,4 +305,21 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </LinearLayout>
+
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/menuBottomNavigation"
+        android:layout_below="@+id/cardsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mbn_circleColor="#ffffff"
+        app:mbn_backgroundBottomColor="#8696FE"
+        app:mbn_countBackgroundColor="#F2CA4B"
+        app:mbn_countTextColor="#ffffff"
+        app:mbn_defaultIconColor="#333333"
+        app:mbn_rippleColor="#333333"
+        app:mbn_selectedIconColor="#4942E4"
+        app:mbn_shadowColor="#90a4ae"
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>
