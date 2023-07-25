@@ -57,12 +57,12 @@
             android:padding="5dp"
             android:src="@drawable/help" />
     </androidx.appcompat.widget.Toolbar>
-
     <!-- Content -->
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:layout_above="@+id/buttonLayout">
 
         <LinearLayout
             android:id="@+id/FirstSection"
@@ -97,7 +97,6 @@
                     android:max="9"
                     android:progress="3" />
             </LinearLayout>
-
             <!-- Thin Line -->
             <View
                 android:layout_width="match_parent"
@@ -120,40 +119,44 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintVertical_bias="0.5" />
 
-                <!-- Submit and Cancel buttons -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginHorizontal="16dp">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/submitButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="5dp"
-                        android:text="Submit"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/light_green"
-                        android:background="@drawable/next_btn" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/cancelButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="5dp"
-                        android:text="Cancel"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/light_green"
-                        android:background="@drawable/next_btn" />
-
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </RelativeLayout>
+
+    <!-- Submit and Cancel buttons -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="16dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submitButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="Submit"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/light_green"
+            android:background="@drawable/next_btn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="Cancel"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/light_green"
+            android:background="@drawable/next_btn" />
+
+    </LinearLayout>
+
 </RelativeLayout>

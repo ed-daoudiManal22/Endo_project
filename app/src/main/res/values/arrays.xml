@@ -7,7 +7,7 @@
         <item>Abstinence</item>
     </string-array>
 
-    <string-array name="painLocation_options">
+    <string-array name="painLocationOptions">
         <item>Nothing</item>
         <item>Abdomen</item>
         <item>Back</item>
@@ -17,7 +17,7 @@
         <item>Hips</item>
     </string-array>
 
-    <string-array name="symptoms_options">
+    <string-array name="symptomsOptions">
         <item>Nothing</item>
         <item>Cramps</item>
         <item>Tender breasts</item>
@@ -28,7 +28,7 @@
         <item>Craving</item>
     </string-array>
 
-    <string-array name="painworse_option">
+    <string-array name="painWorseOptions">
         <item>Nothing</item>
         <item>Lack of sleep</item>
         <item>Sitting</item>
@@ -39,7 +39,7 @@
         <item>Urination</item>
     </string-array>
 
-    <string-array name="feeling_options">
+    <string-array name="feelingOptions">
         <item>Nothing</item>
         <item>Anxious</item>
         <item>Depressed</item>
@@ -48,7 +48,7 @@
         <item>Diarrhea</item>
     </string-array>
 
-    <string-array name="meds_options">
+    <string-array name="medsOptions">
         <item>Nothing </item>
     </string-array>
 

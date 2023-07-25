@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.myapplication.DataModel;
+import com.example.myapplication.R;
+
 import java.util.List;
+
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private List<DataModel> mList;
 
-    private List<String> list = new ArrayList<>();
-
-    public ItemAdapter(List<DataModel> mList)
-    {
+    public ItemAdapter(List<DataModel> mList) {
         this.mList = mList;
     }
 
@@ -32,11 +32,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return new ItemViewHolder(view);
     }
 
-    @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         DataModel model = mList.get(position);
         holder.mTextView.setText(model.getTitle());
-        holder.mDescription.setText("Description Text");
 
         boolean isExpandable = model.isExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
@@ -47,13 +45,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             holder.mArrowImage.setImageResource(R.drawable.arrow_down);
         }
 
-        NestedAdapter adapter = new NestedAdapter(model.getOptionsList()); // Pass the correct list here
+        NestedAdapter adapter = new NestedAdapter(model.getOptionsList(), model.getSelectedPositions(), model);
+        holder.setNestedAdapter(adapter);
         holder.nestedRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.nestedRecyclerView.setAdapter(adapter);
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 model.setExpandable(!model.isExpandable());
+                updateDataModelSelections(model);
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });
@@ -65,23 +66,38 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return mList.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder{
+    private void updateDataModelSelections(DataModel dataModel) {
+        NestedAdapter nestedAdapter = dataModel.getNestedAdapter();
+        if (nestedAdapter != null) {
+            // Update the selected positions in the NestedAdapter when expanding/unexpanding
+            nestedAdapter.setSelectedPositions(dataModel.getSelectedPositions());
+            List<String> selectedOptions = nestedAdapter.getSelectedOptions();
+            dataModel.setSelectedOptions(selectedOptions);
+        }
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout linearLayout;
         private RelativeLayout expandableLayout;
         private TextView mTextView;
-        private TextView mDescription; // Add description TextView
         private ImageView mArrowImage;
         private RecyclerView nestedRecyclerView;
-        public ItemViewHolder(@NonNull View itemView)
-        {
-            super(itemView);
 
+        public ItemViewHolder(@NonNull View itemView) {
+            super(itemView);
             linearLayout = itemView.findViewById(R.id.linear_layout);
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
             mTextView = itemView.findViewById(R.id.item1);
-            mDescription = itemView.findViewById(R.id.description); // Initialize description TextView
             mArrowImage = itemView.findViewById(R.id.arrow_imageview);
             nestedRecyclerView = itemView.findViewById(R.id.child_rv);
+        }
+
+        public void setNestedAdapter(NestedAdapter nestedAdapter) {
+            nestedRecyclerView.setAdapter(nestedAdapter);
+
+            // Get the DataModel object from the mList using the current adapter position
+            DataModel dataModel = mList.get(getAdapterPosition());
+            dataModel.setNestedAdapter(nestedAdapter);
         }
     }
 }
