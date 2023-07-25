@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,7 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
     private ItemAdapter adapter;
     private ImageView leftIcon;
     private Button submitButton, cancelButton;
+    private String[] painLocationOptions, symptomsOptions, painWorseOptions,feelingOptions, medsOptions ;
     private String currentUserUid;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
@@ -50,53 +52,20 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
 
         mList = new ArrayList<>();
 
-        // Initialize and populate the nested lists using the string arrays
-        List<String> painLocationOptions = new ArrayList<>();
-        painLocationOptions.add("Nothing");
-        painLocationOptions.add("Abdomen");
-        painLocationOptions.add("Back");
-        painLocationOptions.add("Chest");
-        painLocationOptions.add("Head");
-        painLocationOptions.add("Neck");
-        painLocationOptions.add("Hips");
-
-        List<String> symptomsOptions = new ArrayList<>();
-        symptomsOptions.add("Nothing");
-        symptomsOptions.add("Cramps");
-        symptomsOptions.add("Tender breasts");
-        symptomsOptions.add("Headache");
-        symptomsOptions.add("Acne");
-        symptomsOptions.add("Fatigue");
-        symptomsOptions.add("Bloating");
-        symptomsOptions.add("Craving");
-
-        List<String> painWorseOptions = new ArrayList<>();
-        painWorseOptions.add("Nothing");
-        painWorseOptions.add("Lack of sleep");
-        painWorseOptions.add("Sitting");
-        painWorseOptions.add("Standing");
-        painWorseOptions.add("Stress");
-        painWorseOptions.add("Walking");
-        painWorseOptions.add("Exercise");
-        painWorseOptions.add("Urination");
-
-        List<String> feelingOptions = new ArrayList<>();
-        feelingOptions.add("Nothing");
-        feelingOptions.add("Anxious");
-        feelingOptions.add("Depressed");
-        feelingOptions.add("Dizzy");
-        feelingOptions.add("Vomiting");
-        feelingOptions.add("Diarrhea");
-
-        List<String> medsOptions = new ArrayList<>();
-        medsOptions.add("Nothing");
+        // Retrieve the arrays from arrays.xml
+        List<String> painLocationOptionsList = Arrays.asList(painLocationOptions);
+        List<String> symptomsOptionsList = Arrays.asList(symptomsOptions);
+        List<String> painWorseOptionsList = Arrays.asList(painWorseOptions);
+        List<String> feelingOptionsList = Arrays.asList(feelingOptions);
+        List<String> medsOptionsList = Arrays.asList(medsOptions);
 
         // Add the populated nested lists to mList
-        mList.add(new DataModel(painLocationOptions, "pain Location"));
-        mList.add(new DataModel(symptomsOptions, "symptoms"));
-        mList.add(new DataModel(painWorseOptions, "What Made Your Pain Worse?"));
-        mList.add(new DataModel(feelingOptions, "How You Feel Today?"));
-        mList.add(new DataModel(medsOptions, "What Medication Did You Try for Your Pain?"));
+
+        mList.add(new DataModel(painLocationOptionsList, "pain Location"));
+        mList.add(new DataModel(symptomsOptionsList, "symptoms"));
+        mList.add(new DataModel(painWorseOptionsList, "What Made Your Pain Worse?"));
+        mList.add(new DataModel(feelingOptionsList, "How You Feel Today?"));
+        mList.add(new DataModel(medsOptionsList, "What Medication Did You Try for Your Pain?"));
 
         adapter = new ItemAdapter(mList);
         recyclerView.setAdapter(adapter);

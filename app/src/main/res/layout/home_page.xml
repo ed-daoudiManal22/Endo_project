@@ -56,7 +56,7 @@
                 android:id="@+id/leftSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="update your score regularly"
+                android:text="Update your score regularly"
                 android:textSize="14sp"
                 android:textColor="#333333"
                 android:layout_marginTop="10dp"/>
