@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.UserPage_Activity;
+import com.example.myapplication.databinding.HomePageBinding;
 import com.google.android.gms.common.SignInButton;
 
 import androidx.annotation.NonNull;
@@ -101,7 +103,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 // Proceed to the UserPage_Activity
-                                                Intent intent = new Intent(GoogleLoginActivity.this, UserPage_Activity.class);
+                                                Intent intent = new Intent(GoogleLoginActivity.this, HomeActivity.class);
                                                 startActivity(intent);
                                             }
                                         })
@@ -112,8 +114,8 @@ public class GoogleLoginActivity extends AppCompatActivity {
                                             }
                                         });
                             } else {
-                                // Proceed to the UserPage_Activity
-                                Intent intent = new Intent(GoogleLoginActivity.this, UserPage_Activity.class);
+                                // Proceed to the HomeActivity
+                                Intent intent = new Intent(GoogleLoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
                             }
                         } else {

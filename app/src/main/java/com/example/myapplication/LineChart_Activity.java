@@ -70,7 +70,7 @@ public class LineChart_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle the click event, navigate to HelloActivity
-                Intent intent = new Intent(LineChart_Activity.this, User_profile.class);
+                Intent intent = new Intent(LineChart_Activity.this, HomeActivity.class);
                 startActivity(intent);
                 finish(); // Optional: Close the current activity after navigating
             }

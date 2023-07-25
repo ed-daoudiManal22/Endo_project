@@ -126,7 +126,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             @Override
             public void onClick(View v) {
                 // Handle the click event and redirect to UserPage_Activity
-                Intent intent = new Intent(ReminderActivity.this, UserPage_Activity.class);
+                Intent intent = new Intent(ReminderActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

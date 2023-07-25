@@ -21,7 +21,7 @@ public class Endo_InfoActivity extends AppCompatActivity {
         setContentView(R.layout.endo_infos);
 
         leftIcon = findViewById(R.id.leftIcon);
-        leftIcon.setOnClickListener(v -> startActivity(new Intent(Endo_InfoActivity.this, UserPage_Activity.class)));
+        leftIcon.setOnClickListener(v -> startActivity(new Intent(Endo_InfoActivity.this, HomeActivity.class)));
 
         // Right Icon
         rightIcon = findViewById(R.id.rightIcon);
@@ -43,7 +43,7 @@ public class Endo_InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the new activity or perform desired action
-                startActivity(new Intent(Endo_InfoActivity.this, SymptomsTrack_Activity.class));
+                startActivity(new Intent(Endo_InfoActivity.this, HomeActivity.class));
             }
         });
 
@@ -53,7 +53,7 @@ public class Endo_InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the new activity or perform desired action
-                startActivity(new Intent(Endo_InfoActivity.this, SymptomsTrack_Activity.class));
+                startActivity(new Intent(Endo_InfoActivity.this, HomeActivity.class));
             }
         });
     }

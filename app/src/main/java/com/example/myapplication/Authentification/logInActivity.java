@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.UserPage_Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,7 +48,7 @@ public class logInActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Login successful, navigate to the main activity
-                                    Intent intent = new Intent(logInActivity.this, UserPage_Activity.class);
+                                    Intent intent = new Intent(logInActivity.this, HomeActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {

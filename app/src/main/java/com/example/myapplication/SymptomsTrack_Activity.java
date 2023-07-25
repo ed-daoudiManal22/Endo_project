@@ -126,7 +126,7 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SymptomsTrack_Activity.this, UserPage_Activity.class);
+                Intent intent = new Intent(SymptomsTrack_Activity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -134,7 +134,7 @@ public class SymptomsTrack_Activity extends AppCompatActivity {
         leftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SymptomsTrack_Activity.this, UserPage_Activity.class);
+                Intent intent = new Intent(SymptomsTrack_Activity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
