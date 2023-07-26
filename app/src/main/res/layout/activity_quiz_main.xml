@@ -74,7 +74,7 @@
                         android:layout_marginTop="8dp"
                         android:text="Endometriosis"
                         android:textColor="@color/light_grey"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -101,7 +101,7 @@
                         android:layout_marginTop="8dp"
                         android:text="Fertility"
                         android:textColor="@color/light_grey"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -141,7 +141,7 @@
                         android:layout_marginTop="8dp"
                         android:text="Intimate Health"
                         android:textColor="@color/light_grey"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -168,7 +168,7 @@
                         android:layout_marginTop="8dp"
                         android:text="Menstrual Cycle"
                         android:textColor="@color/light_grey"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

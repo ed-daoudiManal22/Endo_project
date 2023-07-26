@@ -43,7 +43,7 @@ public class LineChart_Activity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private TextView averagePainTextView;
-    private ImageView leftIcon;
+    private ImageView leftIcon, notificationIcon;
     private String currentUserUid;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -65,12 +65,22 @@ public class LineChart_Activity extends AppCompatActivity {
         LineChart lineChart = findViewById(R.id.lineChart);
         averagePainTextView = findViewById(R.id.averagePain);
         leftIcon = findViewById(R.id.leftIcon);
+        notificationIcon = findViewById(R.id.notificationIcon);
 
         leftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle the click event, navigate to HelloActivity
                 Intent intent = new Intent(LineChart_Activity.this, HomeActivity.class);
+                startActivity(intent);
+                finish(); // Optional: Close the current activity after navigating
+            }
+        });
+        notificationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event, navigate to HelloActivity
+                Intent intent = new Intent(LineChart_Activity.this, ReminderActivity.class);
                 startActivity(intent);
                 finish(); // Optional: Close the current activity after navigating
             }

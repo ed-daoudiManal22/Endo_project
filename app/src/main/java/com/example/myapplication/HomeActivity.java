@@ -1,187 +1,159 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
+import com.example.myapplication.Fragments.ForumFragment;
+import com.example.myapplication.Fragments.HomeFragment;
+import com.example.myapplication.Fragments.SymptomsTrackFragment;
 
 public class HomeActivity extends AppCompatActivity {
-    private TextView currentUserText;
-    private FirebaseAuth firebaseAuth;
-    private MeowBottomNavigation menuBottomNavigation;
-    private ImageView menuIcon,notificationIcon;
+
+    private int selectedTab = 1 ; // 1 because first tab is selected by default
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.activity_home);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUserText = findViewById(R.id.userName);
-        currentUserText.setText(getCurrentUserName());
+        final LinearLayout homeLayout = findViewById(R.id.home);
+        final LinearLayout trackLayout = findViewById(R.id.track);
+        final LinearLayout forumLayout = findViewById(R.id.forum);
 
-        menuBottomNavigation = findViewById(R.id.menuBottomNavigation);
+        final ImageView homeImage = findViewById(R.id.home_img);
+        final ImageView trackImage = findViewById(R.id.track_img);
+        final ImageView forumImage = findViewById(R.id.forum_img);
 
-        CardView card1 = findViewById(R.id.card1);
-        CardView card2 = findViewById(R.id.card2);
-        CardView card3 = findViewById(R.id.card3);
-        CardView card4 = findViewById(R.id.card4);
-        menuIcon = findViewById(R.id.menuIcon);
-        notificationIcon = findViewById(R.id.notificationIcon);
-        card1.setOnClickListener(new View.OnClickListener() {
+        final TextView hometext = findViewById(R.id.home_txt);
+        final TextView tracktext = findViewById(R.id.track_txt);
+        final TextView forumtext = findViewById(R.id.forum_txt);
+
+        // Set home text visible by default
+        hometext.setVisibility(View.VISIBLE);
+
+        //set home fragment by default
+        getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, HomeFragment.class,null)
+                        .commit();
+
+        homeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Launch Activity1
-                Intent intent = new Intent(HomeActivity.this, Diag_start.class);
-                startActivity(intent);
+                //check if home is already selected or not
+                if(selectedTab != 1){
+                    //set home fragment
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainer, HomeFragment.class,null)
+                            .commit();
+
+                    //unselect other tabs expect home tab
+                    forumtext.setVisibility(View.GONE);
+                    tracktext.setVisibility(View.GONE);
+
+                    forumImage.setImageResource(R.drawable.settings);
+                    trackImage.setImageResource(R.drawable.calendr);
+
+                    forumLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+                    //select home tab
+                    hometext.setVisibility(View.VISIBLE);
+                    homeImage.setImageResource(R.drawable.home);  //selected icon
+                    homeLayout.setBackgroundResource(R.drawable.menu_round_back);
+
+                    //create animation
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,0.0f);
+                    scaleAnimation.setDuration(200);
+                    scaleAnimation.setFillAfter(true);
+                    homeLayout.startAnimation(scaleAnimation);
+
+                    //set 1st tab as selected tab
+                    selectedTab = 1 ;
+                }
             }
         });
-        card2.setOnClickListener(new View.OnClickListener() {
+        trackLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Launch Activity2
-                Intent intent = new Intent(HomeActivity.this, Endo_InfoActivity.class);
-                startActivity(intent);
+                //check if track is already selected or not
+                if(selectedTab != 2){
+                    //set track fragment
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainer, SymptomsTrackFragment.class,null)
+                            .commit();
+
+                    //unselect other tabs expect home tab
+                    forumtext.setVisibility(View.GONE);
+                    hometext.setVisibility(View.GONE);
+
+                    forumImage.setImageResource(R.drawable.settings);
+                    homeImage.setImageResource(R.drawable.home);
+
+                    forumLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+                    //select track tab
+                    tracktext.setVisibility(View.VISIBLE);
+                    trackImage.setImageResource(R.drawable.calendr);  //selected icon
+                    trackLayout.setBackgroundResource(R.drawable.menu_round_back);
+
+                    //create animation
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,0.0f);
+                    scaleAnimation.setDuration(200);
+                    scaleAnimation.setFillAfter(true);
+                    trackLayout.startAnimation(scaleAnimation);
+
+                    //set 2nd tab as selected tab
+                    selectedTab = 2 ;
+                }
             }
         });
-        card3.setOnClickListener(new View.OnClickListener() {
+        forumLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Launch Activity3
-                Intent intent = new Intent(HomeActivity.this, LineChart_Activity.class);
-                startActivity(intent);
-            }
-        });
-        card4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Launch Activity4
-                Intent intent = new Intent(HomeActivity.this, Quiz_main.class);
-                startActivity(intent);
-            }
-        });
+                //check if forum is already selected or not
+                if(selectedTab != 3){
+                    //set forum fragment
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainer, ForumFragment.class,null)
+                            .commit();
 
-        // Set click listeners for the menu icon
-        menuIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Launch the activity for the menu icon
-                Intent intent = new Intent(HomeActivity.this, User_profile.class);
-                startActivity(intent);
-            }
-        });
+                    //unselect other tabs expect home tab
+                    hometext.setVisibility(View.GONE);
+                    tracktext.setVisibility(View.GONE);
 
-        // Set click listeners for the notification icon
-        notificationIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Launch the activity for the notification icon
-                Intent intent = new Intent(HomeActivity.this, ReminderActivity.class);
-                startActivity(intent);
-            }
-        });
+                    homeImage.setImageResource(R.drawable.home);
+                    trackImage.setImageResource(R.drawable.calendr);
 
-        menuBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.calendr)); //track_symptom
-        menuBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.home));
-        menuBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.settings));  //comumnity
+                    homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-        menuBottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // YOUR CODES
+                    //select forum tab
+                    forumtext.setVisibility(View.VISIBLE);
+                    forumImage.setImageResource(R.drawable.settings);  //selected icon
+                    forumLayout.setBackgroundResource(R.drawable.menu_round_back);
 
-                switch (model.getId()){
+                    //create animation
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,0.0f);
+                    scaleAnimation.setDuration(200);
+                    scaleAnimation.setFillAfter(true);
+                    forumLayout.startAnimation(scaleAnimation);
 
-                    case 1:
-
-                        break;
-
-
+                    //set 3rd tab as selected tab
+                    selectedTab = 3 ;
                 }
-                return null;
             }
         });
-
-        menuBottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // YOUR CODES
-
-                switch (model.getId()){
-
-                    case 1:
-
-                        break;
-
-
-                }
-
-                return null;
-            }
-        });
-
-        menuBottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // YOUR CODES
-
-                switch (model.getId()){
-
-                    case 2:
-
-                        break;
-
-
-                }
-
-                return null;
-            }
-        });
-
-        menuBottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // YOUR CODES
-
-                switch (model.getId()){
-
-                    case 3:
-
-                        break;
-
-
-                }
-
-                return null;
-            }
-        });
-
-    }
-
-    private String getCurrentUserName() {
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            String displayName = currentUser.getDisplayName();
-            if (displayName != null) {
-                return displayName;
-            } else {
-                return "Guest"; // Or any other default message you prefer
-            }
-        } else {
-            return "Guest"; // User is not logged in, so show a default message
-        }
     }
 }
 

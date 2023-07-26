@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 public class Endo_InfoActivity extends AppCompatActivity {
-    private ImageView leftIcon, rightIcon;
+    private ImageView leftIcon, notificationIcon;
 
 
     @Override
@@ -22,10 +22,8 @@ public class Endo_InfoActivity extends AppCompatActivity {
 
         leftIcon = findViewById(R.id.leftIcon);
         leftIcon.setOnClickListener(v -> startActivity(new Intent(Endo_InfoActivity.this, HomeActivity.class)));
-
-        // Right Icon
-        rightIcon = findViewById(R.id.rightIcon);
-        //rightIcon.setOnClickListener(v -> showHelpDialog());
+        notificationIcon = findViewById(R.id.notificationIcon);
+        notificationIcon.setOnClickListener(v -> startActivity(new Intent(Endo_InfoActivity.this, ReminderActivity.class)));
 
         // Box 1 click listener
         CardView box1 = findViewById(R.id.EndoFAQ);

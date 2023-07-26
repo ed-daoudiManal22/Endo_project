@@ -9,44 +9,54 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentTop="true"
+        android:layout_height="?attr/actionBarSize"
         android:background="@drawable/background"
         android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
-        <!-- Left Icon -->
-        <ImageView
-            android:id="@+id/leftIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="5dp"
-            android:src="@drawable/close" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/Title"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Endo_Aware"
-            android:layout_gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="26dp" />
+            <ImageView
+                android:id="@+id/leftIcon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_back_black"
+                android:contentDescription="Menu Icon"
+                android:padding="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
 
-        <!-- Right Icon -->
-        <ImageView
-            android:id="@+id/rightIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:src="@drawable/help" />
+            <TextView
+                android:id="@+id/currentDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Endo Aware"
+                android:textColor="#393E46"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/leftIcon"
+                android:layout_toStartOf="@+id/notificationIcon"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <ImageView
+                android:id="@+id/notificationIcon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/notificationsicon"
+                android:contentDescription="Notification Icon"
+                android:padding="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView

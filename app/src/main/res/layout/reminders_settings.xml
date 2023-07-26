@@ -9,21 +9,20 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:background="@drawable/background"
         android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
         <!-- Left Icon -->
         <ImageView
             android:id="@+id/leftIcon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:padding="5dp"
+            android:padding="8dp"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -35,15 +34,15 @@
             android:layout_gravity="center"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:padding="8dp" />
 
 
         <!-- Right Icon -->
         <ImageView
             android:id="@+id/rightIcon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_gravity="end"
             android:layout_marginRight="5dp"
             android:padding="5dp"
