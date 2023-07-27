@@ -53,8 +53,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/bottomNavigation">
+        android:layout_below="@id/toolbar">
 
         <LinearLayout
             android:id="@+id/FirstSection"
@@ -73,20 +72,22 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <!-- MeowBottomNavigation -->
-    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-        android:id="@+id/bottomNavigation"
+    <!-- FrameLayout to overlay the circular button -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mbn_circleColor="#ffffff"
-        app:mbn_backgroundBottomColor="#D7EBE9"
-        app:mbn_countBackgroundColor="#F2CA4B"
-        app:mbn_countTextColor="#ffffff"
-        app:mbn_defaultIconColor="#333333"
-        app:mbn_rippleColor="#333333"
-        app:mbn_selectedIconColor="#89CCC5"
-        app:mbn_shadowColor="#90a4ae"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true">
+
+        <!-- Circular button with "+" icon -->
+        <ImageButton
+            android:id="@+id/addReminderButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="20dp"
+            android:background="@drawable/add_reminder_button"
+            android:src="@drawable/add"
+            android:contentDescription="Add Reminder" />
+    </FrameLayout>
 
 </RelativeLayout>

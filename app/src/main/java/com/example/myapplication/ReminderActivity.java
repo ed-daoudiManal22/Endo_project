@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 
@@ -60,7 +61,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private String currentUserUid;
-    private MeowBottomNavigation bottomNavigation;
+    private ImageButton addReminderButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,32 +93,12 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                 showAddReminderDialog();
             }
         });*/
-        bottomNavigation = findViewById(R.id.bottomNavigation);
-        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.add));
-        bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+        addReminderButton = findViewById(R.id.addReminderButton);
+        addReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // Handle the click event for the bottom navigation menu
-                switch (model.getId()) {
-                    case 1:
-                        // Show a popup or dialog to add a new reminder
-                        showAddReminderDialog();
-                        break;
-                }
-                return null;
-            }
-        });
-        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // Handle the click event for the bottom navigation menu
-                switch (model.getId()) {
-                    case 1:
-                        // Show a popup or dialog to add a new reminder
-                        showAddReminderDialog();
-                        break;
-                }
-                return null;
+            public void onClick(View view) {
+                // Show a popup or dialog to add a new reminder
+                showAddReminderDialog();
             }
         });
 
