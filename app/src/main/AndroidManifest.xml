@@ -93,6 +93,7 @@
         <activity android:name=".Quiz_Activity" />
 
         <activity android:name=".RecyclerviewActivity" />
+        <activity android:name="com.example.myapplication.NewsLibrary.ArticlesDetailActivity"/>
 
     </application>
 

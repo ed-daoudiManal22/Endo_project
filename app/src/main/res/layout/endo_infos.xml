@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Endo_InfoActivity">
 
     <!-- Toolbar -->
@@ -62,7 +61,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_below="@+id/toolbar"
@@ -104,96 +105,23 @@
             </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Box 2 -->
-            <androidx.cardview.widget.CardView
-            android:id="@+id/article1"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:clickable="true"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="8dp">
-
-            <ImageView
-            android:id="@+id/image2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/endo_adolescence" />
-
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true"
-            android:background="@color/light_grey"
-            android:orientation="vertical">
-
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/idRVArticles"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="Endométriose et Adolescence"
-                android:textColor="@color/white"
-                android:layout_margin="8dp"
-                android:textStyle="bold"/>
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/idToolbar"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/articles_rv_item"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Comprendre l'endométriose pour les 15/25 ans
-Un document réalisé en partenariat avec l'ARS des Hauts de France"
-                android:textColor="@color/white"
-                android:layout_marginHorizontal="8dp"/>
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="20dp"
-                    android:text="Read... "
-                    android:clickable="true"
-                    android:textColor="@color/white"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_gravity="end" />
-
-            </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Box 3 -->
-            <androidx.cardview.widget.CardView
-            android:id="@+id/article2"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:clickable="true"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="8dp">
-
-            <ImageView
-            android:id="@+id/image3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/background" />
-
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true"
-            android:background="@color/light_grey">
-
-            <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Article 2"
-            android:gravity="center"
-            android:textColor="@color/white" />
-            </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+            <ProgressBar
+                android:id="@+id/idPBLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"/>
         </LinearLayout>
-
     </ScrollView>
-
 </RelativeLayout>

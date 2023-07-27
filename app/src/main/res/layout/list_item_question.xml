@@ -32,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/questionAnswer"
                 android:text="Answer"
-                android:padding="16dp"
+                android:padding="18dp"
                 android:textColor="@color/black"
-                />
+                android:lineSpacingExtra="5dp"/>
         </RelativeLayout>
 
     </LinearLayout>
