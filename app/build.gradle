@@ -46,6 +46,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
+    //multi-language
+    implementation 'androidx.appcompat:appcompat-resources:1.4.0'
+
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.1.1')
 
@@ -53,10 +56,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
 
-    implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
-
+    //Graphs and charts library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
     // PDF generation library
     implementation 'com.itextpdf:itextg:5.5.10'
     // Runtime permissions library (for handling storage permission)

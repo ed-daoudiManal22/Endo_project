@@ -65,11 +65,12 @@ public class EndoFAQ_Activity extends AppCompatActivity {
 
         QuestionList = new ArrayList<>();
         // Add resource IDs for questions from the strings.xml file to the QuestionList
-        QuestionList.add(new Questions(R.string.Endo_Symptoms, R.string.Endo_Symptoms_answer, this));
         QuestionList.add(new Questions(R.string.Endometriosis, R.string.Endometriosis_answer, this));
-        QuestionList.add(new Questions(R.string.Endo_Infertility, R.string.Endo_Infertility_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_Symptoms, R.string.Endo_Symptoms_answer, this));
         QuestionList.add(new Questions(R.string.Endo_riskFactors, R.string.Endo_riskFactors_answer, this));
-        QuestionList.add(new Questions(R.string.Endo_causes, R.string.Endo_causes_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_reduces, R.string.Endo_reducess_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_importance, R.string.Endo_health_prob_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_importance, R.string.Endo_importance_answer, this));
 
         questionAdapter = new QuestionAdapter(QuestionList);
 

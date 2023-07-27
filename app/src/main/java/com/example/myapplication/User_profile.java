@@ -1,11 +1,17 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Locale;
 
 public class User_profile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
@@ -67,8 +75,8 @@ public class User_profile extends AppCompatActivity {
         languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, UserPage_Activity.class);
-                startActivity(intent);
+                // Show the language selection dialog when the language layout is clicked
+                showLanguageSelectionDialog();
             }
         });
         shareLayout.setOnClickListener(new View.OnClickListener() {
@@ -96,5 +104,57 @@ public class User_profile extends AppCompatActivity {
                 }
             }
         });
+    }
+    // Method to show the language selection dialog
+    private void showLanguageSelectionDialog() {
+        final String[] languages = {"English", "French", "Arabic"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(User_profile.this);
+        builder.setTitle("Choose Language");
+        builder.setItems(languages, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String selectedLanguageCode = getLanguageCodeFromName(languages[i]);
+                if (selectedLanguageCode != null) {
+                    changeLanguage(selectedLanguageCode);
+                } else {
+                    Toast.makeText(User_profile.this, "Language selection failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        builder.show();
+    }
+    // Helper method to get the language code based on the language name
+    private String getLanguageCodeFromName(String languageName) {
+        switch (languageName) {
+            case "English":
+                return "en";
+            case "French":
+                return "fr";
+            case "Arabic":
+                return "ar";
+            default:
+                return null;
+        }
+    }
+
+    // Method to change the language
+    private void changeLanguage(String languageCode) {
+        // Save the selected language in SharedPreferences to persist the choice
+        SharedPreferences preferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("language", languageCode);
+        editor.apply();
+
+        // Update the app's locale
+        Locale newLocale = new Locale(languageCode);
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(newLocale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        // Restart the activity to apply the new language
+        recreate();
     }
 }

@@ -357,19 +357,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- MeowBottomNavigation -->
-    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-        android:id="@+id/menuBottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mbn_circleColor="#ffffff"
-        app:mbn_backgroundBottomColor="#D7EBE9"
-        app:mbn_countBackgroundColor="#F2CA4B"
-        app:mbn_countTextColor="#ffffff"
-        app:mbn_defaultIconColor="#333333"
-        app:mbn_rippleColor="#333333"
-        app:mbn_selectedIconColor="#89CCC5"
-        app:mbn_shadowColor="#90a4ae"
-        android:layout_alignParentBottom="true" />
-
 </RelativeLayout>
