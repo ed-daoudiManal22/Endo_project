@@ -1,5 +1,7 @@
 package com.example.myapplication.Models;
 
+import android.content.Context;
+
 public class Questions {
     private String title;
     private String answer;
@@ -13,9 +15,9 @@ public class Questions {
         this.expandable = expandable;
     }
 
-    public Questions(String title, String answer) {
-        this.title = title;
-        this.answer = answer;
+    public Questions(int titleResId, int answerResId, Context context) {
+        this.title = context.getString(titleResId);
+        this.answer = context.getString(answerResId);
         this.expandable = false;
     }
 

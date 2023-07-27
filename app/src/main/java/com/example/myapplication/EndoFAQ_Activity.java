@@ -23,7 +23,7 @@ public class EndoFAQ_Activity extends AppCompatActivity {
     private List<Questions> QuestionList;
     private QuestionAdapter questionAdapter;
     private FirebaseFirestore firestore;
-    private ImageView leftIcon, rightIcon;
+    private ImageView leftIcon, notificationIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class EndoFAQ_Activity extends AppCompatActivity {
         leftIcon.setOnClickListener(v -> startActivity(new Intent(EndoFAQ_Activity.this, UserPage_Activity.class)));
 
         // Right Icon
-        rightIcon = findViewById(R.id.rightIcon);
+        notificationIcon = findViewById(R.id.notificationIcon);
         //rightIcon.setOnClickListener(v -> showHelpDialog());
 
         recyclerView = findViewById(R.id.endo_Questions);
@@ -46,32 +46,19 @@ public class EndoFAQ_Activity extends AppCompatActivity {
         recyclerView.setAdapter(questionAdapter);
         recyclerView.setHasFixedSize(true);
 
-        fetchDataFromFirestore();
-    }
+        recyclerView = findViewById(R.id.endo_Questions);
 
+        QuestionList = new ArrayList<>();
+        // Add resource IDs for questions from the strings.xml file to the QuestionList
+        QuestionList.add(new Questions(R.string.Endo_Symptoms, R.string.Endo_Symptoms_answer, this));
+        QuestionList.add(new Questions(R.string.Endometriosis, R.string.Endometriosis_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_Infertility, R.string.Endo_Infertility_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_riskFactors, R.string.Endo_riskFactors_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_causes, R.string.Endo_causes_answer, this));
 
-    private void fetchDataFromFirestore() {
-        firestore.collection("Endo_infos")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String title = document.getString("title");
-                            String answer = document.getString("answer");
+        questionAdapter = new QuestionAdapter(QuestionList);
 
-                            Questions question = new Questions(title, answer);
-                            QuestionList.add(question);
-                        }
-
-                        questionAdapter.notifyDataSetChanged();
-                    } else {
-                        Exception exception = task.getException();
-                        if (exception != null){
-                            Log.e("FirestoreError", "Error fetching data: " + exception.getMessage());
-                            Toast.makeText(EndoFAQ_Activity.this, "Error fetching data", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
+        recyclerView.setAdapter(questionAdapter);
+        recyclerView.setHasFixedSize(true);
     }
 }
