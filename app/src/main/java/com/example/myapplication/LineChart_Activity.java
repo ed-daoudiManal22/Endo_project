@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,7 +61,6 @@ public class LineChart_Activity extends AppCompatActivity {
             Color.rgb(252, 250, 222),
             Color.rgb(255, 238, 226),
             Color.rgb(255, 219, 219),
-            // Add more pastel colors as needed
     };
 
     @Override
@@ -204,9 +204,8 @@ public class LineChart_Activity extends AppCompatActivity {
                     lineChart.invalidate();
                     // end of graph implementation
 
-                    // Create a list to store all pain locations from all documents
+                    // Create a list to store all pain locations from all documents and to store pie chart entries (slices)
                     List<String> allPainLocations = new ArrayList<>();
-                    // Create a list to store pie chart entries (slices)
                     List<PieEntry> pieEntries = new ArrayList<>();
 
                     for (DocumentSnapshot document : task.getResult()) {
@@ -227,12 +226,6 @@ public class LineChart_Activity extends AppCompatActivity {
 
                     // Calculate the total number of pain locations
                     int totalPainLocations = allPainLocations.size();
-
-                    // Get references to the LinearLayout that will hold the TextViews
-                    LinearLayout painLocationsLayout = findViewById(R.id.painLocationsLayout);
-
-                    // Clear the LinearLayout in case it already has views (to avoid duplicates if you reload data)
-                    painLocationsLayout.removeAllViews();
 
                     // Set the pain locations and their percentages in the respective TextViews
                     Set<String> uniquePainLocations = new HashSet<>(allPainLocations);
@@ -263,6 +256,244 @@ public class LineChart_Activity extends AppCompatActivity {
                     pieChart.setDrawHoleEnabled(false); // Disable the center hole
                     pieChart.invalidate();
                     //end pain location Chart
+
+                    // Create a list to store all symptoms from all documents
+                    List<String> allSymptoms = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the symptoms array from the document
+                        Object symptomsObject = document.get("symptoms");
+
+                        if (symptomsObject instanceof List) {
+                            List<String> symptoms = (List<String>) symptomsObject;
+
+                            // Add all symptoms to the list
+                            if (symptoms != null) {
+                                allSymptoms.addAll(symptoms);
+                            }
+                        } else if (symptomsObject instanceof String) {
+                            // Handle the case when "pain Location" is a single String instead of a List
+                            String singlesymptoms = (String) symptomsObject;
+                            allPainLocations.add(singlesymptoms);
+                        }
+                    }
+
+                    // Calculate the occurrences of each symptom
+                    TreeMap<String, Integer> symptomOccurrences = new TreeMap<>();
+                    for (String symptom : allSymptoms) {
+                        symptomOccurrences.put(symptom, symptomOccurrences.getOrDefault(symptom, 0) + 1);
+                    }
+
+                    // Calculate the total number of symptoms
+                    int totalSymptoms = allSymptoms.size();
+
+                    // Get references to the LinearLayout that will hold the TextViews
+                    LinearLayout symptomsLayout = findViewById(R.id.symptomsLayout);
+
+                    // Clear the LinearLayout in case it already has views (to avoid duplicates if you reload data)
+                    symptomsLayout.removeAllViews();
+
+                    // Set the symptoms and their percentages in the respective TextViews
+                    Set<String> uniqueSymptoms = new HashSet<>(allSymptoms);
+                    for (String symptom : uniqueSymptoms) {
+                        int occurrences = symptomOccurrences.get(symptom);
+                        float percentage = (occurrences * 100f) / totalSymptoms;
+
+                        // Create a new TextView for each symptom and percentage
+                        TextView symptomTextView = new TextView(context); // Use the context here
+                        symptomTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        ));
+
+                        // Set the text for the TextView
+                        symptomTextView.setTypeface(null, Typeface.BOLD);
+                        String symptomInfo = symptom + " : " + String.format(Locale.US, "%.1f%%", percentage);
+                        symptomTextView.setText(symptomInfo);
+
+                        // Add the TextView to the LinearLayout
+                        symptomsLayout.addView(symptomTextView);
+                    }
+                    //end symptoms percentage
+
+                    // Create a list to store all painWorse from all documents
+                    List<String> allPainWorse = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the painWorse array from the document
+                        Object painWorseObject = document.get("What Made Your Pain Worse?");
+
+                        if (painWorseObject instanceof List) {
+                            List<String> painWorse = (List<String>) painWorseObject;
+
+                            // Add all painWorse to the list
+                            if (painWorse != null) {
+                                allPainWorse.addAll(painWorse);
+                            }
+                        } else if (painWorseObject instanceof String) {
+                            // Handle the case when "painWorse" is a single String instead of a List
+                            String singlePainWorse = (String) painWorseObject;
+                            allPainWorse.add(singlePainWorse);
+                        }
+                    }
+
+                    // Calculate the occurrences of each painWorse
+                    TreeMap<String, Integer> painWorseOccurrences = new TreeMap<>();
+                    for (String painWorse : allPainWorse) {
+                        painWorseOccurrences.put(painWorse, painWorseOccurrences.getOrDefault(painWorse, 0) + 1);
+                    }
+
+                    // Calculate the total number of painWorse
+                    int totalPainWorse = allPainWorse.size();
+
+                    // Get references to the LinearLayout that will hold the TextViews
+                    LinearLayout painWorseLayout = findViewById(R.id.painWorseLayout);
+
+                    // Clear the LinearLayout in case it already has views (to avoid duplicates if you reload data)
+                    painWorseLayout.removeAllViews();
+
+                    // Set the painWorse and their percentages in the respective TextViews
+                    Set<String> uniquePainWorse = new HashSet<>(allPainWorse);
+                    for (String painWorse : uniquePainWorse) {
+                        int occurrences = painWorseOccurrences.get(painWorse);
+                        float percentage = (occurrences * 100f) / totalPainWorse;
+
+                        // Create a new TextView for each painWorse and percentage
+                        TextView painWorseTextView = new TextView(context); // Use the context here
+                        painWorseTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        ));
+
+                        // Set the text for the TextView
+                        painWorseTextView.setTypeface(null, Typeface.BOLD);
+                        String painWorseInfo = painWorse + " : " + String.format(Locale.US, "%.1f%%", percentage);
+                        painWorseTextView.setText(painWorseInfo);
+
+                        // Add the TextView to the LinearLayout
+                        painWorseLayout.addView(painWorseTextView);
+                    }
+                    //end painWorse percentage
+
+                    // Create a list to store all feelings from all documents
+                    List<String> allFeelings = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the feelings array from the document
+                        Object feelingsObject = document.get("How You Feel Today?");
+
+                        if (feelingsObject instanceof List) {
+                            List<String> feelings = (List<String>) feelingsObject;
+
+                            // Add all feelings to the list
+                            if (feelings != null) {
+                                allFeelings.addAll(feelings);
+                            }
+                        } else if (feelingsObject instanceof String) {
+                            // Handle the case when "feelings" is a single String instead of a List
+                            String singleFeeling = (String) feelingsObject;
+                            allFeelings.add(singleFeeling);
+                        }
+                    }
+
+                    // Calculate the occurrences of each feelings
+                    TreeMap<String, Integer> feelingsOccurrences = new TreeMap<>();
+                    for (String feeling : allFeelings) {
+                        feelingsOccurrences.put(feeling, feelingsOccurrences.getOrDefault(feeling, 0) + 1);
+                    }
+
+                    // Calculate the total number of feelings
+                    int totalFeelings = allFeelings.size();
+
+                    // Get references to the LinearLayout that will hold the TextViews
+                    LinearLayout feelingsLayout = findViewById(R.id.feelingsLayout);
+
+                    // Clear the LinearLayout in case it already has views (to avoid duplicates if you reload data)
+                    feelingsLayout.removeAllViews();
+
+                    // Set the feelings and their percentages in the respective TextViews
+                    Set<String> uniqueFeelings = new HashSet<>(allFeelings);
+                    for (String feeling : uniqueFeelings) {
+                        int occurrences = feelingsOccurrences.get(feeling);
+                        float percentage = (occurrences * 100f) / totalFeelings;
+
+                        // Create a new TextView for each feeling and percentage
+                        TextView feelingTextView = new TextView(context); // Use the context here
+                        feelingTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        ));
+
+                        // Set the text for the TextView
+                        feelingTextView.setTypeface(null, Typeface.BOLD);
+                        String feelingInfo = feeling + " : " + String.format(Locale.US, "%.1f%%", percentage);
+                        feelingTextView.setText(feelingInfo);
+
+                        // Add the TextView to the LinearLayout
+                        feelingsLayout.addView(feelingTextView);
+                    }
+                    //end feelings percentage
+
+                    // Create a list to store all medications from all documents
+                    List<String> allMedications = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the medications array from the document
+                        Object medicationsObject = document.get("What Medication Did You Try for Your Pain?");
+
+                        if (medicationsObject instanceof List) {
+                            List<String> medications = (List<String>) medicationsObject;
+
+                            // Add all medications to the list
+                            if (medications != null) {
+                                allMedications.addAll(medications);
+                            }
+                        } else if (medicationsObject instanceof String) {
+                            // Handle the case when "medications" is a single String instead of a List
+                            String singleMedication = (String) medicationsObject;
+                            allMedications.add(singleMedication);
+                        }
+                    }
+
+                    // Calculate the occurrences of each medications
+                    TreeMap<String, Integer> medicationOccurrences = new TreeMap<>();
+                    for (String medication : allMedications) {
+                        medicationOccurrences.put(medication, medicationOccurrences.getOrDefault(medication, 0) + 1);
+                    }
+
+                    // Calculate the total number of medications
+                    int totalMedications = allMedications.size();
+
+                    // Get references to the LinearLayout that will hold the TextViews
+                    LinearLayout medicationLayout = findViewById(R.id.MedicationsLayout);
+
+                    // Clear the LinearLayout in case it already has views (to avoid duplicates if you reload data)
+                    medicationLayout.removeAllViews();
+
+                    // Set the medications and their percentages in the respective TextViews
+                    Set<String> uniqueMedications = new HashSet<>(allMedications);
+                    for (String medication : uniqueMedications) {
+                        int occurrences = medicationOccurrences.get(medication);
+                        float percentage = (occurrences * 100f) / totalMedications;
+
+                        // Create a new TextView for each medication and percentage
+                        TextView medicationTextView = new TextView(context); // Use the context here
+                        medicationTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        ));
+
+                        // Set the text for the TextView
+                        medicationTextView.setTypeface(null, Typeface.BOLD);
+                        String medicationInfo = medication + " : " + String.format(Locale.US, "%.1f%%", percentage);
+                        medicationTextView.setText(medicationInfo);
+
+                        // Add the TextView to the LinearLayout
+                        medicationLayout.addView(medicationTextView);
+                    }
+                    //end medications percentage
+
+
                 } else {
                     Log.e("LineChart_Activity", "Error getting symptoms subcollection: ", task.getException());
                 }
