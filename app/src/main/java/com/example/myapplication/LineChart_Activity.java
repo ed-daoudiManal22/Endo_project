@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,11 +15,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.DateAxisValueFormatter;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,11 +53,23 @@ public class LineChart_Activity extends AppCompatActivity {
     private ImageView leftIcon, notificationIcon;
     private String currentUserUid;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+    private final int[] pastelColors = new int[]{
+            Color.rgb(227, 227, 255),
+            Color.rgb(223, 242, 253),
+            Color.rgb(226, 252, 230),
+            Color.rgb(252, 250, 222),
+            Color.rgb(255, 238, 226),
+            Color.rgb(255, 219, 219),
+            // Add more pastel colors as needed
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_chart);
+
+        // Get the context of the activity
+        Context context = getApplicationContext();
 
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -85,7 +104,6 @@ public class LineChart_Activity extends AppCompatActivity {
                 finish(); // Optional: Close the current activity after navigating
             }
         });
-
 
         // Create a list to store the pain score entries
         List<Entry> entries = new ArrayList<>();
@@ -129,9 +147,11 @@ public class LineChart_Activity extends AppCompatActivity {
                             totalPainScore += entry.getY();
                         }
                         float averagePainScore = totalPainScore / entries.size();
+                        // Format the averagePainScore to show only two decimal places
+                        String formattedAveragePainScore = String.format(Locale.US, "%.2f", averagePainScore);
 
                         // Display the average pain score in the TextView
-                        averagePainTextView.setText("Pain Average : " + averagePainScore);
+                        averagePainTextView.setText("Pain Average : " + formattedAveragePainScore);
                     }
 
                     // Sort the entries by their timestamps
@@ -182,6 +202,67 @@ public class LineChart_Activity extends AppCompatActivity {
                     lineChart.getAxisLeft().setDrawGridLines(false);
                     lineChart.getAxisRight().setEnabled(false);
                     lineChart.invalidate();
+                    // end of graph implementation
+
+                    // Create a list to store all pain locations from all documents
+                    List<String> allPainLocations = new ArrayList<>();
+                    // Create a list to store pie chart entries (slices)
+                    List<PieEntry> pieEntries = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the pain Location array from the document
+                        List<String> painLocations = (List<String>) document.get("pain Location");
+
+                        // Add all pain locations to the list
+                        if (painLocations != null) {
+                            allPainLocations.addAll(painLocations);
+                        }
+                    }
+
+                    // Calculate the occurrences of each pain location
+                    TreeMap<String, Integer> painLocationOccurrences = new TreeMap<>();
+                    for (String location : allPainLocations) {
+                        painLocationOccurrences.put(location, painLocationOccurrences.getOrDefault(location, 0) + 1);
+                    }
+
+                    // Calculate the total number of pain locations
+                    int totalPainLocations = allPainLocations.size();
+
+                    // Get references to the LinearLayout that will hold the TextViews
+                    LinearLayout painLocationsLayout = findViewById(R.id.painLocationsLayout);
+
+                    // Clear the LinearLayout in case it already has views (to avoid duplicates if you reload data)
+                    painLocationsLayout.removeAllViews();
+
+                    // Set the pain locations and their percentages in the respective TextViews
+                    Set<String> uniquePainLocations = new HashSet<>(allPainLocations);
+                    for (String location : uniquePainLocations) {
+                        int occurrences = painLocationOccurrences.get(location);
+                        float percentage = (occurrences * 100f) / totalPainLocations;
+
+                        // Add the PieEntry for each pain location and percentage
+                        pieEntries.add(new PieEntry(percentage, location));
+                    }
+                    // Create a dataset for the PieChart with the entries and customize it
+                    PieDataSet pieDataSet = new PieDataSet(pieEntries, "Pain Locations");
+                    pieDataSet.setColors(pastelColors);
+                    // ... Customize other dataset properties as needed
+
+                    // Create a PieData object with the dataset
+                    PieData pieData = new PieData(pieDataSet);
+                    pieData.setValueTextSize(12f); // Adjust the text size of the values inside the slices
+                    // ... Customize other PieData properties as needed
+
+                    // Get the PieChart view from the layout
+                    PieChart pieChart = findViewById(R.id.pieChart);
+
+                    // Set the PieData to the chart and refresh it
+                    pieChart.setData(pieData);
+                    pieChart.getDescription().setEnabled(false); // Disable the description
+                    pieChart.setDrawEntryLabels(false); // Disable labels inside the slices
+                    pieChart.setDrawHoleEnabled(false); // Disable the center hole
+                    pieChart.invalidate();
+                    //end pain location Chart
                 } else {
                     Log.e("LineChart_Activity", "Error getting symptoms subcollection: ", task.getException());
                 }
