@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,11 +32,25 @@ public class EndoFAQ_Activity extends AppCompatActivity {
         setContentView(R.layout.endo_faq);
 
         leftIcon = findViewById(R.id.leftIcon);
-        leftIcon.setOnClickListener(v -> startActivity(new Intent(EndoFAQ_Activity.this, UserPage_Activity.class)));
-
-        // Right Icon
         notificationIcon = findViewById(R.id.notificationIcon);
-        //rightIcon.setOnClickListener(v -> showHelpDialog());
+        leftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event, navigate to HelloActivity
+                Intent intent = new Intent(EndoFAQ_Activity.this, Endo_InfoActivity.class);
+                startActivity(intent);
+                finish(); // Optional: Close the current activity after navigating
+            }
+        });
+        notificationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event, navigate to HelloActivity
+                Intent intent = new Intent(EndoFAQ_Activity.this, ReminderActivity.class);
+                startActivity(intent);
+                finish(); // Optional: Close the current activity after navigating
+            }
+        });
 
         recyclerView = findViewById(R.id.endo_Questions);
         firestore = FirebaseFirestore.getInstance();
