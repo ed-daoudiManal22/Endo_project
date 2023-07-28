@@ -44,7 +44,7 @@
 
     <string name="last_score">Dernier score</string>
     <string name="home_score_desc">Mettez à jour votre score\n régulièrement</string>
-    <string name="home_title">VQue recherchez-vous :</string>
+    <string name="home_title">Que recherchez-vous :</string>
     <string name="diagnostic_test">Test de diagnostic</string>
     <string name="diagnostic_test_desc">Découvrez votre potentiel d\'endométriose.</string>
     <string name="endo_informations">Informations sur l\'endométriose</string>
