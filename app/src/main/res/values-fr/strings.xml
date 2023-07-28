@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">myApplication</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="next">Suivant</string>
+    <string name="cancel">Annuler</string>
+    <string name="submit">Confirmer</string>
+
+    <string name="score_label">Score :</string>
+    <string name="report_label">Rapport</string>
+    <string name="open_report_button_label">Ouvrir le rapport</string>
+
+    <string name="diagnostic_label">Test de diagnostic</string>
+    <string name="weight_data">Entrez votre poids en kg</string>
+    <string name="height_data">Entrez votre taille en cm</string>
+
+    <string name="home">Accueil</string>
+    <string name="track">Suivi</string>
+    <string name="forum">Forum</string>
+
+    <string name="pain_evolution">Évolution de la douleur : </string>
+    <string name="pain_average">Moyenne des douleurs</string>
+    <string name="pain_locations">Localisation des douleurs</string>
+    <string name="symptoms">Symptômes</string>
+    <string name="pain_worse_title">Ce qui aggrave la douleur</string>
+    <string name="feelings">Sentiments</string>
+    <string name="medications">Médicaments</string>
+
+    <string name="choose_topic">Choisir un sujet</string>
+    <string name="endometriosis_label">Endométriose</string>
+    <string name="fertility_label">Fertilité</string>
+    <string name="intimate_health_label">Santé intime</string>
+    <string name="menstrual_cycle">Cycle menstruel</string>
+    <string name="start_quiz">Commencer le quiz</string>
+    <string name="quiz_congratulation">Vous avez réussi le quiz avec succès</string>
+
+    <string name="diagnostic_txt">Souffrez-vous de règles douloureuses ? \nRépondez à ce questionnaire pour évaluer votre risque d\'endométriose.</string>
+    <string name="go">ALLER</string>
+
+    <string name="title...">Titre&#8230;</string>
+
+    <string name="faq_label">Questions fréquemment posées</string>
+    <string name="endo_faq_title">Endométriose FAQ</string>
+
+    <string name="last_score">Dernier score</string>
+    <string name="home_score_desc">Mettez à jour votre score\n régulièrement</string>
+    <string name="home_title">VQue recherchez-vous :</string>
+    <string name="diagnostic_test">Test de diagnostic</string>
+    <string name="diagnostic_test_desc">Découvrez votre potentiel d\'endométriose.</string>
+    <string name="endo_informations">Informations sur l\'endométriose</string>
+    <string name="endo_informations_desc">Restez informé sur l\'endométriose.</string>
+    <string name="pain_evolution_desc">Explorez votre parcours de douleur.</string>
+    <string name="quiz_desc">Testez vos connaissances sur l\'endométriose.</string>
+
+    <string name="today">Aujourd\'hui</string>
+    <string name="pain_level">Niveau de douleur</string>
+
+    <string name="reminderslist">Liste des rappels</string>
+    <string name="Profile">Profil</string>
+    <string name="reminders">Rappels</string>
+    <string name="edit_profile">Modifier le profil</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="share_app">Partager l\'application</string>
+
+    <string name="welcome_label">Commencez avec EndoAware</string>
+
+    <string name="Endo_Symptoms">Quels sont les symptômes de l\'endométriose ?</string>
+    <string name="Endometriosis">Qu\'est-ce que l\'endométriose ?</string>
+    <string name="Endo_riskFactors">Quels facteurs peuvent augmenter mes chances de souffrir d\'endométriose ?</string>
+    <string name="Endo_traitement">Comment traite-t-on l\'endométriose ?</string>
+    <string name="Endo_reduces">Comment puis-je réduire mes chances de contracter l\'endométriose ?</string>
+    <string name="Endo_health_prob">Comment traite-t-on l\'endométriose ?</string>
+    <string name="Endo_importance">Pourquoi est-il important de savoir si j\'ai l\'endométriose ?</string>
+
+    <string name="Endo_Symptoms_answer">Le symptôme le plus courant de l\'endométriose est la douleur pelvienne. La douleur survient souvent pendant les menstruations, pendant l\'ovulation et/ou lors des rapports sexuels. Cependant, une femme atteinte d\'endométriose peut également ressentir une douleur à d\'autres moments de son cycle menstruel. Un autre symptôme est l\'infertilité. Certaines femmes atteintes d\'endométriose éprouvent également une grande fatigue.</string>
+    <string name="Endometriosis_answer">L\'endométriose est une affection dans laquelle des tissus similaires à la muqueuse de l\'utérus sont également présents ailleurs dans le corps, principalement dans la cavité abdominale.</string>
+    <string name="Endo_riskFactors_answer">Vous avez plus de chances de développer une endométriose si vous avez : \n• Jamais eu d\'enfants. \n• Des périodes menstruelles qui durent plus de sept jours. \n• Des cycles menstruels courts (27 jours ou moins). \n• Un membre de la famille (mère, tante, sœur) atteint d\'endométriose. \n• Un problème de santé qui empêche l\'écoulement normal du flux menstruel. \n• Des dommages aux cellules du pelvis causés par une infection.</string>
+    <string name="Endo_traitement_answer">Il n\'existe pas de cure pour l\'endométriose, mais il existe de nombreux traitements pour la douleur et l\'infertilité qu\'elle cause. Parlez à votre médecin de l\'option qui vous convient le mieux. Le traitement que vous choisissez dépendra de vos symptômes, de votre âge et de vos projets de grossesse.\nMédicaments contre la douleur - Pour certaines femmes présentant des symptômes légers, les médecins peuvent suggérer de prendre des médicaments en vente libre contre la douleur.\nTraitement hormonal - Lorsque les médicaments contre la douleur ne suffisent pas, les médecins recommandent souvent des médicaments hormonaux pour traiter l\'endométriose. Seules les femmes qui ne souhaitent pas devenir enceintes peuvent utiliser ces médicaments.\nChirurgie - La chirurgie est généralement la meilleure option pour les femmes atteintes d\'endométriose sévère avec de nombreuses excroissances, beaucoup de douleur ou des problèmes de fertilité.</string>
+    <string name="Endo_reducess_answer">Maintenez des niveaux d\'oestrogène plus bas dans votre corps. Essayez : \n• Faire de l\'exercice régulièrement. \n• Maintenir un faible pourcentage de graisse corporelle. \n• Éviter de consommer de grandes quantités d\'alcool et de boissons contenant de la caféine.</string>
+    <string name="Endo_health_prob_answer">Les excroissances d\'endométriose sont bénignes (non cancéreuses), mais elles peuvent quand même causer de nombreux problèmes. Les tissus et le sang qui sont rejetés dans le corps peuvent provoquer une inflammation, des adhérences et des douleurs. Lorsque le tissu endométrial se développe, il peut recouvrir ou se développer dans les ovaires et bloquer les trompes de Fallope. Le sang piégé dans les ovaires peut former des kystes et causer des inflammations et des cicatrices (adhérences) qui lient parfois les organes entre eux. Ces cicatrices peuvent causer des douleurs pelviennes et rendre difficile pour les femmes de tomber enceintes. Les excroissances peuvent également causer des problèmes dans les intestins et la vessie.</string>
+    <string name="Endo_importance_answer">Les études montrent que les femmes atteintes d\'endométriose manquent l\'école, le travail et des événements sociaux. Ce problème de santé peut tendre les relations avec votre partenaire, vos amis, vos enfants et vos collègues. De plus, l\'endométriose peut rendre difficile pour une femme de tomber enceinte. Lorsque l\'endométriose cause des problèmes de fertilité, la chirurgie peut augmenter les chances de tomber enceinte.</string>
+</resources>

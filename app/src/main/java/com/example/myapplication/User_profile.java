@@ -110,7 +110,7 @@ public class User_profile extends AppCompatActivity {
         final String[] languages = {"English", "French", "Arabic"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(User_profile.this);
-        builder.setTitle("Choose Language");
+        builder.setTitle("Choose a Language");
         builder.setItems(languages, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

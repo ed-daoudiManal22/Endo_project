@@ -25,7 +25,7 @@
         android:layout_below="@id/appImage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="Do you suffer from painful periods? \nTake this questionnaire to find out your risk for endometriosis."
+        android:text="@string/diagnostic_txt"
         android:textColor="#333333"
 
         android:textSize="20sp" />
@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
         android:background="@drawable/next_btn"
-        android:text="GO"
+        android:text="@string/go"
         android:textColor="@color/green"
         android:textSize="18sp" />
 

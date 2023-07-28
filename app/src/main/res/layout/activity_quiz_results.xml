@@ -24,7 +24,7 @@
         android:layout_marginTop="65dp"
         android:gravity="center"
         android:layout_below="@+id/congratulationsIcon"
-        android:text="You've successfully completed the Quiz"
+        android:text="@string/quiz_congratulation"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="20sp"/>

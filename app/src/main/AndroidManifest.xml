@@ -61,7 +61,8 @@
             android:label="Forgot Password" />
 
         <activity
-            android:name=".HomeActivity"/>
+            android:name=".HomeActivity"
+            android:configChanges="locale|orientation|screenSize"/>
 
         <activity
             android:name=".UserPage_Activity" />
@@ -92,7 +93,6 @@
         <activity android:name=".Quiz_main" />
         <activity android:name=".Quiz_Activity" />
 
-        <activity android:name=".RecyclerviewActivity" />
         <activity android:name="com.example.myapplication.NewsLibrary.ArticlesDetailActivity"/>
 
     </application>

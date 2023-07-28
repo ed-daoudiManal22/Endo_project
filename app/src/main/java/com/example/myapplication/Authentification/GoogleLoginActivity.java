@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.UserPage_Activity;
-import com.example.myapplication.databinding.HomePageBinding;
 import com.google.android.gms.common.SignInButton;
 
 import androidx.annotation.NonNull;

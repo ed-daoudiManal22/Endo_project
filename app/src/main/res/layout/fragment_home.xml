@@ -34,7 +34,7 @@
                 android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="#393E46"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -79,7 +79,7 @@
     <RelativeLayout
         android:id="@+id/boxLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -98,7 +98,7 @@
                 android:id="@+id/leftSectionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last score"
+                android:text="@string/last_score"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#333333" />
@@ -107,7 +107,7 @@
                 android:id="@+id/leftSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update your score regularly"
+                android:text="@string/home_score_desc"
                 android:textSize="14sp"
                 android:textColor="#333333"
                 android:layout_marginTop="10dp"/>
@@ -124,7 +124,7 @@
             <ImageView
                 android:id="@+id/scoreImage"
                 android:layout_width="100dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/score_background" />
 
             <TextView
@@ -153,6 +153,14 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
     <!-- Cards -->
     <LinearLayout
         android:id="@+id/cardsLayout"
@@ -161,6 +169,8 @@
         android:orientation="vertical"
         android:layout_below="@id/title"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
@@ -175,7 +185,7 @@
                 android:id="@+id/card1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#e8fafe">
@@ -197,7 +207,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Diagnostic test"
+                        android:text="@string/diagnostic_test"
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:padding="8dp"
@@ -208,7 +218,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description for Diagnostic test"
+                        android:text="@string/diagnostic_test_desc"
                         android:textSize="14sp"
                         android:textColor="@color/light_grey"
                         android:padding="8dp"
@@ -222,7 +232,7 @@
                 android:id="@+id/card2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#fce9f1">
@@ -244,7 +254,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Endo Informations"
+                        android:text="@string/endo_informations"
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:textColor="#333333"
@@ -254,7 +264,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description for Endo Informations"
+                        android:text="@string/endo_informations_desc"
                         android:textSize="14sp"
                         android:textColor="@color/light_grey"
                         android:padding="8dp" />
@@ -274,7 +284,7 @@
                 android:id="@+id/card3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#FBFBEF">
@@ -296,7 +306,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pain Evolution"
+                        android:text="@string/pain_evolution"
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:textColor="#333333"
@@ -306,7 +316,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description for Pain Evolution"
+                        android:text="@string/pain_evolution_desc"
                         android:textSize="14sp"
                         android:textColor="@color/light_grey"
                         android:padding="8dp" />
@@ -319,7 +329,7 @@
                 android:id="@+id/card4"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#F0F8E6">
@@ -351,7 +361,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description for Quiz \n"
+                        android:text="@string/quiz_desc"
                         android:textSize="14sp"
                         android:textColor="@color/light_grey"
                         android:padding="8dp" />
@@ -360,5 +370,6 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 </FrameLayout>

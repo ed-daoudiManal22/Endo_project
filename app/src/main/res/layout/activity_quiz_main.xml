@@ -36,7 +36,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="Choose Topic"
+                android:text="@string/choose_topic"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -44,26 +44,27 @@
             <LinearLayout
                 android:id="@+id/layout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_below="@+id/chooseTopic"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
                 <LinearLayout
                     android:id="@+id/Endometriosis"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_back_white10"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="10dp">
 
-                    <ImageView
+                <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/topic_endo" />
@@ -72,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Endometriosis"
+                        android:text="@string/endometriosis_label"
                         android:textColor="@color/light_grey"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -82,15 +83,15 @@
                 <LinearLayout
                     android:id="@+id/Fertility_and_Contraception"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_back_white10"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="10dp">
 
-                    <ImageView
+                <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/topic_fertility" />
@@ -99,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Fertility"
+                        android:text="@string/fertility_label"
                         android:textColor="@color/light_grey"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -111,26 +112,27 @@
             <LinearLayout
                 android:id="@+id/layout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_below="@+id/layout1"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
                 <LinearLayout
                     android:id="@+id/Intimate_Health"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_back_white10"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="10dp">
 
-                    <ImageView
+                <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/topic_health" />
@@ -139,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Intimate Health"
+                        android:text="@string/intimate_health_label"
                         android:textColor="@color/light_grey"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -149,13 +151,13 @@
                 <LinearLayout
                     android:id="@+id/Menstrual_Cycle"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_back_white10"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -166,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Menstrual Cycle"
+                        android:text="@string/menstrual_cycle"
                         android:textColor="@color/light_grey"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -185,7 +187,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/second_btn"
-                android:text="Start Quiz"
+                android:text="@string/start_quiz"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

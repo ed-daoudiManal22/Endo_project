@@ -1,6 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">myApplication</string>
     <string name="action_settings">Settings</string>
+    <string name="next">Next</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+
+    <string name="score_label">Score:</string>
+    <string name="report_label">Report</string>
+    <string name="open_report_button_label">Open Report</string>
+
+    <string name="diagnostic_label">Diagnostic test:</string>
+    <string name="weight_data">Enter your weight in kg </string>
+    <string name="height_data">Enter your height in cm</string>
+
+    <string name="home">Home</string>
+    <string name="track">Track</string>
+    <string name="forum">Forum</string>
+
+    <string name="pain_evolution">Pain evolution</string>
+    <string name="pain_average">Pain Average : </string>
+    <string name="pain_locations">Pain Locations : </string>
+    <string name="symptoms">Symptoms</string>
+    <string name="pain_worse_title">What Makes Pain Worse?</string>
+    <string name="feelings">Feelings</string>
+    <string name="medications">Medications</string>
+
+    <string name="choose_topic">Choose Topic</string>
+    <string name="endometriosis_label">Endometriosis</string>
+    <string name="fertility_label">Fertility</string>
+    <string name="intimate_health_label">Intimate Health</string>
+    <string name="menstrual_cycle">Menstrual Cycle</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="quiz_congratulation">You\'ve successfully completed the Quiz</string>
+
+    <string name="diagnostic_txt">Do you suffer from painful periods? \nTake this questionnaire to find out your risk for endometriosis.</string>
+    <string name="go">GO</string>
+
+    <string name="title...">Title&#8230;</string>
+
+    <string name="faq_label">Most frequently asked questions</string>
+    <string name="endo_faq_title">Endometriosis FAQ</string>
+
+    <string name="last_score">Last score</string>
+    <string name="home_score_desc">Update your score regularly</string>
+    <string name="home_title">What are you looking for : </string>
+    <string name="diagnostic_test">Diagnostic test</string>
+    <string name="diagnostic_test_desc">Discover your potential endometriosis diagnosis.</string>
+    <string name="endo_informations">Endo Informations</string>
+    <string name="endo_informations_desc">Stay informed about endometriosis.</string>
+    <string name="pain_evolution_desc">Explore your pain journey.</string>
+    <string name="quiz_desc">Test your knowledge about endometriosis.</string>
+
+    <string name="today">Today</string>
+    <string name="pain_level">Pain Level</string>
+
+    <string name="reminderslist">Reminder\'s list</string>
+    <string name="Profile">Profile</string>
+    <string name="reminders">Reminders</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="change_language">Change language</string>
+    <string name="share_app">Share app</string>
+
+    <string name="welcome_label">Get Started with EndoAware</string>
 
     <string name="Endo_Symptoms">What are the symptoms of Endometriosis?</string>
     <string name="Endometriosis">What is Endometriosis ?</string>
@@ -13,10 +75,7 @@
     <string name="Endo_Symptoms_answer">The most common symptom of Endometriosis is pelvic pain. The pain often occurs with menstruation, during ovulation, and/or in connection with sexual intercourse. However, a woman with Endometriosis may also experience pain at other times during her monthly cycle. Another symptom is infertility. Some women with Endometriosis also experience severe fatigue.</string>
     <string name="Endometriosis_answer"> Endometriosis is a condition where tissue similar to the lining of the uterus is also found elsewhere in the body, mainly in the abdominal cavity.</string>
     <string name="Endo_riskFactors_answer">You are more likely to get Endometriosis if you have: \n•Never had children. \n•Menstrual periods that last more than seven days. \n•Short menstrual cycles (27 days or less). \n•A family member (mother, aunt, sister) with Endometriosis.\n•A health problem that prevents normal passage of menstrual blood flow. \n•Damage to the cells in the pelvis from an infection.</string>
-    <string name="Endo_traitement_answer"> There is no cure for Endometriosis, but there are many treatments for the pain and infertility it causes. Talk with your doctor about what option is best for you. The treatment you choose will depend on your symptoms, age, and plans for getting pregnant.
-        Pain Medication -— For some women with mild symptoms, doctors may suggest taking over-the-counter medicines for pain.
-        Hormone Treatment — When pain medicine is not enough, doctors often recommend hormone medicines to treat Endometriosis. Only women who do not wish to become pregnant, can use these drugs.
-        Surgery — Surgery is usually the best choice for women with severe Endometriosis with many growths, a great deal of pain, or fertility problems. </string>
+    <string name="Endo_traitement_answer"> There is no cure for Endometriosis, but there are many treatments for the pain and infertility it causes. Talk with your doctor about what option is best for you. The treatment you choose will depend on your symptoms, age, and plans for getting pregnant.\nPain Medication -— For some women with mild symptoms, doctors may suggest taking over-the-counter medicines for pain.\nHormone Treatment — When pain medicine is not enough, doctors often recommend hormone medicines to treat Endometriosis. Only women who do not wish to become pregnant, can use these drugs.\n Surgery — Surgery is usually the best choice for women with severe Endometriosis with many growths, a great deal of pain, or fertility problems. </string>
     <string name="Endo_reducess_answer">Keep lower estrogen levels in your body.  Try: \n•Exercising regularly. \n•Keeping a low amount of body fat. \n•Avoiding large amounts of alcohol and drinks with caffeine</string>
     <string name="Endo_health_prob_answer">Growths of Endometriosis are benign (not cancerous), but they still can cause many problems. Tissue and blood that is shed into the body can cause inflammation, scar tissue, and pain. As endometrial tissue grows, it can cover or grow into the ovaries and block the fallopian tubes. Trapped blood in the ovaries can form cysts as well as cause inflammation scarring (adhesions) that sometimes bind organs together. This scar tissue may cause pelvic pain and make it difficult for women to get pregnant. The growths can also cause problems in the intestines and bladder.</string>
     <string name="Endo_importance_answer">Studies show that women with Endometriosis skip school, work, and social events. This health problem can strain relationships with your partner, friends, children, and co-workers. Plus, Endometriosis can make it difficult for a woman to get pregnant. When Endometriosis causes fertility problems, surgery can boost the chances of getting pregnant.</string>

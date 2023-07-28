@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
-                    android:text="Profile"
+                    android:text="@string/Profile"
                     android:textColor="@color/white"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -80,14 +80,21 @@
                 android:layout_marginTop="0dp"
                 android:text="user_name@gmail.com" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/verylight_grey"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="20dp"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/reminders"
                 android:layout_width="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:clickable="true">
 
                 <ImageView
@@ -101,8 +108,8 @@
 
                 <ImageView
                     android:id="@+id/notificationsIcon"
-                    android:layout_width="59dp"
-                    android:layout_height="69dp"
+                    android:layout_width="49dp"
+                    android:layout_height="59dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -113,9 +120,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="Reminders"
+                    android:text="@string/reminders"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="19sp"
                     android:textColor="#333333"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
@@ -165,6 +172,11 @@
                     app:layout_constraintStart_toEndOf="@+id/calendarIcon"
                     app:layout_constraintTop_toTopOf="@+id/calendarIcon" />
             </androidx.constraintlayout.widget.ConstraintLayout>-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/verylight_grey"
+                android:layout_marginHorizontal="20dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/takeTest"
@@ -173,7 +185,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:clickable="true">
 
                 <ImageView
@@ -187,8 +199,8 @@
 
                 <ImageView
                     android:id="@+id/takeTestIcon"
-                    android:layout_width="59dp"
-                    android:layout_height="69dp"
+                    android:layout_width="49dp"
+                    android:layout_height="59dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -199,14 +211,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="Edit profile"
+                    android:text="@string/edit_profile"
                     android:textColor="#333333"
-                    android:textSize="20sp"
+                    android:textSize="19sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/takeTestIcon"
                     app:layout_constraintTop_toTopOf="@+id/takeTestIcon" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/verylight_grey"
+                android:layout_marginHorizontal="20dp"/>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -216,7 +234,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:clickable="true">
 
                 <ImageView
@@ -230,8 +248,8 @@
 
                 <ImageView
                     android:id="@+id/downloadIcon"
-                    android:layout_width="59dp"
-                    android:layout_height="69dp"
+                    android:layout_width="49dp"
+                    android:layout_height="59dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -242,14 +260,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="Change language"
+                    android:text="@string/change_language"
                     android:textColor="#333333"
-                    android:textSize="20sp"
+                    android:textSize="19sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/downloadIcon"
                     app:layout_constraintTop_toTopOf="@+id/downloadIcon" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/verylight_grey"
+                android:layout_marginHorizontal="20dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/share"
@@ -258,7 +282,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:clickable="true">
 
                 <ImageView
@@ -272,8 +296,8 @@
 
                 <ImageView
                     android:id="@+id/shareIcon"
-                    android:layout_width="59dp"
-                    android:layout_height="69dp"
+                    android:layout_width="49dp"
+                    android:layout_height="59dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -284,9 +308,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="Share app"
+                    android:text="@string/share_app"
                     android:textColor="#333333"
-                    android:textSize="20sp"
+                    android:textSize="19sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/shareIcon"

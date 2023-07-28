@@ -28,7 +28,7 @@
             android:layout_toStartOf="@id/exitButton"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="Question Context"
+            android:text="@string/diagnostic_label"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
             android:id="@+id/inputWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your weight in kg"
+            android:hint="@string/weight_data"
             android:inputType="text"
             android:layout_marginTop="25dp" />
 
@@ -101,7 +101,7 @@
             android:id="@+id/inputHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your height in cm"
+            android:hint="@string/height_data"
             android:inputType="text"
             android:layout_marginTop="10dp" />
 
@@ -111,7 +111,7 @@
         android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text="@string/next"
         android:layout_marginTop="45dp"
         android:layout_marginHorizontal="16dp"
         android:textSize="16sp"

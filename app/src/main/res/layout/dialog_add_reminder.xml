@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="67dp"
                 android:background="@drawable/edittext_background"
-                android:hint="Title..."
+                android:hint="@string/title..."
                 android:padding="12dp"
                 android:layout_marginTop="10dp"
                 android:textColorHint="#808080"

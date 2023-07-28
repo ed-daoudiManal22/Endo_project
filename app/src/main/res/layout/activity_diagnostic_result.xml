@@ -17,7 +17,7 @@
                 android:id="@+id/scoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Score: "
+                android:text="@string/score_label"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -26,14 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Report"
+                android:text="@string/report_label"
                 android:textSize="16sp" />
 
             <Button
                 android:id="@+id/openReportButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Open Report"
+                android:text="@string/open_report_button_label"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp" />
 
