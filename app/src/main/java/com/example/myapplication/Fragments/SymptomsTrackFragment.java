@@ -132,20 +132,11 @@ public class SymptomsTrackFragment extends Fragment {
 
         painScoreSeekBar =  rootView.findViewById(R.id.painscore);
         submitButton =  rootView.findViewById(R.id.submitButton);
-        cancelButton =  rootView.findViewById(R.id.cancelButton);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitSymptoms();
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), HomeActivity.class);
-                startActivity(intent);
             }
         });
         leftIcon.setOnClickListener(new View.OnClickListener() {
