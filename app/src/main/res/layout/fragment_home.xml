@@ -79,7 +79,7 @@
     <RelativeLayout
         android:id="@+id/boxLayout"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="120dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -145,7 +145,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Here is a title"
+        android:text="@string/home_title"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="#333333"
@@ -155,12 +155,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
+            android:layout_height="match_parent"
+            android:layout_below="@id/title">
     <!-- Cards -->
     <LinearLayout
         android:id="@+id/cardsLayout"
@@ -169,8 +165,6 @@
         android:orientation="vertical"
         android:layout_below="@id/title"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:paddingBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
@@ -185,7 +179,7 @@
                 android:id="@+id/card1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#e8fafe">
@@ -232,7 +226,7 @@
                 android:id="@+id/card2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#fce9f1">
@@ -277,6 +271,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <!-- Card 3 -->
@@ -284,7 +279,7 @@
                 android:id="@+id/card3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#FBFBEF">
@@ -329,7 +324,7 @@
                 android:id="@+id/card4"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#F0F8E6">
