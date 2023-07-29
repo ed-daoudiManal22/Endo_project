@@ -79,4 +79,15 @@
     <string name="Endo_reducess_answer">Maintenez des niveaux d\'oestrogène plus bas dans votre corps. Essayez : \n• Faire de l\'exercice régulièrement. \n• Maintenir un faible pourcentage de graisse corporelle. \n• Éviter de consommer de grandes quantités d\'alcool et de boissons contenant de la caféine.</string>
     <string name="Endo_health_prob_answer">Les excroissances d\'endométriose sont bénignes (non cancéreuses), mais elles peuvent quand même causer de nombreux problèmes. Les tissus et le sang qui sont rejetés dans le corps peuvent provoquer une inflammation, des adhérences et des douleurs. Lorsque le tissu endométrial se développe, il peut recouvrir ou se développer dans les ovaires et bloquer les trompes de Fallope. Le sang piégé dans les ovaires peut former des kystes et causer des inflammations et des cicatrices (adhérences) qui lient parfois les organes entre eux. Ces cicatrices peuvent causer des douleurs pelviennes et rendre difficile pour les femmes de tomber enceintes. Les excroissances peuvent également causer des problèmes dans les intestins et la vessie.</string>
     <string name="Endo_importance_answer">Les études montrent que les femmes atteintes d\'endométriose manquent l\'école, le travail et des événements sociaux. Ce problème de santé peut tendre les relations avec votre partenaire, vos amis, vos enfants et vos collègues. De plus, l\'endométriose peut rendre difficile pour une femme de tomber enceinte. Lorsque l\'endométriose cause des problèmes de fertilité, la chirurgie peut augmenter les chances de tomber enceinte.</string>
+
+    <string name="title_activity_drawer_actvity">DrawerActivity</string>
+    <string name="nav_header_title">Blog App</string>
+    <string name="nav_header_subtitle">youtube.com/artorean</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Publicar Blog</string>
+    <string name="menu_slideshow">Perfil</string>
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+
+
 </resources>

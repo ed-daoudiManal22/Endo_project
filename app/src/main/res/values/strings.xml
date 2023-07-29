@@ -79,4 +79,14 @@
     <string name="Endo_reducess_answer">Keep lower estrogen levels in your body.  Try: \n•Exercising regularly. \n•Keeping a low amount of body fat. \n•Avoiding large amounts of alcohol and drinks with caffeine</string>
     <string name="Endo_health_prob_answer">Growths of Endometriosis are benign (not cancerous), but they still can cause many problems. Tissue and blood that is shed into the body can cause inflammation, scar tissue, and pain. As endometrial tissue grows, it can cover or grow into the ovaries and block the fallopian tubes. Trapped blood in the ovaries can form cysts as well as cause inflammation scarring (adhesions) that sometimes bind organs together. This scar tissue may cause pelvic pain and make it difficult for women to get pregnant. The growths can also cause problems in the intestines and bladder.</string>
     <string name="Endo_importance_answer">Studies show that women with Endometriosis skip school, work, and social events. This health problem can strain relationships with your partner, friends, children, and co-workers. Plus, Endometriosis can make it difficult for a woman to get pregnant. When Endometriosis causes fertility problems, surgery can boost the chances of getting pregnant.</string>
+
+    <string name="title_activity_drawer_actvity">DrawerActvity</string>
+    <string name="nav_header_title">Blog App</string>
+    <string name="nav_header_subtitle">youtube.com/artorean</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Publish Blog</string>
+    <string name="menu_slideshow">Profile</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

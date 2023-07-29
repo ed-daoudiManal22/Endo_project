@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.Community.DrawerActivity;
 import com.example.myapplication.Diag_start;
 import com.example.myapplication.Endo_InfoActivity;
 import com.example.myapplication.LineChart_Activity;
@@ -69,7 +70,7 @@ public class HomeFragment extends Fragment {
         // Set click listeners for the cards
         card1.setOnClickListener(v -> startActivity(new Intent(requireContext(), Diag_start.class)));
 
-        card2.setOnClickListener(v -> startActivity(new Intent(requireContext(), Endo_InfoActivity.class)));
+        card2.setOnClickListener(v -> startActivity(new Intent(requireContext(), DrawerActivity.class)));
 
         card3.setOnClickListener(v -> startActivity(new Intent(requireContext(), LineChart_Activity.class)));
 
