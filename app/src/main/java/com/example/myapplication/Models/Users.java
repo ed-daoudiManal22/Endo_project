@@ -1,7 +1,7 @@
 package com.example.myapplication.Models;
 
 public class Users {
-    String UserId, name,email;
+    String UserId, name,email,imageUrl;
 
     public Users() {
     }
@@ -15,6 +15,21 @@ public class Users {
         UserId = userId;
         name = userName;
         this.email = email;
+    }
+
+    public Users(String userId, String name, String email, String imageUrl) {
+        UserId = userId;
+        this.name = name;
+        this.email = email;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getEmail() {

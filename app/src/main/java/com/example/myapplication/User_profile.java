@@ -35,7 +35,7 @@ public class User_profile extends AppCompatActivity {
         TextView userEmailTextView = findViewById(R.id.userEmail);
         ImageView backButton = findViewById(R.id.backButton);
         androidx.constraintlayout.widget.ConstraintLayout remindersLayout = findViewById(R.id.reminders);
-        androidx.constraintlayout.widget.ConstraintLayout takeTestLayout = findViewById(R.id.takeTest);
+        androidx.constraintlayout.widget.ConstraintLayout editProfileLayout = findViewById(R.id.editProfile);
         androidx.constraintlayout.widget.ConstraintLayout languageLayout = findViewById(R.id.language);
         androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
 
@@ -65,10 +65,10 @@ public class User_profile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        takeTestLayout.setOnClickListener(new View.OnClickListener() {
+        editProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, Diag_start.class);
+                Intent intent = new Intent(User_profile.this, EditProfile_Activity.class);
                 startActivity(intent);
             }
         });

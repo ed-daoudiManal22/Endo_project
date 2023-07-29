@@ -30,6 +30,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Nullable;
 
 public class GoogleLoginActivity extends AppCompatActivity {
@@ -37,8 +40,11 @@ public class GoogleLoginActivity extends AppCompatActivity {
     private SignInButton googleSignInButton;
     private GoogleSignInClient client;
     private FirebaseFirestore firestore;
+    private static final String DEFAULT_PROFILE_IMAGE_URL =
+            "https://firebasestorage.googleapis.com/v0/b/endo-project-1acae.appspot.com/o/profile_images%2Funknown_pic.jpg?alt=media&token=41f82f66-f50e-44d3-b020-07487bedeba7";
     FirebaseAuth auth;
     FirebaseDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,19 +96,20 @@ public class GoogleLoginActivity extends AppCompatActivity {
                             // Check if the user is signing in for the first time
                             if (authResult.getAdditionalUserInfo().isNewUser()) {
                                 // If it's the first time, create a new Users object and store the data
-                                Users user1 = new Users();
-                                user1.setUserId(user.getUid());
-                                user1.setName(user.getDisplayName());
-                                user1.setEmail(user.getEmail());
+                                Map<String, Object> newUser = new HashMap<>();
+                                newUser.put("name",user.getDisplayName());
+                                newUser.put("email",user.getEmail());
+                                newUser.put("imageUrl",DEFAULT_PROFILE_IMAGE_URL);
 
                                 // Save the user data in Firestore
-                                firestore.collection("Users").document(user.getUid()).set(user1)
+                                firestore.collection("Users").document(user.getUid()).set(newUser)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 // Proceed to the UserPage_Activity
                                                 Intent intent = new Intent(GoogleLoginActivity.this, HomeActivity.class);
                                                 startActivity(intent);
+                                                finish();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

@@ -37,6 +37,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private static final String DEFAULT_PROFILE_IMAGE_URL =
+            "https://firebasestorage.googleapis.com/v0/b/endo-project-1acae.appspot.com/o/profile_images%2Funknown_pic.jpg?alt=media&token=41f82f66-f50e-44d3-b020-07487bedeba7";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                     Map<String, Object> newUser = new HashMap<>();
                                                     newUser.put("name", name);
                                                     newUser.put("email", email);
+                                                    newUser.put("imageUrl", DEFAULT_PROFILE_IMAGE_URL);
 
                                                     // Add the user object to the "users" collection
                                                     db.collection("Users")

@@ -90,6 +90,7 @@
         <activity android:name=".Menstrual_cycle_Activity" />
 
         <activity android:name=".ReminderActivity" />
+        <activity android:name=".EditProfile_Activity"/>
 
         <activity android:name=".QuizResults" />
         <activity android:name=".Quiz_main" />
