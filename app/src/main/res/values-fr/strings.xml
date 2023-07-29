@@ -16,7 +16,7 @@
 
     <string name="home">Accueil</string>
     <string name="track">Suivi</string>
-    <string name="forum">Forum</string>
+    <string name="community">communauté</string>
 
     <string name="pain_evolution">Évolution de la douleur : </string>
     <string name="pain_average">Moyenne des douleurs</string>
@@ -61,6 +61,7 @@
     <string name="edit_profile">Modifier le profil</string>
     <string name="change_language">Changer de langue</string>
     <string name="share_app">Partager l\'application</string>
+    <string name="logout">Déconnecter</string>
 
     <string name="welcome_label">Commencez avec EndoAware</string>
 

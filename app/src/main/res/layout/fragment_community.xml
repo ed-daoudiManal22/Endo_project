@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Community.Fragments.Community">
+    tools:context=".Fragments.Community">
 
     <TextView
         android:id="@+id/textView3"
@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:text="Home"
+        android:text="@string/community"
         android:textColor="@color/black"
-        android:textSize="27sp" />
+        android:textSize="20sp" />
 
     <View
         android:id="@+id/view"
@@ -24,6 +24,16 @@
         android:layout_alignStart="@+id/textView3"
         android:background="@drawable/light_bg"
         android:backgroundTint="@color/dark_black" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_publish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:text="Publish"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchview"
@@ -51,5 +61,6 @@
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="14dp"
         tools:listitem="@layout/row" />
+
 
 </RelativeLayout>

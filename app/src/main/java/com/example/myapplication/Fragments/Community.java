@@ -1,6 +1,7 @@
-package com.example.myapplication.Community.Fragments;
+package com.example.myapplication.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.Community.Adapter;
 import com.example.myapplication.Community.Model;
+import com.example.myapplication.Community.PublishActivity;
 import com.example.myapplication.databinding.FragmentCommunityBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -50,6 +52,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setupRv();
         setusearchview();
+        setPublishButtonOnClick();
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -109,5 +112,14 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
     public void onDestroy() {
         super.onDestroy();
         binding=null;
+    }
+    private void setPublishButtonOnClick() {
+        binding.btnPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle button click, start the PublishActivity here
+                startActivity(new Intent(getActivity(), PublishActivity.class));
+            }
+        });
     }
 }

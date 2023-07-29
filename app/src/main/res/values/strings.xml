@@ -16,7 +16,7 @@
 
     <string name="home">Home</string>
     <string name="track">Track</string>
-    <string name="forum">Forum</string>
+    <string name="community">Community</string>
 
     <string name="pain_evolution">Pain evolution</string>
     <string name="pain_average">Pain Average : </string>
@@ -61,6 +61,7 @@
     <string name="edit_profile">Edit profile</string>
     <string name="change_language">Change language</string>
     <string name="share_app">Share app</string>
+    <string name="logout">Logout</string>
 
     <string name="welcome_label">Get Started with EndoAware</string>
 

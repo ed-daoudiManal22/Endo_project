@@ -89,8 +89,6 @@
 
         <activity android:name=".Menstrual_cycle_Activity" />
 
-        <activity android:name=".Forum_Activity" />
-
         <activity android:name=".ReminderActivity" />
 
         <activity android:name=".QuizResults" />
@@ -100,7 +98,7 @@
         <activity android:name="com.example.myapplication.NewsLibrary.ArticlesDetailActivity"/>
 
         <activity android:name=".Community.BlogDetail"/>
-        <activity android:name=".Community.DrawerActivity"/>
+        <activity android:name=".Community.PublishActivity"/>
 
     </application>
 

@@ -88,7 +88,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/forum"
+            android:id="@+id/community"
             android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -99,17 +99,17 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/forum_img"
+                android:id="@+id/community_img"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/settings"/>
             <TextView
-                android:id="@+id/forum_txt"
+                android:id="@+id/community_txt"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/forum"
+                android:text="@string/community"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:layout_marginStart="10dp"

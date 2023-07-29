@@ -10,9 +10,5 @@
             android:icon="@drawable/calendar"
             android:id="@+id/nav_publish"
             android:title="Publish Blog" />
-        <item
-            android:icon="@drawable/settings"
-            android:id="@+id/nav_profile"
-            android:title="Profile" />
     </group>
 </menu>
