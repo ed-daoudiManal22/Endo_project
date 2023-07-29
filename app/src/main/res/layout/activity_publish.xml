@@ -14,8 +14,9 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:text="Publish Blog"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="27sp" />
+            android:textSize="20sp" />
 
         <View
             android:id="@+id/view"
@@ -56,7 +57,7 @@
                     android:id="@+id/view2"
                     android:layout_width="wrap_content"
                     android:layout_height="170dp"
-                    android:background="@drawable/next_btn_pink" />
+                    android:background="@drawable/next_btn" />
 
                 <TextView
                     android:id="@+id/b_selectImage"
@@ -118,7 +119,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/light_bg"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/green"
                 android:gravity="center"
                 android:text="PUBLISH"
                 android:textColor="@color/white"

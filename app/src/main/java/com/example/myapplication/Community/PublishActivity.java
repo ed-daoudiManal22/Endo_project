@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.HomeActivity;
+import com.example.myapplication.User_profile;
 import com.example.myapplication.databinding.ActivityPublishBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -135,13 +137,14 @@ public class PublishActivity extends AppCompatActivity {
                                                                 if (task.isSuccessful()) {
                                                                     pd.dismiss();
                                                                     Toast.makeText(PublishActivity.this, "Post Uploaded!!!", Toast.LENGTH_SHORT).show();
-
-                                                                    binding.imgThumbnail.setVisibility(View.INVISIBLE);
+                                                                    Intent intent = new Intent(PublishActivity.this, HomeActivity.class);
+                                                                    startActivity(intent);
+                                                                    /*binding.imgThumbnail.setVisibility(View.INVISIBLE);
                                                                     binding.view2.setVisibility(View.VISIBLE);
                                                                     binding.bSelectImage.setVisibility(View.VISIBLE);
                                                                     binding.bTittle.setText("");
                                                                     binding.bDesc.setText("");
-                                                                    binding.bAuthor.setText("");
+                                                                    binding.bAuthor.setText("");*/
                                                                 }
                                                             }
                                                         });

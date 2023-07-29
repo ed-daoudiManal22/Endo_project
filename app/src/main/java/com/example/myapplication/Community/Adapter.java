@@ -1,6 +1,5 @@
 package com.example.myapplication.Community;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -25,9 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-
     ArrayList<Model> list;
 
     public Adapter(ArrayList<Model> list) {
@@ -89,6 +86,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                         author.setText(model.getAuthor());
 
                         TextView dialogbutton = u_dialog.findViewById(R.id.btn_publish);
+                        TextView cancelbutton = u_dialog.findViewById(R.id.btn_cancel);
                         dialogbutton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -116,12 +114,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                                     }
                                                 }
                                             });
-
                                 }
                             }
-
                         });
-
+                        cancelbutton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                u_dialog.dismiss();
+                            }
+                        });
                     }
                 });
                 builder.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
@@ -158,6 +160,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView date, title, share_count, author;
+        Dialog updateDialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
