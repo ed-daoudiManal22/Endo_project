@@ -1,53 +1,94 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/profile_image_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <!-- CardView to hold the profile image -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:src="@drawable/add_reminder_button"
-        android:scaleType="centerCrop" />
+        app:cardCornerRadius="20dp"
+        android:radius="50dp">
 
-    <Button
-        android:id="@+id/select_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:text="Select Image" />
+        <ImageView
+            android:id="@+id/profile_image_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/add_reminder_button"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center" />
 
-    <EditText
-        android:id="@+id/nameTxt"
+        <!-- "Select Image" Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/select_image_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="230dp"
+            android:text="+"
+            android:background="@drawable/rounded_button"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView for Name EditText -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Full Name" />
+        android:layout_marginVertical="16dp"
+        android:radius="8dp">
 
-    <EditText
-        android:id="@+id/emailTxt"
+        <EditText
+            android:id="@+id/nameTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView for Email EditText -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Email" />
+        android:layout_marginVertical="16dp"
+        android:radius="8dp">
 
-    <EditText
-        android:id="@+id/birthdayTxt"
+        <EditText
+            android:id="@+id/emailTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView for Birthday EditText -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Birthday Date"
-        android:inputType="date" />
+        android:layout_marginVertical="16dp"
+        android:radius="8dp">
 
-    <Button
+        <EditText
+            android:id="@+id/birthdayTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Birthday Date"
+            android:inputType="date" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Save Profile Button -->
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/save_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="Save Profile" />
+        android:background="@drawable/next_btn_pink"
+        android:text="Save Profile"
+        android:textColor="@color/pink"/>
 
 </LinearLayout>
