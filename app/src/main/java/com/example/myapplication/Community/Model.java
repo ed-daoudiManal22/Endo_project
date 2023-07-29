@@ -1,10 +1,10 @@
 package com.example.myapplication.Community;
 
 public class Model {
-    String tittle, desc, author, date, img, share_count,id,timestamp;
+    String title, desc, author, date, img, share_count,id,timestamp;
 
-    public Model(String tittle, String desc, String author, String date, String img, String share_count, String id, String timestamp) {
-        this.tittle = tittle;
+    public Model(String title, String desc, String author, String date, String img, String share_count, String id, String timestamp) {
+        this.title = title;
         this.desc = desc;
         this.author = author;
         this.date = date;
@@ -33,12 +33,12 @@ public class Model {
         this.id = id;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDesc() {

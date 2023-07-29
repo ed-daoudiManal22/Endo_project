@@ -10,20 +10,18 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.HomeActivity;
-import com.example.myapplication.User_profile;
 import com.example.myapplication.databinding.ActivityPublishBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +42,7 @@ public class PublishActivity extends AppCompatActivity {
 
     ActivityPublishBinding binding;
     Uri filepath;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,17 +89,14 @@ public class PublishActivity extends AppCompatActivity {
                             @Override
                             public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
                                 if (multiplePermissionsReport.areAllPermissionsGranted()) {
-                                    String title = binding.bTittle.getText().toString();
+                                    String title = binding.bTitle.getText().toString();
                                     String desc = binding.bDesc.getText().toString();
-                                    String author = binding.bAuthor.getText().toString();
 
                                     if (title.isEmpty()) {
-                                        binding.bTittle.setError("Field is Required!!");
+                                        binding.bTitle.setError("Field is Required!!");
                                     } else if (desc.isEmpty()) {
                                         binding.bDesc.setError("Field is Required!!");
-                                    } else if (author.isEmpty()) {
-                                        binding.bAuthor.setError("Field is Required!!");
-                                    } else if (filepath == null) {
+                                    }  else if (filepath == null) {
                                         Toast.makeText(PublishActivity.this, "Select an Image!!", Toast.LENGTH_SHORT).show();
                                     } else {
                                         ProgressDialog pd = new ProgressDialog(PublishActivity.this);
@@ -108,6 +104,11 @@ public class PublishActivity extends AppCompatActivity {
                                         pd.setMessage("Please wait for a while until we upload this data to our Firebase Storage and Firestore");
                                         pd.setCancelable(false);
                                         pd.show();
+
+                                        // Get the current user's username from Firebase Authentication
+                                        firebaseAuth = FirebaseAuth.getInstance();
+                                        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                                        String userName = currentUser.getDisplayName();
 
                                         FirebaseStorage storage = FirebaseStorage.getInstance();
                                         StorageReference reference = storage.getReference().child("images/" + filepath.getLastPathSegment() + ".jpg");
@@ -125,7 +126,7 @@ public class PublishActivity extends AppCompatActivity {
                                                         HashMap<String, String> map = new HashMap<>();
                                                         map.put("title", title);
                                                         map.put("desc", desc);
-                                                        map.put("author", author);
+                                                        map.put("author", userName);
                                                         map.put("date", final_date);
                                                         map.put("img", file_url);
                                                         map.put("timestamp", String.valueOf(System.currentTimeMillis()));
@@ -142,7 +143,7 @@ public class PublishActivity extends AppCompatActivity {
                                                                     /*binding.imgThumbnail.setVisibility(View.INVISIBLE);
                                                                     binding.view2.setVisibility(View.VISIBLE);
                                                                     binding.bSelectImage.setVisibility(View.VISIBLE);
-                                                                    binding.bTittle.setText("");
+                                                                    binding.bTitle.setText("");
                                                                     binding.bDesc.setText("");
                                                                     binding.bAuthor.setText("");*/
                                                                 }
