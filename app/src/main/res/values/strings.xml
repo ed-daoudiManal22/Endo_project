@@ -17,6 +17,9 @@
     <string name="home">Home</string>
     <string name="track">Track</string>
     <string name="community">Community</string>
+    <string name="Publish">Publish</string>
+    <string name="Publish_blog">Publish Blog</string>
+    <string name="select_img">Select an Image!!</string>
 
     <string name="pain_evolution">Pain evolution</string>
     <string name="pain_average">Pain Average : </string>

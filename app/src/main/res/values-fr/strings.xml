@@ -18,6 +18,10 @@
     <string name="track">Suivi</string>
     <string name="community">communauté</string>
 
+    <string name="Publish">Publier</string>
+    <string name="Publish_blog">Publiier une Blog</string>
+    <string name="select_img">Selectionner une Image!!</string>
+
     <string name="pain_evolution">Évolution de la douleur : </string>
     <string name="pain_average">Moyenne des douleurs</string>
     <string name="pain_locations">Localisation des douleurs</string>

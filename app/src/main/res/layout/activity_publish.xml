@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Select an Image!!"
+                    android:text="@string/select_img"
                     android:textColor="@color/black"
                     android:textSize="21sp" />
             </androidx.cardview.widget.CardView>
@@ -76,7 +76,7 @@
                 android:layout_margin="15dp"
                 android:background="@drawable/light_bg"
                 android:ems="10"
-                android:hint="Title"
+                android:hint="@string/title..."
                 android:inputType="textPersonName"
                 android:padding="15dp"
                 android:textColor="@color/black" />
@@ -91,7 +91,7 @@
                 android:background="@drawable/light_bg"
                 android:ems="10"
                 android:gravity="start"
-                android:hint="Description"
+                android:hint="Description..."
                 android:inputType="textPersonName"
                 android:minHeight="150dp"
                 android:padding="15dp"
@@ -107,7 +107,7 @@
                 android:background="@drawable/light_bg"
                 android:backgroundTint="@color/green"
                 android:gravity="center"
-                android:text="PUBLISH"
+                android:text="@string/Publish"
                 android:textColor="@color/white"
                 android:textSize="19sp" />
 
