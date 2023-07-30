@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.example.myapplication.Models.Test_Questions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -58,8 +60,8 @@ public class DiagTest_Activity extends AppCompatActivity {
     private static final int leftMargin = 50;
     private static final int topMargin = 50;
     private static final float lineSpacing = 12f;
-
-    // Initialize Firestore instance
+    private FirebaseUser currentUser;
+    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference questionsCollection = db.collection("Diagnostic_test");
 
@@ -242,6 +244,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
     private void generateReport() {
         int totalScore = 0;
+        String riskLevel;
 
         // Generate report with total score and user answers
         StringBuilder reportBuilder = new StringBuilder();
@@ -276,8 +279,21 @@ public class DiagTest_Activity extends AppCompatActivity {
 
             reportBuilder.append("\n");
         }
+        if (totalScore >= 0 && totalScore <= 5) {
+            riskLevel = "Low";
+        } else if (totalScore >= 6 && totalScore <= 10) {
+            riskLevel ="Medium";
+        } else {
+            riskLevel = "High";
+        }
+
         // Generate the PDF report
-        generatePdfReport(totalScore, reportBuilder.toString());
+        generatePdfReport(riskLevel, reportBuilder.toString());
+
+        //update user's risk level
+        currentUser = firebaseAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+        updateUserRiskLevelInFirestore(userId, riskLevel);
 
         String report = reportBuilder.toString();
 
@@ -290,7 +306,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         Button openReportButton = reportLayout.findViewById(R.id.openReportButton);
 
         // Set the score and report text
-        scoreTextView.setText("Score: " + totalScore);
+        scoreTextView.setText("Risk level : " + riskLevel);
         reportTextView.setText(report);
 
         // Display the report or save it to Firestore
@@ -342,7 +358,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         int progress = (currentQuestionIndex + 1) * 100 / totalQuestions;
         progressBar.setProgress(progress);
     }
-    private void generatePdfReport(int totalScore, String report) {
+    private void generatePdfReport(String riskLevel, String report) {
         // Create a new PdfDocument instance
         PdfDocument pdfDocument = new PdfDocument();
 
@@ -367,7 +383,7 @@ public class DiagTest_Activity extends AppCompatActivity {
             reportPaint.setTextSize(12f);
 
             // Draw the score text
-            canvas.drawText("Score: " + totalScore, leftMargin, topMargin, scorePaint);
+            canvas.drawText("Risk Level: " + riskLevel, leftMargin, topMargin, scorePaint);
 
             // Draw the report text
             float reportY = topMargin + scorePaint.descent() + lineSpacing;
@@ -396,6 +412,21 @@ public class DiagTest_Activity extends AppCompatActivity {
             // Close the PdfDocument
             pdfDocument.close();
         }
+    }
+    private void updateUserRiskLevelInFirestore(String userId, String riskLevel) {
+        // Update the "riskLevel" field in the user's document in Firestore
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("riskLevel", riskLevel);
+
+        db.collection("Users").document(userId)
+                .update(userData)
+                .addOnSuccessListener(aVoid -> {
+                    // Success, risk level updated in the user's document
+                })
+                .addOnFailureListener(e -> {
+                    // Failed to update the risk level
+                    // Handle the error here, show a toast message, etc.
+                });
     }
 
 }

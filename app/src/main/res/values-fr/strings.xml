@@ -40,6 +40,7 @@
 
     <string name="diagnostic_txt">Souffrez-vous de règles douloureuses ? \nRépondez à ce questionnaire pour évaluer votre risque d\'endométriose.</string>
     <string name="go">ALLER</string>
+    <string name="diag_result">Resultat du test</string>
 
     <string name="title...">Titre&#8230;</string>
 

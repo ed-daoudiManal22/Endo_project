@@ -39,6 +39,7 @@
 
     <string name="diagnostic_txt">Do you suffer from painful periods? \nTake this questionnaire to find out your risk for endometriosis.</string>
     <string name="go">GO</string>
+    <string name="diag_result">Test result</string>
 
     <string name="title...">Title&#8230;</string>
 

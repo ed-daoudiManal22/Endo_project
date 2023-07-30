@@ -23,6 +23,7 @@ import com.example.myapplication.ReminderActivity;
 import com.example.myapplication.User_profile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeFragment extends Fragment {
 
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment {
 
         // Initialize views
         currentUserText = view.findViewById(R.id.userName);
+        TextView scoreText = view.findViewById(R.id.scoreText);
         CardView card1 = view.findViewById(R.id.card1);
         CardView card2 = view.findViewById(R.id.card2);
         CardView card3 = view.findViewById(R.id.card3);
@@ -65,6 +67,8 @@ public class HomeFragment extends Fragment {
 
         // Set current user text
         currentUserText.setText(getCurrentUserName());
+        // Set the risk level in the scoreText TextView
+        setRiskLevelForCurrentUser(scoreText);
 
         // Set click listeners for the cards
         card1.setOnClickListener(v -> startActivity(new Intent(requireContext(), Diag_start.class)));
@@ -91,4 +95,33 @@ public class HomeFragment extends Fragment {
             return "Guest";
         }
     }
+    private void setRiskLevelForCurrentUser(TextView scoreText) {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            db.collection("Users").document(userId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String riskLevel = documentSnapshot.getString("riskLevel");
+                            if (riskLevel != null) {
+                                scoreText.setText(riskLevel);
+                            } else {
+                                scoreText.setText("No Risk Level");
+                            }
+                        } else {
+                            scoreText.setText("No Risk Level");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle failure
+                        scoreText.setText("Error: " + e.getMessage());
+                    });
+        } else {
+            scoreText.setText("No Risk Level (Guest)");
+        }
+    }
+
 }
