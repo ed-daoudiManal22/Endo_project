@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="100dp"
         android:id="@+id/card"
         android:layout_margin="15dp"
@@ -22,15 +22,15 @@
 
         <TextView
             android:id="@+id/t_date"
-            android:layout_width="65dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="15dp"
             android:layout_margin="10dp"
             android:background="@drawable/light_bg"
             android:backgroundTint="@color/light_white"
             android:gravity="center"
             android:text="12 OCT"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="9sp" />
     </androidx.cardview.widget.CardView>
 
 
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
-            android:text="AJAZ AHMED"
+            android:text="Author name"
             android:textColor="@color/dark_black"
             android:textSize="10sp" />
 
@@ -62,7 +62,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
             android:maxLines="3"
-            android:text="Master Your Skill With Fun And Learn Very Fundamentals..."
+            android:text="Title goes here..."
+            android:textColor="@color/dark_black"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginBottom="5dp"
+            android:maxLines="3"
+            android:text="Description goes here..."
             android:textColor="@color/dark_black"
             android:textSize="12sp" />
 

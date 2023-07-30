@@ -48,6 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Model model = list.get(position);
         holder.title.setText(model.getTitle());
         holder.date.setText(model.getDate());
+        holder.description.setText(model.getDesc());
         holder.share_count.setText(model.getShare_count());
         holder.author.setText(model.getAuthor());
 
@@ -154,7 +155,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
-        TextView date, title, share_count, author;
+        TextView date, title, share_count, author, description;
         Dialog updateDialog;
 
         public ViewHolder(@NonNull View itemView) {
@@ -163,6 +164,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             img = itemView.findViewById(R.id.imageView3);
             date = itemView.findViewById(R.id.t_date);
             title = itemView.findViewById(R.id.textView9);
+            description = itemView.findViewById(R.id.textViewDescription);
             share_count = itemView.findViewById(R.id.textView10);
             author = itemView.findViewById(R.id.textView8);
 

@@ -37,6 +37,7 @@ public class Quiz_Activity extends AppCompatActivity {
     private Timer quizTimer;
 
     private int totalTimeInMins = 1;
+    private boolean quizCompleted = false;
 
     private int seconds = 0;
 
@@ -224,50 +225,55 @@ public class Quiz_Activity extends AppCompatActivity {
         quizTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (seconds == 0)
-                {
-                    totalTimeInMins--;
-                    seconds = 59;
-                }
-                else if(seconds == 0 && totalTimeInMins == 0)
-                {
+                if (seconds == 0 && totalTimeInMins == 0) {
+                    // Timer finished, handle the end of the quiz here
                     quizTimer.purge();
                     quizTimer.cancel();
+                    quizCompleted = true;
 
-                    Toast.makeText(Quiz_Activity.this, "Time Over", Toast.LENGTH_SHORT).show();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            timerTextView.setText("00:00");
 
-                    Intent intent = new Intent(Quiz_Activity.this, QuizResults.class);
-                    intent.putExtra("correct", getCorrectAnswers());
-                    intent.putExtra("incorrect", getInCorrectAnswers());
-                    startActivity(intent);
+                            // Display a toast indicating time's up
+                            Toast.makeText(Quiz_Activity.this, "Time Over", Toast.LENGTH_SHORT).show();
 
-                    finish();
-                }
-                else
-                {
-                    seconds--;
-                }
+                            Intent intent = new Intent(Quiz_Activity.this, QuizResults.class);
+                            intent.putExtra("correct", getCorrectAnswers());
+                            intent.putExtra("incorrect", getInCorrectAnswers());
+                            startActivity(intent);
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-
-                        String finalMinutes = String.valueOf(totalTimeInMins);
-                        String finalSeconds = String.valueOf(seconds);
-
-                        if(finalMinutes.length() == 1)
-                        {
-                            finalMinutes = "0"+finalMinutes;
+                            finish();
                         }
-                        if (finalSeconds.length() == 1)
-                        {
-                            finalSeconds = "0"+finalSeconds;
-                        }
+                    });
+                } else {
+                    // Update the timer display
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String finalMinutes = String.valueOf(totalTimeInMins);
+                            String finalSeconds = String.valueOf(seconds);
 
-                        timerTextView.setText(finalMinutes +":"+finalSeconds);
+                            if (finalMinutes.length() == 1) {
+                                finalMinutes = "0" + finalMinutes;
+                            }
+                            if (finalSeconds.length() == 1) {
+                                finalSeconds = "0" + finalSeconds;
+                            }
+
+                            timerTextView.setText(finalMinutes + ":" + finalSeconds);
+                        }
+                    });
+
+                    // Decrement the timer
+                    if (seconds == 0) {
+                        totalTimeInMins--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
                     }
-                });
+                }
             }
         }, 1000, 1000);
     }
@@ -276,33 +282,34 @@ public class Quiz_Activity extends AppCompatActivity {
     {
         int correctAnswers = 0;
 
-        for (int i=0; i<questionsList.size(); i++)
-        {
-            final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
-            final String getAnswer = questionsList.get(i).getAnswer();
+        if (questionsList != null) {
+            for (int i = 0; i < questionsList.size(); i++) {
+                final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
+                final String getAnswer = questionsList.get(i).getAnswer();
 
-            if (getUserSelectedAnswer.equals(getAnswer))
-            {
-                correctAnswers++;
+                if (getUserSelectedAnswer != null && getUserSelectedAnswer.equals(getAnswer)) {
+                    correctAnswers++;
+                }
             }
         }
+
         return correctAnswers;
     }
 
     private int getInCorrectAnswers()
     {
         int incorrectAnswers = 0;
+        if (questionsList != null) {
+            for (int i = 0; i < questionsList.size(); i++) {
+                final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
+                final String getAnswer = questionsList.get(i).getAnswer();
 
-        for (int i=0; i<questionsList.size(); i++)
-        {
-            final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
-            final String getAnswer = questionsList.get(i).getAnswer();
-
-            if (!getUserSelectedAnswer.equals(getAnswer))
-            {
-                incorrectAnswers++;
+                if (getUserSelectedAnswer == null || !getUserSelectedAnswer.equals(getAnswer)) {
+                    incorrectAnswers++;
+                }
             }
         }
+
         return incorrectAnswers;
     }
 

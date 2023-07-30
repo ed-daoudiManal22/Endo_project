@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Authentification.Authentification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -38,6 +39,7 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout editProfileLayout = findViewById(R.id.editProfile);
         androidx.constraintlayout.widget.ConstraintLayout languageLayout = findViewById(R.id.language);
         androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
+        androidx.constraintlayout.widget.ConstraintLayout logoutLayout = findViewById(R.id.logout);
 
         // Initialize Firebase components
         firebaseAuth = FirebaseAuth.getInstance();
@@ -86,6 +88,15 @@ public class User_profile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Inside onCreate method after other click listeners
+        logoutLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Call the logout method when the logout layout is clicked
+                logoutUser();
+            }
+        });
+
     }
     // Method to fetch user data from Firestore
     private void fetchUserDataFromFirestore(String userId, TextView userNameTextView, TextView userEmailTextView) {
@@ -157,4 +168,16 @@ public class User_profile extends AppCompatActivity {
         // Restart the activity to apply the new language
         recreate();
     }
+
+    private void logoutUser() {
+        // Sign out the user from Firebase
+        firebaseAuth.signOut();
+        // Redirect the user to the login page or any other appropriate screen
+        Intent intent = new Intent(User_profile.this, Authentification.class);
+        // Add any flags if needed, for example, to clear the activity stack
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish(); // Finish the current activity so that the user cannot navigate back to it after logging out
+    }
+
 }
