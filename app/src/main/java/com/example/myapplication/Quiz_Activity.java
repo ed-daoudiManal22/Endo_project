@@ -222,6 +222,8 @@ public class Quiz_Activity extends AppCompatActivity {
     private void startTimer(TextView timerTextView)
     {
         quizTimer = new Timer();
+        totalTimeInMins = 2; // Set the total time to 2 minutes
+        seconds = 0;
         quizTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
