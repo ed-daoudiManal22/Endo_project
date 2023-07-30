@@ -74,5 +74,8 @@ dependencies {
     //Glide (For Loading Images)
     implementation 'com.github.bumptech.glide:glide:4.14.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.1'
+    //circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 }

@@ -76,7 +76,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:text="this blog post is created in android blog app created in 3 vidos of 1 series and you can find all the videos in the playlist section of our channel"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/black"
             android:textSize="18sp" />
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

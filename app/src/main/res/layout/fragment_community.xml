@@ -24,7 +24,7 @@
         android:layout_below="@id/textView3"
         android:layout_alignStart="@+id/textView3"
         android:background="@drawable/light_bg"
-        android:backgroundTint="@color/dark_black" />
+        android:backgroundTint="@color/black" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_publish"

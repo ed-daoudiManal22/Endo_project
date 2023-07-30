@@ -38,8 +38,7 @@ import java.util.Map;
 
 public class EditProfile_Activity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
-    private ImageView profileImageView;
-    private Button selectImageButton;
+    private ImageView profileImageView,selectImageButton;
     private EditText nameEditText;
     private EditText emailEditText;
     private EditText birthdayEditText;
@@ -57,8 +56,8 @@ public class EditProfile_Activity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         storageRef = FirebaseStorage.getInstance().getReference("profile_images");
 
-        profileImageView = findViewById(R.id.profile_image_view);
-        selectImageButton = findViewById(R.id.select_image_button);
+        profileImageView = findViewById(R.id.iv_profile_fragment);
+        selectImageButton = findViewById(R.id.btn_profile_image_change);
         nameEditText = findViewById(R.id.nameTxt);
         emailEditText = findViewById(R.id.emailTxt);
         birthdayEditText = findViewById(R.id.birthdayTxt);

@@ -25,7 +25,7 @@
             android:layout_below="@id/textView3"
             android:layout_alignStart="@+id/textView3"
             android:background="@drawable/light_bg"
-            android:backgroundTint="@color/dark_black" />
+            android:backgroundTint="@color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
