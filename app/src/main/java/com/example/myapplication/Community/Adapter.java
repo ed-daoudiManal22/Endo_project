@@ -49,7 +49,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.title.setText(model.getTitle());
         holder.date.setText(model.getDate());
         holder.description.setText(model.getDesc());
-        holder.share_count.setText(model.getShare_count());
+        holder.share_count.setText(model.getShare_count() + " Shared");
         holder.author.setText(model.getAuthor());
 
         Glide.with(holder.author.getContext()).load(model.getImg()).into(holder.img);
