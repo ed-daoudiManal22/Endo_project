@@ -65,8 +65,7 @@ public class HomeFragment extends Fragment {
         menuIcon = view.findViewById(R.id.menuIcon);
         notificationIcon = view.findViewById(R.id.notificationIcon);
 
-        // Set current user text
-        currentUserText.setText(getCurrentUserName());
+        getCurrentUserName();
         // Set the risk level in the scoreText TextView
         setRiskLevelForCurrentUser(scoreText);
 
@@ -86,15 +85,32 @@ public class HomeFragment extends Fragment {
         notificationIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), ReminderActivity.class)));
     }
 
-    private String getCurrentUserName() {
+    private void getCurrentUserName() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            String displayName = currentUser.getDisplayName();
-            return displayName != null ? displayName : "Guest";
+            String userId = currentUser.getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            db.collection("Users").document(userId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String name = documentSnapshot.getString("name");
+                            if (name != null && !name.isEmpty()) {
+                                // Use the retrieved name from Firestore
+                                currentUserText.setText("Hi "+name);
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle failure
+                        currentUserText.setText("Error: " + e.getMessage());
+                    });
         } else {
-            return "Guest";
+            currentUserText.setText("Guest");
         }
     }
+
     private void setRiskLevelForCurrentUser(TextView scoreText) {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
