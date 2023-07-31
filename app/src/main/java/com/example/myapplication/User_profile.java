@@ -143,8 +143,6 @@ public class User_profile extends AppCompatActivity {
                 return "en";
             case "French":
                 return "fr";
-            case "Arabic":
-                return "ar";
             default:
                 return null;
         }

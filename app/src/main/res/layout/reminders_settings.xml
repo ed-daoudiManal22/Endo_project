@@ -37,16 +37,6 @@
             android:textSize="18sp"
             android:padding="8dp" />
 
-
-        <!-- Right Icon -->
-        <ImageView
-            android:id="@+id/rightIcon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="end"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:src="@drawable/help" />
     </androidx.appcompat.widget.Toolbar>
 
     <!-- ScrollView -->

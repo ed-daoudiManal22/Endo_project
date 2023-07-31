@@ -204,8 +204,17 @@ public class DiagTest_Activity extends AppCompatActivity {
             int checkedRadioButtonId = optionsRadioGroup.getCheckedRadioButtonId();
             if (checkedRadioButtonId != -1) {
                 RadioButton selectedRadioButton = findViewById(checkedRadioButtonId);
-                String answer = selectedRadioButton.getText().toString();
-                userAnswers.put(questions.get(currentQuestionIndex).getText(), answer);
+                if (selectedRadioButton != null) {
+                    String answer = selectedRadioButton.getText().toString();
+                    userAnswers.put(questions.get(currentQuestionIndex).getText(), answer);
+                } else {
+                    // Handle the situation when no radio button is selected
+                    userAnswers.put(questions.get(currentQuestionIndex).getText(), "No answer selected");
+                }
+            }else {
+                // No radio button is selected, handle the situation accordingly
+                // In this example, you can add a default value, for instance:
+                userAnswers.put(questions.get(currentQuestionIndex).getText(), "No answer selected");
             }
         } else if (optionsLinearLayout.getVisibility() == View.VISIBLE) {
             List<String> selectedOptions = new ArrayList<>();
