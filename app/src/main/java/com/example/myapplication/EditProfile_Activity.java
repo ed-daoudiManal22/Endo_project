@@ -193,7 +193,7 @@ public class EditProfile_Activity extends AppCompatActivity {
             user.put("imageUrl", imageUrl);
         }
 
-        userRef.set(user)
+        userRef.update(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
