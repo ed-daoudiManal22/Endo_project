@@ -118,7 +118,7 @@ public class User_profile extends AppCompatActivity {
     }
     // Method to show the language selection dialog
     private void showLanguageSelectionDialog() {
-        final String[] languages = {"English", "French", "Arabic"};
+        final String[] languages = {"English", "French"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(User_profile.this);
         builder.setTitle("Choose a Language");
