@@ -69,7 +69,6 @@ public class SymptomsTrackFragment extends Fragment {
 
         // Initialize and populate the nested lists using the string arrays
         List<String> painLocationOptions = new ArrayList<>();
-        painLocationOptions.add("Nothing");
         painLocationOptions.add("Abdomen");
         painLocationOptions.add("Back");
         painLocationOptions.add("Chest");
@@ -78,7 +77,6 @@ public class SymptomsTrackFragment extends Fragment {
         painLocationOptions.add("Hips");
 
         List<String> symptomsOptions = new ArrayList<>();
-        symptomsOptions.add("Nothing");
         symptomsOptions.add("Cramps");
         symptomsOptions.add("Tender breasts");
         symptomsOptions.add("Headache");
@@ -88,7 +86,6 @@ public class SymptomsTrackFragment extends Fragment {
         symptomsOptions.add("Craving");
 
         List<String> painWorseOptions = new ArrayList<>();
-        painWorseOptions.add("Nothing");
         painWorseOptions.add("Lack of sleep");
         painWorseOptions.add("Sitting");
         painWorseOptions.add("Standing");
@@ -98,7 +95,6 @@ public class SymptomsTrackFragment extends Fragment {
         painWorseOptions.add("Urination");
 
         List<String> feelingOptions = new ArrayList<>();
-        feelingOptions.add("Nothing");
         feelingOptions.add("Anxious");
         feelingOptions.add("Depressed");
         feelingOptions.add("Dizzy");

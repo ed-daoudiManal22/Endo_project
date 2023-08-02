@@ -15,10 +15,16 @@ public class Questions {
         this.expandable = expandable;
     }
 
-    public Questions(int titleResId, int answerResId, Context context) {
+    /*public Questions(int titleResId, int answerResId, Context context) {
         this.title = context.getString(titleResId);
         this.answer = context.getString(answerResId);
         this.expandable = false;
+    }*/
+
+    public Questions(String title, String answer, boolean expandable) {
+        this.title = title;
+        this.answer = answer;
+        this.expandable = expandable;
     }
 
     public String getTitle() {

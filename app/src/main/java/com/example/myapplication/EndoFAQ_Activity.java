@@ -7,16 +7,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapters.QuestionAdapter;
 import com.example.myapplication.Models.Questions;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
 public class EndoFAQ_Activity extends AppCompatActivity {
@@ -64,14 +70,42 @@ public class EndoFAQ_Activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.endo_Questions);
 
         QuestionList = new ArrayList<>();
+        /*
         // Add resource IDs for questions from the strings.xml file to the QuestionList
         QuestionList.add(new Questions(R.string.Endometriosis, R.string.Endometriosis_answer, this));
         QuestionList.add(new Questions(R.string.Endo_Symptoms, R.string.Endo_Symptoms_answer, this));
         QuestionList.add(new Questions(R.string.Endo_riskFactors, R.string.Endo_riskFactors_answer, this));
         QuestionList.add(new Questions(R.string.Endo_reduces, R.string.Endo_reducess_answer, this));
         QuestionList.add(new Questions(R.string.Endo_importance, R.string.Endo_health_prob_answer, this));
-        QuestionList.add(new Questions(R.string.Endo_importance, R.string.Endo_importance_answer, this));
+        QuestionList.add(new Questions(R.string.Endo_importance, R.string.Endo_importance_answer, this));*/
 
+        // Reference to the Firestore collection
+        CollectionReference endoInfosCollection = firestore.collection("Endo_infos");
+        // Fetch the data from Firestore
+        endoInfosCollection.addSnapshotListener((queryDocumentSnapshots, e) -> {
+            if (e != null) {
+                Log.e("Firestore", "Error fetching data: " + e.getMessage());
+                return;
+            }
+
+            QuestionList.clear(); // Clear the existing list before adding new questions
+
+            // Iterate through the documents and extract question and answer data
+            for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                if (doc.exists()) {
+                    String question = doc.getString("title");
+                    String answer = doc.getString("answer");
+
+                    // Add the question to the QuestionList
+                    if (question != null && answer != null) {
+                        QuestionList.add(new Questions(question, answer,false));
+                    }
+                }
+            }
+
+            // Notify the adapter about the data change
+            questionAdapter.notifyDataSetChanged();
+        });
         questionAdapter = new QuestionAdapter(QuestionList);
 
         recyclerView.setAdapter(questionAdapter);
