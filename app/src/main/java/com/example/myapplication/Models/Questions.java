@@ -27,6 +27,7 @@ public class Questions {
         this.expandable = expandable;
     }
 
+
     public String getTitle() {
         return title;
     }

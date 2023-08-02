@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,19 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     @Override
     public void onBindViewHolder(@NonNull QuestionVH holder, int position) {
         Questions question = QuestionsList.get(position);
-        holder.titleTxt.setText(question.getTitle());
-        holder.answerTxt.setText(question.getAnswer());
+        Context context = holder.itemView.getContext();
+        //holder.titleTxt.setText(question.getTitle());
+        //holder.answerTxt.setText(question.getAnswer());
+        holder.titleTxt.setText(getResourceString(context,question.getTitle()));
+        holder.answerTxt.setText(getResourceString(context,question.getAnswer()));
+
 
         boolean isExpandable = QuestionsList.get(position).isExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+    }
+    private String getResourceString(Context context,String resourceName) {
+        int resId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+        return context.getString(resId);
     }
 
     @Override

@@ -80,7 +80,7 @@ public class EndoFAQ_Activity extends AppCompatActivity {
         QuestionList.add(new Questions(R.string.Endo_importance, R.string.Endo_importance_answer, this));*/
 
         // Reference to the Firestore collection
-        CollectionReference endoInfosCollection = firestore.collection("Endo_infos");
+        CollectionReference endoInfosCollection = firestore.collection("Endo_FAQ");
         // Fetch the data from Firestore
         endoInfosCollection.addSnapshotListener((queryDocumentSnapshots, e) -> {
             if (e != null) {
@@ -93,7 +93,7 @@ public class EndoFAQ_Activity extends AppCompatActivity {
             // Iterate through the documents and extract question and answer data
             for (DocumentSnapshot doc : queryDocumentSnapshots) {
                 if (doc.exists()) {
-                    String question = doc.getString("title");
+                    String question = doc.getString("question");
                     String answer = doc.getString("answer");
 
                     // Add the question to the QuestionList
