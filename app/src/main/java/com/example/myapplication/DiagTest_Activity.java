@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
@@ -27,6 +28,8 @@ import com.example.myapplication.Models.Test_Questions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.karumi.dexter.Dexter;
@@ -296,9 +299,6 @@ public class DiagTest_Activity extends AppCompatActivity {
             riskLevel = "High";
         }
 
-        // Generate the PDF report
-        generatePdfReport(riskLevel, reportBuilder.toString());
-
         //update user's risk level
         currentUser = firebaseAuth.getCurrentUser();
         String userId = currentUser.getUid();
@@ -317,6 +317,9 @@ public class DiagTest_Activity extends AppCompatActivity {
         // Set the score and report text
         scoreTextView.setText("Risk level : " + riskLevel);
         reportTextView.setText(report);
+
+        // Generate the PDF report
+        generatePdfReport(riskLevel, reportBuilder.toString(),userId);
 
         // Display the report or save it to Firestore
 
@@ -367,61 +370,110 @@ public class DiagTest_Activity extends AppCompatActivity {
         int progress = (currentQuestionIndex + 1) * 100 / totalQuestions;
         progressBar.setProgress(progress);
     }
-    private void generatePdfReport(String riskLevel, String report) {
+    private void generatePdfReport(String riskLevel, String report, String userId) {
         // Create a new PdfDocument instance
         PdfDocument pdfDocument = new PdfDocument();
 
-        try {
-            // Create a PageInfo for the PDF
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+        // Get a reference to the user's document in the "Users" collection
+        DocumentReference userRef = db.collection("Users").document(userId);
 
-            // Start a new page
-            PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        // Retrieve user data from Firestore
+        userRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if (documentSnapshot.exists()) {
+                    // User document exists, retrieve data
+                    String name = documentSnapshot.getString("name");
+                    String email = documentSnapshot.getString("email");
+                    String birthday = documentSnapshot.getString("birthday");
+                    String painAverage = documentSnapshot.getString("painAverage");
 
-            // Get the canvas for drawing
-            Canvas canvas = page.getCanvas();
+                    // Create a PageInfo for the PDF
+                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
 
-            // Create paint objects for styling
-            Paint scorePaint = new Paint();
-            scorePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-            scorePaint.setTextSize(18f);
-            scorePaint.setUnderlineText(true);
+                    try {
+                        // Start a new page
+                        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+
+                        Canvas canvas = page.getCanvas();
+                        Paint paint = new Paint();
+                        Paint titlePaint = new Paint();
+                        Paint scorePaint = new Paint();
+                        Paint reportPaint = new Paint();
+
+                        // Calculate the center of the page for the title
+                        float centerX = page.getInfo().getPageWidth() / 2;
+                        float titleY = 80;
+
+                        paint.setColor(Color.BLACK);
+                        paint.setTextSize(15);
+                        paint.setTypeface(Typeface.DEFAULT);
+
+                        titlePaint.setColor(Color.BLACK);
+                        titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                        titlePaint.setTextSize(18);
+
+                        scorePaint.setTextSize(15);
+                        scorePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                        reportPaint.setTextSize(12f);
 
 
-            Paint reportPaint = new Paint();
-            reportPaint.setTextSize(12f);
+                        // Add main title "Diagnostic Test Report"
+                        canvas.drawText("Diagnostic Test Report", centerX, titleY, titlePaint);
+                        // Add user information
+                        float userInfoY = titleY + 50;
+                        canvas.drawText("Name : " + name, 50, userInfoY , paint);
+                        canvas.drawText("Email : " + email, 50, userInfoY + 30, paint);
+                        canvas.drawText("Birthday : " + birthday, 50, userInfoY + 60, paint);
+                        canvas.drawText("Pain average : " + painAverage, 50, userInfoY + 90, paint);
 
-            // Draw the score text
-            canvas.drawText("Risk Level: " + riskLevel, leftMargin, topMargin, scorePaint);
+                        // Draw a divider line under the user information
+                        float dividerY = userInfoY + 120;
+                        canvas.drawLine(50, dividerY, page.getInfo().getPageWidth() - 50, dividerY, paint);
 
-            // Draw the report text
-            float reportY = topMargin + scorePaint.descent() + lineSpacing;
-            for (String line : report.split("\n")) {
-                canvas.drawText(line, leftMargin, reportY, reportPaint);
-                reportY += reportPaint.descent() - reportPaint.ascent() + lineSpacing;
+                        canvas.drawText("Risk Level : " + riskLevel, 50, dividerY + 30 , scorePaint);
+
+                        canvas.drawText("Test answers : ", 50, dividerY + 60 , paint);
+                        // Draw the report text
+                        float reportY = 340;
+                        for (String line : report.split("\n")) {
+                            canvas.drawText(line, leftMargin, reportY, reportPaint);
+                            reportY += reportPaint.descent() - reportPaint.ascent();
+                        }
+
+                        // Finish the page
+                        pdfDocument.finishPage(page);
+
+                        // Define the output file path
+                        String filePath = getExternalFilesDir(null) + "/report.pdf";
+
+                        // Create a file output stream
+                        FileOutputStream outputStream = new FileOutputStream(filePath);
+
+                        // Write the PDF document to the output stream
+                        pdfDocument.writeTo(outputStream);
+
+                        // Close the output stream
+                        outputStream.close();
+
+                        // Close the PdfDocument
+                        pdfDocument.close();
+
+                        // TODO: Add code to handle the generated PDF report (e.g., send it via email or display a notification)
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Handle the case when the user document does not exist
+                    Log.e("DiagTest_Activity", "User document not found.");
+                }
+            } else {
+                // Handle the case when fetching user information fails
+                Log.e("DiagTest_Activity", "Error fetching user data: " + task.getException());
             }
-
-            // Finish the page
-            pdfDocument.finishPage(page);
-
-            // Define the output file path
-            String filePath = getExternalFilesDir(null) + "/report.pdf";
-
-            // Create a file output stream
-            FileOutputStream outputStream = new FileOutputStream(filePath);
-
-            // Write the PDF document to the output stream
-            pdfDocument.writeTo(outputStream);
-
-            // Close the output stream
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            // Close the PdfDocument
-            pdfDocument.close();
-        }
+        });
     }
+
     private void updateUserRiskLevelInFirestore(String userId, String riskLevel) {
         // Update the "riskLevel" field in the user's document in Firestore
         Map<String, Object> userData = new HashMap<>();
