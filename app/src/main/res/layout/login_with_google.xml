@@ -82,15 +82,16 @@
         android:layout_marginTop="45dp" />
 
     <!-- Regular Login Button -->
-    <Button
+    <TextView
         android:id="@+id/regularLoginButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/orText"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:background="@drawable/third_btn"
         android:text="Login with E-mail"
-        android:textColor="#FFA7B5"
-        android:textSize="18sp" />
+        android:textColor="@color/pink"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

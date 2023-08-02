@@ -33,7 +33,6 @@ public class User_profile extends AppCompatActivity {
         setContentView(R.layout.user_profile);
 
         TextView userNameTextView = findViewById(R.id.userName);
-        TextView userEmailTextView = findViewById(R.id.userEmail);
         ImageView backButton = findViewById(R.id.backButton);
         androidx.constraintlayout.widget.ConstraintLayout remindersLayout = findViewById(R.id.reminders);
         androidx.constraintlayout.widget.ConstraintLayout editProfileLayout = findViewById(R.id.editProfile);
@@ -49,7 +48,7 @@ public class User_profile extends AppCompatActivity {
         currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             // Fetch additional user data from Firestore
-            fetchUserDataFromFirestore(currentUser.getUid(), userNameTextView, userEmailTextView);
+            fetchUserDataFromFirestore(currentUser.getUid(), userNameTextView);
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +98,7 @@ public class User_profile extends AppCompatActivity {
 
     }
     // Method to fetch user data from Firestore
-    private void fetchUserDataFromFirestore(String userId, TextView userNameTextView, TextView userEmailTextView) {
+    private void fetchUserDataFromFirestore(String userId, TextView userNameTextView) {
         DocumentReference userRef = firestore.collection("Users").document(userId);
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -111,7 +110,6 @@ public class User_profile extends AppCompatActivity {
 
                     // Set the user's name and email to the respective TextViews
                     userNameTextView.setText(userName);
-                    userEmailTextView.setText(userEmail);
                 }
             }
         });

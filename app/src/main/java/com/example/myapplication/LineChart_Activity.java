@@ -202,7 +202,7 @@ public class LineChart_Activity extends AppCompatActivity {
                     lineChart.getAxisLeft().setDrawGridLines(false);
                     lineChart.getAxisRight().setEnabled(false);
                     lineChart.invalidate();
-                    // end of graph implementation
+                    // end of graph implementation ------------------------------------------------------------
 
                     // Create a list to store all pain locations from all documents and to store pie chart entries (slices)
                     List<String> allPainLocations = new ArrayList<>();
@@ -237,7 +237,7 @@ public class LineChart_Activity extends AppCompatActivity {
                         pieEntries.add(new PieEntry(percentage, location));
                     }
                     // Create a dataset for the PieChart with the entries and customize it
-                    PieDataSet pieDataSet = new PieDataSet(pieEntries, "Pain Locations");
+                    PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
                     pieDataSet.setColors(pastelColors);
                     // ... Customize other dataset properties as needed
 
@@ -255,9 +255,253 @@ public class LineChart_Activity extends AppCompatActivity {
                     pieChart.setDrawEntryLabels(false); // Disable labels inside the slices
                     pieChart.setDrawHoleEnabled(false); // Disable the center hole
                     pieChart.invalidate();
-                    //end pain location Chart
+                    //pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE); // Show labels outside the pie slices
+                    //end pain location Chart --------------------------------------------------
 
-                    // Create a list to store all symptoms from all documents
+                    // Create a list to store all symptoms from all documents and to store pie chart entries (slices)
+                    List<String> allSymptoms = new ArrayList<>();
+                    List<PieEntry> pieEntriesSymptoms = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the symptoms array from the document
+                        Object symptomsObject = document.get("symptoms");
+
+                        if (symptomsObject instanceof List) {
+                            List<String> symptoms = (List<String>) symptomsObject;
+
+                            // Add all symptoms to the list
+                            if (symptoms != null) {
+                                allSymptoms.addAll(symptoms);
+                            }
+                        } else if (symptomsObject instanceof String) {
+                            // Handle the case when "symptoms" is a single String instead of a List
+                            String singleSymptom = (String) symptomsObject;
+                            allSymptoms.add(singleSymptom);
+                        }
+                    }
+
+
+                    // Calculate the occurrences of each symptom
+                    TreeMap<String, Integer> symptomOccurrences = new TreeMap<>();
+                    for (String symptom : allSymptoms) {
+                        symptomOccurrences.put(symptom, symptomOccurrences.getOrDefault(symptom, 0) + 1);
+                    }
+
+                    // Calculate the total number of symptoms
+                    int totalSymptoms = allSymptoms.size();
+
+                    // Set the symptoms and their percentages in the respective TextViews
+                    Set<String> uniqueSymptoms = new HashSet<>(allSymptoms);
+                    for (String symptom : uniqueSymptoms) {
+                        int occurrences = symptomOccurrences.get(symptom);
+                        float percentage = (occurrences * 100f) / totalSymptoms;
+
+                        // Add the PieEntry for each symptom and percentage
+                        pieEntriesSymptoms.add(new PieEntry(percentage, symptom));
+                    }
+                    // Create a dataset for the PieChart with the entries and customize it
+                    PieDataSet pieDataSetSymptoms = new PieDataSet(pieEntriesSymptoms, "");
+                    pieDataSetSymptoms.setColors(pastelColors);
+                    // ... Customize other dataset properties as needed
+
+                    // Create a PieData object with the dataset
+                    PieData pieDataSymptoms = new PieData(pieDataSetSymptoms);
+                    pieDataSymptoms.setValueTextSize(12f); // Adjust the text size of the values inside the slices
+
+                    // Get the PieChart view from the layout
+                    PieChart pieChartSymptoms = findViewById(R.id.pieChartsymptoms);
+
+                    // Set the PieData to the chart and refresh it
+                    pieChartSymptoms.setData(pieDataSymptoms);
+                    pieChartSymptoms.getDescription().setEnabled(false); // Disable the description
+                    pieChartSymptoms.setDrawEntryLabels(false); // Disable labels inside the slices
+                    pieChartSymptoms.setDrawHoleEnabled(false); // Disable the center hole
+                    pieChartSymptoms.invalidate();
+                    //end symptoms Chart --------------------------------------------------
+
+                    // Create a list to store all painWorse from all documents and to store pie chart entries (slices)
+                    List<String> allPainWorse = new ArrayList<>();
+                    List<PieEntry> pieEntriesPainWorse = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the painWorse array from the document
+                        Object painWorseObject = document.get("What Made Your Pain Worse?");
+
+                        if (painWorseObject instanceof List) {
+                            List<String> painWorse = (List<String>) painWorseObject;
+
+                            // Add all painWorse to the list
+                            if (painWorse != null) {
+                                allPainWorse.addAll(painWorse);
+                            }
+                        } else if (painWorseObject instanceof String) {
+                            // Handle the case when "painWorse" is a single String instead of a List
+                            String singlePainWorse = (String) painWorseObject;
+                            allPainWorse.add(singlePainWorse);
+                        }
+                    }
+
+                    // Calculate the occurrences of each painWorse
+                    TreeMap<String, Integer> painWorseOccurrences = new TreeMap<>();
+                    for (String painWorse : allPainWorse) {
+                        painWorseOccurrences.put(painWorse, painWorseOccurrences.getOrDefault(painWorse, 0) + 1);
+                    }
+
+                    // Calculate the total number of painWorse
+                    int totalPainWorse = allPainWorse.size();
+
+                    // Set the painWorse and their percentages in the respective TextViews
+                    Set<String> uniquePainWorse = new HashSet<>(allPainWorse);
+                    for (String painWorse : uniquePainWorse) {
+                        int occurrences = painWorseOccurrences.get(painWorse);
+                        float percentage = (occurrences * 100f) / totalPainWorse;
+
+                        // Add the PieEntry for each painWorse and percentage
+                        pieEntriesPainWorse.add(new PieEntry(percentage, painWorse));
+                    }
+                    // Create a dataset for the PieChart with the entries and customize it
+                    PieDataSet pieDataSetPainWorse = new PieDataSet(pieEntriesPainWorse, "");
+                    pieDataSetPainWorse.setColors(pastelColors);
+                    // ... Customize other dataset properties as needed
+
+                    // Create a PieData object with the dataset
+                    PieData pieDataPainWorse = new PieData(pieDataSetPainWorse);
+                    pieDataPainWorse.setValueTextSize(12f); // Adjust the text size of the values inside the slices
+                    // ... Customize other PieData properties as needed
+
+                    // Get the PieChart view from the layout
+                    PieChart pieChartPainWorse = findViewById(R.id.pieChartPainWorse);
+
+                    // Set the PieData to the chart and refresh it
+                    pieChartPainWorse.setData(pieDataPainWorse);
+                    pieChartPainWorse.getDescription().setEnabled(false); // Disable the description
+                    pieChartPainWorse.setDrawEntryLabels(false); // Disable labels inside the slices
+                    pieChartPainWorse.setDrawHoleEnabled(false); // Disable the center hole
+                    pieChartPainWorse.invalidate();
+                    //end painWorse Chart---------------------------------------------------
+
+                    // Create a list to store all feelings from all documents and to store pie chart entries (slices)
+                    List<String> allFeelings = new ArrayList<>();
+                    List<PieEntry> pieEntriesFeelings = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the feelings array from the document
+                        Object feelingsObject = document.get("How You Feel Today?");
+
+                        if (feelingsObject instanceof List) {
+                            List<String> feelings = (List<String>) feelingsObject;
+
+                            // Add all feelings to the list
+                            if (feelings != null) {
+                                allFeelings.addAll(feelings);
+                            }
+                        } else if (feelingsObject instanceof String) {
+                            // Handle the case when "feelings" is a single String instead of a List
+                            String singleFeeling = (String) feelingsObject;
+                            allFeelings.add(singleFeeling);
+                        }
+                    }
+
+                    // Calculate the occurrences of each feeling
+                    TreeMap<String, Integer> feelingOccurrences = new TreeMap<>();
+                    for (String feeling : allFeelings) {
+                        feelingOccurrences.put(feeling, feelingOccurrences.getOrDefault(feeling, 0) + 1);
+                    }
+
+                    // Calculate the total number of feelings
+                    int totalFeelings = allFeelings.size();
+
+                    // Set the feelings and their percentages in the respective TextViews
+                    Set<String> uniqueFeelings = new HashSet<>(allFeelings);
+                    for (String feeling : uniqueFeelings) {
+                        int occurrences = feelingOccurrences.get(feeling);
+                        float percentage = (occurrences * 100f) / totalFeelings;
+
+                        // Add the PieEntry for each feeling and percentage
+                        pieEntriesFeelings.add(new PieEntry(percentage, feeling));
+                    }
+                    // Create a dataset for the PieChart with the entries and customize it
+                    PieDataSet pieDataSetFeelings = new PieDataSet(pieEntriesFeelings, "");
+                    pieDataSetFeelings.setColors(pastelColors);
+                    // ... Customize other dataset properties as needed
+
+                    // Create a PieData object with the dataset
+                    PieData pieDataFeelings = new PieData(pieDataSetFeelings);
+                    pieDataFeelings.setValueTextSize(12f); // Adjust the text size of the values inside the slices
+                    // ... Customize other PieData properties as needed
+
+                    // Get the PieChart view from the layout
+                    PieChart pieChartFeelings = findViewById(R.id.pieChartFeelings);
+
+                    // Set the PieData to the chart and refresh it
+                    pieChartFeelings.setData(pieDataFeelings);
+                    pieChartFeelings.getDescription().setEnabled(false); // Disable the description
+                    pieChartFeelings.setDrawEntryLabels(false); // Disable labels inside the slices
+                    pieChartFeelings.setDrawHoleEnabled(false); // Disable the center hole
+                    pieChartFeelings.invalidate();
+                    //end feelings Chart---------------------------------------------------------
+
+                    // Create a list to store all medications from all documents and to store pie chart entries (slices)
+                    List<String> allMedications = new ArrayList<>();
+                    List<PieEntry> pieEntriesMedications = new ArrayList<>();
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        // Get the medications object from the document
+                        Object medicationsObject = document.get("What Medication Did You Try for Your Pain?");
+
+                        if (medicationsObject instanceof List) {
+                            List<String> medications = (List<String>) medicationsObject;
+
+                            // Add all medications to the list
+                            if (medications != null) {
+                                allMedications.addAll(medications);
+                            }
+                        } else if (medicationsObject instanceof String) {
+                            // Handle the case when "medicationsObject" is a single String instead of a List
+                            String singleMedication = (String) medicationsObject;
+                            allMedications.add(singleMedication);
+                        }
+                    }
+
+                    // Calculate the occurrences of each medication
+                    TreeMap<String, Integer> medicationOccurrences = new TreeMap<>();
+                    for (String medication : allMedications) {
+                        medicationOccurrences.put(medication, medicationOccurrences.getOrDefault(medication, 0) + 1);
+                    }
+
+                    // Calculate the total number of medications
+                    int totalMedications = allMedications.size();
+
+                    // Set the medications and their percentages in the respective TextViews
+                    Set<String> uniqueMedications = new HashSet<>(allMedications);
+                    for (String medication : uniqueMedications) {
+                        int occurrences = medicationOccurrences.get(medication);
+                        float percentage = (occurrences * 100f) / totalMedications;
+
+                        // Add the PieEntry for each medication and percentage
+                        pieEntriesMedications.add(new PieEntry(percentage, medication));
+                    }
+                    // Create a dataset for the PieChart with the entries and customize it
+                    PieDataSet pieDataSetMedications = new PieDataSet(pieEntriesMedications, "");
+                    pieDataSetMedications.setColors(pastelColors);
+
+                    // Create a PieData object with the dataset
+                    PieData pieDataMedications = new PieData(pieDataSetMedications);
+                    pieDataMedications.setValueTextSize(12f); // Adjust the text size of the values inside the slices
+                    // ... Customize other PieData properties as needed
+
+                    // Get the PieChart view from the layout
+                    PieChart pieChartMedications = findViewById(R.id.pieChartMedications);
+
+                    // Set the PieData to the chart and refresh it
+                    pieChartMedications.setData(pieDataMedications);
+                    pieChartMedications.getDescription().setEnabled(false); // Disable the description
+                    pieChartMedications.setDrawEntryLabels(false); // Disable labels inside the slices
+                    pieChartMedications.setDrawHoleEnabled(false); // Disable the center hole
+                    pieChartMedications.invalidate();
+                    //end medications Chart-------------------------------------------
+
+                    /*// Create a list to store all symptoms from all documents
                     List<String> allSymptoms = new ArrayList<>();
 
                     for (DocumentSnapshot document : task.getResult()) {
@@ -491,7 +735,7 @@ public class LineChart_Activity extends AppCompatActivity {
                         // Add the TextView to the LinearLayout
                         medicationLayout.addView(medicationTextView);
                     }
-                    //end medications percentage
+                    //end medications percentage*/
 
 
                 } else {

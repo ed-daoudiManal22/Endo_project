@@ -28,7 +28,7 @@
         android:layout_below="@id/appImage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
-        android:text="Sign Up for "
+        android:text="Sign up for "
         android:textColor="#333333"
         android:textSize="28sp"
         android:textStyle="bold" />
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appTitle"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/edittext_bg"
         android:hint="Enter your Name..."
         android:inputType="textPersonName"
@@ -125,34 +125,13 @@
         android:textColor="@color/white"
         android:textSize="18sp" />
 
-
-    <!-- Sign Up with Google Button -->
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signupWithGoogleButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signUpButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/second_btn"
-        android:drawableStart="@drawable/baseline_g_mobiledata_24"
-        android:drawablePadding="0dp"
-        android:padding="12dp"
-        android:paddingStart="12dp"
-        android:text="Sign up with Google"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
     <!-- Already have an account -->
 
     <TextView
         android:id="@+id/loginLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signupWithGoogleButton"
+        android:layout_below="@id/signUpButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:text="Already have an account? Log in"

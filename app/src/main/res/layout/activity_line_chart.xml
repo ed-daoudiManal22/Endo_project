@@ -102,14 +102,98 @@
             <!-- Add PieChart to display pain location percentages -->
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
-                android:layout_width="200dp"
+                android:layout_width="300dp"
                 android:layout_height="200dp"
                 android:layout_below="@id/painLocation"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <!-- Add CardView 1 -->
+            <TextView
+                android:id="@+id/symptomsTitle"
+                android:layout_width="400dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="Symptoms :"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChartsymptoms"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/painLocation"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/painWorseTitle"
+                android:layout_width="400dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="Pain Worsening Factors :"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChartPainWorse"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/painLocation"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/feelingsTitle"
+                android:layout_width="400dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="Feelings :"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChartFeelings"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/painLocation"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/medsTitle"
+                android:layout_width="400dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/medications"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChartMedications"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/painLocation"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Add CardView 1
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,8 +228,8 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-            <!-- Add CardView 2 -->
+            </androidx.cardview.widget.CardView>-->
+            <!-- Add CardView 2
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,8 +264,8 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-            <!-- Add CardView 3 -->
+            </androidx.cardview.widget.CardView>-->
+            <!-- Add CardView 3
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -216,8 +300,8 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-                <!-- Add CardView 4 -->
+            </androidx.cardview.widget.CardView>-->
+                <!-- Add CardView 4
             <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -250,7 +334,7 @@
                     android:layout_marginBottom="8dp">
                 </LinearLayout>
             </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
