@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.DataModel;
+import com.example.myapplication.Models.DataModel;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -20,8 +21,13 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private List<DataModel> mList;
+    private Context context;
 
     public ItemAdapter(List<DataModel> mList) {
+        this.mList = mList;
+    }
+    public ItemAdapter(Context context, List<DataModel> mList) {
+        this.context = context;
         this.mList = mList;
     }
 
@@ -34,7 +40,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         DataModel model = mList.get(position);
-        holder.mTextView.setText(model.getTitle());
+        holder.mTextView.setText(getResourceString(context,model.getTitle()));
 
         boolean isExpandable = model.isExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
@@ -58,6 +64,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });
+    }
+    private String getResourceString(Context context, String resourceName) {
+        int resId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+        if (resId != 0) {
+            return context.getString(resId);
+        } else {
+            // Return a default value if the resource is not found
+            return resourceName;
+        }
     }
 
 

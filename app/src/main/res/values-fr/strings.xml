@@ -14,6 +14,11 @@
     <string name="weight_data">Entrez votre poids en kg</string>
     <string name="height_data">Entrez votre taille en cm</string>
 
+    <string name="Low">Faible</string>
+    <string name="Medium">Moyen</string>
+    <string name="High">Élevé</string>
+    <string name="No_Risk">Vas-y</string>
+
     <string name="home">Accueil</string>
     <string name="track">Suivi</string>
     <string name="community">communauté</string>
@@ -94,6 +99,43 @@
     <string name="menu_gallery">Publicar Blog</string>
     <string name="menu_slideshow">Perfil</string>
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+
+    <!-- Pain Location Options -->
+    <string name="abdomen">Abdomen</string>
+    <string name="back">Dos</string>
+    <string name="chest">Poitrine</string>
+    <string name="head">Tête</string>
+    <string name="neck">Cou</string>
+    <string name="hips">Hanches</string>
+
+    <!-- Symptoms Options -->
+    <string name="cramps">Crampes</string>
+    <string name="tender_breasts">Seins sensibles</string>
+    <string name="headache">Mal de tête</string>
+    <string name="acne">Acné</string>
+    <string name="fatigue">Fatigue</string>
+    <string name="bloating">Ballonnements</string>
+    <string name="craving">Envie de manger</string>
+
+    <!-- Pain Worse Options -->
+    <string name="lack_of_sleep">Manque de sommeil</string>
+    <string name="sitting">Assis</string>
+    <string name="standing">Debout</string>
+    <string name="stress">Stress</string>
+    <string name="walking">Marche</string>
+    <string name="exercise">Exercice</string>
+    <string name="urination">Miction</string>
+
+    <!-- Feeling Options -->
+    <string name="anxious">Anxieux</string>
+    <string name="depressed">Déprimé</string>
+    <string name="dizzy">Étourdi</string>
+    <string name="vomiting">Vomissements</string>
+    <string name="diarrhea">Diarrhée</string>
+
+    <!-- Meds Options -->
+    <string name="nothing">Rien</string>
+
 
 
 </resources>

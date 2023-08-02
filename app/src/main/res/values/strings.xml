@@ -14,6 +14,11 @@
     <string name="weight_data">Enter your weight in kg </string>
     <string name="height_data">Enter your height in cm</string>
 
+    <string name="Low">Low</string>
+    <string name="Medium">Medium</string>
+    <string name="High">High</string>
+    <string name="No_Risk">Take it now</string>
+
     <string name="home">Home</string>
     <string name="track">Track</string>
     <string name="community">Community</string>
@@ -93,5 +98,41 @@
     <string name="menu_gallery">Publish Blog</string>
     <string name="menu_slideshow">Profile</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Pain Location Options -->
+    <string name="abdomen">Abdomen</string>
+    <string name="back">Back</string>
+    <string name="chest">Chest</string>
+    <string name="head">Head</string>
+    <string name="neck">Neck</string>
+    <string name="hips">Hips</string>
+
+    <!-- Symptoms Options -->
+    <string name="cramps">Cramps</string>
+    <string name="tender_breasts">Tender breasts</string>
+    <string name="headache">Headache</string>
+    <string name="acne">Acne</string>
+    <string name="fatigue">Fatigue</string>
+    <string name="bloating">Bloating</string>
+    <string name="craving">Craving</string>
+
+    <!-- Pain Worse Options -->
+    <string name="lack_of_sleep">Lack of sleep</string>
+    <string name="sitting">Sitting</string>
+    <string name="standing">Standing</string>
+    <string name="stress">Stress</string>
+    <string name="walking">Walking</string>
+    <string name="exercise">Exercise</string>
+    <string name="urination">Urination</string>
+
+    <!-- Feeling Options -->
+    <string name="anxious">Anxious</string>
+    <string name="depressed">Depressed</string>
+    <string name="dizzy">Dizzy</string>
+    <string name="vomiting">Vomiting</string>
+    <string name="diarrhea">Diarrhea</string>
+
+    <!-- Meds Options -->
+    <string name="nothing">Nothing</string>
 
 </resources>

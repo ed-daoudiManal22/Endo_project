@@ -744,4 +744,8 @@ public class LineChart_Activity extends AppCompatActivity {
             }
         });
     }
+    private String getResourceString(Context context,String resourceName) {
+        int resId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+        return context.getString(resId);
+    }
 }

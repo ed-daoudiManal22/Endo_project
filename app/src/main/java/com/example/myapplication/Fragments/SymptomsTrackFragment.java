@@ -17,12 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapters.ItemAdapter;
-import com.example.myapplication.DataModel;
+import com.example.myapplication.Models.DataModel;
 import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ReminderActivity;
-import com.example.myapplication.SymptomsTrack_Activity;
-import com.example.myapplication.UserPage_Activity;
 import com.example.myapplication.User_profile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -69,49 +67,49 @@ public class SymptomsTrackFragment extends Fragment {
 
         // Initialize and populate the nested lists using the string arrays
         List<String> painLocationOptions = new ArrayList<>();
-        painLocationOptions.add("Abdomen");
-        painLocationOptions.add("Back");
-        painLocationOptions.add("Chest");
-        painLocationOptions.add("Head");
-        painLocationOptions.add("Neck");
-        painLocationOptions.add("Hips");
+        painLocationOptions.add(getString(R.string.abdomen));
+        painLocationOptions.add(getString(R.string.back));
+        painLocationOptions.add(getString(R.string.chest));
+        painLocationOptions.add(getString(R.string.head));
+        painLocationOptions.add(getString(R.string.neck));
+        painLocationOptions.add(getString(R.string.hips));
 
         List<String> symptomsOptions = new ArrayList<>();
-        symptomsOptions.add("Cramps");
-        symptomsOptions.add("Tender breasts");
-        symptomsOptions.add("Headache");
-        symptomsOptions.add("Acne");
-        symptomsOptions.add("Fatigue");
-        symptomsOptions.add("Bloating");
-        symptomsOptions.add("Craving");
+        symptomsOptions.add(getString(R.string.cramps));
+        symptomsOptions.add(getString(R.string.tender_breasts));
+        symptomsOptions.add(getString(R.string.headache));
+        symptomsOptions.add(getString(R.string.acne));
+        symptomsOptions.add(getString(R.string.fatigue));
+        symptomsOptions.add(getString(R.string.bloating));
+        symptomsOptions.add(getString(R.string.craving));
 
         List<String> painWorseOptions = new ArrayList<>();
-        painWorseOptions.add("Lack of sleep");
-        painWorseOptions.add("Sitting");
-        painWorseOptions.add("Standing");
-        painWorseOptions.add("Stress");
-        painWorseOptions.add("Walking");
-        painWorseOptions.add("Exercise");
-        painWorseOptions.add("Urination");
+        painWorseOptions.add(getString(R.string.lack_of_sleep));
+        painWorseOptions.add(getString(R.string.sitting));
+        painWorseOptions.add(getString(R.string.standing));
+        painWorseOptions.add(getString(R.string.stress));
+        painWorseOptions.add(getString(R.string.walking));
+        painWorseOptions.add(getString(R.string.exercise));
+        painWorseOptions.add(getString(R.string.urination));
 
         List<String> feelingOptions = new ArrayList<>();
-        feelingOptions.add("Anxious");
-        feelingOptions.add("Depressed");
-        feelingOptions.add("Dizzy");
-        feelingOptions.add("Vomiting");
-        feelingOptions.add("Diarrhea");
+        feelingOptions.add(getString(R.string.anxious));
+        feelingOptions.add(getString(R.string.depressed));
+        feelingOptions.add(getString(R.string.dizzy));
+        feelingOptions.add(getString(R.string.vomiting));
+        feelingOptions.add(getString(R.string.diarrhea));
 
         List<String> medsOptions = new ArrayList<>();
-        medsOptions.add("Nothing");
+        medsOptions.add(getString(R.string.nothing));;
 
         // Add the populated nested lists to mList
-        mList.add(new DataModel(painLocationOptions, "pain Location"));
-        mList.add(new DataModel(symptomsOptions, "symptoms"));
-        mList.add(new DataModel(painWorseOptions, "What Made Your Pain Worse?"));
-        mList.add(new DataModel(feelingOptions, "How You Feel Today?"));
-        mList.add(new DataModel(medsOptions, "What Medication Did You Try for Your Pain?"));
+        mList.add(new DataModel(painLocationOptions, getString(R.string.pain_locations)));
+        mList.add(new DataModel(symptomsOptions, getString(R.string.symptoms)));
+        mList.add(new DataModel(painWorseOptions, getString(R.string.pain_worse_title)));
+        mList.add(new DataModel(feelingOptions, getString(R.string.feelings)));
+        mList.add(new DataModel(medsOptions, getString(R.string.medications)));
 
-        adapter = new ItemAdapter(mList);
+        adapter = new ItemAdapter(requireContext(),mList);
         recyclerView.setAdapter(adapter);
 
         TextView currentDateTextView =  rootView.findViewById(R.id.currentDateTextView);

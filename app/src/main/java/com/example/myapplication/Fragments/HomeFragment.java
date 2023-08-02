@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -123,12 +124,12 @@ public class HomeFragment extends Fragment {
                         if (documentSnapshot.exists()) {
                             String riskLevel = documentSnapshot.getString("riskLevel");
                             if (riskLevel != null) {
-                                scoreText.setText(riskLevel);
+                                scoreText.setText(getResourceString(requireContext(),riskLevel));
                             } else {
-                                scoreText.setText("No Risk Level");
+                                scoreText.setText(getResourceString(requireContext(),"No_Risk"));
                             }
                         } else {
-                            scoreText.setText("No Risk Level");
+                            scoreText.setText(getResourceString(requireContext(),"No_Risk"));
                         }
                     })
                     .addOnFailureListener(e -> {
@@ -138,6 +139,10 @@ public class HomeFragment extends Fragment {
         } else {
             scoreText.setText("No Risk Level (Guest)");
         }
+    }
+    private String getResourceString(Context context, String resourceName) {
+        int resId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+        return context.getString(resId);
     }
 
 }
