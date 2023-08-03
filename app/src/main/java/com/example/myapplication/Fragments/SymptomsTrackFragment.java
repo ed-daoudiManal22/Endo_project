@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +21,7 @@ import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ReminderActivity;
 import com.example.myapplication.User_profile;
+import com.google.android.material.slider.Slider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,12 +34,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 public class SymptomsTrackFragment extends Fragment {
-    private SeekBar painScoreSeekBar;
+    private Slider painScoreSlider;
     private RecyclerView recyclerView;
     private List<DataModel> mList;
     private ItemAdapter adapter;
     private ImageView leftIcon,notificationIcon ;
-    private Button submitButton, cancelButton;
+    private Button submitButton;
     private String currentUserUid;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
@@ -100,7 +100,7 @@ public class SymptomsTrackFragment extends Fragment {
         feelingOptions.add(getString(R.string.diarrhea));
 
         List<String> medsOptions = new ArrayList<>();
-        medsOptions.add(getString(R.string.nothing));;
+        medsOptions.add(getString(R.string.nothing));
 
         // Add the populated nested lists to mList
         mList.add(new DataModel(painLocationOptions, getString(R.string.pain_locations)));
@@ -124,7 +124,7 @@ public class SymptomsTrackFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         currentUserUid = firebaseAuth.getCurrentUser().getUid();
 
-        painScoreSeekBar =  rootView.findViewById(R.id.painscore);
+        painScoreSlider =  rootView.findViewById(R.id.painscore);
         submitButton =  rootView.findViewById(R.id.submitButton);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +152,7 @@ public class SymptomsTrackFragment extends Fragment {
         return rootView;
     }
     private void submitSymptoms() {
-        int painScore = painScoreSeekBar.getProgress();
+        float painScore = painScoreSlider.getValue();
 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
