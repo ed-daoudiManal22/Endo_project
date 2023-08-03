@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class logInActivity extends AppCompatActivity {
     private EditText emailInput;
@@ -47,10 +48,16 @@ public class logInActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Login successful, navigate to the main activity
-                                    Intent intent = new Intent(logInActivity.this, HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    if (user != null && user.isEmailVerified()) {
+                                        // Email is verified and login is successful
+                                        Intent intent = new Intent(logInActivity.this, HomeActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        // Email is not verified
+                                        Toast.makeText(logInActivity.this, "Please verify your email before logging in.", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     // Login failed, display an error message
                                     Toast.makeText(logInActivity.this, "Login failed. Please check your credentials.", Toast.LENGTH_SHORT).show();

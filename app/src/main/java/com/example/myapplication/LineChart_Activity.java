@@ -3,18 +3,14 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplication.Models.DateAxisValueFormatter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,7 +21,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,7 +64,7 @@ public class LineChart_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_line_chart);
 
         // Get the context of the activity
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -101,7 +96,6 @@ public class LineChart_Activity extends AppCompatActivity {
                 // Handle the click event, navigate to HelloActivity
                 Intent intent = new Intent(LineChart_Activity.this, ReminderActivity.class);
                 startActivity(intent);
-                finish(); // Optional: Close the current activity after navigating
             }
         });
 
@@ -233,18 +227,25 @@ public class LineChart_Activity extends AppCompatActivity {
                         int occurrences = painLocationOccurrences.get(location);
                         float percentage = (occurrences * 100f) / totalPainLocations;
 
-                        // Add the PieEntry for each pain location and percentage
-                        pieEntries.add(new PieEntry(percentage, location));
+                        int resourceId = context.getResources().getIdentifier(location, "string", getPackageName());
+                        String localizedLocation;
+                        if (resourceId != 0) {
+                            // Use the localized name from the strings.xml if it exists
+                            localizedLocation = context.getString(resourceId);
+                        } else {
+                            // Use the original location string if the resource name is not found
+                            localizedLocation = location;
+                        }
+                        // Add the PieEntry for each pain location and percentage with the localized name
+                        pieEntries.add(new PieEntry(percentage, localizedLocation));
                     }
                     // Create a dataset for the PieChart with the entries and customize it
                     PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
                     pieDataSet.setColors(pastelColors);
-                    // ... Customize other dataset properties as needed
 
                     // Create a PieData object with the dataset
                     PieData pieData = new PieData(pieDataSet);
                     pieData.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-                    // ... Customize other PieData properties as needed
 
                     // Get the PieChart view from the layout
                     PieChart pieChart = findViewById(R.id.pieChart);
@@ -255,7 +256,6 @@ public class LineChart_Activity extends AppCompatActivity {
                     pieChart.setDrawEntryLabels(false); // Disable labels inside the slices
                     pieChart.setDrawHoleEnabled(false); // Disable the center hole
                     pieChart.invalidate();
-                    //pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE); // Show labels outside the pie slices
                     //end pain location Chart --------------------------------------------------
 
                     // Create a list to store all symptoms from all documents and to store pie chart entries (slices)
@@ -280,7 +280,6 @@ public class LineChart_Activity extends AppCompatActivity {
                         }
                     }
 
-
                     // Calculate the occurrences of each symptom
                     TreeMap<String, Integer> symptomOccurrences = new TreeMap<>();
                     for (String symptom : allSymptoms) {
@@ -302,7 +301,6 @@ public class LineChart_Activity extends AppCompatActivity {
                     // Create a dataset for the PieChart with the entries and customize it
                     PieDataSet pieDataSetSymptoms = new PieDataSet(pieEntriesSymptoms, "");
                     pieDataSetSymptoms.setColors(pastelColors);
-                    // ... Customize other dataset properties as needed
 
                     // Create a PieData object with the dataset
                     PieData pieDataSymptoms = new PieData(pieDataSetSymptoms);
@@ -362,12 +360,10 @@ public class LineChart_Activity extends AppCompatActivity {
                     // Create a dataset for the PieChart with the entries and customize it
                     PieDataSet pieDataSetPainWorse = new PieDataSet(pieEntriesPainWorse, "");
                     pieDataSetPainWorse.setColors(pastelColors);
-                    // ... Customize other dataset properties as needed
 
                     // Create a PieData object with the dataset
                     PieData pieDataPainWorse = new PieData(pieDataSetPainWorse);
                     pieDataPainWorse.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-                    // ... Customize other PieData properties as needed
 
                     // Get the PieChart view from the layout
                     PieChart pieChartPainWorse = findViewById(R.id.pieChartPainWorse);
@@ -423,12 +419,10 @@ public class LineChart_Activity extends AppCompatActivity {
                     // Create a dataset for the PieChart with the entries and customize it
                     PieDataSet pieDataSetFeelings = new PieDataSet(pieEntriesFeelings, "");
                     pieDataSetFeelings.setColors(pastelColors);
-                    // ... Customize other dataset properties as needed
 
                     // Create a PieData object with the dataset
                     PieData pieDataFeelings = new PieData(pieDataSetFeelings);
                     pieDataFeelings.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-                    // ... Customize other PieData properties as needed
 
                     // Get the PieChart view from the layout
                     PieChart pieChartFeelings = findViewById(R.id.pieChartFeelings);
@@ -488,7 +482,6 @@ public class LineChart_Activity extends AppCompatActivity {
                     // Create a PieData object with the dataset
                     PieData pieDataMedications = new PieData(pieDataSetMedications);
                     pieDataMedications.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-                    // ... Customize other PieData properties as needed
 
                     // Get the PieChart view from the layout
                     PieChart pieChartMedications = findViewById(R.id.pieChartMedications);
@@ -736,16 +729,10 @@ public class LineChart_Activity extends AppCompatActivity {
                         medicationLayout.addView(medicationTextView);
                     }
                     //end medications percentage*/
-
-
                 } else {
                     Log.e("LineChart_Activity", "Error getting symptoms subcollection: ", task.getException());
                 }
             }
         });
-    }
-    private String getResourceString(Context context,String resourceName) {
-        int resId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
-        return context.getString(resId);
     }
 }

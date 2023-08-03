@@ -72,6 +72,7 @@
     <string name="change_language">Changer de langue</string>
     <string name="share_app">Partager l\'application</string>
     <string name="logout">Déconnecter</string>
+    <string name="deleteAccount">Supprimer mon compte</string>
 
     <string name="welcome_label">Commencez avec EndoAware</string>
 

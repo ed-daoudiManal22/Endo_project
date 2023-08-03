@@ -6,20 +6,34 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Authentification.Authentification;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Locale;
 
@@ -27,6 +41,7 @@ public class User_profile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
     private FirebaseUser currentUser;
+    private static final String TAG = "DeleteUserData";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +54,7 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout languageLayout = findViewById(R.id.language);
         androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
         androidx.constraintlayout.widget.ConstraintLayout logoutLayout = findViewById(R.id.logout);
+        androidx.constraintlayout.widget.ConstraintLayout deleteAccountLayout = findViewById(R.id.deleteAccount);
 
         // Initialize Firebase components
         firebaseAuth = FirebaseAuth.getInstance();
@@ -95,7 +111,14 @@ public class User_profile extends AppCompatActivity {
                 logoutUser();
             }
         });
-
+        // Inside onCreate method after other click listeners
+        deleteAccountLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Show the delete account dialog when the delete account layout is clicked
+                showDeleteAccountDialog();
+            }
+        });
     }
     // Method to fetch user data from Firestore
     private void fetchUserDataFromFirestore(String userId, TextView userNameTextView) {
@@ -164,7 +187,6 @@ public class User_profile extends AppCompatActivity {
         // Restart the activity to apply the new language
         recreate();
     }
-
     private void logoutUser() {
         // Sign out the user from Firebase
         firebaseAuth.signOut();
@@ -175,5 +197,120 @@ public class User_profile extends AppCompatActivity {
         startActivity(intent);
         finish(); // Finish the current activity so that the user cannot navigate back to it after logging out
     }
+    private void showDeleteAccountDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(User_profile.this);
+        builder.setTitle("Delete Account");
+        builder.setMessage("Are you sure you want to delete your account?");
 
+        // Inflate a custom layout for the dialog that contains the radio buttons
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_account, null);
+        RadioButton deleteDataRadioButton = view.findViewById(R.id.deleteDataRadioButton);
+        RadioButton keepDataRadioButton = view.findViewById(R.id.keepDataRadioButton);
+
+        builder.setView(view);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(dialogInterface -> {
+            // Disable the positive button initially until the user selects a radio button
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        });
+
+        // Set a click listener for the positive button
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", (dialogInterface, i) -> {
+            // Check which radio button is selected and perform the corresponding action
+            int selectedId = ((RadioGroup) view.findViewById(R.id.radioGroup)).getCheckedRadioButtonId();
+            if (selectedId == R.id.deleteDataRadioButton) {
+                // Call the method to delete the user's data from Firestore
+                deleteAccount();
+            } else if (selectedId == R.id.keepDataRadioButton) {
+                // Call the method to deactivate the user's account
+                keepAccountData();
+            } else {
+                // Handle the case when neither radio button is selected (optional)
+                Toast.makeText(User_profile.this, "Please select an option.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Set a click listener for the negative button (Cancel button)
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (dialogInterface, i) -> {
+            // Dismiss the dialog when the "Cancel" button is clicked
+            alertDialog.dismiss();
+        });
+
+        // Set a click listener for the radio buttons
+        deleteDataRadioButton.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            // Enable the positive button when the user selects a radio button
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(isChecked || keepDataRadioButton.isChecked());
+        });
+        keepDataRadioButton.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            // Enable the positive button when the user selects a radio button
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(isChecked || deleteDataRadioButton.isChecked());
+        });
+
+        alertDialog.show();
+    }
+
+
+    private void deleteAccount() {
+        if (currentUser != null) {
+            // Delete the user's account from Firebase Authentication
+            currentUser.delete().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Account deleted successfully from Firebase Authentication Now, delete the user's data from Firestore
+                    deleteUserData();
+                    // Call the logout method to sign out the user and redirect to the login page
+                    logoutUser();
+                    Toast.makeText(User_profile.this, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Failed to delete the account from Firebase Authentication
+                    Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void keepAccountData() {
+        if (currentUser != null) {
+            // Delete the user's account
+            currentUser.delete().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Call the logout method to sign out the user and redirect to the login page
+                    logoutUser();
+                    Toast.makeText(User_profile.this, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    private void deleteUserData(){
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        if (currentUser.getPhotoUrl() != null) {
+            StorageReference storageReference = firebaseStorage.getReferenceFromUrl(currentUser.getPhotoUrl().toString());
+            storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d(TAG,"Photos deleted");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,e.getMessage());
+                    Toast.makeText(User_profile.this,e.getMessage(),Toast.LENGTH_SHORT).show( );
+                }
+            });        }
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference.child(currentUser.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG,"User data deleted");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,e.getMessage());
+                Toast.makeText(User_profile.this,e.getMessage(),Toast.LENGTH_SHORT).show( );
+            }
+        });
+    }
 }
