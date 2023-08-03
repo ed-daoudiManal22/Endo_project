@@ -51,9 +51,24 @@
         android:layout_margin="24dp"
         android:layout_marginTop="42dp"
         android:layout_marginBottom="24dp"
+        android:paddingHorizontal="10dp"
         android:background="@drawable/next_btn_pink"
         android:layout_centerHorizontal="true"
         android:text="Resend Verification Email"
+        android:textColor="@color/pink" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resendEmailButton"
+        android:layout_margin="24dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="24dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/next_btn_pink"
+        android:layout_centerHorizontal="true"
+        android:text="Return to Login page b"
         android:textColor="@color/pink" />
 
 </RelativeLayout>

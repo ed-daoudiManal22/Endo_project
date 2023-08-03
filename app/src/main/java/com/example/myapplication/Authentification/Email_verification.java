@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Email_verification extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private Button resendEmailButton;
+    private Button resendEmailButton, loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class Email_verification extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         resendEmailButton = findViewById(R.id.resendEmailButton);
+        loginButton = findViewById(R.id.loginButton);
 
         resendEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,11 +37,14 @@ public class Email_verification extends AppCompatActivity {
             }
         });
 
-        // Check if the user is already verified
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null && currentUser.isEmailVerified()) {
-            goToUserAgeActivity();
-        }
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Email_verification.this, logInActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void sendVerificationEmail() {
@@ -58,11 +62,5 @@ public class Email_verification extends AppCompatActivity {
                         }
                     });
         }
-    }
-
-    private void goToUserAgeActivity() {
-        Intent intent = new Intent(Email_verification.this, UserAge_Activity.class);
-        startActivity(intent);
-        finish();
     }
 }
