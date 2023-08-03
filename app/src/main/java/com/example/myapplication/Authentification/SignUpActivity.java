@@ -107,7 +107,24 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // Check if the user's email is verified
+            if (currentUser.isEmailVerified()) {
+                // If email is verified, proceed to the main activity
+                Intent intent = new Intent(SignUpActivity.this, Email_verification.class);
+                startActivity(intent);
+                finish();
+            } else {
+                // If email is not verified, show a message and sign out the user
+                Toast.makeText(SignUpActivity.this, "Please verify your email before accessing the app.", Toast.LENGTH_LONG).show();
+                mAuth.signOut();
+            }
+        }
+    }
     private void signUpUser(String name, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -126,29 +143,42 @@ public class SignUpActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    // Create a user object with name and email
-                                                    Map<String, Object> newUser = new HashMap<>();
-                                                    newUser.put("name", name);
-                                                    newUser.put("email", email);
-                                                    newUser.put("imageUrl", DEFAULT_PROFILE_IMAGE_URL);
-
-                                                    // Add the user object to the "users" collection
-                                                    db.collection("Users")
-                                                            .document(user.getUid())
-                                                            .set(newUser)
+                                                    // Send email verification
+                                                    user.sendEmailVerification()
                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
-                                                                        Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
-                                                                        Intent intent = new Intent(SignUpActivity.this, UserAge_Activity.class);
-                                                                        startActivity(intent);
-                                                                        finish();
+                                                                        Toast.makeText(SignUpActivity.this, "Verification email sent. Please check your email to verify your account.", Toast.LENGTH_LONG).show();
+                                                                        // Create a user object with name and email
+                                                                        Map<String, Object> newUser = new HashMap<>();
+                                                                        newUser.put("name", name);
+                                                                        newUser.put("email", email);
+                                                                        newUser.put("imageUrl", DEFAULT_PROFILE_IMAGE_URL);
+
+                                                                        // Add the user object to the "users" collection
+                                                                        db.collection("Users")
+                                                                                .document(user.getUid())
+                                                                                .set(newUser)
+                                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                                        if (task.isSuccessful()) {
+                                                                                            Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                                                                            Intent intent = new Intent(SignUpActivity.this, Email_verification.class);
+                                                                                            startActivity(intent);
+                                                                                            finish();
+                                                                                        } else {
+                                                                                            Toast.makeText(SignUpActivity.this, "Failed to register user in Firestore", Toast.LENGTH_SHORT).show();
+                                                                                        }
+                                                                                    }
+                                                                                });
                                                                     } else {
-                                                                        Toast.makeText(SignUpActivity.this, "Failed to register user in Firestore", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
                                                             });
+
                                                 } else {
                                                     Toast.makeText(SignUpActivity.this, "Failed to update user profile", Toast.LENGTH_SHORT).show();
                                                 }

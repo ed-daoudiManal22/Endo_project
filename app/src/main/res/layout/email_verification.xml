@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context=".Authentification.Email_verification">
+
+    <ImageButton
+        android:id="@+id/circularButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/circle_button"
+        android:scaleType="centerInside"
+        android:src="@drawable/calendar"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <!-- Page Title -->
+    <TextView
+        android:id="@+id/pagetitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circularButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:gravity="center_horizontal"
+        android:text="Verify Your Email"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/pagetxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please check your email for a verification link. Click the link to verify your account."
+        android:layout_gravity="center"
+        android:layout_below="@+id/pagetitle"
+        android:layout_margin="24dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/resendEmailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pagetxt"
+        android:layout_margin="24dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/next_btn_pink"
+        android:layout_centerHorizontal="true"
+        android:text="Resend Verification Email"
+        android:textColor="@color/pink" />
+
+</RelativeLayout>

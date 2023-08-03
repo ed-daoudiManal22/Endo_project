@@ -65,6 +65,11 @@
             android:label="Forgot Password" />
 
         <activity
+            android:name=".Authentification.Email_verification"
+            android:exported="true">
+        </activity>
+
+        <activity
             android:name=".HomeActivity"
             android:configChanges="locale|orientation|screenSize"/>
 
