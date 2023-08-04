@@ -32,9 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
 import java.util.Locale;
 
 public class User_profile extends AppCompatActivity {
@@ -256,11 +258,32 @@ public class User_profile extends AppCompatActivity {
             // Delete the user's account from Firebase Authentication
             currentUser.delete().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    // Account deleted successfully from Firebase Authentication Now, delete the user's data from Firestore
-                    deleteUserData();
-                    // Call the logout method to sign out the user and redirect to the login page
-                    logoutUser();
-                    Toast.makeText(User_profile.this, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
+                    // Account deleted successfully from Firebase Authentication
+                    // Now, delete the user's data from Firestore
+                    DocumentReference userRef = firestore.collection("Users").document(currentUser.getUid());
+                    userRef.collection("subcollection_name")
+                            .get()
+                            .addOnCompleteListener(subcollectionTask -> {
+                                if (subcollectionTask.isSuccessful()) {
+                                    List<DocumentSnapshot> documents = subcollectionTask.getResult().getDocuments();
+                                    for (DocumentSnapshot document : documents) {
+                                        document.getReference().delete();
+                                    }
+                                    // Once all subcollections are deleted, delete the user's document
+                                    userRef.delete()
+                                            .addOnSuccessListener(aVoid -> {
+                                                logoutUser();
+                                                Toast.makeText(User_profile.this, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
+                                            });
+                                } else {
+                                    // Failed to fetch subcollections
+                                    // Handle the error if needed
+                                    Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
                     // Failed to delete the account from Firebase Authentication
                     Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
@@ -268,6 +291,7 @@ public class User_profile extends AppCompatActivity {
             });
         }
     }
+
 
     private void keepAccountData() {
         if (currentUser != null) {
@@ -282,35 +306,5 @@ public class User_profile extends AppCompatActivity {
                 }
             });
         }
-    }
-    private void deleteUserData(){
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        if (currentUser.getPhotoUrl() != null) {
-            StorageReference storageReference = firebaseStorage.getReferenceFromUrl(currentUser.getPhotoUrl().toString());
-            storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d(TAG,"Photos deleted");
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG,e.getMessage());
-                    Toast.makeText(User_profile.this,e.getMessage(),Toast.LENGTH_SHORT).show( );
-                }
-            });        }
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        databaseReference.child(currentUser.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG,"User data deleted");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,e.getMessage());
-                Toast.makeText(User_profile.this,e.getMessage(),Toast.LENGTH_SHORT).show( );
-            }
-        });
     }
 }
