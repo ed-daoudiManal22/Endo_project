@@ -84,12 +84,9 @@
         <activity android:name=".DiagTest_Activity" />
 
         <activity android:name=".BasicUsersInfos.UserAge_Activity" />
-        <activity android:name=".BasicUsersInfos.AvrageCycle_activity" />
         <activity android:name=".BasicUsersInfos.LastPeriod_Activity" />
-        <activity android:name=".BasicUsersInfos.BirthControl_Activity" />
         <activity android:name=".BasicUsersInfos.Choices_Activity" />
 
-        <activity android:name=".SymptomsTrack_Activity" />
         <activity android:name=".LineChart_Activity" />
 
         <activity android:name=".EventCalendar_Activity" />
