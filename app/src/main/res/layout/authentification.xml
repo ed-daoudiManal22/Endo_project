@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:text="EndoAware"
             android:textSize="30sp"
-            android:textStyle="italic"
-            android:textColor="#FFA7B5" />
+            android:textStyle="bold"
+            android:textColor="#FF5B74" />
 
     </LinearLayout>
 
@@ -54,8 +54,9 @@
         android:layout_below="@id/appTitleContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log in to your account"
-        android:textSize="26sp"
+        android:text="LOGIN TO YOUR ACCOUNT"
+        android:textSize="16sp"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
