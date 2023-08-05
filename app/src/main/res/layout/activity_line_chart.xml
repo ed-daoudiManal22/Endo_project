@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     tools:context=".MainActivity">
 
     <!-- Toolbar -->
@@ -40,16 +41,16 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_toEndOf="@id/leftIcon"
-                android:layout_toStartOf="@+id/notificationIcon"
+                android:layout_toStartOf="@+id/shareIcon"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp" />
 
             <ImageView
-                android:id="@+id/notificationIcon"
+                android:id="@+id/shareIcon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/notificationsicon"
+                android:src="@drawable/btn_5"
                 android:contentDescription="Notification Icon"
                 android:padding="8dp"
                 android:layout_alignParentEnd="true"
@@ -58,6 +59,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
@@ -109,91 +111,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <TextView
-                android:id="@+id/symptomsTitle"
-                android:layout_width="400dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="Symptoms :"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChartsymptoms"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:layout_below="@id/painLocation"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
-                android:id="@+id/painWorseTitle"
-                android:layout_width="400dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="Pain Worsening Factors :"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChartPainWorse"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:layout_below="@id/painLocation"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
-                android:id="@+id/feelingsTitle"
-                android:layout_width="400dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="Feelings :"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChartFeelings"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:layout_below="@id/painLocation"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
-                android:id="@+id/medsTitle"
-                android:layout_width="400dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/medications"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChartMedications"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:layout_below="@id/painLocation"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="10dp"/>
-
-            <!-- Add CardView 1
+            <!-- Add CardView 1-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -228,8 +146,8 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>-->
-            <!-- Add CardView 2
+            </androidx.cardview.widget.CardView>
+            <!-- Add CardView 2-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -264,8 +182,8 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>-->
-            <!-- Add CardView 3
+            </androidx.cardview.widget.CardView>
+            <!-- Add CardView 3 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -300,8 +218,8 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>-->
-                <!-- Add CardView 4
+            </androidx.cardview.widget.CardView>
+                <!-- Add CardView 4 -->
             <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -334,7 +252,19 @@
                     android:layout_marginBottom="8dp">
                 </LinearLayout>
             </LinearLayout>
-            </androidx.cardview.widget.CardView>-->
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Download"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginVertical="20dp"
+                android:padding="8dp"
+                android:background="@drawable/add_reminder_button"/>
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
