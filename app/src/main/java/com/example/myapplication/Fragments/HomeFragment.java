@@ -126,10 +126,10 @@ public class HomeFragment extends Fragment {
                             if (riskLevel != null) {
                                 scoreText.setText(getResourceString(requireContext(),riskLevel));
                             } else {
-                                scoreText.setText(getResourceString(requireContext(),"No_Risk"));
+                                scoreText.setText(getResourceString(requireContext(),"Ready"));
                             }
                         } else {
-                            scoreText.setText(getResourceString(requireContext(),"No_Risk"));
+                            scoreText.setText(getResourceString(requireContext(),"Ready"));
                         }
                     })
                     .addOnFailureListener(e -> {
