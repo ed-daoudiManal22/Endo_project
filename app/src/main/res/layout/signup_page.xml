@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:text="EndoAware"
         android:textSize="30sp"
-        android:textStyle="italic"
-        android:textColor="#FFA7B5"
+        android:textStyle="bold"
+        android:textColor="#FF5B74"
         android:layout_below="@id/appTitle"
         android:layout_alignStart="@id/appTitle"/>
 
@@ -135,7 +135,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:text="Already have an account? Log in"
-        android:textColor="#FFA7B5"
+        android:textColor="#FF5B74"
         android:textSize="16sp"
         android:textStyle="bold" />
 
