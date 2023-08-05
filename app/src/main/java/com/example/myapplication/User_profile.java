@@ -57,6 +57,7 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
         androidx.constraintlayout.widget.ConstraintLayout logoutLayout = findViewById(R.id.logout);
         androidx.constraintlayout.widget.ConstraintLayout deleteAccountLayout = findViewById(R.id.deleteAccount);
+        androidx.constraintlayout.widget.ConstraintLayout CalendarLayout = findViewById(R.id.calendar);
 
         // Initialize Firebase components
         firebaseAuth = FirebaseAuth.getInstance();
@@ -119,6 +120,13 @@ public class User_profile extends AppCompatActivity {
             public void onClick(View view) {
                 // Show the delete account dialog when the delete account layout is clicked
                 showDeleteAccountDialog();
+            }
+        });
+        CalendarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(User_profile.this, EventCalendar_Activity.class);
+                startActivity(intent);
             }
         });
     }

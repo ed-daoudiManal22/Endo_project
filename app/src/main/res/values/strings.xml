@@ -72,6 +72,8 @@
     <string name="share_app">Share app</string>
     <string name="logout">Logout</string>
     <string name="deleteAccount">Delete Account</string>
+    <string name="Caneldar">Caneldar</string>
+
 
     <string name="welcome_label">Get Started with EndoAware</string>
 

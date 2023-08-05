@@ -41,7 +41,6 @@ public class Menstrual_cycle_Activity extends AppCompatActivity{
         userId = mAuth.getCurrentUser().getUid();
 
         // Initialize RecyclerView
-        periodRecyclerView = findViewById(R.id.periodRecyclerView);
         periodDayList = new ArrayList<>();
         periodAdapter = new PeriodAdapter(periodDayList);
         periodRecyclerView.setLayoutManager(new LinearLayoutManager(this));

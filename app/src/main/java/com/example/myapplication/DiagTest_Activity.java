@@ -345,6 +345,9 @@ public class DiagTest_Activity extends AppCompatActivity {
                                     intent.setDataAndType(uri, "application/pdf");
                                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                     startActivity(intent);
+                                } else {
+                                    // Handle the case when the PDF file does not exist
+                                    Toast.makeText(DiagTest_Activity.this, "PDF file not found!", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -395,6 +398,8 @@ public class DiagTest_Activity extends AppCompatActivity {
                         // Start a new page
                         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
 
+                        int linesPerPage = 25;
+
                         Canvas canvas = page.getCanvas();
                         Paint paint = new Paint();
                         Paint titlePaint = new Paint();
@@ -402,8 +407,9 @@ public class DiagTest_Activity extends AppCompatActivity {
                         Paint reportPaint = new Paint();
 
                         // Calculate the center of the page for the title
-                        float centerX = page.getInfo().getPageWidth() / 2;
+                        float centerX = canvas.getWidth() / 2;
                         float titleY = 80;
+                        float titleWidth = titlePaint.measureText("Diagnostic Test Report");
 
                         paint.setColor(Color.BLACK);
                         paint.setTextSize(15);
@@ -419,7 +425,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
 
                         // Add main title "Diagnostic Test Report"
-                        canvas.drawText("Diagnostic Test Report", centerX, titleY, titlePaint);
+                        canvas.drawText("Diagnostic Test Report", centerX - titleWidth / 2, titleY, titlePaint);
                         // Add user information
                         float userInfoY = titleY + 50;
                         canvas.drawText("Name : " + name, 50, userInfoY , paint);
@@ -434,15 +440,23 @@ public class DiagTest_Activity extends AppCompatActivity {
                         canvas.drawText("Risk Level : " + riskLevel, 50, dividerY + 30 , scorePaint);
 
                         canvas.drawText("Test answers : ", 50, dividerY + 60 , paint);
-                        // Draw the report text
-                        float reportY = 340;
-                        for (String line : report.split("\n")) {
-                            canvas.drawText(line, leftMargin, reportY, reportPaint);
-                            reportY += reportPaint.descent() - reportPaint.ascent();
-                        }
 
-                        // Finish the page
+                        // Draw the first 8 questions
+                        drawContent(canvas, page, questions, 0, 7, paint, reportPaint);
+
+                        // Finish the first page
                         pdfDocument.finishPage(page);
+
+                        // Create a PageInfo for the second page of the PDF
+                        PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 2).create();
+                        PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
+                        Canvas canvas2 = page2.getCanvas();
+
+                        // Draw the rest of the questions (from 9 to the end)
+                        drawContent(canvas2, page2, questions, 8, questions.size() - 1, paint, reportPaint);
+
+                        // Finish the second page
+                        pdfDocument.finishPage(page2);
 
                         // Define the output file path
                         String filePath = getExternalFilesDir(null) + "/report.pdf";
@@ -488,6 +502,25 @@ public class DiagTest_Activity extends AppCompatActivity {
                     // Failed to update the risk level
                     // Handle the error here, show a toast message, etc.
                 });
+    }
+    // Add a new method to draw content for a single page
+    private void drawContent(Canvas canvas, PdfDocument.Page page, List<Test_Questions> questions, int startIndex, int endIndex, Paint paint, Paint reportPaint) {
+        float reportY = 340;
+        for (int i = startIndex; i <= endIndex; i++) {
+            Test_Questions question = questions.get(i);
+            Object userAnswer = userAnswers.get(question.getText());
+
+            // Draw the question
+            canvas.drawText("Question: " + question.getText(), leftMargin, reportY, reportPaint);
+            reportY += reportPaint.descent() - reportPaint.ascent();
+
+            // Draw the user's answer
+            canvas.drawText("User's Answer: " + userAnswer, leftMargin, reportY, reportPaint);
+            reportY += reportPaint.descent() - reportPaint.ascent();
+
+            // Draw a separator line between questions
+            reportY += lineSpacing + 10;
+        }
     }
 
 }
