@@ -79,8 +79,6 @@ public class UserPage_Activity extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, Menstrual_cycle_Activity.class);
-                startActivity(intent);
             }
         });
 
@@ -102,8 +100,6 @@ public class UserPage_Activity extends AppCompatActivity {
         SymptomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserPage_Activity.this, SymptomsTrack_Activity.class);
-                startActivity(intent);
             }
         });
         ForumButton.setOnClickListener(new View.OnClickListener() {

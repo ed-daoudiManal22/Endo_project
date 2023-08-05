@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -70,7 +71,7 @@ public class LastPeriod_Activity extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(LastPeriod_Activity.this, "Birthday stored successfully", Toast.LENGTH_SHORT).show();
                             // Move to the next activity
-                            Intent intent = new Intent(LastPeriod_Activity.this, BirthControl_Activity.class);
+                            Intent intent = new Intent(LastPeriod_Activity.this, HomeActivity.class);
                             startActivity(intent);
                         }
                     })
