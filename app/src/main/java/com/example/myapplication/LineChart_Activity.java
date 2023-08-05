@@ -1,16 +1,28 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -29,6 +41,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,8 +61,10 @@ public class LineChart_Activity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private TextView averagePainTextView;
-    private ImageView leftIcon, notificationIcon;
+    private ImageView leftIcon, shareIcon;
     private String currentUserUid;
+    private Button download;
+    private static final int PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
     private final int[] pastelColors = new int[]{
             Color.rgb(227, 227, 255),
@@ -79,7 +96,8 @@ public class LineChart_Activity extends AppCompatActivity {
         LineChart lineChart = findViewById(R.id.lineChart);
         averagePainTextView = findViewById(R.id.averagePain);
         leftIcon = findViewById(R.id.leftIcon);
-        notificationIcon = findViewById(R.id.notificationIcon);
+        shareIcon = findViewById(R.id.shareIcon);
+        download = findViewById(R.id.download);
 
         leftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +108,77 @@ public class LineChart_Activity extends AppCompatActivity {
                 finish(); // Optional: Close the current activity after navigating
             }
         });
-        notificationIcon.setOnClickListener(new View.OnClickListener() {
+        shareIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle the click event, navigate to HelloActivity
-                Intent intent = new Intent(LineChart_Activity.this, ReminderActivity.class);
-                startActivity(intent);
+                // Get the root view of the activity layout
+                View rootView = getWindow().getDecorView().getRootView();
+
+                // Create a bitmap of the view
+                Bitmap bitmap = getBitmapFromView(rootView);
+
+                // Save the bitmap as an image
+                File imageFile = saveBitmapAsImage(bitmap);
+
+                // Check if the image file is valid and exists
+                if (imageFile != null && imageFile.exists()) {
+                    // Create an intent to share the image
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("image/png");
+                    Uri imageUri = FileProvider.getUriForFile(
+                            LineChart_Activity.this,
+                            getApplicationContext().getPackageName() + ".provider",
+                            imageFile
+                    );
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+
+                    // Optionally, add a subject and text for the sharing intent
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share Chart");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my chart!");
+
+                    // Grant read permission to the sharing app
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    // Start the sharing activity
+                    startActivity(Intent.createChooser(shareIntent, "Share chart using"));
+                } else {
+                    // Image file is not valid or does not exist, show an error message
+                    Toast.makeText(LineChart_Activity.this, "Failed to share chart", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the root view of the activity layout
+                View rootView = getWindow().getDecorView().getRootView();
+
+                // Create a bitmap of the view
+                Bitmap bitmap = getBitmapFromView(rootView);
+
+                // Save the bitmap as an image and get the File object representing the saved image
+                File imageFile = saveBitmapAsImage(bitmap);
+
+                // Check if the image file is valid and exists
+                if (imageFile != null && imageFile.exists()) {
+                    // Show the success message if the file was saved successfully
+                    Toast.makeText(LineChart_Activity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Show the error message if the file couldn't be saved
+                    Toast.makeText(LineChart_Activity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // Check if the WRITE_EXTERNAL_STORAGE permission is granted
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Request the permission if it is not granted
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE);
+        } else {
+            // Permission is already granted, you can proceed with saving the image
+        }
 
         // Create a list to store the pain score entries
         List<Entry> entries = new ArrayList<>();
@@ -258,243 +339,7 @@ public class LineChart_Activity extends AppCompatActivity {
                     pieChart.invalidate();
                     //end pain location Chart --------------------------------------------------
 
-                    // Create a list to store all symptoms from all documents and to store pie chart entries (slices)
-                    List<String> allSymptoms = new ArrayList<>();
-                    List<PieEntry> pieEntriesSymptoms = new ArrayList<>();
-
-                    for (DocumentSnapshot document : task.getResult()) {
-                        // Get the symptoms array from the document
-                        Object symptomsObject = document.get("symptoms");
-
-                        if (symptomsObject instanceof List) {
-                            List<String> symptoms = (List<String>) symptomsObject;
-
-                            // Add all symptoms to the list
-                            if (symptoms != null) {
-                                allSymptoms.addAll(symptoms);
-                            }
-                        } else if (symptomsObject instanceof String) {
-                            // Handle the case when "symptoms" is a single String instead of a List
-                            String singleSymptom = (String) symptomsObject;
-                            allSymptoms.add(singleSymptom);
-                        }
-                    }
-
-                    // Calculate the occurrences of each symptom
-                    TreeMap<String, Integer> symptomOccurrences = new TreeMap<>();
-                    for (String symptom : allSymptoms) {
-                        symptomOccurrences.put(symptom, symptomOccurrences.getOrDefault(symptom, 0) + 1);
-                    }
-
-                    // Calculate the total number of symptoms
-                    int totalSymptoms = allSymptoms.size();
-
-                    // Set the symptoms and their percentages in the respective TextViews
-                    Set<String> uniqueSymptoms = new HashSet<>(allSymptoms);
-                    for (String symptom : uniqueSymptoms) {
-                        int occurrences = symptomOccurrences.get(symptom);
-                        float percentage = (occurrences * 100f) / totalSymptoms;
-
-                        // Add the PieEntry for each symptom and percentage
-                        pieEntriesSymptoms.add(new PieEntry(percentage, symptom));
-                    }
-                    // Create a dataset for the PieChart with the entries and customize it
-                    PieDataSet pieDataSetSymptoms = new PieDataSet(pieEntriesSymptoms, "");
-                    pieDataSetSymptoms.setColors(pastelColors);
-
-                    // Create a PieData object with the dataset
-                    PieData pieDataSymptoms = new PieData(pieDataSetSymptoms);
-                    pieDataSymptoms.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-
-                    // Get the PieChart view from the layout
-                    PieChart pieChartSymptoms = findViewById(R.id.pieChartsymptoms);
-
-                    // Set the PieData to the chart and refresh it
-                    pieChartSymptoms.setData(pieDataSymptoms);
-                    pieChartSymptoms.getDescription().setEnabled(false); // Disable the description
-                    pieChartSymptoms.setDrawEntryLabels(false); // Disable labels inside the slices
-                    pieChartSymptoms.setDrawHoleEnabled(false); // Disable the center hole
-                    pieChartSymptoms.invalidate();
-                    //end symptoms Chart --------------------------------------------------
-
-                    // Create a list to store all painWorse from all documents and to store pie chart entries (slices)
-                    List<String> allPainWorse = new ArrayList<>();
-                    List<PieEntry> pieEntriesPainWorse = new ArrayList<>();
-
-                    for (DocumentSnapshot document : task.getResult()) {
-                        // Get the painWorse array from the document
-                        Object painWorseObject = document.get("What Made Your Pain Worse?");
-
-                        if (painWorseObject instanceof List) {
-                            List<String> painWorse = (List<String>) painWorseObject;
-
-                            // Add all painWorse to the list
-                            if (painWorse != null) {
-                                allPainWorse.addAll(painWorse);
-                            }
-                        } else if (painWorseObject instanceof String) {
-                            // Handle the case when "painWorse" is a single String instead of a List
-                            String singlePainWorse = (String) painWorseObject;
-                            allPainWorse.add(singlePainWorse);
-                        }
-                    }
-
-                    // Calculate the occurrences of each painWorse
-                    TreeMap<String, Integer> painWorseOccurrences = new TreeMap<>();
-                    for (String painWorse : allPainWorse) {
-                        painWorseOccurrences.put(painWorse, painWorseOccurrences.getOrDefault(painWorse, 0) + 1);
-                    }
-
-                    // Calculate the total number of painWorse
-                    int totalPainWorse = allPainWorse.size();
-
-                    // Set the painWorse and their percentages in the respective TextViews
-                    Set<String> uniquePainWorse = new HashSet<>(allPainWorse);
-                    for (String painWorse : uniquePainWorse) {
-                        int occurrences = painWorseOccurrences.get(painWorse);
-                        float percentage = (occurrences * 100f) / totalPainWorse;
-
-                        // Add the PieEntry for each painWorse and percentage
-                        pieEntriesPainWorse.add(new PieEntry(percentage, painWorse));
-                    }
-                    // Create a dataset for the PieChart with the entries and customize it
-                    PieDataSet pieDataSetPainWorse = new PieDataSet(pieEntriesPainWorse, "");
-                    pieDataSetPainWorse.setColors(pastelColors);
-
-                    // Create a PieData object with the dataset
-                    PieData pieDataPainWorse = new PieData(pieDataSetPainWorse);
-                    pieDataPainWorse.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-
-                    // Get the PieChart view from the layout
-                    PieChart pieChartPainWorse = findViewById(R.id.pieChartPainWorse);
-
-                    // Set the PieData to the chart and refresh it
-                    pieChartPainWorse.setData(pieDataPainWorse);
-                    pieChartPainWorse.getDescription().setEnabled(false); // Disable the description
-                    pieChartPainWorse.setDrawEntryLabels(false); // Disable labels inside the slices
-                    pieChartPainWorse.setDrawHoleEnabled(false); // Disable the center hole
-                    pieChartPainWorse.invalidate();
-                    //end painWorse Chart---------------------------------------------------
-
-                    // Create a list to store all feelings from all documents and to store pie chart entries (slices)
-                    List<String> allFeelings = new ArrayList<>();
-                    List<PieEntry> pieEntriesFeelings = new ArrayList<>();
-
-                    for (DocumentSnapshot document : task.getResult()) {
-                        // Get the feelings array from the document
-                        Object feelingsObject = document.get("How You Feel Today?");
-
-                        if (feelingsObject instanceof List) {
-                            List<String> feelings = (List<String>) feelingsObject;
-
-                            // Add all feelings to the list
-                            if (feelings != null) {
-                                allFeelings.addAll(feelings);
-                            }
-                        } else if (feelingsObject instanceof String) {
-                            // Handle the case when "feelings" is a single String instead of a List
-                            String singleFeeling = (String) feelingsObject;
-                            allFeelings.add(singleFeeling);
-                        }
-                    }
-
-                    // Calculate the occurrences of each feeling
-                    TreeMap<String, Integer> feelingOccurrences = new TreeMap<>();
-                    for (String feeling : allFeelings) {
-                        feelingOccurrences.put(feeling, feelingOccurrences.getOrDefault(feeling, 0) + 1);
-                    }
-
-                    // Calculate the total number of feelings
-                    int totalFeelings = allFeelings.size();
-
-                    // Set the feelings and their percentages in the respective TextViews
-                    Set<String> uniqueFeelings = new HashSet<>(allFeelings);
-                    for (String feeling : uniqueFeelings) {
-                        int occurrences = feelingOccurrences.get(feeling);
-                        float percentage = (occurrences * 100f) / totalFeelings;
-
-                        // Add the PieEntry for each feeling and percentage
-                        pieEntriesFeelings.add(new PieEntry(percentage, feeling));
-                    }
-                    // Create a dataset for the PieChart with the entries and customize it
-                    PieDataSet pieDataSetFeelings = new PieDataSet(pieEntriesFeelings, "");
-                    pieDataSetFeelings.setColors(pastelColors);
-
-                    // Create a PieData object with the dataset
-                    PieData pieDataFeelings = new PieData(pieDataSetFeelings);
-                    pieDataFeelings.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-
-                    // Get the PieChart view from the layout
-                    PieChart pieChartFeelings = findViewById(R.id.pieChartFeelings);
-
-                    // Set the PieData to the chart and refresh it
-                    pieChartFeelings.setData(pieDataFeelings);
-                    pieChartFeelings.getDescription().setEnabled(false); // Disable the description
-                    pieChartFeelings.setDrawEntryLabels(false); // Disable labels inside the slices
-                    pieChartFeelings.setDrawHoleEnabled(false); // Disable the center hole
-                    pieChartFeelings.invalidate();
-                    //end feelings Chart---------------------------------------------------------
-
-                    // Create a list to store all medications from all documents and to store pie chart entries (slices)
-                    List<String> allMedications = new ArrayList<>();
-                    List<PieEntry> pieEntriesMedications = new ArrayList<>();
-
-                    for (DocumentSnapshot document : task.getResult()) {
-                        // Get the medications object from the document
-                        Object medicationsObject = document.get("What Medication Did You Try for Your Pain?");
-
-                        if (medicationsObject instanceof List) {
-                            List<String> medications = (List<String>) medicationsObject;
-
-                            // Add all medications to the list
-                            if (medications != null) {
-                                allMedications.addAll(medications);
-                            }
-                        } else if (medicationsObject instanceof String) {
-                            // Handle the case when "medicationsObject" is a single String instead of a List
-                            String singleMedication = (String) medicationsObject;
-                            allMedications.add(singleMedication);
-                        }
-                    }
-
-                    // Calculate the occurrences of each medication
-                    TreeMap<String, Integer> medicationOccurrences = new TreeMap<>();
-                    for (String medication : allMedications) {
-                        medicationOccurrences.put(medication, medicationOccurrences.getOrDefault(medication, 0) + 1);
-                    }
-
-                    // Calculate the total number of medications
-                    int totalMedications = allMedications.size();
-
-                    // Set the medications and their percentages in the respective TextViews
-                    Set<String> uniqueMedications = new HashSet<>(allMedications);
-                    for (String medication : uniqueMedications) {
-                        int occurrences = medicationOccurrences.get(medication);
-                        float percentage = (occurrences * 100f) / totalMedications;
-
-                        // Add the PieEntry for each medication and percentage
-                        pieEntriesMedications.add(new PieEntry(percentage, medication));
-                    }
-                    // Create a dataset for the PieChart with the entries and customize it
-                    PieDataSet pieDataSetMedications = new PieDataSet(pieEntriesMedications, "");
-                    pieDataSetMedications.setColors(pastelColors);
-
-                    // Create a PieData object with the dataset
-                    PieData pieDataMedications = new PieData(pieDataSetMedications);
-                    pieDataMedications.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-
-                    // Get the PieChart view from the layout
-                    PieChart pieChartMedications = findViewById(R.id.pieChartMedications);
-
-                    // Set the PieData to the chart and refresh it
-                    pieChartMedications.setData(pieDataMedications);
-                    pieChartMedications.getDescription().setEnabled(false); // Disable the description
-                    pieChartMedications.setDrawEntryLabels(false); // Disable labels inside the slices
-                    pieChartMedications.setDrawHoleEnabled(false); // Disable the center hole
-                    pieChartMedications.invalidate();
-                    //end medications Chart-------------------------------------------
-
-                    /*// Create a list to store all symptoms from all documents
+                    // Create a list to store all symptoms from all documents
                     List<String> allSymptoms = new ArrayList<>();
 
                     for (DocumentSnapshot document : task.getResult()) {
@@ -728,11 +573,71 @@ public class LineChart_Activity extends AppCompatActivity {
                         // Add the TextView to the LinearLayout
                         medicationLayout.addView(medicationTextView);
                     }
-                    //end medications percentage*/
+                    //end medications percentage
                 } else {
                     Log.e("LineChart_Activity", "Error getting symptoms subcollection: ", task.getException());
                 }
             }
         });
+    }
+    // Method to convert a View to a Bitmap
+    private Bitmap getBitmapFromView(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache(true);
+
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+        view.setDrawingCacheEnabled(false);
+
+        return bitmap;
+    }
+    // Method to save the bitmap as an image
+    private File saveBitmapAsImage(Bitmap bitmap) {
+        // Check if external storage is available
+        if (isExternalStorageWritable()) {
+            // Get the directory path where your app can store files
+            File directory = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            if (directory != null) {
+                File file = new File(directory, "LineChartImage.png");
+
+                try {
+                    FileOutputStream outputStream = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    outputStream.flush();
+                    outputStream.close();
+
+                    Toast.makeText(LineChart_Activity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(LineChart_Activity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                }
+                // Return the file that was saved
+                return file;
+            } else {
+                Toast.makeText(LineChart_Activity.this, "Failed to get external directory", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(LineChart_Activity.this, "External storage not available", Toast.LENGTH_SHORT).show();
+        }
+        return null;
+    }
+    // Method to check if external storage is writable
+    private boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
+    }
+    // Add the onRequestPermissionsResult method to handle the permission request result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted, you can proceed with saving the image
+                // Call the method to save the image here (e.g., saveBitmapAsImage(bitmap))
+            } else {
+                // Permission is denied, show a message or handle accordingly
+                Toast.makeText(this, "Permission to write to external storage denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
