@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,8 +18,9 @@
         android:layout_marginTop="65dp"
         android:background="@drawable/circle_button"
         android:scaleType="centerInside"
-        android:src="@drawable/calendar"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        android:src="@drawable/baseline_mail_outline_24"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+        app:tint="@color/white" />
 
     <!-- Page Title -->
     <TextView
@@ -30,45 +32,80 @@
         android:layout_marginTop="45dp"
         android:gravity="center_horizontal"
         android:text="Verify Your Email"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
+        android:textColor="#333333"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/pagetxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please check your email for a verification link. Click the link to verify your account."
-        android:layout_gravity="center"
         android:layout_below="@+id/pagetitle"
-        android:layout_margin="24dp"/>
+        android:layout_gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:text="Please check your email for a verification link to verify your account." />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/resendEmailButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pagetxt"
-        android:layout_margin="24dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginBottom="24dp"
-        android:paddingHorizontal="10dp"
-        android:background="@drawable/next_btn_pink"
         android:layout_centerHorizontal="true"
-        android:text="Resend Verification Email"
-        android:textColor="@color/pink" />
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/next_btn_pink"
+        android:drawableStart="@drawable/baseline_mail_outline_24"
+        android:drawableTint="#FF5B74"
+        android:drawablePadding="0dp"
+        android:padding="12dp"
+        android:paddingStart="12dp"
+        android:text="Resend verification email "
+        android:textColor="#FF5B74"
+        android:textSize="16sp"
+        android:textStyle="bold"  />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/resendEmailButton"
-        android:layout_margin="24dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginBottom="24dp"
-        android:paddingHorizontal="10dp"
-        android:background="@drawable/next_btn_pink"
         android:layout_centerHorizontal="true"
-        android:text="Return to Login page b"
-        android:textColor="@color/pink" />
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/next_btn_pink"
+        android:drawableStart="@drawable/ic_back"
+        android:drawableTint="#FF5B74"
+        android:drawablePadding="0dp"
+        android:padding="12dp"
+        android:paddingStart="12dp"
+        android:text="Return to Login page "
+        android:textColor="#FF5B74"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+     <!--
+     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_below="@+id/resendEmailButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/next_btn_pink"
+        android:drawableStart="@drawable/baseline_g_mobiledata_24"
+        android:drawablePadding="0dp"
+        android:padding="12dp"
+        android:paddingStart="12dp"
+        android:text="Return to Login page "
+        android:textColor="#FF5B74"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+     -->
 
 </RelativeLayout>
