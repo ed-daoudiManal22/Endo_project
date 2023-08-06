@@ -180,22 +180,6 @@ public class EditProfile_Activity extends AppCompatActivity {
 
                                         // Update the user data with the new image URL
                                         saveUserData(name, email, birthday, imageUrl);
-
-                                        // Delete the old image from storage if it exists and is not the default image
-                                        if (!TextUtils.isEmpty(oldImageUrl) && !oldImageUrl.equals("https://firebasestorage.googleapis.com/v0/b/endo-project-1acae.appspot.com/o/profile_images%2Funknown_pic.jpg?alt=media&token=41f82f66-f50e-44d3-b020-07487bedeba7")) {
-                                            StorageReference oldImageRef = FirebaseStorage.getInstance().getReferenceFromUrl(oldImageUrl);
-                                            oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    // Old image deleted successfully
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    // Failed to delete old image
-                                                }
-                                            });
-                                        }
                                     }
                                 });
                             }
