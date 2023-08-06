@@ -29,6 +29,7 @@ import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -259,48 +260,6 @@ public class User_profile extends AppCompatActivity {
 
         alertDialog.show();
     }
-
-
-    private void deleteAccount() {
-        if (currentUser != null) {
-            // Delete the user's account from Firebase Authentication
-            currentUser.delete().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    // Account deleted successfully from Firebase Authentication
-                    // Now, delete the user's data from Firestore
-                    DocumentReference userRef = firestore.collection("Users").document(currentUser.getUid());
-                    userRef.collection("subcollection_name")
-                            .get()
-                            .addOnCompleteListener(subcollectionTask -> {
-                                if (subcollectionTask.isSuccessful()) {
-                                    List<DocumentSnapshot> documents = subcollectionTask.getResult().getDocuments();
-                                    for (DocumentSnapshot document : documents) {
-                                        document.getReference().delete();
-                                    }
-                                    // Once all subcollections are deleted, delete the user's document
-                                    userRef.delete()
-                                            .addOnSuccessListener(aVoid -> {
-                                                logoutUser();
-                                                Toast.makeText(User_profile.this, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
-                                            })
-                                            .addOnFailureListener(e -> {
-                                                Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
-                                            });
-                                } else {
-                                    // Failed to fetch subcollections
-                                    // Handle the error if needed
-                                    Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                } else {
-                    // Failed to delete the account from Firebase Authentication
-                    Toast.makeText(User_profile.this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-
     private void keepAccountData() {
         if (currentUser != null) {
             // Delete the user's account
@@ -314,5 +273,54 @@ public class User_profile extends AppCompatActivity {
                 }
             });
         }
+    }
+    private void deleteAccount() {
+        if (currentUser != null) {
+            // Step 1: Delete subcollections (e.g., "reminders", "symptoms", "events")
+            deleteSubcollections(currentUser.getUid(), "reminders");
+            deleteSubcollections(currentUser.getUid(), "symptoms");
+            deleteSubcollections(currentUser.getUid(), "events");
+
+            // Step 2: Delete the main document from the "Users" collection
+            DocumentReference userDocumentRef = FirebaseFirestore.getInstance()
+                    .collection("Users").document(currentUser.getUid());
+
+            userDocumentRef.delete().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Call the logout method to sign out the user and redirect to the login page
+                    logoutUser();
+                    Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Step 3: Delete the user's account
+            currentUser.delete().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Call the logout method to sign out the user and redirect to the login page
+                    logoutUser();
+                    Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void deleteSubcollections(String userId, String subcollectionName) {
+        CollectionReference subcollectionRef = FirebaseFirestore.getInstance()
+                .collection("Users").document(userId).collection(subcollectionName);
+
+        subcollectionRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    // Delete each document in the subcollection
+                    document.getReference().delete();
+                }
+            } else {
+                Log.d(TAG, "Error getting documents: ", task.getException());
+            }
+        });
     }
 }
