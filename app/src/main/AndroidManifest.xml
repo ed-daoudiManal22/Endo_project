@@ -33,6 +33,13 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <receiver android:enabled="true" android:exported="true" android:name=".NotificationReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -75,9 +82,9 @@
             android:name=".HomeActivity"
             android:configChanges="locale|orientation|screenSize"/>
 
-        <activity
-            android:name=".UserPage_Activity" />
+        <activity android:name=".UserPage_Activity" />
         <activity android:name=".User_profile" />
+        <activity android:name=".NotifiactionSettings_Activity"/>
 
         <activity android:name=".Endo_InfoActivity" />
         <activity android:name=".EndoFAQ_Activity" />

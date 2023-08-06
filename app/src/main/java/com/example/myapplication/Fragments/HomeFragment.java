@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.myapplication.Diag_start;
 import com.example.myapplication.Endo_InfoActivity;
 import com.example.myapplication.LineChart_Activity;
+import com.example.myapplication.NotifiactionSettings_Activity;
 import com.example.myapplication.Quiz_main;
 import com.example.myapplication.R;
 import com.example.myapplication.ReminderActivity;
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment {
         menuIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), User_profile.class)));
 
         // Set click listeners for the notification icon
-        notificationIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), ReminderActivity.class)));
+        notificationIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), NotifiactionSettings_Activity.class)));
     }
 
     private void getCurrentUserName() {
