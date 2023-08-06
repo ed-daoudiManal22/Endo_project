@@ -65,8 +65,8 @@ public class EditProfile_Activity extends AppCompatActivity {
 
         // Populate user data into EditText fields
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
         if (currentUser != null) {
-            String userId = currentUser.getUid();
             DocumentReference userRef = db.collection("Users").document(userId);
             userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
@@ -114,7 +114,7 @@ public class EditProfile_Activity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveProfile();
+                saveProfile(userId);
             }
         });
     }
@@ -144,7 +144,7 @@ public class EditProfile_Activity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void saveProfile() {
+    private void saveProfile(String userId) {
         final String name = nameEditText.getText().toString();
         final String email = emailEditText.getText().toString();
         final String birthday = birthdayEditText.getText().toString();
@@ -155,7 +155,10 @@ public class EditProfile_Activity extends AppCompatActivity {
         }
 
         if (imageUri != null) {
-            final StorageReference imageRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            final String imageFileName = userId + ".jpg";
+            final StorageReference imageRef = storageRef.child(imageFileName);
+
+            // Upload the new image
             UploadTask uploadTask = imageRef.putFile(imageUri);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -164,7 +167,38 @@ public class EditProfile_Activity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String imageUrl = uri.toString();
-                            saveUserData(name, email, birthday, imageUrl);
+
+                            // Get the old image URL from the document
+                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (currentUser != null) {
+                                String userId = currentUser.getUid();
+                                DocumentReference userRef = db.collection("Users").document(userId);
+                                userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        String oldImageUrl = documentSnapshot.getString("imageUrl");
+
+                                        // Update the user data with the new image URL
+                                        saveUserData(name, email, birthday, imageUrl);
+
+                                        // Delete the old image from storage if it exists and is not the default image
+                                        if (!TextUtils.isEmpty(oldImageUrl) && !oldImageUrl.equals("https://firebasestorage.googleapis.com/v0/b/endo-project-1acae.appspot.com/o/profile_images%2Funknown_pic.jpg?alt=media&token=41f82f66-f50e-44d3-b020-07487bedeba7")) {
+                                            StorageReference oldImageRef = FirebaseStorage.getInstance().getReferenceFromUrl(oldImageUrl);
+                                            oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Old image deleted successfully
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Failed to delete old image
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
                         }
                     });
                 }

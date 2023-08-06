@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ import java.util.Locale;
 
 public class User_profile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
+    private FirebaseStorage storage;
     private FirebaseFirestore firestore;
     private FirebaseUser currentUser;
     private static final String TAG = "DeleteUserData";
@@ -63,6 +65,7 @@ public class User_profile extends AppCompatActivity {
         // Initialize Firebase components
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
 
         // Check if the user is authenticated
         currentUser = firebaseAuth.getCurrentUser();
@@ -276,35 +279,36 @@ public class User_profile extends AppCompatActivity {
     }
     private void deleteAccount() {
         if (currentUser != null) {
-            // Step 1: Delete subcollections (e.g., "reminders", "symptoms", "events")
-            deleteSubcollections(currentUser.getUid(), "reminders");
-            deleteSubcollections(currentUser.getUid(), "symptoms");
-            deleteSubcollections(currentUser.getUid(), "events");
+            if (currentUser != null) {
+                // Step 1: Delete subcollections (e.g., "reminders", "symptoms", "events")
+                deleteSubcollections(currentUser.getUid(), "reminders");
+                deleteSubcollections(currentUser.getUid(), "symptoms");
+                deleteSubcollections(currentUser.getUid(), "events");
 
-            // Step 2: Delete the main document from the "Users" collection
-            DocumentReference userDocumentRef = FirebaseFirestore.getInstance()
-                    .collection("Users").document(currentUser.getUid());
+                // Step 2: Delete the main document from the "Users" collection
+                DocumentReference userDocumentRef = FirebaseFirestore.getInstance()
+                        .collection("Users").document(currentUser.getUid());
 
-            userDocumentRef.delete().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    // Call the logout method to sign out the user and redirect to the login page
-                    logoutUser();
-                    Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
-                }
-            });
+                userDocumentRef.delete().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Step 3: Delete the user's account
+                        currentUser.delete().addOnCompleteListener(accountDeletionTask -> {
+                            if (accountDeletionTask.isSuccessful()) {
+                                // Step 4: Delete the profile picture after account deletion
+                                deleteProfilePicture(currentUser.getUid());
 
-            // Step 3: Delete the user's account
-            currentUser.delete().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    // Call the logout method to sign out the user and redirect to the login page
-                    logoutUser();
-                    Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
-                }
-            });
+                                // Call the logout method to sign out the user and redirect to the login page
+                                logoutUser();
+                                Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 
@@ -321,6 +325,41 @@ public class User_profile extends AppCompatActivity {
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
+        });
+    }
+    private void deleteProfilePicture(String userId) {
+        // Get the user document from Firestore
+        DocumentReference userRef = FirebaseFirestore.getInstance().collection("Users").document(userId);
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String imageUrl = documentSnapshot.getString("imageUrl");
+                Log.d("DeleteProfile", "imageUrl: " + imageUrl);
+                // Check if the image URL is the default image URL
+                String defaultImageUrl = "https://firebasestorage.googleapis.com/v0/b/endo-project-1acae.appspot.com/o/profile_images%2Funknown_pic.jpg?alt=media&token=41f82f66-f50e-44d3-b020-07487bedeba7";
+                if (!TextUtils.isEmpty(imageUrl) && !imageUrl.equals(defaultImageUrl)) {
+                    StorageReference storageRef = storage.getReference();
+                    StorageReference photoRef = storageRef.child("profile_images/" + userId + ".jpg");
+                    Log.d("DeleteProfile", "photoRef: " + photoRef.getPath());
+                    photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // Success
+                            Log.d("DeleteProfile", "Profile picture deleted successfully.");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Error
+                            Log.d("DeleteProfile", "Error deleting profile picture: " + exception.getMessage());
+                        }
+                    });
+                } else {
+                    // The image is the default image or empty, so we don't need to delete it
+                }
+            }
+        }).addOnFailureListener(e -> {
+            // An error occurred while retrieving the user document
+            Log.d("DeleteProfile", "Error retrieving user document: " + e.getMessage());
         });
     }
 }
