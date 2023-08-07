@@ -85,27 +85,33 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         }
     }
 
-    public void set_notification_alarm(long intervall, String name, String description) {
-        long triggerAtMillis = System.currentTimeMillis() + intervall;
+    public void set_notification_alarm(long interval, String name, String description) {
+        long triggerAtMillis = System.currentTimeMillis() + interval;
+
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        notificationIntent.putExtra("name", name);
+        notificationIntent.putExtra("description", description);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
 
         if (Build.VERSION.SDK_INT >= 23) {
-            alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), intervall, pending_intent);
+            alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarm_manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pending_intent);
+            alarm_manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarm_manager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pending_intent);
+            alarm_manager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
         } else {
-            alarm_manager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pending_intent);
+            alarm_manager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
         }
 
         // Create a notification channel with the specified name and description
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("Notification", name, NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription(description);
+            NotificationChannel channel = new NotificationChannel("Notification", "Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Reminder notifications");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

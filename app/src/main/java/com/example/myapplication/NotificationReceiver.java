@@ -13,7 +13,10 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent repeating_intent = new Intent(context,NotifiactionSettings_Activity.class);
+        String name = intent.getStringExtra("name");
+        String description = intent.getStringExtra("description");
+
+        Intent repeating_intent = new Intent(context, NotifiactionSettings_Activity.class);
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, repeating_intent, PendingIntent.FLAG_IMMUTABLE);
@@ -21,12 +24,11 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.notificationsicon)
                 .setColor(ContextCompat.getColor(context, R.color.pink))
-                .setContentTitle("Notification")
-                .setContentText("Check the app")
+                .setContentTitle(name) // Use the name as the title
+                .setContentText(description) // Use the description as the text
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-
         notificationManager.notify(200, builder.build());
     }
 }
