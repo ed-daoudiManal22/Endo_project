@@ -280,36 +280,47 @@ public class User_profile extends AppCompatActivity {
     private void deleteAccount() {
         if (currentUser != null) {
             if (currentUser != null) {
-                // Step 1: Delete subcollections (e.g., "reminders", "symptoms", "events")
-                deleteSubcollections(currentUser.getUid(), "reminders");
-                deleteSubcollections(currentUser.getUid(), "symptoms");
-                deleteSubcollections(currentUser.getUid(), "events");
-
-                // Step 2: Delete the main document from the "Users" collection
-                DocumentReference userDocumentRef = FirebaseFirestore.getInstance()
-                        .collection("Users").document(currentUser.getUid());
-
-                userDocumentRef.delete().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Step 3: Delete the user's account
-                        currentUser.delete().addOnCompleteListener(accountDeletionTask -> {
-                            if (accountDeletionTask.isSuccessful()) {
-                                // Step 4: Delete the profile picture after account deletion
-                                deleteProfilePicture(currentUser.getUid());
-
-                                // Call the logout method to sign out the user and redirect to the login page
-                                logoutUser();
-                                Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                // Step 1: Delete the profile picture after account deletion
+                deleteProfilePicture(currentUser.getUid(), new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Profile picture deleted successfully, continue with the rest of the deletion process
+                        deleteUserData(currentUser.getUid());
+                    }
+                }, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Error deleting profile picture, show error message and do not proceed with data deletion
+                        Toast.makeText(User_profile.this, "Failed to delete profile picture.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         }
+    }
+    private void deleteUserData(String userId) {
+        // Step 2: Delete subcollections (e.g., "reminders", "symptoms", "events")
+        deleteSubcollections(userId, "reminders");
+        deleteSubcollections(userId, "symptoms");
+        deleteSubcollections(userId, "events");
+
+        // Step 3: Delete the main document from the "Users" collection
+        DocumentReference userDocumentRef = FirebaseFirestore.getInstance().collection("Users").document(userId);
+        userDocumentRef.delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Step 4: Delete the user's account
+                currentUser.delete().addOnCompleteListener(accountDeletionTask -> {
+                    if (accountDeletionTask.isSuccessful()) {
+                        // Call the logout method to sign out the user and redirect to the login page
+                        logoutUser();
+                        Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void deleteSubcollections(String userId, String subcollectionName) {
@@ -327,7 +338,7 @@ public class User_profile extends AppCompatActivity {
             }
         });
     }
-    private void deleteProfilePicture(String userId) {
+    private void deleteProfilePicture(String userId, OnSuccessListener<Void> successListener, OnFailureListener failureListener) {
         // Get the user document from Firestore
         DocumentReference userRef = FirebaseFirestore.getInstance().collection("Users").document(userId);
         userRef.get().addOnSuccessListener(documentSnapshot -> {
@@ -340,26 +351,20 @@ public class User_profile extends AppCompatActivity {
                     StorageReference storageRef = storage.getReference();
                     StorageReference photoRef = storageRef.child("profile_images/" + userId + ".jpg");
                     Log.d("DeleteProfile", "photoRef: " + photoRef.getPath());
-                    photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // Success
-                            Log.d("DeleteProfile", "Profile picture deleted successfully.");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Error
-                            Log.d("DeleteProfile", "Error deleting profile picture: " + exception.getMessage());
-                        }
-                    });
+                    photoRef.delete().addOnSuccessListener(successListener).addOnFailureListener(failureListener);
                 } else {
                     // The image is the default image or empty, so we don't need to delete it
+                    Log.d("DeleteProfile", "Profile picture is the default image or empty.");
+                    successListener.onSuccess(null); // Call successListener directly since there's no deletion needed
                 }
+            } else {
+                Log.d("DeleteProfile", "User document does not exist.");
+                failureListener.onFailure(new Exception("User document does not exist.")); // Call failureListener with an error message
             }
         }).addOnFailureListener(e -> {
             // An error occurred while retrieving the user document
             Log.d("DeleteProfile", "Error retrieving user document: " + e.getMessage());
+            failureListener.onFailure(e); // Call failureListener with the exception
         });
     }
 }
