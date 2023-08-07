@@ -212,29 +212,29 @@ public class DiagTest_Activity extends AppCompatActivity {
             if (checkedRadioButtonId != -1) {
                 RadioButton selectedRadioButton = findViewById(checkedRadioButtonId);
                 if (selectedRadioButton != null) {
-                    int answerResId = selectedRadioButton.getId();
-                    userAnswers.put(questions.get(currentQuestionIndex).getText(), answerResId);
+                    String answer = selectedRadioButton.getText().toString();
+                    userAnswers.put(questions.get(currentQuestionIndex).getText(), answer);
                 } else {
                     // Handle the situation when no radio button is selected
-                    userAnswers.put(questions.get(currentQuestionIndex).getText(), 0); // 0 represents no answer selected
+                    userAnswers.put(questions.get(currentQuestionIndex).getText(), "No answer selected");
                 }
-            } else {
+            }else {
                 // No radio button is selected, handle the situation accordingly
                 // In this example, you can add a default value, for instance:
-                userAnswers.put(questions.get(currentQuestionIndex).getText(), 0); // 0 represents no answer selected
+                userAnswers.put(questions.get(currentQuestionIndex).getText(), "No answer selected");
             }
         } else if (optionsLinearLayout.getVisibility() == View.VISIBLE) {
-            List<Integer> selectedOptions = new ArrayList<>();
+            List<String> selectedOptions = new ArrayList<>();
 
             for (int i = 0; i < optionsLinearLayout.getChildCount(); i++) {
                 CheckBox checkBox = (CheckBox) optionsLinearLayout.getChildAt(i);
                 if (checkBox.isChecked()) {
-                    selectedOptions.add(checkBox.getId());
+                    selectedOptions.add(checkBox.getText().toString());
                 }
             }
             userAnswers.put(questions.get(currentQuestionIndex).getText(), selectedOptions);
 
-        } else if (inputWeight.getVisibility() == View.VISIBLE && inputHeight.getVisibility() == View.VISIBLE) {
+        }else if (inputWeight.getVisibility() == View.VISIBLE && inputHeight.getVisibility() == View.VISIBLE) {
             String weightString = inputWeight.getText().toString().trim();
             String heightString = inputHeight.getText().toString().trim();
 
@@ -247,17 +247,16 @@ public class DiagTest_Activity extends AppCompatActivity {
 
                 // Assign score based on BMI
                 int score;
-                if (bmi <= 18.5) {
-                    score = 0; // Assign score of 0 for low BMI
+                if (bmi <= 18.5 ){
+                    score = 0 ;// Assign score of 0 for low BMI
                 } else {
                     score = 1; // Assign score of 1 for normal BMI
                 }
-                userAnswers.put("Body mass index : calculate your BMI", bmi);
+                userAnswers.put("Body mass index : calculate your BMI ", bmi);
                 userAnswers.put("BMI Score", score);
             }
         }
     }
-
 
     private void generateReport() {
         int totalScore = 0;
