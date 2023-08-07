@@ -138,6 +138,49 @@
     <!-- Meds Options -->
     <string name="nothing">Rien</string>
 
+    <!-- Diagnostic test questions -->
+    <string name="periodStart">Quand est-ce que vous commencez vos règles ?</string>
+    <string name="periodStartOpt1">Avant l\'age de 11 ans</string>
+    <string name="periodStartOpt2">À partir de 11 ans</string>
+    <string name="cycleLength">Quelle est la durée moyenne de votre cycle menstruel ?</string>
+    <string name="cycleLengthOpt1">Moins de 27 jours</string>
+    <string name="cycleLengthOpt2">Pas plus de 27 jours</string>
+    <string name="famillyHistory">Avez-vous des antécédents familiaux d\'endométriose ?</string>
+    <string name="giveBirth">Avez-vous déjà accouché ?</string>
+    <string name="Yes">Oui</string>
+    <string name="No">Non</string>
+    <string name="pregnantTrouble">Avez-vous des difficultés à tomber enceinte ?</string>
+    <string name="BMIqst">Indice de masse corporelle (IMC) : calculez votre IMC</string>
+    <string name="painIntensity">Quelle est l\'intensité de vos douleurs abdominales/pelviennes ?</string>
+    <string name="whenPain">Quand ressentez-vous des douleurs abdominales ou pelviennes ?</string>
+    <string name="RelatedPeriod">En lien avec la période menstruelle</string>
+    <string name="RelatedOvulation">En lien avec l\'ovulation</string>
+    <string name="Unrelated">Sans lien avec la période menstruelle ou l\'ovulation</string>
+    <string name="intercoursePain">Quelle est la sévérité des douleurs pendant les rapports sexuels ?</string>
+    <string name="painWorse">Qu\'est-ce qui aggrave vos douleurs ?</string>
+    <string name="Orgasm">L\'orgasme</string>
+    <string name="BowelMovement">Les mouvements intestinaux</string>
+    <string name="FullBladder">La vessie pleine</string>
+    <string name="Urination">La miction (uriner)</string>
+    <string name="NotRelated">Sans lien avec quoi que ce soit</string>
+    <string name="DurationPeriod">Durée de la période menstruelle ?</string>
+    <string name="Less7">1 à 7 jours</string>
+    <string name="More7">Plus de 7 jours</string>
+    <string name="NaturePeriods">Nature des périodes menstruelles ?</string>
+    <string name="Heavy">Abondantes</string>
+    <string name="Moderate">Modérées</string>
+    <string name="Light">Légères</string>
+    <string name="cyclePattern">Quel est le schéma de votre cycle menstruel ?</string>
+    <string name="Regular">Régulier</string>
+    <string name="Irregular">Irrégulier</string>
+    <string name="BleedingSpotting">Saignement ou spotting entre les périodes</string>
+    <string name="DoYouHave">Avez-vous ?</string>
+    <string name="BloodStool">Du sang dans vos selles</string>
+    <string name="Diarrhea">La diarrhée</string>
+    <string name="Constipation">La constipation</string>
+    <string name="Bloating">Des ballonnements abdominaux</string>
+    <string name="Abuse">Avez-vous déjà été victime d\'abus physique ou sexuel ?</string>
+
 
 
 </resources>

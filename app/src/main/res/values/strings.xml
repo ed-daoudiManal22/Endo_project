@@ -138,4 +138,47 @@
     <!-- Meds Options -->
     <string name="nothing">Nothing</string>
 
+    <!-- Diagnostic test questions -->
+    <string name="periodStart">When do you start your period ?</string>
+    <string name="periodStartOpt1">-Befor 11 years old</string>
+    <string name="periodStartOpt2">Above 11 years old</string>
+    <string name="cycleLength">Your menstrual cycle length average ?</string>
+    <string name="cycleLengthOpt1">Less than 27 days</string>
+    <string name="cycleLengthOpt2">NotMore than 27 dayshing</string>
+    <string name="famillyHistory"> Do you have a familly history of endometriosis ?</string>
+    <string name="giveBirth"> Did you give birth ?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="pregnantTrouble">Do you have trouble getting pregnant ?</string>
+    <string name="BMIqst">Body mass index : calculate your BMI</string>
+    <string name="painIntensity">What is your abdominal/pelvic pain intensity ?</string>
+    <string name="whenPain">When do you experience abdominal or pelvic pain ? </string>
+    <string name="RelatedPeriod">Related to period </string>
+    <string name="RelatedOvulation">Related to ovulation</string>
+    <string name="Unrelated">Unrelated to period and ovulation</string>
+    <string name="intercoursePain">Severity of pain during intercourse ?</string>
+    <string name="painWorse">What makes your pain worse ?</string>
+    <string name="Orgasm">Orgasm</string>
+    <string name="BowelMovement">Bowel movement</string>
+    <string name="FullBladder">Full bladder</string>
+    <string name="Urination">Urination</string>
+    <string name="NotRelated">Not related to anything</string>
+    <string name="DurationPeriod">Duration of period ?</string>
+    <string name="Less7">1-7 days</string>
+    <string name="More7">More than 7 days</string>
+    <string name="NaturePeriods">Nature of periods ?</string>
+    <string name="Heavy">Heavy</string>
+    <string name="Moderate">Moderate</string>
+    <string name="Light">Light</string>
+    <string name="cyclePattern">What is your menstrual cycle pattern ?</string>
+    <string name="Regular">Regular</string>
+    <string name="Irregular">Irregular</string>
+    <string name="BleedingSpotting">Bleeding or spotting between periods</string>
+    <string name="DoYouHave"> Do you have ?</string>
+    <string name="BloodStool">Blood in your stool </string>
+    <string name="Diarrhea">Diarrhea</string>
+    <string name="Constipation">Constipation</string>
+    <string name="Bloating">Abdominal Bloating</string>
+    <string name="Abuse">Have you ever been victim of physical abuse or sexual abuse ?</string>
+
 </resources>
