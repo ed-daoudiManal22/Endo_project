@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,6 +11,7 @@ import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +57,7 @@ public class DiagTest_Activity extends AppCompatActivity {
     private Button nextButton;
     private ProgressBar progressBar;
     private int totalQuestions;
+    private Context context;
     private ImageButton exitButton, backButton;
     private List<Test_Questions> questions;
     private Map<String, Object> userAnswers;
@@ -170,7 +174,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
     private void showQuestion(int questionIndex) {
         Test_Questions question = questions.get(questionIndex);
-        questionTextView.setText(question.getText());
+        questionTextView.setText(getResourceString(question.getText()));
 
         optionsRadioGroup.setVisibility(View.GONE);
         optionsLinearLayout.setVisibility(View.GONE);
@@ -184,7 +188,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
             for (String option : question.getOptions()) {
                 RadioButton radioButton = new RadioButton(this);
-                radioButton.setText(option);
+                radioButton.setText(getResourceString(option));
                 optionsRadioGroup.addView(radioButton);
             }
         } else if (questionType.equals("input-answer")) {
@@ -196,7 +200,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
             for (String option : question.getOptions()) {
                 CheckBox checkBox = new CheckBox(this);
-                checkBox.setText(option);
+                checkBox.setText(getResourceString(option));
                 optionsLinearLayout.addView(checkBox);
             }
         }
@@ -208,29 +212,29 @@ public class DiagTest_Activity extends AppCompatActivity {
             if (checkedRadioButtonId != -1) {
                 RadioButton selectedRadioButton = findViewById(checkedRadioButtonId);
                 if (selectedRadioButton != null) {
-                    String answer = selectedRadioButton.getText().toString();
-                    userAnswers.put(questions.get(currentQuestionIndex).getText(), answer);
+                    int answerResId = selectedRadioButton.getId();
+                    userAnswers.put(questions.get(currentQuestionIndex).getText(), answerResId);
                 } else {
                     // Handle the situation when no radio button is selected
-                    userAnswers.put(questions.get(currentQuestionIndex).getText(), "No answer selected");
+                    userAnswers.put(questions.get(currentQuestionIndex).getText(), 0); // 0 represents no answer selected
                 }
-            }else {
+            } else {
                 // No radio button is selected, handle the situation accordingly
                 // In this example, you can add a default value, for instance:
-                userAnswers.put(questions.get(currentQuestionIndex).getText(), "No answer selected");
+                userAnswers.put(questions.get(currentQuestionIndex).getText(), 0); // 0 represents no answer selected
             }
         } else if (optionsLinearLayout.getVisibility() == View.VISIBLE) {
-            List<String> selectedOptions = new ArrayList<>();
+            List<Integer> selectedOptions = new ArrayList<>();
 
             for (int i = 0; i < optionsLinearLayout.getChildCount(); i++) {
                 CheckBox checkBox = (CheckBox) optionsLinearLayout.getChildAt(i);
                 if (checkBox.isChecked()) {
-                    selectedOptions.add(checkBox.getText().toString());
+                    selectedOptions.add(checkBox.getId());
                 }
             }
             userAnswers.put(questions.get(currentQuestionIndex).getText(), selectedOptions);
 
-        }else if (inputWeight.getVisibility() == View.VISIBLE && inputHeight.getVisibility() == View.VISIBLE) {
+        } else if (inputWeight.getVisibility() == View.VISIBLE && inputHeight.getVisibility() == View.VISIBLE) {
             String weightString = inputWeight.getText().toString().trim();
             String heightString = inputHeight.getText().toString().trim();
 
@@ -243,16 +247,17 @@ public class DiagTest_Activity extends AppCompatActivity {
 
                 // Assign score based on BMI
                 int score;
-                if (bmi <= 18.5 ){
-                    score = 0 ;// Assign score of 0 for low BMI
+                if (bmi <= 18.5) {
+                    score = 0; // Assign score of 0 for low BMI
                 } else {
                     score = 1; // Assign score of 1 for normal BMI
                 }
-                userAnswers.put("Body mass index : calculate your BMI ", bmi);
+                userAnswers.put("Body mass index : calculate your BMI", bmi);
                 userAnswers.put("BMI Score", score);
             }
         }
     }
+
 
     private void generateReport() {
         int totalScore = 0;
@@ -269,17 +274,19 @@ public class DiagTest_Activity extends AppCompatActivity {
             if (userAnswer != null) {
                 if (userAnswer instanceof String) {
                     String selectedOption = (String) userAnswer;
-                    if (question.getOptionScores().containsKey(selectedOption)) {
-                        totalScore += question.getOptionScores().get(selectedOption);
+                    int selectedOptionResId = getStringResourceID(selectedOption);
+                    if (selectedOptionResId != 0 && question.getOptionScores().containsKey(selectedOptionResId)) {
+                        totalScore += question.getOptionScores().get(selectedOptionResId);
                     }
                 } else if (userAnswer instanceof List<?>) {
                     List<String> selectedOptions = (List<String>) userAnswer;
                     for (String option : selectedOptions) {
-                        if (question.getOptionScores().containsKey(option)) {
-                            totalScore += question.getOptionScores().get(option);
+                        int optionResId = getStringResourceID(option);
+                        if (optionResId != 0 && question.getOptionScores().containsKey(optionResId)) {
+                            totalScore += question.getOptionScores().get(optionResId);
                         }
                     }
-                }else if (userAnswer instanceof Double) {
+                } else if (userAnswer instanceof Double) {
                     if (question.getText().equals("Body mass index : calculate your BMI ")) {
                         int bmiAnswer = (int) userAnswers.get("BMI Score");
                         Log.d("DiagTest_Activity", "BMI Score: " + bmiAnswer); // Add this line to log the value
@@ -291,9 +298,9 @@ public class DiagTest_Activity extends AppCompatActivity {
 
             reportBuilder.append("\n");
         }
-        if (totalScore >= 0 && totalScore <= 5) {
+        if (totalScore >= 0 && totalScore <= 2) {
             riskLevel = "Low";
-        } else if (totalScore >= 6 && totalScore <= 10) {
+        } else if (totalScore >= 3 && totalScore <= 4) {
             riskLevel ="Medium";
         } else {
             riskLevel = "High";
@@ -442,12 +449,12 @@ public class DiagTest_Activity extends AppCompatActivity {
                         canvas.drawText("Test answers : ", 50, dividerY + 60 , paint);
 
                         // Draw the first 8 questions
-                        drawContent(canvas, page, questions, 0, 7, paint, reportPaint);
+                        drawContent(canvas, page, questions, 0, 4, paint, reportPaint);
 
                         // Finish the first page
                         pdfDocument.finishPage(page);
 
-                        // Create a PageInfo for the second page of the PDF
+                        /*// Create a PageInfo for the second page of the PDF
                         PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 2).create();
                         PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
                         Canvas canvas2 = page2.getCanvas();
@@ -456,7 +463,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         drawContent(canvas2, page2, questions, 8, questions.size() - 1, paint, reportPaint);
 
                         // Finish the second page
-                        pdfDocument.finishPage(page2);
+                        pdfDocument.finishPage(page2);*/
 
                         // Define the output file path
                         String filePath = getExternalFilesDir(null) + "/report.pdf";
@@ -511,15 +518,51 @@ public class DiagTest_Activity extends AppCompatActivity {
             Object userAnswer = userAnswers.get(question.getText());
 
             // Draw the question
-            canvas.drawText("Question: " + question.getText(), leftMargin, reportY, reportPaint);
+            canvas.drawText("Question: " + getResourceString(question.getText()), leftMargin, reportY, reportPaint);
             reportY += reportPaint.descent() - reportPaint.ascent();
 
             // Draw the user's answer
-            canvas.drawText("User's Answer: " + userAnswer, leftMargin, reportY, reportPaint);
+            String userAnswerText = "";
+
+            if (userAnswer != null) {
+                if (userAnswer instanceof String) {
+                    userAnswerText = (String) userAnswer;
+                } else if (userAnswer instanceof List<?>) {
+                    List<String> selectedOptions = (List<String>) userAnswer;
+                    userAnswerText = TextUtils.join(", ", selectedOptions);
+                } else if (userAnswer instanceof Double) {
+                    userAnswerText = String.valueOf(userAnswer);
+                }
+            }
+
+            canvas.drawText("User's Answer: " + userAnswerText, leftMargin, reportY, reportPaint);
             reportY += reportPaint.descent() - reportPaint.ascent();
 
             // Draw a separator line between questions
             reportY += lineSpacing + 10;
+        }
+    }
+    private String getResourceString(String resourceName) {
+        int resId = getResources().getIdentifier(resourceName, "string", getPackageName());
+        if (resId != 0) {
+            return getString(resId);
+        } else {
+            // Handle the case when the resource is not found
+            Log.e("DiagTest_Activity", "Resource not found: " + resourceName);
+            return "Resource not found";
+        }
+    }
+    private int getStringResourceID(String value) {
+        Resources resources = getResources();
+        String packageName = getPackageName();
+        int resId = resources.getIdentifier(value, "string", packageName);
+        if (resId != 0) {
+            Log.e("DiagTest_Activity", "Resource found: " + resId);
+            return resId;
+        } else {
+            // Handle the case when the resource is not found
+            Log.e("DiagTest_Activity", "Resource not found: " + value);
+            return -1; // Return -1 to indicate that the resource was not found
         }
     }
 

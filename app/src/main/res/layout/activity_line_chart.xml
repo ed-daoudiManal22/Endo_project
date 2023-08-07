@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
-    tools:context=".MainActivity">
+    tools:context=".LineChart_Activity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
