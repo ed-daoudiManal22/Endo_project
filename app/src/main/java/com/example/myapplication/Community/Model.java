@@ -1,7 +1,13 @@
 package com.example.myapplication.Community;
 
+import com.example.myapplication.Models.Comment;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Model {
     String title, desc, author, date, img, share_count,id,timestamp;
+    List<Comment> comments;
 
     public Model(String title, String desc, String author, String date, String img, String share_count, String id, String timestamp) {
         this.title = title;
@@ -12,6 +18,7 @@ public class Model {
         this.share_count = share_count;
         this.id = id;
         this.timestamp = timestamp;
+        this.comments = new ArrayList<>(); // Initialize the comments list
     }
 
     public String getTimestamp() {
@@ -79,5 +86,12 @@ public class Model {
 
     public void setShare_count(String share_count) {
         this.share_count = share_count;
+    }
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

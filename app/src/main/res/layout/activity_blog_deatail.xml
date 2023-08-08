@@ -78,5 +78,67 @@
             android:text="this blog post is created in android blog app created in 3 vidos of 1 series and you can find all the videos in the playlist section of our channel"
             android:textColor="@color/black"
             android:textSize="18sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView6"
+            android:layout_marginTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/commentsRecyclerView"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/post_detail_currentuser_img"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="7dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_detail_desc"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <EditText
+
+                android:hint="Write Comment"
+                android:background="@drawable/edittext_button_style_rounded"
+                android:id="@+id/post_detail_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toBottomOf="@+id/post_detail_currentuser_img"
+                app:layout_constraintStart_toEndOf="@+id/post_detail_currentuser_img"
+                app:layout_constraintTop_toTopOf="@+id/post_detail_currentuser_img" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/post_detail_add_comment_btn"
+                android:layout_width="53dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/add_reminder_button"
+                android:text="Add"
+                app:layout_constraintBottom_toBottomOf="@+id/post_detail_comment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/post_detail_comment"
+                app:layout_constraintTop_toTopOf="@+id/post_detail_comment"
+                app:layout_constraintVertical_bias="0.529" />
+        </LinearLayout>
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
