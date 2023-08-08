@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:text="Community notifications" />
 
+
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/oneMinut"
             android:layout_width="wrap_content"

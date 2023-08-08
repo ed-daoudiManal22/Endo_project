@@ -7,11 +7,15 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 
@@ -33,13 +37,30 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         SwitchMaterial TestNotif = findViewById(R.id.DiagTestSwitch);
         SwitchMaterial test = findViewById(R.id.oneMinut);
 
+        // Assuming you have a reference to your Firestore collection "Blogs"
+        CollectionReference blogsCollection = FirebaseFirestore.getInstance().collection("Blogs");
+
         CommunityNotif.setOnClickListener(e->{
             if (CommunityNotif.isChecked()) {
                 // Community notifications are turned on
-                set_notification_alarm(24 * 60 * 60 * 1000, "Notifications", "Receive community notifications");
-                // Show a toast message
-                Toast.makeText(NotifiactionSettings_Activity.this, "Community notifications ON", Toast.LENGTH_SHORT).show();
-            } else {
+                // Add a snapshot listener to monitor for new blogs
+                blogsCollection.addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Log.e("Firestore Listener", "Error listening for new blogs", error);
+                        return;
+                    }
+                    for (DocumentChange dc : value.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+                            // A new blog has been added, trigger the notification
+                            set_notification_alarm(0, "New Blog Added", "A member has added a new blog");
+                            // Show a toast message
+                            Toast.makeText(NotifiactionSettings_Activity.this, "Community notifications ON", Toast.LENGTH_SHORT).show();
+                            // Exit the loop after the first added document is found
+                            break;
+                        }
+                    }
+                });
+            }  else {
                 // Community notifications are turned off
                 cancel_notification_alarm();
                 // Show a toast message
