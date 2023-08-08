@@ -1,7 +1,5 @@
 package com.example.myapplication.Community;
 
-import com.example.myapplication.Models.Comment;
-
 import java.util.ArrayList;
 import java.util.List;
 

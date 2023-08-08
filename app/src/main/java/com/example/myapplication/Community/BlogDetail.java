@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Models.Comment;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityBlogDeatailBinding;
 import com.google.android.gms.tasks.OnFailureListener;

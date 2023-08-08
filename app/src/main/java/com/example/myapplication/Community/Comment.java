@@ -1,4 +1,4 @@
-package com.example.myapplication.Models;
+package com.example.myapplication.Community;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.database.ServerValue;
