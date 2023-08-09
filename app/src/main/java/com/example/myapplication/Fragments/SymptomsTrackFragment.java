@@ -113,7 +113,9 @@ public class SymptomsTrackFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         TextView currentDateTextView =  rootView.findViewById(R.id.currentDateTextView);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+        // Get the user's preferred locale
+        Locale currentLocale = getResources().getConfiguration().locale;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM", currentLocale);
         String currentDate = dateFormat.format(new Date());
         currentDateTextView.setText(currentDate);
 

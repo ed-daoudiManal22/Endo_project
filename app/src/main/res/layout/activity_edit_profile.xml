@@ -110,7 +110,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="210dp"
                 android:background="@drawable/next_btn_pink"
-                android:text="Save Profile"
+                android:text="@string/save_profile"
                 android:textColor="@color/pink"/>
 
         </androidx.cardview.widget.CardView>

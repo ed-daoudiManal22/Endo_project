@@ -18,7 +18,7 @@
             android:id="@+id/deleteDataRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete Data"
+            android:text="@string/delete_data_radio_label"
             android:padding="10dp"
             android:textSize="16sp"/>
 
@@ -26,7 +26,7 @@
             android:id="@+id/keepDataRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Keep Data"
+            android:text="@string/keep_data_radio_label"
             android:padding="10dp"
             android:textSize="16sp"/>
     </RadioGroup>

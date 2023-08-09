@@ -9,7 +9,7 @@
         android:id="@+id/editTextTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title"
+        android:hint="@string/title..."
         android:inputType="text"/>
 
     <EditText
@@ -20,11 +20,12 @@
         android:inputType="textMultiLine"
         android:minLines="3"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Event"
+        android:text="@string/AddEvent"
         android:layout_gravity="end"
+        android:background="@drawable/background"
         android:layout_marginTop="8dp"/>
 </LinearLayout>

@@ -267,7 +267,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         for (Test_Questions question : questions) {
             Object userAnswer = userAnswers.get(question.getText());
             reportBuilder.append("Question: ").append(question.getText()).append("\n");
-            reportBuilder.append("User's Answer: ").append(userAnswer).append("\n\n");
+            reportBuilder.append(getString(R.string.UserAnswer)).append(userAnswer).append("\n\n");
 
             // Calculate score based on the answer
             if (userAnswer != null) {
@@ -319,7 +319,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         Button openReportButton = reportLayout.findViewById(R.id.openReportButton);
 
         // Set the score and report text
-        scoreTextView.setText("Risk level : " + riskLevel);
+        scoreTextView.setText(getString(R.string.RiskLevel) + ": " + riskLevel);
         reportTextView.setText(report);
 
         // Generate the PDF report
@@ -395,6 +395,11 @@ public class DiagTest_Activity extends AppCompatActivity {
                     String birthday = documentSnapshot.getString("birthday");
                     String painAverage = documentSnapshot.getString("painAverage");
 
+                    String nameLabel = getString(R.string.name_label);
+                    String emailLabel = getString(R.string.email_label);
+                    String birthdayLabel = getString(R.string.birthday_label);
+                    String painAverageLabel = getString(R.string.pain_average_label);
+
                     // Create a PageInfo for the PDF
                     PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
 
@@ -429,13 +434,14 @@ public class DiagTest_Activity extends AppCompatActivity {
 
 
                         // Add main title "Diagnostic Test Report"
-                        canvas.drawText("Diagnostic Test Report", centerX - titleWidth / 2, titleY, titlePaint);
+                        String diagnosticReportTitle = getString(R.string.diagnostic_report_title);
+                        canvas.drawText(diagnosticReportTitle, centerX - titleWidth / 2, titleY, titlePaint);
                         // Add user information
                         float userInfoY = titleY + 50;
-                        canvas.drawText("Name : " + name, 50, userInfoY , paint);
-                        canvas.drawText("Email : " + email, 50, userInfoY + 30, paint);
-                        canvas.drawText("Birthday : " + birthday, 50, userInfoY + 60, paint);
-                        canvas.drawText("Pain average : " + painAverage, 50, userInfoY + 90, paint);
+                        canvas.drawText(nameLabel + " " + name, 50, userInfoY, paint);
+                        canvas.drawText(emailLabel + " " + email, 50, userInfoY + 30, paint);
+                        canvas.drawText(birthdayLabel + " " + birthday, 50, userInfoY + 60, paint);
+                        canvas.drawText(painAverageLabel + " " + painAverage, 50, userInfoY + 90, paint);
 
                         // Draw a divider line under the user information
                         float dividerY = userInfoY + 120;

@@ -5,6 +5,7 @@
     <string name="next">Suivant</string>
     <string name="cancel">Annuler</string>
     <string name="submit">Confirmer</string>
+    <string name="save_profile">Enregistrer le Profil</string>
 
     <string name="score_label">Score :</string>
     <string name="report_label">Rapport</string>
@@ -13,6 +14,13 @@
     <string name="diagnostic_label">Test de diagnostic</string>
     <string name="weight_data">Entrez votre poids en kg</string>
     <string name="height_data">Entrez votre taille en cm</string>
+    <string name="RiskLevel">Niveau de risque</string>
+    <string name="UserAnswer">La reponse :</string>
+    <string name="name_label">Nom :</string>
+    <string name="email_label">Email :</string>
+    <string name="birthday_label">Date de naissance :</string>
+    <string name="pain_average_label">Moyenne de douleur :</string>
+    <string name="diagnostic_report_title">Rapport de Test Diagnostique</string>
 
     <string name="Low">Faible</string>
     <string name="Medium">Moyen</string>
@@ -24,8 +32,11 @@
     <string name="community">communauté</string>
 
     <string name="Publish">Publier</string>
-    <string name="Publish_blog">Publiier une Blog</string>
+    <string name="Publish_blog">Publier un Blog</string>
     <string name="select_img">Selectionner une Image!!</string>
+    <string name="Write_comment">Ecrire un commentaire</string>
+    <string name="Add">Ajouter</string>
+    <string name="Search_blogs">Chercher un blog</string>
 
     <string name="pain_evolution">Évolution de la douleur : </string>
     <string name="pain_average">Moyenne des douleurs</string>
@@ -74,6 +85,14 @@
     <string name="logout">Déconnecter</string>
     <string name="deleteAccount">Supprimer mon compte</string>
     <string name="Caneldar">Calendrier</string>
+
+    <string name="AddEvent">Ajouter</string>
+
+    <string name="delete_account_title">Supprimer le Compte</string>
+    <string name="delete_account_message">Êtes-vous sûr(e) de vouloir supprimer votre compte ?</string>
+    <string name="delete_button_label">Supprimer</string>
+    <string name="delete_data_radio_label">Supprimer les Données</string>
+    <string name="keep_data_radio_label">Conserver les Données</string>
 
     <string name="welcome_label">Commencez avec EndoAware</string>
 

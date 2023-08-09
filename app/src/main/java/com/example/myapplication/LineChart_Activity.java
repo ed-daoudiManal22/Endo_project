@@ -226,8 +226,8 @@ public class LineChart_Activity extends AppCompatActivity {
                         String formattedAveragePainScore = String.format(Locale.US, "%.2f", averagePainScore);
 
                         // Display the average pain score in the TextView
-                        averagePainTextView.setText("Pain Average : " + formattedAveragePainScore);
-                    }
+                        String painAverageLabel = getString(R.string.pain_average_label);
+                        averagePainTextView.setText(painAverageLabel + " " + formattedAveragePainScore);}
 
                     // Sort the entries by their timestamps
                     Collections.sort(entries, new Comparator<Entry>() {

@@ -5,6 +5,7 @@
     <string name="next">Next</string>
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
+    <string name="save_profile">Save Profile</string>
 
     <string name="score_label">Score:</string>
     <string name="report_label">Report</string>
@@ -13,6 +14,13 @@
     <string name="diagnostic_label">Diagnostic test:</string>
     <string name="weight_data">Enter your weight in kg </string>
     <string name="height_data">Enter your height in cm</string>
+    <string name="RiskLevel">Risk level</string>
+    <string name="UserAnswer">User\'s Answer :</string>
+    <string name="name_label">Name:</string>
+    <string name="email_label">Email:</string>
+    <string name="birthday_label">Birthday:</string>
+    <string name="pain_average_label">Pain Average:</string>
+    <string name="diagnostic_report_title">Diagnostic Test Report</string>
 
     <string name="Low">Low</string>
     <string name="Medium">Medium</string>
@@ -22,9 +30,13 @@
     <string name="home">Home</string>
     <string name="track">Track</string>
     <string name="community">Community</string>
+
     <string name="Publish">Publish</string>
     <string name="Publish_blog">Publish Blog</string>
     <string name="select_img">Select an Image!!</string>
+    <string name="Write_comment">Write Comment</string>
+    <string name="Add">Add</string>
+    <string name="Search_blogs">Search Blogs</string>
 
     <string name="pain_evolution">Pain evolution</string>
     <string name="pain_average">Pain Average : </string>
@@ -74,6 +86,13 @@
     <string name="deleteAccount">Delete Account</string>
     <string name="Caneldar">Caneldar</string>
 
+    <string name="AddEvent">Add Event</string>
+
+    <string name="delete_account_title">Delete Account</string>
+    <string name="delete_account_message">Are you sure you want to delete your account?</string>
+    <string name="delete_button_label">Delete</string>
+    <string name="delete_data_radio_label">Delete Data</string>
+    <string name="keep_data_radio_label">Keep Data</string>
 
     <string name="welcome_label">Get Started with EndoAware</string>
 

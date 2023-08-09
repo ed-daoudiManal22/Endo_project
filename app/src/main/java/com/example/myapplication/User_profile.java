@@ -213,8 +213,8 @@ public class User_profile extends AppCompatActivity {
     }
     private void showDeleteAccountDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(User_profile.this);
-        builder.setTitle("Delete Account");
-        builder.setMessage("Are you sure you want to delete your account?");
+        builder.setTitle(getString(R.string.delete_account_title));
+        builder.setMessage(getString(R.string.delete_account_message));
 
         // Inflate a custom layout for the dialog that contains the radio buttons
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_account, null);
@@ -230,7 +230,7 @@ public class User_profile extends AppCompatActivity {
         });
 
         // Set a click listener for the positive button
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", (dialogInterface, i) -> {
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete_button_label), (dialogInterface, i) -> {
             // Check which radio button is selected and perform the corresponding action
             int selectedId = ((RadioGroup) view.findViewById(R.id.radioGroup)).getCheckedRadioButtonId();
             if (selectedId == R.id.deleteDataRadioButton) {
@@ -246,7 +246,7 @@ public class User_profile extends AppCompatActivity {
         });
 
         // Set a click listener for the negative button (Cancel button)
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", (dialogInterface, i) -> {
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel), (dialogInterface, i) -> {
             // Dismiss the dialog when the "Cancel" button is clicked
             alertDialog.dismiss();
         });
