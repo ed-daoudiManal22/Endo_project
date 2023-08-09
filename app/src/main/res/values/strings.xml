@@ -144,7 +144,7 @@
     <string name="periodStartOpt2">Above 11 years old</string>
     <string name="cycleLength">Your menstrual cycle length average ?</string>
     <string name="cycleLengthOpt1">Less than 27 days</string>
-    <string name="cycleLengthOpt2">Not More than 27 dayshing</string>
+    <string name="cycleLengthOpt2">More than 27 days</string>
     <string name="NotSure">Not sure</string>
     <string name="famillyHistory"> Do you have a familly history of endometriosis ?</string>
     <string name="giveBirth"> Did you give birth ?</string>

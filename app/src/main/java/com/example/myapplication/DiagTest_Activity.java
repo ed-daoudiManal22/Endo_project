@@ -273,16 +273,14 @@ public class DiagTest_Activity extends AppCompatActivity {
             if (userAnswer != null) {
                 if (userAnswer instanceof String) {
                     String selectedOption = (String) userAnswer;
-                    int selectedOptionResId = getStringResourceID(selectedOption);
-                    if (selectedOptionResId != 0 && question.getOptionScores().containsKey(selectedOptionResId)) {
-                        totalScore += question.getOptionScores().get(selectedOptionResId);
+                    if (selectedOption != null && question.getOptionScores().containsKey(selectedOption)) {
+                        totalScore += question.getOptionScores().get(selectedOption);
                     }
                 } else if (userAnswer instanceof List<?>) {
                     List<String> selectedOptions = (List<String>) userAnswer;
                     for (String option : selectedOptions) {
-                        int optionResId = getStringResourceID(option);
-                        if (optionResId != 0 && question.getOptionScores().containsKey(optionResId)) {
-                            totalScore += question.getOptionScores().get(optionResId);
+                        if (option != null && question.getOptionScores().containsKey(option)) {
+                            totalScore += question.getOptionScores().get(option);
                         }
                     }
                 } else if (userAnswer instanceof Double) {
@@ -551,18 +549,4 @@ public class DiagTest_Activity extends AppCompatActivity {
             return "Resource not found";
         }
     }
-    private int getStringResourceID(String value) {
-        Resources resources = getResources();
-        String packageName = getPackageName();
-        int resId = resources.getIdentifier(value, "string", packageName);
-        if (resId != 0) {
-            Log.e("DiagTest_Activity", "Resource found: " + resId);
-            return resId;
-        } else {
-            // Handle the case when the resource is not found
-            Log.e("DiagTest_Activity", "Resource not found: " + value);
-            return -1; // Return -1 to indicate that the resource was not found
-        }
-    }
-
 }

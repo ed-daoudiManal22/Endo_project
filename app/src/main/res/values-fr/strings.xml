@@ -144,7 +144,7 @@
     <string name="periodStartOpt2">À partir de 11 ans</string>
     <string name="cycleLength">Quelle est la durée moyenne de votre cycle menstruel ?</string>
     <string name="cycleLengthOpt1">Moins de 27 jours</string>
-    <string name="cycleLengthOpt2">Pas plus de 27 jours</string>
+    <string name="cycleLengthOpt2">Plus de 27 jours</string>
     <string name="NotSure">Je suis pas sur</string>
     <string name="famillyHistory">Avez-vous des antécédents familiaux d\'endométriose ?</string>
     <string name="giveBirth">Avez-vous déjà accouché ?</string>
