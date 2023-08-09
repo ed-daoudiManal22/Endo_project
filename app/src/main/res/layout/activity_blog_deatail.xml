@@ -1,136 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Community.BlogDetail">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/ic_back_black" />
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="190dp"
+        android:id="@+id/card"
+        android:layout_below="@id/imageView4"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:cardCornerRadius="15dp">
 
         <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            app:srcCompat="@drawable/ic_back_black" />
-
-        <androidx.cardview.widget.CardView
+            android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:id="@+id/card"
-            android:layout_below="@id/imageView4"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            app:cardCornerRadius="15dp">
+            android:scaleType="centerCrop" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/card"
+        app:backgroundTint="@color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="-25dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_share_icon"
+        android:contentDescription="@string/share_btn"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="by username"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:layout_below="@+id/textView4"
+        android:text="This is the sample title" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="Description goes here"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:layout_above="@+id/commentInputSection" />
+
+    <!-- Comment Input Section at the Bottom -->
+    <LinearLayout
+        android:id="@+id/commentInputSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/post_detail_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_button_style_rounded"
+            android:hint="@string/Write_comment"
+            android:inputType="text"
+            android:maxLines="4"
+            android:padding="12dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/post_detail_add_comment_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/card"
-            app:backgroundTint="@color/white"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="-25dp"
-            android:clickable="true"
-            app:srcCompat="@drawable/ic_share_icon" />
+            android:layout_marginStart="8dp"
+            android:background="@drawable/add_reminder_button"
+            android:text="@string/Add"
+            android:textColor="#FFFFFF"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/card"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:text="by username"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="23sp"
-            android:layout_below="@+id/textView4"
-            android:text="This is the sample title" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView5"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:text="Description goes here"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/commentsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textView6"
-            android:layout_marginTop="16dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/commentsRecyclerView"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical">
-
-            <EditText
-
-                android:hint="@string/Write_comment"
-                android:background="@drawable/edittext_button_style_rounded"
-                android:id="@+id/post_detail_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="@+id/post_detail_currentuser_img"
-                app:layout_constraintStart_toEndOf="@+id/post_detail_currentuser_img"
-                app:layout_constraintTop_toTopOf="@+id/post_detail_currentuser_img" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/post_detail_add_comment_btn"
-                android:layout_width="53dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/add_reminder_button"
-                android:text="@string/Add"
-                app:layout_constraintBottom_toBottomOf="@+id/post_detail_comment"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/post_detail_comment"
-                app:layout_constraintTop_toTopOf="@+id/post_detail_comment"
-                app:layout_constraintVertical_bias="0.529" />
-        </LinearLayout>
-    </RelativeLayout>
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

@@ -37,6 +37,8 @@
     <string name="Write_comment">Ecrire un commentaire</string>
     <string name="Add">Ajouter</string>
     <string name="Search_blogs">Chercher un blog</string>
+    <string name="share_btn">Partager</string>
+
 
     <string name="pain_evolution">Évolution de la douleur : </string>
     <string name="pain_average">Moyenne des douleurs</string>
