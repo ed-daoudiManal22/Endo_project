@@ -27,7 +27,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Endo_InfoActivity extends AppCompatActivity {
+public class  Endo_InfoActivity extends AppCompatActivity {
     private ImageView leftIcon, notificationIcon;
     private RecyclerView articlesRV;
     private ProgressBar loadingPB;
@@ -68,7 +68,11 @@ public class Endo_InfoActivity extends AppCompatActivity {
         articlesArrayList.clear();
 
         // Use the URL to fetch articles related to endometriosis
-        String url = "https://newsapi.org/v2/everything?q=endometriosis&sortBy=publishedAt&apiKey=bb820970d3114ca1903eac14d6826b26";
+        //String url = "https://newsapi.org/v2/everything?q=endometriosis&sortBy=publishedAt&apiKey=bb820970d3114ca1903eac14d6826b26";
+        String apiKey = "bb820970d3114ca1903eac14d6826b26";
+        String query = "endometriosis women  health";  // Combine keywords
+        String sortBy = "publishedAt";
+        String url = "https://newsapi.org/v2/everything?q=" + query + "&apiKey=" + apiKey;
         String BASE_URL = "https://newsapi.org/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
