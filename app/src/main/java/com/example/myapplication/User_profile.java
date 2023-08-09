@@ -34,6 +34,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -298,30 +299,76 @@ public class User_profile extends AppCompatActivity {
         }
     }
     private void deleteUserData(String userId) {
-        // Step 2: Delete subcollections (e.g., "reminders", "symptoms", "events")
-        deleteSubcollections(userId, "reminders");
-        deleteSubcollections(userId, "symptoms");
-        deleteSubcollections(userId, "events");
+        // Step 1: Delete all comments made by the user
+        CollectionReference blogsCollectionRef = FirebaseFirestore.getInstance().collection("Blogs");
 
-        // Step 3: Delete the main document from the "Users" collection
-        DocumentReference userDocumentRef = FirebaseFirestore.getInstance().collection("Users").document(userId);
-        userDocumentRef.delete().addOnCompleteListener(task -> {
+        blogsCollectionRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                // Step 4: Delete the user's account
-                currentUser.delete().addOnCompleteListener(accountDeletionTask -> {
-                    if (accountDeletionTask.isSuccessful()) {
-                        // Call the logout method to sign out the user and redirect to the login page
-                        logoutUser();
-                        Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    CollectionReference commentsCollectionRef = blogsCollectionRef.document(document.getId()).collection("Comments");
+
+                    Query userCommentsQuery = commentsCollectionRef.whereEqualTo("userId", userId);
+                    userCommentsQuery.get().addOnCompleteListener(commentsTask -> {
+                        if (commentsTask.isSuccessful()) {
+                            for (QueryDocumentSnapshot commentDocument : commentsTask.getResult()) {
+                                commentsCollectionRef.document(commentDocument.getId()).delete();
+                            }
+                        }
+                    });
+                }
+
+                // Step 2: Delete user's posts from "Blogs" collection
+                Query userPostsQuery = blogsCollectionRef.whereEqualTo("userId", userId);
+                userPostsQuery.get().addOnCompleteListener(postsTask -> {
+                    if (postsTask.isSuccessful()) {
+                        for (QueryDocumentSnapshot postDocument : postsTask.getResult()) {
+                            DocumentReference postDocumentRef = blogsCollectionRef.document(postDocument.getId());
+                            postDocumentRef.delete();
+                        }
+
+                        // Step 3: Delete subcollections (e.g., "reminders", "symptoms", "events")
+                        deleteSubcollections(userId, "reminders");
+                        deleteSubcollections(userId, "symptoms");
+                        deleteSubcollections(userId, "events");
+
+                        // Step 4: Delete the main document from the "Users" collection
+                        DocumentReference userDocumentRef = FirebaseFirestore.getInstance().collection("Users").document(userId);
+                        userDocumentRef.delete().addOnCompleteListener(task2 -> {
+                            if (task2.isSuccessful()) {
+                                // Step 5: Delete the user's account
+                                currentUser.delete().addOnCompleteListener(accountDeletionTask -> {
+                                    if (accountDeletionTask.isSuccessful()) {
+                                        // Call the logout method to sign out the user and redirect to the login page
+                                        logoutUser();
+                                        Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else {
                         Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
                     }
                 });
-            } else {
-                Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
+    private void deleteCollection(CollectionReference collectionReference) {
+        // Delete documents in batches to handle large collections
+        collectionReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    document.getReference().delete();
+                }
+            }
+        });
+    }
+
 
     private void deleteSubcollections(String userId, String subcollectionName) {
         CollectionReference subcollectionRef = FirebaseFirestore.getInstance()
