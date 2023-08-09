@@ -91,16 +91,16 @@
 
         <EditText
             android:id="@+id/inputWeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="380dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="25dp"
             android:hint="@string/weight_data"
-            android:inputType="text"
-            android:layout_marginTop="25dp" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/inputHeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="380dp"
+            android:layout_height="58dp"
             android:hint="@string/height_data"
             android:inputType="text"
             android:layout_marginTop="10dp" />

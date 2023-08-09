@@ -82,22 +82,22 @@
 
             <EditText
                 android:id="@+id/nameTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="380dp"
+                android:layout_height="58dp"
                 android:hint="Full Name"
                 android:padding="10dp"/>
 
             <EditText
                 android:id="@+id/emailTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="380dp"
+                android:layout_height="58dp"
                 android:hint="Email"
                 android:layout_marginTop="60dp"/>
 
             <EditText
                 android:id="@+id/birthdayTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="380dp"
+                android:layout_height="58dp"
                 android:hint="Birthday Date"
                 android:inputType="date"
                 android:layout_marginTop="120dp"/>
@@ -108,9 +108,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="210dp"
+                android:layout_marginTop="250dp"
                 android:background="@drawable/next_btn_pink"
                 android:text="@string/save_profile"
+                android:textStyle="bold"
                 android:textColor="@color/pink"/>
 
         </androidx.cardview.widget.CardView>

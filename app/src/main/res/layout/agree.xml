@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Privacy Policy"
-            android:textColor="#FFA7B5"
+            android:textColor="@color/pink"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginStart="8dp" />
@@ -128,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Terms of Service"
-            android:textColor="#FFA7B5"
+            android:textColor="@color/pink"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginStart="8dp" />
