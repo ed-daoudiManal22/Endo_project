@@ -70,6 +70,8 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/second_btn"
         android:text="Start New Quiz"
+        android:textSize="16sp"
+        android:textStyle="bold"
         android:textColor="@color/white" />
 
 </RelativeLayout>
