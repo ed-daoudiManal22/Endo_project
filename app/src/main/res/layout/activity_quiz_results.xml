@@ -54,7 +54,7 @@
             android:text="Wrong Answers : 0"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#FA7F92"
+            android:textColor="@color/pink"
             />
 
     </LinearLayout>

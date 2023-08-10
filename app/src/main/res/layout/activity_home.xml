@@ -42,7 +42,7 @@
 
             <ImageView
                 android:id="@+id/home_img"
-                android:layout_width="20dp"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/home"/>
@@ -71,10 +71,10 @@
 
             <ImageView
                 android:id="@+id/track_img"
-                android:layout_width="20dp"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/calendr"/>
+                android:src="@drawable/tracking"/>
             <TextView
                 android:id="@+id/track_txt"
                 android:visibility="gone"
@@ -100,10 +100,10 @@
 
             <ImageView
                 android:id="@+id/community_img"
-                android:layout_width="20dp"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/settings"/>
+                android:src="@drawable/community"/>
             <TextView
                 android:id="@+id/community_txt"
                 android:visibility="gone"

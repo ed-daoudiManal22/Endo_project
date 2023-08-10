@@ -119,6 +119,8 @@
             android:background="@drawable/add_reminder_button"
             android:text="@string/Add"
             android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="12dp"

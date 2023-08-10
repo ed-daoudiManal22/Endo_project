@@ -67,8 +67,11 @@
         android:layout_width="250dp"
         android:layout_height="55dp"
         android:text="Next"
-        android:textColor="@android:color/white"
+        android:textColor="@color/pink"
+        android:textSize="16sp"
+        android:textStyle="bold"
         android:background="@drawable/second_btn"
+        android:backgroundTint="@color/pink"
         android:layout_below="@id/ageDatePicker"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp" />
