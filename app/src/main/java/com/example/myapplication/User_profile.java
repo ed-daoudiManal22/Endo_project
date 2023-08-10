@@ -62,6 +62,7 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout logoutLayout = findViewById(R.id.logout);
         androidx.constraintlayout.widget.ConstraintLayout deleteAccountLayout = findViewById(R.id.deleteAccount);
         androidx.constraintlayout.widget.ConstraintLayout CalendarLayout = findViewById(R.id.calendar);
+        androidx.constraintlayout.widget.ConstraintLayout AboutUsLayout = findViewById(R.id.AboutUs);
 
         // Initialize Firebase components
         firebaseAuth = FirebaseAuth.getInstance();
@@ -128,6 +129,13 @@ public class User_profile extends AppCompatActivity {
             }
         });
         CalendarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(User_profile.this, EventCalendar_Activity.class);
+                startActivity(intent);
+            }
+        });
+        AboutUsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(User_profile.this, EventCalendar_Activity.class);

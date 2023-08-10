@@ -85,7 +85,8 @@
     <string name="share_app">Share app</string>
     <string name="logout">Logout</string>
     <string name="deleteAccount">Delete Account</string>
-    <string name="Caneldar">Caneldar</string>
+    <string name="Calendar">Calendar</string>
+    <string name="AboutUs">A propos de nous</string>
 
     <string name="AddEvent">Add Event</string>
 
@@ -201,5 +202,81 @@
     <string name="Constipation">Constipation</string>
     <string name="Bloating">Abdominal Bloating</string>
     <string name="Abuse">Have you ever been victim of physical abuse or sexual abuse ?</string>
+
+    <!-- Quiz questions -->
+    <!-- Endometriosis topic
+    <string name="qst1">What is endometriosis?</string>
+    <string name="qst1_opt1">A condition that affects the lungs</string>
+    <string name="qst1_opt2">A disorder that affects the liver</string>
+    <string name="qst1_opt3">A condition in which tissue similar to the lining of the uterus grows outside the uterus</string>
+    <string name="qst1_opt4">A disease that primarily targets the kidneys</string>
+    <string name="qst1_answer">A condition in which tissue similar to the lining of the uterus grows outside the uterus</string>
+    <string name="qst1_justif">Endometriosis is a medical condition characterized by the abnormal growth of tissue that is similar to the lining of the uterus (endometrium) outside the uterus itself</string>
+    <string name="qst2">What is the primary symptom of endometriosis?</string>
+    <string name="qst2_opt1">Nausea</string>
+    <string name="qst2_opt2">Headache</string>
+    <string name="qst2_opt3">Back pain</string>
+    <string name="qst2_opt4">Pelvic pain</string>
+    <string name="qst2_answer">Pelvic pain</string>
+    <string name="qst2_justif">The primary symptom of endometriosis is pelvic pain, often associated with menstrual periods. This pain can be severe and is typically worse than normal menstrual cramps</string>
+    <string name="qst3">Which of the following is a common location for endometriosis growth?</string>
+    <string name="qst3_opt1">Ovaries</string>
+    <string name="qst3_opt2">Lungs</string>
+    <string name="qst3_opt3">Liver</string>
+    <string name="qst3_opt4">Kidneys</string>
+    <string name="qst3_answer">Ovaries</string>
+    <string name="qst3_justif">Endometriosis most commonly involves pelvic organs such as the ovaries, fallopian tubes, and the tissue lining the pelvis. It can lead to the formation of cysts called endometriomas in the ovaries.</string>
+    <string name="qst4">At what stage of life does endometriosis usually develop?</string>
+    <string name="qst4_opt1">Puberty</string>
+    <string name="qst4_opt2">Childhood</string>
+    <string name="qst4_opt3">Menopause</string>
+    <string name="qst4_opt4">Elderly years</string>
+    <string name="qst4_answer">Puberty</string>
+    <string name="qst4_justif">Endometriosis typically develops several years after the onset of menstruation, which occurs during puberty. It is less common before puberty or after menopause.</string>
+    <string name="qst5">What is the primary reason for the difficulty in diagnosing endometriosis?</string>
+    <string name="qst5_opt1">Yes</string>
+    <string name="qst5_opt2">Yes</string>
+    <string name="qst5_opt3">Yes</string>
+    <string name="qst5_opt4">The symptoms can vary considerably and can mimic other conditions.</string>
+    <string name="qst5_answer">The symptoms can vary considerably and can mimic other conditions.</string>
+    <string name="qst5_justif">Yes</string>
+    <string name="qst6">Yes</string>
+    <string name="qst6_opt1">Yes</string>
+    <string name="qst6_opt2">Yes</string>
+    <string name="qst6_opt3">Yes</string>
+    <string name="qst6_opt4">Yes</string>
+    <string name="qst6_answer">Yes</string>
+    <string name="qst6_justif">Yes</string>
+    <string name="qst7">Yes</string>
+    <string name="qst7_opt1">Yes</string>
+    <string name="qst7_opt2">Yes</string>
+    <string name="qst7_opt3">Yes</string>
+    <string name="qst7_opt4">Yes</string>
+    <string name="qst7_answer">Yes</string>
+    <string name="qst7_justif">Yes</string>
+    <string name="qst8">Yes</string>
+    <string name="qst8_opt1">Yes</string>
+    <string name="qst8_opt2">Yes</string>
+    <string name="qst8_opt3">Yes</string>
+    <string name="qst8_opt4">Yes</string>
+    <string name="qst8_answer">Yes</string>
+    <string name="qst8_justif">Yes</string>
+    <string name="qst9">Yes</string>
+    <string name="qst9_opt1">Yes</string>
+    <string name="qst9_opt2">Yes</string>
+    <string name="qst9_opt3">Yes</string>
+    <string name="qst9_opt4">Yes</string>
+    <string name="qst9_answer">Yes</string>
+    <string name="qst9_justif">Yes</string>
+    <string name="qst10">What is the primary aim of hormonal medicines in treating endometriosis?</string>
+    <string name="qst10_opt1">Curing endometriosis</string>
+    <string name="qst10_opt2">Increasing fertility</string>
+    <string name="qst10_opt3">Controlling pain and symptoms</string>
+    <string name="qst10_opt4">Reducing inflammation</string>
+    <string name="qst10_answer">Controlling pain and symptoms</string>
+    <string name="qst10_justif">Hormonal medicines work by regulating hormonal levels in the body, often suppressing the production of estrogen, which fuels the growth of endometrial tissue.</string>
+-->
+
+
 
 </resources>
