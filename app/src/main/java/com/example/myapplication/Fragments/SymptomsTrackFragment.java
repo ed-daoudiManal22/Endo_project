@@ -99,15 +99,11 @@ public class SymptomsTrackFragment extends Fragment {
         feelingOptions.add(getString(R.string.vomiting));
         feelingOptions.add(getString(R.string.diarrhea));
 
-        List<String> medsOptions = new ArrayList<>();
-        medsOptions.add(getString(R.string.nothing));
-
         // Add the populated nested lists to mList
         mList.add(new DataModel(painLocationOptions, getString(R.string.pain_locations)));
         mList.add(new DataModel(symptomsOptions, getString(R.string.symptoms)));
         mList.add(new DataModel(painWorseOptions, getString(R.string.pain_worse_title)));
         mList.add(new DataModel(feelingOptions, getString(R.string.feelings)));
-        mList.add(new DataModel(medsOptions, getString(R.string.medications)));
 
         adapter = new ItemAdapter(requireContext(),mList);
         recyclerView.setAdapter(adapter);

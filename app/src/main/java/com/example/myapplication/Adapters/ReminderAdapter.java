@@ -50,12 +50,26 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
         Reminder reminder = reminders.get(position);
         holder.titleTextView.setText(reminder.getTitle());
-        holder.descriptionTextView.setText(reminder.getDescription());
-        holder.dateTextView.setText(formatDateTime(reminder.getDatetime()));
+        holder.dateTextView.setText(reminder.getTime());
         holder.activeCheckbox.setChecked(reminder.isActive());
 
-        holder.activeCheckbox.setOnCheckedChangeListener(null); // Remove previous listener to avoid conflicts
+        // Convert boolean array of repeat days to a comma-separated string
+        StringBuilder repeatDaysBuilder = new StringBuilder();
+        boolean[] repeatDaysArray = reminder.getRepeatDays();
+        String[] dayNames = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        for (int i = 0; i < repeatDaysArray.length; i++) {
+            if (repeatDaysArray[i]) {
+                repeatDaysBuilder.append(dayNames[i]);
+                repeatDaysBuilder.append(", ");
+            }
+        }
+        // Remove the trailing comma and space if any repeat days were added
+        if (repeatDaysBuilder.length() > 0) {
+            repeatDaysBuilder.setLength(repeatDaysBuilder.length() - 2);
+        }
+        holder.repeatDaysTextView.setText(repeatDaysBuilder.toString());
 
+        holder.activeCheckbox.setOnCheckedChangeListener(null); // Remove previous listener to avoid conflicts
         holder.activeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -83,15 +97,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         });
     }
 
-    private String formatDateTime(Date datetime) {
-        if (datetime == null) {
-            return "";
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        return sdf.format(datetime);
-    }
-
     @Override
     public int getItemCount() {
         return reminders.size();
@@ -99,7 +104,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
 
     class ReminderViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
-        TextView descriptionTextView;
+        TextView repeatDaysTextView;
         TextView dateTextView;
         CheckBox activeCheckbox;
         ImageView deleteButton;
@@ -107,7 +112,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         ReminderViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
-            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            repeatDaysTextView = itemView.findViewById(R.id.repeatDaysTextView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
             activeCheckbox = itemView.findViewById(R.id.activeCheckbox);
             deleteButton = itemView.findViewById(R.id.deleteButton);

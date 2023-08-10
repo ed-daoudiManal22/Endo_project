@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/reminderslist"
+            android:text="@string/alarmslist"
             android:layout_gravity="center"
             android:textStyle="bold"
             android:textColor="@android:color/white"

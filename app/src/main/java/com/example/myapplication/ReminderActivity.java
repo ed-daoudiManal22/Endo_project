@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -108,14 +109,15 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             String id = documentSnapshot.getId(); // Retrieve the document ID
                             String title = documentSnapshot.getString("title");
-                            String description = documentSnapshot.getString("description");
-                            Timestamp datetimeTimestamp = documentSnapshot.getTimestamp("datetime");
+                            String time = documentSnapshot.getString("time");
                             boolean isActive = documentSnapshot.getBoolean("isActive");
+                            List<Boolean> repeatDays = (List<Boolean>) documentSnapshot.get("repeatDays");
+                            boolean[] repeatDaysArray = new boolean[repeatDays.size()];
+                            for (int i = 0; i < repeatDays.size(); i++) {
+                                repeatDaysArray[i] = repeatDays.get(i);
+                            }
 
-                            // Convert Firestore Timestamp to Date
-                            Date datetime = datetimeTimestamp != null ? datetimeTimestamp.toDate() : null;
-
-                            Reminder reminder = new Reminder(id,title, datetime, description, isActive);
+                            Reminder reminder = new Reminder(id,title, time,isActive,repeatDaysArray);
                             reminders.add(reminder);
                         }
 
@@ -144,35 +146,45 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
 
         // Find the views in the custom layout
         EditText titleEditText = dialogView.findViewById(R.id.titleEditText);
-        EditText descriptionEditText = dialogView.findViewById(R.id.descriptionEditText);
-        DatePicker datePicker = dialogView.findViewById(R.id.datePicker);
         TimePicker timePicker = dialogView.findViewById(R.id.timePicker);
+        CheckBox Mon = dialogView.findViewById(R.id.checkBoxMo);
+        CheckBox Tue = dialogView.findViewById(R.id.checkBoxTu);
+        CheckBox Wed = dialogView.findViewById(R.id.checkBoxWe);
+        CheckBox Thu = dialogView.findViewById(R.id.checkBoxTh);
+        CheckBox Fri = dialogView.findViewById(R.id.checkBoxFr);
+        CheckBox Sat = dialogView.findViewById(R.id.checkBoxSa);
+        CheckBox Sun = dialogView.findViewById(R.id.checkBoxSu);
 
         // Add "Save" button to the dialog
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String title = titleEditText.getText().toString();
-                String description = descriptionEditText.getText().toString();
-
-                // Get the selected date from the DatePicker
-                int year = datePicker.getYear();
-                int month = datePicker.getMonth();
-                int day = datePicker.getDayOfMonth();
 
                 // Get the selected time from the TimePicker
                 int hour = timePicker.getCurrentHour();
                 int minute = timePicker.getCurrentMinute();
 
-                // Create a Calendar instance and set the selected date and time
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, day, hour, minute);
+                // Create a boolean array to store repeat days
+                boolean[] repeatDays = new boolean[7];
+                repeatDays[0] = Mon.isChecked();
+                repeatDays[1] = Tue.isChecked();
+                repeatDays[2] = Wed.isChecked();
+                repeatDays[3] = Thu.isChecked();
+                repeatDays[4] = Fri.isChecked();
+                repeatDays[5] = Sat.isChecked();
+                repeatDays[6] = Sun.isChecked();
 
-                // Get the Date object from the Calendar
-                Date datetime = calendar.getTime();
+                // Create a Calendar instance and set the selected time
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+
+                // Format the time as "hh:mm" string
+                String timeString = String.format("%02d:%02d", hour, minute);
 
                 // Save the new reminder to Firestore for the current user
-                saveReminder(title, datetime, description);
+                saveReminder(title, timeString,repeatDays);
             }
         });
 
@@ -187,15 +199,18 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         builder.show();
     }
 
-    private void saveReminder(String title, Date datetime, String description) {
-
-        Timestamp datetimeTimestamp = new Timestamp(datetime);
+    private void saveReminder(String title, String time,boolean[] repeatDays) {
 
         Map<String, Object> reminderData = new HashMap<>();
         reminderData.put("title", title);
-        reminderData.put("datetime", datetimeTimestamp);
-        reminderData.put("description", description);
+        reminderData.put("time", time);
         reminderData.put("isActive", true);
+        // Convert the boolean array to a List
+        List<Boolean> repeatDaysList = new ArrayList<>();
+        for (boolean repeatDay : repeatDays) {
+            repeatDaysList.add(repeatDay);
+        }
+        reminderData.put("repeatDays", repeatDaysList);
 
         firestore.collection("Users").document(currentUserUid).collection("reminders")
                 .add(reminderData)
@@ -213,7 +228,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     }
                 });
 
-        scheduleNotification(title, datetime, description);
+        //scheduleNotification(title, timeString, description);
     }
     @Override
     public void onReminderActiveStatusChange(Reminder reminder) {
@@ -259,43 +274,5 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                         Log.e("ReminderAdapter", "Error updating reminder isActive status", e);
                     }
                 });
-    }
-
-    private void scheduleNotification(String title, Date datetime, String description) {
-        // Create a notification channel (required for Android 8.0 Oreo and above)
-        createNotificationChannel();
-
-        // Create an Intent for the notification
-        Intent notificationIntent = new Intent(this, ReminderNotification_Activity.class);
-        notificationIntent.putExtra("title", title);
-        notificationIntent.putExtra("description", description);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Get the system AlarmManager
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        // Set the reminder time as the trigger time for the alarm
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(datetime);
-        long triggerTimeInMillis = calendar.getTimeInMillis();
-
-        // Schedule the alarm
-        alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
-    }
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "reminders_channel";
-            String channelName = "Reminders";
-            String channelDescription = "Notifications for reminders";
-
-            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription(channelDescription);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
     }
 }

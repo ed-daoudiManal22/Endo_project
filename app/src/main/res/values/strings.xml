@@ -60,6 +60,14 @@
     <string name="diag_result">Test result</string>
 
     <string name="title...">Title&#8230;</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
+    <string name="Repeat">Repeat : </string>
 
     <string name="faq_label">Most frequently asked questions</string>
     <string name="endo_faq_title">Endometriosis FAQ</string>
@@ -77,16 +85,16 @@
     <string name="today">Today</string>
     <string name="pain_level">Pain Level</string>
 
-    <string name="reminderslist">Reminder\'s list</string>
+    <string name="alarmslist">Alarms list</string>
     <string name="Profile">Profile</string>
-    <string name="reminders">Reminders</string>
+    <string name="alarm">Alarm</string>
     <string name="edit_profile">Edit profile</string>
     <string name="change_language">Change language</string>
     <string name="share_app">Share app</string>
     <string name="logout">Logout</string>
     <string name="deleteAccount">Delete Account</string>
     <string name="Calendar">Calendar</string>
-    <string name="AboutUs">A propos de nous</string>
+    <string name="AboutUs">About Us</string>
 
     <string name="AddEvent">Add Event</string>
 

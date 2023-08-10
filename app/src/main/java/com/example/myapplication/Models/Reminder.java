@@ -5,28 +5,26 @@ import java.util.Date;
 public class Reminder {
     private String id;
     private String title;
-    private Date datetime;
-    private String description;
+    private String time;
     private boolean isActive;
+    private boolean[] repeatDays;
 
-    // Add constructors, getters, and setters as needed
-
-    // Example of a constructor
-    public Reminder(String title, Date datetime, String description) {
+    public Reminder(String title, String time, boolean[] repeatDays) {
         this.title = title;
-        this.datetime = datetime;
-        this.description = description;
+        this.time = time;
+        this.repeatDays = repeatDays;
     }
+
     public String getId() {
         return id;
     }
 
-    public Reminder(String id, String title, Date datetime, String description, boolean isActive) {
+    public Reminder(String id, String title, String time, boolean isActive, boolean[] repeatDays) {
         this.id = id;
         this.title = title;
-        this.datetime = datetime;
-        this.description = description;
+        this.time = time;
         this.isActive = isActive;
+        this.repeatDays = repeatDays;
     }
 
     public void setId(String id) {
@@ -40,20 +38,12 @@ public class Reminder {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTime() {
+        return time;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public boolean isActive() {
@@ -62,5 +52,13 @@ public class Reminder {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public boolean[] getRepeatDays() {
+        return repeatDays;
+    }
+
+    public void setRepeatDays(boolean[] repeatDays) {
+        this.repeatDays = repeatDays;
     }
 }

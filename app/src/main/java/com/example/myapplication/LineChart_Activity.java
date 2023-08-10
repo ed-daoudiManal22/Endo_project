@@ -517,7 +517,7 @@ public class LineChart_Activity extends AppCompatActivity {
                     //end feelings percentage
 
                     // Create a list to store all medications from all documents
-                    List<String> allMedications = new ArrayList<>();
+                    /*List<String> allMedications = new ArrayList<>();
 
                     for (DocumentSnapshot document : task.getResult()) {
                         // Get the medications array from the document
@@ -573,7 +573,7 @@ public class LineChart_Activity extends AppCompatActivity {
                         // Add the TextView to the LinearLayout
                         medicationLayout.addView(medicationTextView);
                     }
-                    //end medications percentage
+                    //end medications percentage  */
                 } else {
                     Log.e("LineChart_Activity", "Error getting symptoms subcollection: ", task.getException());
                 }

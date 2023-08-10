@@ -61,6 +61,14 @@
     <string name="diag_result">Resultat du test</string>
 
     <string name="title...">Titre&#8230;</string>
+    <string name="monday">Lun</string>
+    <string name="tuesday">Mar</string>
+    <string name="wednesday">Mer</string>
+    <string name="thursday">Jeu</string>
+    <string name="friday">Ven</string>
+    <string name="saturday">Sam</string>
+    <string name="sunday">Dim</string>
+    <string name="Repeat">Répéter : </string>
 
     <string name="faq_label">Questions fréquemment posées</string>
     <string name="endo_faq_title">Endométriose FAQ</string>
@@ -78,16 +86,16 @@
     <string name="today">Aujourd\'hui</string>
     <string name="pain_level">Niveau de douleur</string>
 
-    <string name="reminderslist">Liste des rappels</string>
+    <string name="alarmslist">Liste des alarmes</string>
     <string name="Profile">Profil</string>
-    <string name="reminders">Rappels</string>
+    <string name="alarm">Alarm</string>
     <string name="edit_profile">Modifier le profil</string>
     <string name="change_language">Changer de langue</string>
     <string name="share_app">Partager l\'application</string>
     <string name="logout">Déconnecter</string>
     <string name="deleteAccount">Supprimer mon compte</string>
     <string name="Calendar">Calendrier</string>
-    <string name="AboutUs">About Us</string>
+    <string name="AboutUs">A propos de nou</string>
 
     <string name="AddEvent">Ajouter</string>
 
