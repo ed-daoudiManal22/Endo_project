@@ -295,9 +295,9 @@ public class DiagTest_Activity extends AppCompatActivity {
 
             reportBuilder.append("\n");
         }
-        if (totalScore >= 0 && totalScore <= 2) {
+        if (totalScore >= 0 && totalScore <= 12) {
             riskLevel = "Low";
-        } else if (totalScore >= 3 && totalScore <= 4) {
+        } else if (totalScore >= 13 && totalScore <= 25) {
             riskLevel ="Medium";
         } else {
             riskLevel = "High";

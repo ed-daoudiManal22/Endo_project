@@ -1,19 +1,20 @@
 package com.example.myapplication.Models;
 
 public class Quiz_question {
-    private String qst, opt1, opt2, opt3, opt4, answer;
+    private String qst, opt1, opt2, opt3, opt4, answer,justif;
     private String userSelectedAnswer;
 
     public Quiz_question() {
     }
 
-    public Quiz_question(String qst, String opt1, String opt2, String opt3, String opt4, String answer) {
+    public Quiz_question(String qst, String opt1, String opt2, String opt3, String opt4, String answer,String justif) {
         this.qst = qst;
         this.opt1 = opt1;
         this.opt2 = opt2;
         this.opt3 = opt3;
         this.opt4 = opt4;
         this.answer = answer;
+        this.justif = justif;
     }
 
     public String getQst() {
@@ -62,6 +63,14 @@ public class Quiz_question {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getJustif() {
+        return justif;
+    }
+
+    public void setJustif(String justif) {
+        this.justif = justif;
     }
 
     public String getUserSelectedAnswer() {

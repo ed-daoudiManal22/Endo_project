@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -200,12 +201,12 @@ public class Quiz_Activity extends AppCompatActivity {
             option4.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
             option4.setTextColor(Color.parseColor("#1F6BB8"));
 
-            questions.setText((currentQuestionPosition+1)+"/"+questionsList.size());
-            question.setText(questionsList.get(currentQuestionPosition).getQst());
-            option1.setText(questionsList.get(currentQuestionPosition).getOpt1());
-            option2.setText(questionsList.get(currentQuestionPosition).getOpt2());
-            option3.setText(questionsList.get(currentQuestionPosition).getOpt3());
-            option4.setText(questionsList.get(currentQuestionPosition).getOpt4());
+            questions.setText(getResourceString((currentQuestionPosition+1)+"/"+questionsList.size()));
+            question.setText(getResourceString(questionsList.get(currentQuestionPosition).getQst()));
+            option1.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt1()));
+            option2.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt2()));
+            option3.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt3()));
+            option4.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt4()));
         }
 
         else
@@ -381,12 +382,22 @@ public class Quiz_Activity extends AppCompatActivity {
 
     private void setInitialQuestion() {
         if (questionsList != null && !questionsList.isEmpty()) {
-            questions.setText((currentQuestionPosition + 1) + "/" + questionsList.size());
-            question.setText(questionsList.get(currentQuestionPosition).getQst());
-            option1.setText(questionsList.get(currentQuestionPosition).getOpt1());
-            option2.setText(questionsList.get(currentQuestionPosition).getOpt2());
-            option3.setText(questionsList.get(currentQuestionPosition).getOpt3());
-            option4.setText(questionsList.get(currentQuestionPosition).getOpt4());
+            questions.setText(getResourceString((currentQuestionPosition + 1) + "/" + questionsList.size()));
+            question.setText(getResourceString(questionsList.get(currentQuestionPosition).getQst()));
+            option1.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt1()));
+            option2.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt2()));
+            option3.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt3()));
+            option4.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt4()));
+        }
+    }
+    private String getResourceString(String resourceName) {
+        int resId = getResources().getIdentifier(resourceName, "string", getPackageName());
+        if (resId != 0) {
+            return getString(resId);
+        } else {
+            // Handle the case when the resource is not found
+            Log.e("Quiz_Activity", "Resource not found: " + resourceName);
+            return "Resource not found";
         }
     }
 }
