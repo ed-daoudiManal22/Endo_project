@@ -435,7 +435,7 @@
     <string name="int_qst9_opt3">Showing empathy and understanding.</string>
     <string name="int_qst9_opt4">All of the above.</string>
     <string name="int_qst9_answer">All of the above.</string>
-    <string name="int_qst9_justif">Promoting emotional intimacy involves open and honest communication, active listening to each other's feelings, and demonstrating empathy and understanding. These practices strengthen the emotional connection within a relationship.</string>
+    <string name="int_qst9_justif">Promoting emotional intimacy involves open and honest communication, active listening to each other\'s feelings, and demonstrating empathy and understanding. These practices strengthen the emotional connection within a relationship.</string>
 
     <string name="int_qst10">Why is it important to prioritize self-care in intimate health?</string>
     <string name="int_qst10_opt1">To maintain overall well-being and happiness.</string>
