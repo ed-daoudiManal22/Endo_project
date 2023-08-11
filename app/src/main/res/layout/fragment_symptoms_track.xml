@@ -162,7 +162,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/pink"
-                android:background="@drawable/next_btn_pink" />
+                android:background="@drawable/submit_pink_button" />
 
         </LinearLayout>
     </RelativeLayout>
