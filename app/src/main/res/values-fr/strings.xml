@@ -364,6 +364,87 @@
     <string name="fc_qst10_answer">Fournir une contraception à long terme.</string>
     <string name="fc_qst10_justif">Les implants contraceptifs sont de petits dispositifs insérés sous la peau qui libèrent des hormones pour prévenir la grossesse. Ils offrent une solution contraceptive hautement efficace et à long terme sans nécessité d\'administration quotidienne, assurant une protection continue sur plusieurs années.</string>
 
+    <!-- Intimate health -->
+
+    <string name="int_qst1">Qu\'est-ce que la santé intime ?</string>
+    <string name="int_qst1_opt1">Bien-être général du système reproducteur.</string>
+    <string name="int_qst1_opt2">Bien-être physique et émotionnel dans les relations amoureuses.</string>
+    <string name="int_qst1_opt3">Maintien de relations intimes saines.</string>
+    <string name="int_qst1_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst1_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst1_justif">La santé intime englobe différents aspects, notamment le bien-être du système reproducteur, la santé physique et émotionnelle au sein des relations amoureuses, ainsi que le maintien de relations intimes saines dans l\'ensemble.</string>
+
+    <string name="int_qst2">Quels sont quelques problèmes de santé intime courants chez les femmes ?</string>
+    <string name="int_qst2_opt1">Infections vaginales.</string>
+    <string name="int_qst2_opt2">Infections des voies urinaires.</string>
+    <string name="int_qst2_opt3">Infections sexuellement transmissibles (IST).</string>
+    <string name="int_qst2_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst2_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst2_justif">Les problèmes de santé intime courants chez les femmes incluent les infections vaginales, les infections des voies urinaires et les infections sexuellement transmissibles. Ces problèmes peuvent avoir un impact sur le bien-être physique et émotionnel.</string>
+
+    <string name="int_qst3">Quelles sont quelques pratiques recommandées pour maintenir la santé intime ?</string>
+    <string name="int_qst3_opt1">Pratiquer des rapports sexuels protégés.</string>
+    <string name="int_qst3_opt2">Maintenir une bonne hygiène.</string>
+    <string name="int_qst3_opt3">Consulter régulièrement un professionnel de la santé.</string>
+    <string name="int_qst3_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst3_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst3_justif">Le maintien de la santé intime implique de pratiquer des rapports sexuels protégés, de maintenir une bonne hygiène et de consulter régulièrement un professionnel de la santé. Ces pratiques contribuent au bien-être général.</string>
+
+    <string name="int_qst4">Quels sont quelques signes d\'une infection vaginale ?</string>
+    <string name="int_qst4_opt1">Écoulement anormal.</string>
+    <string name="int_qst4_opt2">Démangeaisons ou irritations.</string>
+    <string name="int_qst4_opt3">Odeur désagréable.</string>
+    <string name="int_qst4_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst4_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst4_justif">Les signes d\'une infection vaginale peuvent inclure un écoulement anormal, des démangeaisons ou irritations, ainsi qu\'une odeur désagréable. Ces symptômes peuvent indiquer un déséquilibre de la santé vaginale.</string>
+
+    <string name="int_qst5">Quelles sont quelques façons de prévenir les infections des voies urinaires (IVU) ?</string>
+    <string name="int_qst5_opt1">Boire beaucoup d\'eau.</string>
+    <string name="int_qst5_opt2">Uriner avant et après l\'activité sexuelle.</string>
+    <string name="int_qst5_opt3">S\'essuyer de l\'avant vers l\'arrière après être allé aux toilettes.</string>
+    <string name="int_qst5_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst5_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst5_justif">La prévention des IVU implique de rester hydraté, d\'uriner avant et après l\'activité sexuelle, ainsi que de maintenir de bonnes pratiques d\'hygiène. Ces mesures peuvent aider à réduire le risque d\'infection.</string>
+
+    <string name="int_qst6">Pourquoi est-il important de communiquer avec votre partenaire concernant la santé intime ?</string>
+    <string name="int_qst6_opt1">Maintenir une communication ouverte et honnête.</string>
+    <string name="int_qst6_opt2">Discuter de toutes préoccupations ou problèmes.</string>
+    <string name="int_qst6_opt3">S\'assurer que les deux partenaires sont informés et impliqués.</string>
+    <string name="int_qst6_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst6_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst6_justif">La communication ouverte concernant la santé intime est essentielle pour maintenir la confiance et la compréhension dans une relation. Discuter des préoccupations et impliquer les deux partenaires garantit une approche solidaire et informée du bien-être intime.</string>
+
+    <string name="int_qst7">Quels sont quelques produits recommandés pour maintenir la santé intime ?</string>
+    <string name="int_qst7_opt1">Nettoyants doux ou gels spécialement conçus pour une utilisation intime.</string>
+    <string name="int_qst7_opt2">Produits non parfumés et hypoallergéniques.</string>
+    <string name="int_qst7_opt3">Sous-vêtements en coton.</string>
+    <string name="int_qst7_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst7_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst7_justif">Les produits recommandés pour maintenir la santé intime incluent les nettoyants doux ou gels conçus spécifiquement pour une utilisation intime, les produits non parfumés et hypoallergéniques, ainsi que les sous-vêtements en coton qui favorisent la circulation de l\'air.</string>
+
+    <string name="int_qst8">Que devriez-vous faire si vous ressentez un inconfort ou une douleur persistante pendant les rapports sexuels ?</string>
+    <string name="int_qst8_opt1">Demander l\'avis d\'un professionnel de la santé.</string>
+    <string name="int_qst8_opt2">Communiquer avec votre partenaire au sujet du problème.</string>
+    <string name="int_qst8_opt3">Expérimenter différentes positions ou lubrifiants.</string>
+    <string name="int_qst8_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst8_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst8_justif">Ressentir un inconfort ou une douleur persistante pendant les rapports sexuels devrait vous inciter à demander l\'avis d\'un professionnel de la santé. De plus, une communication ouverte avec votre partenaire et l\'essai de différentes approches peuvent contribuer à trouver des solutions au problème.</string>
+
+    <string name="int_qst9">Quelles sont quelques façons de promouvoir l\'intimité émotionnelle dans une relation ?</string>
+    <string name="int_qst9_opt1">Communication ouverte et honnête.</string>
+    <string name="int_qst9_opt2">Écoute active.</string>
+    <string name="int_qst9_opt3">Faire preuve d\'empathie et de compréhension.</string>
+    <string name="int_qst9_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst9_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst9_justif">Promouvoir l\'intimité émotionnelle implique une communication ouverte et honnête, une écoute active des sentiments de chacun et la démonstration d\'empathie et de compréhension. Ces pratiques renforcent la connexion émotionnelle au sein d\'une relation.</string>
+
+    <string name="int_qst10">Pourquoi est-il important de prioriser les soins personnels en matière de santé intime ?</string>
+    <string name="int_qst10_opt1">Maintenir le bien-être général et le bonheur.</string>
+    <string name="int_qst10_opt2">Améliorer la confiance en soi et l\'image corporelle.</string>
+    <string name="int_qst10_opt3">Réduire le stress et favoriser la relaxation.</string>
+    <string name="int_qst10_opt4">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst10_answer">Toutes les réponses ci-dessus.</string>
+    <string name="int_qst10_justif">Prioriser les soins personnels en matière de santé intime contribue au bien-être général, améliore la confiance en soi et l\'image corporelle, et aide à réduire le stress et à favoriser la relaxation. Ces facteurs soutiennent collectivement une vie intime plus saine et épanouissante.</string>
 
 
 </resources>
