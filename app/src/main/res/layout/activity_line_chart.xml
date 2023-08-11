@@ -220,7 +220,7 @@
 
             </androidx.cardview.widget.CardView>
                 <!-- Add CardView 4 -->
-            <androidx.cardview.widget.CardView
+            <!--<androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -252,7 +252,7 @@
                     android:layout_marginBottom="8dp">
                 </LinearLayout>
             </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/download"
