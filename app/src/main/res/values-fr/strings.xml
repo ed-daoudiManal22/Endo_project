@@ -446,5 +446,87 @@
     <string name="int_qst10_answer">Toutes les réponses ci-dessus.</string>
     <string name="int_qst10_justif">Prioriser les soins personnels en matière de santé intime contribue au bien-être général, améliore la confiance en soi et l\'image corporelle, et aide à réduire le stress et à favoriser la relaxation. Ces facteurs soutiennent collectivement une vie intime plus saine et épanouissante.</string>
 
+    <!-- Cycle Menstruel -->
+
+    <string name="cycle_qst1">Qu\'est-ce que le cycle menstruel ?</string>
+    <string name="cycle_qst1_opt1">Le processus de desquamation de la muqueuse utérine.</string>
+    <string name="cycle_qst1_opt2">La libération d\'un ovule non fécondé des ovaires.</string>
+    <string name="cycle_qst1_opt3">L\'ensemble du cycle de reproduction chez une femme.</string>
+    <string name="cycle_qst1_opt4">La production d\'hormones par le système endocrinien.</string>
+    <string name="cycle_qst1_answer">L\'ensemble du cycle de reproduction chez une femme.</string>
+    <string name="cycle_qst1_justif">Le cycle menstruel englobe divers changements hormonaux et physiologiques qui surviennent dans le corps d\'une femme, en se préparant à une éventuelle grossesse et à la desquamation de la muqueuse utérine si la grossesse ne se produit pas.</string>
+
+    <string name="cycle_qst2">Quelle est la durée moyenne d\'un cycle menstruel ?</string>
+    <string name="cycle_qst2_opt1">14 jours.</string>
+    <string name="cycle_qst2_opt2">28 jours.</string>
+    <string name="cycle_qst2_opt3">35 jours.</string>
+    <string name="cycle_qst2_opt4">42 jours.</string>
+    <string name="cycle_qst2_answer">28 jours.</string>
+    <string name="cycle_qst2_justif">Le cycle menstruel moyen dure généralement environ 28 jours, bien que des variations de la durée du cycle soient courantes chez les individus.</string>
+
+    <string name="cycle_qst3">Quelle hormone est responsable de la stimulation de la croissance et du développement de la muqueuse utérine ?</string>
+    <string name="cycle_qst3_opt1">L\'œstrogène.</string>
+    <string name="cycle_qst3_opt2">La progestérone.</string>
+    <string name="cycle_qst3_opt3">L\'hormone lutéinisante (LH).</string>
+    <string name="cycle_qst3_opt4">L\'hormone folliculo-stimulante (FSH).</string>
+    <string name="cycle_qst3_answer">L\'œstrogène.</string>
+    <string name="cycle_qst3_justif">L\'œstrogène joue un rôle crucial dans la stimulation de la croissance et du développement de la muqueuse utérine pendant la première moitié du cycle menstruel.</string>
+
+    <string name="cycle_qst4">Quand survient généralement l\'ovulation dans un cycle menstruel ?</string>
+    <string name="cycle_qst4_opt1">Au début du cycle.</string>
+    <string name="cycle_qst4_opt2">Au milieu du cycle.</string>
+    <string name="cycle_qst4_opt3">À la fin du cycle.</string>
+    <string name="cycle_qst4_opt4">Tout au long du cycle.</string>
+    <string name="cycle_qst4_answer">Au milieu du cycle.</string>
+    <string name="cycle_qst4_justif">L\'ovulation survient généralement au milieu du cycle menstruel, vers le 14e jour, et marque la libération d\'un ovule de l\'ovaire, prêt pour une éventuelle fécondation.</string>
+
+    <string name="cycle_qst5">Quel est le rôle de la phase lutéale du cycle menstruel ?</string>
+    <string name="cycle_qst5_opt1">Préparer l\'utérus pour la grossesse.</string>
+    <string name="cycle_qst5_opt2">Desquamer la muqueuse utérine.</string>
+    <string name="cycle_qst5_opt3">Libérer un ovule non fécondé.</string>
+    <string name="cycle_qst5_opt4">Produire des hormones qui régulent le cycle.</string>
+    <string name="cycle_qst5_answer">Préparer l\'utérus pour la grossesse.</string>
+    <string name="cycle_qst5_justif">La phase lutéale suit l\'ovulation et implique le développement de la muqueuse utérine pour créer un environnement propice à une éventuelle grossesse. Si la fécondation ne se produit pas, la muqueuse utérine est finalement desquamée.</string>
+
+    <string name="cycle_qst6">Qu\'est-ce que l\'aménorrhée ?</string>
+    <string name="cycle_qst6_opt1">Hémorragie menstruelle excessive.</string>
+    <string name="cycle_qst6_opt2">Absence de menstruation.</string>
+    <string name="cycle_qst6_opt3">Menstruations douloureuses.</string>
+    <string name="cycle_qst6_opt4">Cycles menstruels irréguliers.</string>
+    <string name="cycle_qst6_answer">Absence de menstruation.</string>
+    <string name="cycle_qst6_justif">L\'aménorrhée désigne l\'absence de règles menstruelles, qui peut être causée par des facteurs tels que la grossesse, certaines affections médicales ou des modifications de l\'équilibre hormonal.</string>
+
+    <string name="cycle_qst7">Quel est le rôle du corps jaune dans le cycle menstruel ?</string>
+    <string name="cycle_qst7_opt1">Produire de l\'œstrogène.</string>
+    <string name="cycle_qst7_opt2">Produire de la progestérone.</string>
+    <string name="cycle_qst7_opt3">Libérer l\'ovule lors de l\'ovulation.</string>
+    <string name="cycle_qst7_opt4">Régénérer la muqueuse utérine.</string>
+    <string name="cycle_qst7_answer">Produire de la progestérone.</string>
+    <string name="cycle_qst7_justif">Le corps jaune, formé à partir du follicule qui a libéré l\'ovule lors de l\'ovulation, joue un rôle clé dans la production de progestérone, qui maintient la muqueuse utérine et soutient une éventuelle grossesse.</string>
+
+    <string name="cycle_qst8">Que se passe-t-il si la fécondation et l\'implantation ne se produisent pas ?</string>
+    <string name="cycle_qst8_opt1">La muqueuse utérine est desquamée pendant les règles.</string>
+    <string name="cycle_qst8_opt2">Le cycle menstruel redémarre immédiatement.</string>
+    <string name="cycle_qst8_opt3">L\'utérus devient inactif jusqu\'au prochain cycle.</string>
+    <string name="cycle_qst8_opt4">Les ovaires cessent de produire des hormones.</string>
+    <string name="cycle_qst8_answer">La muqueuse utérine est desquamée pendant les règles.</string>
+    <string name="cycle_qst8_justif">Si la fécondation et l\'implantation ne se produisent pas, le corps jaune régresse, entraînant une baisse des niveaux de progestérone. Cela conduit à la desquamation de la muqueuse utérine et à l\'apparition des règles menstruelles.</string>
+
+    <string name="cycle_qst9">Quels sont certains symptômes courants pendant le cycle menstruel ?</string>
+    <string name="cycle_qst9_opt1">Sensibilité mammaire.</string>
+    <string name="cycle_qst9_opt2">Variations d\'humeur.</string>
+    <string name="cycle_qst9_opt3">Crampes.</string>
+    <string name="cycle_qst9_opt4">Tous les éléments ci-dessus.</string>
+    <string name="cycle_qst9_answer">Tous les éléments ci-dessus.</string>
+    <string name="cycle_qst9_justif">De nombreuses personnes éprouvent divers symptômes pendant leur cycle menstruel, notamment une sensibilité mammaire, des variations d\'humeur et des crampes, en raison des fluctuations hormonales et des changements dans la muqueuse utérine.</string>
+
+    <string name="cycle_qst10">Qu\'est-ce que la ménorragie ?</string>
+    <string name="cycle_qst10_opt1">Absence de menstruation.</string>
+    <string name="cycle_qst10_opt2">Saignements menstruels excessifs.</string>
+    <string name="cycle_qst10_opt3">Menstruations douloureuses.</string>
+    <string name="cycle_qst10_opt4">Cycles menstruels irréguliers.</string>
+    <string name="cycle_qst10_answer">Saignements menstruels excessifs.</string>
+    <string name="cycle_qst10_justif">La ménorragie désigne des saignements menstruels anormalement abondants ou prolongés qui peuvent avoir un impact sur la qualité de vie d\'une personne et peuvent être causés par des déséquilibres hormonaux ou certaines affections médicales.</string>
+
 
 </resources>

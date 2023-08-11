@@ -445,6 +445,88 @@
     <string name="int_qst10_answer">All of the above.</string>
     <string name="int_qst10_justif">Prioritizing self-care in intimate health contributes to overall well-being, enhances self-confidence and positive body image, and helps in reducing stress and promoting relaxation. These factors collectively support a healthier and more fulfilling intimate life.</string>
 
+    <!-- Menstrual Cycle -->
+    <string name="cycle_qst1">What is the menstrual cycle?</string>
+    <string name="cycle_qst1_opt1">The process of shedding the uterine lining.</string>
+    <string name="cycle_qst1_opt2">The release of an unfertilized egg from the ovaries.</string>
+    <string name="cycle_qst1_opt3">The entire reproductive cycle of a woman.</string>
+    <string name="cycle_qst1_opt4">The production of hormones by the endocrine system.</string>
+    <string name="cycle_qst1_answer">The entire reproductive cycle of a woman.</string>
+    <string name="cycle_qst1_justif">The menstrual cycle encompasses various hormonal and physiological changes that occur in a woman\'s body, preparing for potential pregnancy and the shedding of the uterine lining if pregnancy doesn\'t occur.</string>
+
+    <string name="cycle_qst2">What is the average duration of a menstrual cycle?</string>
+    <string name="cycle_qst2_opt1">14 days.</string>
+    <string name="cycle_qst2_opt2">28 days.</string>
+    <string name="cycle_qst2_opt3">35 days.</string>
+    <string name="cycle_qst2_opt4">42 days.</string>
+    <string name="cycle_qst2_answer">28 days.</string>
+    <string name="cycle_qst2_justif">The average menstrual cycle typically lasts around 28 days, although variations in cycle length are common among individuals.</string>
+
+    <string name="cycle_qst3">Which hormone is responsible for stimulating the growth and development of the uterine lining?</string>
+    <string name="cycle_qst3_opt1">Estrogen.</string>
+    <string name="cycle_qst3_opt2">Progesterone.</string>
+    <string name="cycle_qst3_opt3">Luteinizing hormone (LH).</string>
+    <string name="cycle_qst3_opt4">Follicle-stimulating hormone (FSH).</string>
+    <string name="cycle_qst3_answer">Estrogen.</string>
+    <string name="cycle_qst3_justif">Estrogen plays a crucial role in stimulating the growth and development of the uterine lining during the first half of the menstrual cycle.</string>
+
+    <string name="cycle_qst4">When does ovulation typically occur in a menstrual cycle?</string>
+    <string name="cycle_qst4_opt1">At the beginning of the cycle.</string>
+    <string name="cycle_qst4_opt2">In the middle of the cycle.</string>
+    <string name="cycle_qst4_opt3">At the end of the cycle.</string>
+    <string name="cycle_qst4_opt4">Throughout the entire cycle.</string>
+    <string name="cycle_qst4_answer">In the middle of the cycle.</string>
+    <string name="cycle_qst4_justif">Ovulation generally occurs in the middle of the menstrual cycle, around day 14, and marks the release of an egg from the ovary, ready for potential fertilization.</string>
+
+    <string name="cycle_qst5">What is the purpose of the luteal phase of the menstrual cycle?</string>
+    <string name="cycle_qst5_opt1">To prepare the uterus for pregnancy.</string>
+    <string name="cycle_qst5_opt2">To shed the uterine lining.</string>
+    <string name="cycle_qst5_opt3">To release an unfertilized egg.</string>
+    <string name="cycle_qst5_opt4">To produce hormones that regulate the cycle.</string>
+    <string name="cycle_qst5_answer">To prepare the uterus for pregnancy.</string>
+    <string name="cycle_qst5_justif">The luteal phase follows ovulation and involves the development of the uterine lining to create a suitable environment for a potential pregnancy. If fertilization doesn\'t occur, the uterine lining is eventually shed.</string>
+
+    <string name="cycle_qst6">What is amenorrhea?</string>
+    <string name="cycle_qst6_opt1">Excessive menstrual bleeding.</string>
+    <string name="cycle_qst6_opt2">Absence of menstruation.</string>
+    <string name="cycle_qst6_opt3">Painful menstruation.</string>
+    <string name="cycle_qst6_opt4">Irregular menstrual cycles.</string>
+    <string name="cycle_qst6_answer">Absence of menstruation.</string>
+    <string name="cycle_qst6_justif">Amenorrhea refers to the absence of menstrual periods, which can be caused by factors such as pregnancy, certain medical conditions, or changes in hormonal balance.</string>
+
+    <string name="cycle_qst7">What is the role of the corpus luteum in the menstrual cycle?</string>
+    <string name="cycle_qst7_opt1">To produce estrogen.</string>
+    <string name="cycle_qst7_opt2">To produce progesterone.</string>
+    <string name="cycle_qst7_opt3">To release the egg during ovulation.</string>
+    <string name="cycle_qst7_opt4">To regenerate the uterine lining.</string>
+    <string name="cycle_qst7_answer">To produce progesterone.</string>
+    <string name="cycle_qst7_justif">The corpus luteum, formed from the follicle that released the egg during ovulation, plays a key role in producing progesterone, which maintains the uterine lining and supports a potential pregnancy.</string>
+
+    <string name="cycle_qst8">What happens if fertilization and implantation do not occur?</string>
+    <string name="cycle_qst8_opt1">The uterine lining is shed during menstruation.</string>
+    <string name="cycle_qst8_opt2">The menstrual cycle restarts immediately.</string>
+    <string name="cycle_qst8_opt3">The uterus becomes dormant until the next cycle.</string>
+    <string name="cycle_qst8_opt4">The ovaries stop producing hormones.</string>
+    <string name="cycle_qst8_answer">The uterine lining is shed during menstruation.</string>
+    <string name="cycle_qst8_justif">If fertilization and implantation do not occur, the corpus luteum regresses, causing a drop in progesterone levels. This leads to the shedding of the uterine lining, resulting in menstruation.</string>
+
+    <string name="cycle_qst9">What are some common symptoms experienced during the menstrual cycle?</string>
+    <string name="cycle_qst9_opt1">Breast tenderness.</string>
+    <string name="cycle_qst9_opt2">Mood swings.</string>
+    <string name="cycle_qst9_opt3">Cramps.</string>
+    <string name="cycle_qst9_opt4">All of the above.</string>
+    <string name="cycle_qst9_answer">All of the above.</string>
+    <string name="cycle_qst9_justif">Many individuals experience various symptoms during their menstrual cycle, including breast tenderness, mood swings, and cramps, due to hormonal fluctuations and changes in the uterine lining.</string>
+
+    <string name="cycle_qst10">What is menorrhagia?</string>
+    <string name="cycle_qst10_opt1">Absence of menstruation.</string>
+    <string name="cycle_qst10_opt2">Excessive menstrual bleeding.</string>
+    <string name="cycle_qst10_opt3">Painful menstruation.</string>
+    <string name="cycle_qst10_opt4">Irregular menstrual cycles.</string>
+    <string name="cycle_qst10_answer">Excessive menstrual bleeding.</string>
+    <string name="cycle_qst10_justif">Menorrhagia refers to abnormally heavy or prolonged menstrual bleeding that can impact an individual\'s quality of life and may be caused by factors such as hormonal imbalances or certain medical conditions.</string>
+
+
 
 
 </resources>
