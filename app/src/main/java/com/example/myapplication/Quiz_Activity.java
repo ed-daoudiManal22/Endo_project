@@ -27,25 +27,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Quiz_Activity extends AppCompatActivity {
-
     private TextView questions;
-    private TextView question;
-
+    private TextView question, explanationText;
     private AppCompatButton option1, option2, option3, option4;
-
     private AppCompatButton nextBtn;
-
-    private Timer quizTimer;
-
+    //private Timer quizTimer;
     private int totalTimeInMins = 1;
     private boolean quizCompleted = false;
-
-    private int seconds = 0;
-
+    //private int seconds = 0;
     private List<Quiz_question> questionsList;
-
     private int currentQuestionPosition = 0;
-
     private String selectedOptionByUser = "";
 
     @Override
@@ -55,7 +46,7 @@ public class Quiz_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         final ImageView backBtn = findViewById(R.id.backBtn);
-        final TextView timer = findViewById(R.id.timer);
+        //final TextView timer = findViewById(R.id.timer);
         final TextView selectedTopicName =findViewById(R.id.topicName);
 
         questions = findViewById(R.id.questions);
@@ -65,6 +56,7 @@ public class Quiz_Activity extends AppCompatActivity {
         option2 = findViewById(R.id.option2);
         option3 = findViewById(R.id.option3);
         option4 = findViewById(R.id.option4);
+        explanationText = findViewById(R.id.explanationText);
 
         nextBtn = findViewById(R.id.nextBtn);
 
@@ -75,7 +67,7 @@ public class Quiz_Activity extends AppCompatActivity {
         // Load questions from Firestore for the selected topic
         loadQuestionsFromFirestore(getSelectedTopicName);
 
-        startTimer(timer);
+        //startTimer(timer);
 
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,8 +159,8 @@ public class Quiz_Activity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                quizTimer.purge();
-                quizTimer.cancel();
+                //quizTimer.purge();
+                //quizTimer.cancel();
 
                 startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
                 finish();
@@ -207,6 +199,9 @@ public class Quiz_Activity extends AppCompatActivity {
             option2.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt2()));
             option3.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt3()));
             option4.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt4()));
+
+            // Hide the explanationText
+            explanationText.setVisibility(View.GONE);
         }
 
         else
@@ -220,7 +215,7 @@ public class Quiz_Activity extends AppCompatActivity {
         }
     }
 
-    private void startTimer(TextView timerTextView)
+    /*private void startTimer(TextView timerTextView)
     {
         quizTimer = new Timer();
         totalTimeInMins = 2; // Set the total time to 2 minutes
@@ -279,18 +274,17 @@ public class Quiz_Activity extends AppCompatActivity {
                 }
             }
         }, 1000, 1000);
-    }
+    }*/
 
-    private int getCorrectAnswers()
-    {
+    private int getCorrectAnswers() {
         int correctAnswers = 0;
 
         if (questionsList != null) {
             for (int i = 0; i < questionsList.size(); i++) {
                 final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
-                final String getAnswer = questionsList.get(i).getAnswer();
+                final List<String> getAnswers = questionsList.get(i).getAnswers();
 
-                if (getUserSelectedAnswer != null && getUserSelectedAnswer.equals(getAnswer)) {
+                if (getUserSelectedAnswer != null && checkIfAnswerIsCorrect(getAnswers, getUserSelectedAnswer)) {
                     correctAnswers++;
                 }
             }
@@ -299,15 +293,15 @@ public class Quiz_Activity extends AppCompatActivity {
         return correctAnswers;
     }
 
-    private int getInCorrectAnswers()
-    {
+    private int getInCorrectAnswers() {
         int incorrectAnswers = 0;
+
         if (questionsList != null) {
             for (int i = 0; i < questionsList.size(); i++) {
                 final String getUserSelectedAnswer = questionsList.get(i).getUserSelectedAnswer();
-                final String getAnswer = questionsList.get(i).getAnswer();
+                final List<String> getAnswers = questionsList.get(i).getAnswers();
 
-                if (getUserSelectedAnswer == null || !getUserSelectedAnswer.equals(getAnswer)) {
+                if (getUserSelectedAnswer == null || !checkIfAnswerIsCorrect(getAnswers, getUserSelectedAnswer)) {
                     incorrectAnswers++;
                 }
             }
@@ -319,8 +313,8 @@ public class Quiz_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        quizTimer.purge();
-        quizTimer.cancel();
+        //quizTimer.purge();
+        //quizTimer.cancel();
 
         startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
         finish();
@@ -328,25 +322,39 @@ public class Quiz_Activity extends AppCompatActivity {
 
     private void revealAnswer()
     {
-        final String getAnswer = questionsList.get(currentQuestionPosition).getAnswer();
+        final List<String> getAnswers = questionsList.get(currentQuestionPosition).getAnswers();
+        final String explanation = questionsList.get(currentQuestionPosition).getJustif();
 
-        if (option1.getText().toString().equals(getAnswer))
+        if (checkIfAnswerIsCorrect(getAnswers, option1.getText().toString()))
         {
             option1.setBackgroundResource(R.drawable.round_back_green10);
             option1.setTextColor(Color.WHITE);
         }
-        else if (option2.getText().toString().equals(getAnswer)) {
+        else if (checkIfAnswerIsCorrect(getAnswers, option2.getText().toString())) {
             option2.setBackgroundResource(R.drawable.round_back_green10);
             option2.setTextColor(Color.WHITE);
         }
-        else if (option3.getText().toString().equals(getAnswer)) {
+        else if (checkIfAnswerIsCorrect(getAnswers, option3.getText().toString())) {
             option3.setBackgroundResource(R.drawable.round_back_green10);
             option3.setTextColor(Color.WHITE);
         }
-        else if (option4.getText().toString().equals(getAnswer)) {
+        else if (checkIfAnswerIsCorrect(getAnswers, option4.getText().toString())) {
             option4.setBackgroundResource(R.drawable.round_back_green10);
             option4.setTextColor(Color.WHITE);
         }
+        // Show explanation
+        explanationText.setVisibility(View.VISIBLE);
+        explanationText.setText(getResourceString(explanation));
+    }
+
+    private boolean checkIfAnswerIsCorrect(List<String> correctAnswers, String optionText) {
+        // Compare the selected answer with the list of correct answers
+        for (String answer : correctAnswers) {
+            if (optionText.equals(answer)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void loadQuestionsFromFirestore(String selectedTopic) {
@@ -382,7 +390,7 @@ public class Quiz_Activity extends AppCompatActivity {
 
     private void setInitialQuestion() {
         if (questionsList != null && !questionsList.isEmpty()) {
-            questions.setText(getResourceString((currentQuestionPosition + 1) + "/" + questionsList.size()));
+            questions.setText((currentQuestionPosition + 1) + "/" + questionsList.size());
             question.setText(getResourceString(questionsList.get(currentQuestionPosition).getQst()));
             option1.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt1()));
             option2.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt2()));

@@ -1,19 +1,22 @@
 package com.example.myapplication.Models;
 
+import java.util.List;
+
 public class Quiz_question {
-    private String qst, opt1, opt2, opt3, opt4, answer,justif;
+    private String qst, opt1, opt2, opt3, opt4,justif;
     private String userSelectedAnswer;
+    private List<String> answers;
 
     public Quiz_question() {
     }
 
-    public Quiz_question(String qst, String opt1, String opt2, String opt3, String opt4, String answer,String justif) {
+    public Quiz_question(String qst, String opt1, String opt2, String opt3, String opt4, List<String> answer,String justif) {
         this.qst = qst;
         this.opt1 = opt1;
         this.opt2 = opt2;
         this.opt3 = opt3;
         this.opt4 = opt4;
-        this.answer = answer;
+        this.answers = answer;
         this.justif = justif;
     }
 
@@ -57,12 +60,12 @@ public class Quiz_question {
         this.opt4 = opt4;
     }
 
-    public String getAnswer() {
-        return answer;
+    public List<String> getAnswers() {
+        return answers;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 
     public String getJustif() {
