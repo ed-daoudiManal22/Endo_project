@@ -91,7 +91,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DiagTest_Activity.this, UserPage_Activity.class);
+                Intent intent = new Intent(DiagTest_Activity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -432,7 +432,6 @@ public class DiagTest_Activity extends AppCompatActivity {
                         scorePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                         reportPaint.setTextSize(12f);
 
-
                         // Add main title "Diagnostic Test Report"
                         String diagnosticReportTitle = getString(R.string.diagnostic_report_title);
                         canvas.drawText(diagnosticReportTitle, centerX - titleWidth / 2, titleY, titlePaint);
@@ -452,21 +451,21 @@ public class DiagTest_Activity extends AppCompatActivity {
                         canvas.drawText("Test answers : ", 50, dividerY + 60 , paint);
 
                         // Draw the first 8 questions
-                        drawContent(canvas, page, questions, 0, 4, paint, reportPaint);
+                        drawContent(canvas, page, questions, 0, 7, paint, reportPaint,340);
 
                         // Finish the first page
                         pdfDocument.finishPage(page);
 
-                        /*// Create a PageInfo for the second page of the PDF
+                        // Create a PageInfo for the second page of the PDF
                         PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 2).create();
                         PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
                         Canvas canvas2 = page2.getCanvas();
 
                         // Draw the rest of the questions (from 9 to the end)
-                        drawContent(canvas2, page2, questions, 8, questions.size() - 1, paint, reportPaint);
+                        drawContent(canvas2, page2, questions, 8, questions.size() - 1, paint, reportPaint,80);
 
                         // Finish the second page
-                        pdfDocument.finishPage(page2);*/
+                        pdfDocument.finishPage(page2);
 
                         // Define the output file path
                         String filePath = getExternalFilesDir(null) + "/report.pdf";
@@ -514,8 +513,8 @@ public class DiagTest_Activity extends AppCompatActivity {
                 });
     }
     // Add a new method to draw content for a single page
-    private void drawContent(Canvas canvas, PdfDocument.Page page, List<Test_Questions> questions, int startIndex, int endIndex, Paint paint, Paint reportPaint) {
-        float reportY = 340;
+    private void drawContent(Canvas canvas, PdfDocument.Page page, List<Test_Questions> questions, int startIndex, int endIndex, Paint paint, Paint reportPaint, int height) {
+        float reportY = height;
         for (int i = startIndex; i <= endIndex; i++) {
             Test_Questions question = questions.get(i);
             Object userAnswer = userAnswers.get(question.getText());

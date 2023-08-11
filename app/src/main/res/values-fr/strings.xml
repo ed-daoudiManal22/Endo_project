@@ -184,8 +184,8 @@
     <string name="BMIqst">Indice de masse corporelle (IMC) : calculez votre IMC</string>
     <string name="painIntensity">Quelle est l\'intensité de vos douleurs abdominales/pelviennes ?</string>
     <string name="whenPain">Quand ressentez-vous des douleurs abdominales ou pelviennes ?</string>
-    <string name="RelatedPeriod">En lien avec la période menstruelle</string>
-    <string name="RelatedOvulation">En lien avec l\'ovulation</string>
+    <string name="RelatedPeriod">lier aux périodes menstruelles</string>
+    <string name="RelatedOvulation">lier aux ovulations</string>
     <string name="Unrelated">Sans lien avec la période menstruelle ou l\'ovulation</string>
     <string name="intercoursePain">Quelle est la sévérité des douleurs pendant les rapports sexuels ?</string>
     <string name="painWorse">Qu\'est-ce qui aggrave vos douleurs ?</string>
@@ -211,6 +211,10 @@
     <string name="Constipation">La constipation</string>
     <string name="Bloating">Des ballonnements abdominaux</string>
     <string name="Abuse">Avez-vous déjà été victime d\'abus physique ou sexuel ?</string>
+    <string name="one_two">0 - 2</string>
+    <string name="three_four">3 - 5</string>
+    <string name="five_eight">6 - 8</string>
+    <string name="nine_ten">9 - 10</string>
 
     <!-- Quiz questions -->
 

@@ -34,9 +34,12 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -183,6 +186,9 @@ public class LineChart_Activity extends AppCompatActivity {
         // Create a list to store the pain score entries
         List<Entry> entries = new ArrayList<>();
 
+        // Assuming you have the user's UID stored in currentUserUid
+        DocumentReference userDocumentRef = firestore.collection("Users").document(currentUserUid);
+
         // Get the symptoms subcollection for the current user
         CollectionReference symptomsCollection = firestore.collection("Users")
                 .document(currentUserUid)
@@ -227,8 +233,25 @@ public class LineChart_Activity extends AppCompatActivity {
 
                         // Display the average pain score in the TextView
                         String painAverageLabel = getString(R.string.pain_average_label);
-                        averagePainTextView.setText(painAverageLabel + " " + formattedAveragePainScore);}
+                        averagePainTextView.setText(painAverageLabel + " " + formattedAveragePainScore);
 
+                        // Store the formattedAveragePainScore in user's document in Firestore
+                        userDocumentRef.update("painAverage",formattedAveragePainScore )
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // The averagePainScore was successfully updated in the Firestore document
+                                        Log.d("Pain evolution", "Average pain score updated in Firestore");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Handle the error if updating the averagePainScore fails
+                                        Log.e("Pain evolution", "Error updating average pain score in Firestore", e);
+                                    }
+                                });
+                }
                     // Sort the entries by their timestamps
                     Collections.sort(entries, new Comparator<Entry>() {
                         @Override

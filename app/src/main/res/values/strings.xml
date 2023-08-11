@@ -210,6 +210,10 @@
     <string name="Constipation">Constipation</string>
     <string name="Bloating">Abdominal Bloating</string>
     <string name="Abuse">Have you ever been victim of physical abuse or sexual abuse ?</string>
+    <string name="one_two">0 - 2</string>
+    <string name="three_four">3 - 5</string>
+    <string name="five_eight">6 - 8</string>
+    <string name="nine_ten">9 - 10</string>
 
     <!-- Quiz questions -->
 
