@@ -317,9 +317,9 @@
     <string name="fc_qst4">Qu\'est-ce que la contraception d\'urgence ?</string>
     <string name="fc_qst4_opt1">Une méthode contraceptive à long terme.</string>
     <string name="fc_qst4_opt2">Une forme de stérilisation permanente.</string>
-    <string name="fc_qst4_opt3">Une méthode utilisée après un rapport sexuel non protégé pour éviter la grossesse.</string>
+    <string name="fc_qst4_opt3">Une méthode post-rapport pour prévenir la grossesse.</string>
     <string name="fc_qst4_opt4">Une méthode pour augmenter la fertilité.</string>
-    <string name="fc_qst4_answer">Une méthode utilisée après un rapport sexuel non protégé pour éviter la grossesse.</string>
+    <string name="fc_qst4_answer">Une méthode post-rapport pour prévenir la grossesse.</string>
     <string name="fc_qst4_justif">La contraception d\'urgence désigne les méthodes utilisées après un rapport sexuel non protégé ou en cas d\'échec contraceptif pour éviter une grossesse. Cela inclut des méthodes comme la prise de pilules du lendemain et l\'insertion d\'un DIU en cuivre dans un délai spécifique.</string>
     <string name="fc_qst5">Quel est le taux d\'échec en utilisation typique pour la plupart des contraceptifs ?</string>
     <string name="fc_qst5_opt1">Moins de 1% .</string>
@@ -352,7 +352,7 @@
     <string name="fc_qst9">Les contraceptifs peuvent-ils protéger contre les infections sexuellement transmissibles (IST) ?</string>
     <string name="fc_qst9_opt1">Oui, tous les contraceptifs fournissent une protection contre les IST.</string>
     <string name="fc_qst9_opt2">Non, les contraceptifs ne protègent pas contre les IST.</string>
-    <string name="fc_qst9_opt3">Seules les méthodes contraceptives barrières fournissent une protection contre les IST.</string>
+    <string name="fc_qst9_opt3">Seules les méthodes contraceptives barrières protègent des IST.</string>
     <string name="fc_qst9_opt4">Les contraceptifs peuvent parfois protéger contre les IST.</string>
     <string name="fc_qst9_answer">Non, les contraceptifs ne protègent pas contre les IST.</string>
     <string name="fc_qst9_justif">La plupart des contraceptifs sont conçus uniquement pour prévenir la grossesse et ne protègent pas contre les infections sexuellement transmissibles (IST). Les méthodes barrières, comme les préservatifs, font exception en offrant une protection double contre la grossesse et la transmission des IST.</string>

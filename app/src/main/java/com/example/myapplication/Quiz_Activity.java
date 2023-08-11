@@ -193,7 +193,7 @@ public class Quiz_Activity extends AppCompatActivity {
             option4.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
             option4.setTextColor(Color.parseColor("#1F6BB8"));
 
-            questions.setText(getResourceString((currentQuestionPosition+1)+"/"+questionsList.size()));
+            questions.setText((currentQuestionPosition+1)+"/"+questionsList.size());
             question.setText(getResourceString(questionsList.get(currentQuestionPosition).getQst()));
             option1.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt1()));
             option2.setText(getResourceString(questionsList.get(currentQuestionPosition).getOpt2()));
