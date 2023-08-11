@@ -40,7 +40,7 @@
     <string name="share_btn">Partager</string>
 
 
-    <string name="pain_evolution">Évolution de la douleur : </string>
+    <string name="pain_evolution">Évolution de la douleur</string>
     <string name="pain_average">Moyenne des douleurs</string>
     <string name="pain_locations">Localisation des douleurs</string>
     <string name="symptoms">Symptômes</string>
