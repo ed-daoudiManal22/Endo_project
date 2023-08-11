@@ -363,5 +363,88 @@
     <string name="fc_qst10_answer">To provide long-term contraception.</string>
     <string name="fc_qst10_justif">Contraceptive implants are small devices inserted under the skin that release hormones to prevent pregnancy. They offer a highly effective, long-term contraceptive solution without the need for daily administration, providing continuous protection over several years.</string>
 
+    <!-- Intimate Health -->
+
+    <string name="int_qst1">What is intimate health?</string>
+    <string name="int_qst1_opt1">Overall well-being of the reproductive system.</string>
+    <string name="int_qst1_opt2">Physical and emotional well-being in romantic relationships.</string>
+    <string name="int_qst1_opt3">Maintenance of healthy intimate relationships.</string>
+    <string name="int_qst1_opt4">All of the above.</string>
+    <string name="int_qst1_answer">All of the above.</string>
+    <string name="int_qst1_justif">Intimate health encompasses various aspects, including the well-being of the reproductive system, physical and emotional health within romantic relationships, and the maintenance of healthy intimate relationships overall.</string>
+
+    <string name="int_qst2">What are some common intimate health concerns in women?</string>
+    <string name="int_qst2_opt1">Vaginal infections.</string>
+    <string name="int_qst2_opt2">Urinary tract infections.</string>
+    <string name="int_qst2_opt3">Sexually transmitted infections (STIs).</string>
+    <string name="int_qst2_opt4">All of the above.</string>
+    <string name="int_qst2_answer">All of the above.</string>
+    <string name="int_qst2_justif">Common intimate health concerns in women include vaginal infections, urinary tract infections, and sexually transmitted infections. These can impact both physical and emotional well-being.</string>
+
+    <string name="int_qst3">What are some recommended practices for maintaining intimate health?</string>
+    <string name="int_qst3_opt1">Practicing safe sex.</string>
+    <string name="int_qst3_opt2">Maintaining good hygiene.</string>
+    <string name="int_qst3_opt3">Regularly visiting a healthcare provider.</string>
+    <string name="int_qst3_opt4">All of the above.</string>
+    <string name="int_qst3_answer">All of the above.</string>
+    <string name="int_qst3_justif">Maintaining intimate health involves practicing safe sex, maintaining good hygiene practices, and seeking regular healthcare check-ups. These practices contribute to overall well-being.</string>
+
+    <string name="int_qst4">What are some signs of a vaginal infection?</string>
+    <string name="int_qst4_opt1">Abnormal discharge.</string>
+    <string name="int_qst4_opt2">Itching or irritation.</string>
+    <string name="int_qst4_opt3">Foul odor.</string>
+    <string name="int_qst4_opt4">All of the above.</string>
+    <string name="int_qst4_answer">All of the above.</string>
+    <string name="int_qst4_justif">Signs of a vaginal infection can include abnormal discharge, itching or irritation, and a foul odor. These symptoms may indicate an imbalance in vaginal health.</string>
+
+    <string name="int_qst5">What are some ways to prevent urinary tract infections (UTIs)?</string>
+    <string name="int_qst5_opt1">Drink plenty of water.</string>
+    <string name="int_qst5_opt2">Urinate before and after sexual activity.</string>
+    <string name="int_qst5_opt3">Wipe from front to back after using the restroom.</string>
+    <string name="int_qst5_opt4">All of the above.</string>
+    <string name="int_qst5_answer">All of the above.</string>
+    <string name="int_qst5_justif">Preventing UTIs involves staying hydrated, urinating before and after sexual activity, and maintaining proper hygiene practices. These measures can help reduce the risk of infection.</string>
+
+    <string name="int_qst6">Why is it important to communicate with your partner about intimate health?</string>
+    <string name="int_qst6_opt1">To maintain open and honest communication.</string>
+    <string name="int_qst6_opt2">To discuss any concerns or issues.</string>
+    <string name="int_qst6_opt3">To ensure both partners are informed and involved.</string>
+    <string name="int_qst6_opt4">All of the above.</string>
+    <string name="int_qst6_answer">All of the above.</string>
+    <string name="int_qst6_justif">Open communication about intimate health is vital to maintain trust and understanding in a relationship. Discussing concerns and involving both partners ensures a supportive and informed approach to intimate well-being.</string>
+
+    <string name="int_qst7">What are some recommended products for maintaining intimate health?</string>
+    <string name="int_qst7_opt1">Gentle cleansers or washes specifically designed for intimate use.</string>
+    <string name="int_qst7_opt2">Unscented, hypoallergenic products.</string>
+    <string name="int_qst7_opt3">Cotton underwear.</string>
+    <string name="int_qst7_opt4">All of the above.</string>
+    <string name="int_qst7_answer">All of the above.</string>
+    <string name="int_qst7_justif">Recommended products for maintaining intimate health include gentle cleansers or washes designed for intimate use, unscented and hypoallergenic products, as well as breathable cotton underwear that promotes air circulation.</string>
+
+    <string name="int_qst8">What should you do if you experience persistent discomfort or pain during intercourse?</string>
+    <string name="int_qst8_opt1">Seek medical advice from a healthcare provider.</string>
+    <string name="int_qst8_opt2">Communicate with your partner about the issue.</string>
+    <string name="int_qst8_opt3">Experiment with different positions or lubricants.</string>
+    <string name="int_qst8_opt4">All of the above.</string>
+    <string name="int_qst8_answer">All of the above.</string>
+    <string name="int_qst8_justif">Experiencing persistent discomfort or pain during intercourse should prompt seeking medical advice from a healthcare provider. Additionally, open communication with your partner and trying different approaches can contribute to finding solutions to the issue.</string>
+
+    <string name="int_qst9">What are some ways to promote emotional intimacy in a relationship?</string>
+    <string name="int_qst9_opt1">Open and honest communication.</string>
+    <string name="int_qst9_opt2">Active listening.</string>
+    <string name="int_qst9_opt3">Showing empathy and understanding.</string>
+    <string name="int_qst9_opt4">All of the above.</string>
+    <string name="int_qst9_answer">All of the above.</string>
+    <string name="int_qst9_justif">Promoting emotional intimacy involves open and honest communication, active listening to each other's feelings, and demonstrating empathy and understanding. These practices strengthen the emotional connection within a relationship.</string>
+
+    <string name="int_qst10">Why is it important to prioritize self-care in intimate health?</string>
+    <string name="int_qst10_opt1">To maintain overall well-being and happiness.</string>
+    <string name="int_qst10_opt2">To enhance self-confidence and body image.</string>
+    <string name="int_qst10_opt3">To reduce stress and promote relaxation.</string>
+    <string name="int_qst10_opt4">All of the above.</string>
+    <string name="int_qst10_answer">All of the above.</string>
+    <string name="int_qst10_justif">Prioritizing self-care in intimate health contributes to overall well-being, enhances self-confidence and positive body image, and helps in reducing stress and promoting relaxation. These factors collectively support a healthier and more fulfilling intimate life.</string>
+
+
 
 </resources>
