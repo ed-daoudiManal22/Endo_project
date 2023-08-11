@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -103,31 +104,32 @@ public class BlogDetail extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        // Fetch the comments from the subcollection
+        // Fetch the comments from the subcollection, sorted by timestamp
         CollectionReference commentsCollection = FirebaseFirestore.getInstance()
                 .collection("Blogs")
                 .document(id)
                 .collection("Comments");
 
-        commentsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    // Handle the error
-                    return;
-                }
+        commentsCollection.orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp in descending order
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            // Handle the error
+                            return;
+                        }
 
-                // Clear the previous comments and add the new ones
-                commentsList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Comment comment = doc.toObject(Comment.class);
-                    commentsList.add(comment);
-                }
+                        // Clear the previous comments and add the new ones
+                        commentsList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            Comment comment = doc.toObject(Comment.class);
+                            commentsList.add(comment);
+                        }
 
-                // Notify the adapter that the data has changed
-                commentsAdapter.notifyDataSetChanged();  // Use your CommentsAdapter instance here
-            }
-        });
+                        // Notify the adapter that the data has changed
+                        commentsAdapter.notifyDataSetChanged();  // Use your CommentsAdapter instance here
+                    }
+                });
         commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentsRecyclerView.setAdapter(commentsAdapter);
     }
