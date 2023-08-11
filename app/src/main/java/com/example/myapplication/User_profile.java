@@ -58,7 +58,7 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout remindersLayout = findViewById(R.id.reminders);
         androidx.constraintlayout.widget.ConstraintLayout editProfileLayout = findViewById(R.id.editProfile);
         androidx.constraintlayout.widget.ConstraintLayout languageLayout = findViewById(R.id.language);
-        androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
+        //androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
         androidx.constraintlayout.widget.ConstraintLayout logoutLayout = findViewById(R.id.logout);
         androidx.constraintlayout.widget.ConstraintLayout deleteAccountLayout = findViewById(R.id.deleteAccount);
         androidx.constraintlayout.widget.ConstraintLayout CalendarLayout = findViewById(R.id.calendar);
@@ -105,13 +105,13 @@ public class User_profile extends AppCompatActivity {
                 showLanguageSelectionDialog();
             }
         });
-        shareLayout.setOnClickListener(new View.OnClickListener() {
+        /*shareLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(User_profile.this, UserPage_Activity.class);
                 startActivity(intent);
             }
-        });
+        });*/
         // Inside onCreate method after other click listeners
         logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
