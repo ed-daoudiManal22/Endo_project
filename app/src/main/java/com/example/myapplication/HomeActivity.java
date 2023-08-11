@@ -58,8 +58,8 @@ public class HomeActivity extends AppCompatActivity {
                     communitytext.setVisibility(View.GONE);
                     tracktext.setVisibility(View.GONE);
 
-                    communityImage.setImageResource(R.drawable.settings);
-                    trackImage.setImageResource(R.drawable.calendr);
+                    communityImage.setImageResource(R.drawable.community);
+                    trackImage.setImageResource(R.drawable.tracking);
 
                     communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
                     communitytext.setVisibility(View.GONE);
                     hometext.setVisibility(View.GONE);
 
-                    communityImage.setImageResource(R.drawable.settings);
+                    communityImage.setImageResource(R.drawable.community);
                     homeImage.setImageResource(R.drawable.home);
 
                     communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     //select track tab
                     tracktext.setVisibility(View.VISIBLE);
-                    trackImage.setImageResource(R.drawable.calendr);  //selected icon
+                    trackImage.setImageResource(R.drawable.tracking);  //selected icon
                     trackLayout.setBackgroundResource(R.drawable.menu_round_back);
 
                     //create animation
@@ -133,14 +133,14 @@ public class HomeActivity extends AppCompatActivity {
                     tracktext.setVisibility(View.GONE);
 
                     homeImage.setImageResource(R.drawable.home);
-                    trackImage.setImageResource(R.drawable.calendr);
+                    trackImage.setImageResource(R.drawable.tracking);
 
                     homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
                     //select community tab
                     communitytext.setVisibility(View.VISIBLE);
-                    communityImage.setImageResource(R.drawable.settings);  //selected icon
+                    communityImage.setImageResource(R.drawable.community);  //selected icon
                     communityLayout.setBackgroundResource(R.drawable.menu_round_back);
 
                     //create animation
