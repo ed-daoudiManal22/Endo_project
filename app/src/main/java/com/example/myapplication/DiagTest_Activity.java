@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -317,6 +318,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         TextView scoreTextView = reportLayout.findViewById(R.id.scoreTextView);
         TextView reportTextView = reportLayout.findViewById(R.id.reportTextView);
         Button openReportButton = reportLayout.findViewById(R.id.openReportButton);
+        ImageView backBtn = reportLayout.findViewById(R.id.leftIcon);
 
         // Set the score and report text
         scoreTextView.setText(getString(R.string.RiskLevel) + ": " + riskLevel);
@@ -325,8 +327,13 @@ public class DiagTest_Activity extends AppCompatActivity {
         // Generate the PDF report
         generatePdfReport(riskLevel, reportBuilder.toString(),userId);
 
-        // Display the report or save it to Firestore
-
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DiagTest_Activity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         openReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
