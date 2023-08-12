@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.UserPage_Activity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,7 +77,7 @@ public class Choices_Activity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(Choices_Activity.this, "Choice stored successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Choices_Activity.this, UserPage_Activity.class);
+                            Intent intent = new Intent(Choices_Activity.this, HomeActivity.class);
                             startActivity(intent);
                         }
                     })

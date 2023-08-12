@@ -82,7 +82,6 @@
             android:name=".HomeActivity"
             android:configChanges="locale|orientation|screenSize"/>
 
-        <activity android:name=".UserPage_Activity" />
         <activity android:name=".User_profile" />
         <activity android:name=".NotifiactionSettings_Activity"/>
 
