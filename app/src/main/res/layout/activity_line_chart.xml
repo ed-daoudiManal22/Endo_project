@@ -50,7 +50,7 @@
                 android:id="@+id/shareIcon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/btn_5"
+                android:src="@drawable/ic_share_icon"
                 android:contentDescription="Notification Icon"
                 android:padding="8dp"
                 android:layout_alignParentEnd="true"
