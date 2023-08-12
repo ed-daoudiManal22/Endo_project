@@ -1,21 +1,25 @@
 package com.example.myapplication;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +51,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,16 +119,15 @@ public class LineChart_Activity extends AppCompatActivity {
         shareIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the root view of the activity layout
-                View rootView = getWindow().getDecorView().getRootView();
+                // Get the ScrollView from the layout
+                ScrollView scrollView = findViewById(R.id.scrollView);
 
-                // Create a bitmap of the view
-                Bitmap bitmap = getBitmapFromView(rootView);
+                // Capture the complete content of the ScrollView as a Bitmap
+                Bitmap scrollViewBitmap = getScrollViewContentBitmap(scrollView);
 
-                // Save the bitmap as an image
-                File imageFile = saveBitmapAsImage(bitmap);
+                // Save the Bitmap as an image
+                File imageFile = saveBitmapAsImage(scrollViewBitmap);
 
-                // Check if the image file is valid and exists
                 if (imageFile != null && imageFile.exists()) {
                     // Create an intent to share the image
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -145,29 +149,27 @@ public class LineChart_Activity extends AppCompatActivity {
                     // Start the sharing activity
                     startActivity(Intent.createChooser(shareIntent, "Share chart using"));
                 } else {
-                    // Image file is not valid or does not exist, show an error message
                     Toast.makeText(LineChart_Activity.this, "Failed to share chart", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the root view of the activity layout
-                View rootView = getWindow().getDecorView().getRootView();
+                // Get the ScrollView from the layout
+                ScrollView scrollView = findViewById(R.id.scrollView);
 
-                // Create a bitmap of the view
-                Bitmap bitmap = getBitmapFromView(rootView);
+                // Capture the complete content of the ScrollView as a Bitmap
+                Bitmap scrollViewBitmap = getScrollViewContentBitmap(scrollView);
 
-                // Save the bitmap as an image and get the File object representing the saved image
-                File imageFile = saveBitmapAsImage(bitmap);
+                // Save the Bitmap as an image
+                boolean isImageSaved = saveDownloadAsImage(scrollViewBitmap);
 
-                // Check if the image file is valid and exists
-                if (imageFile != null && imageFile.exists()) {
-                    // Show the success message if the file was saved successfully
+                // Show toast message based on the result
+                if (isImageSaved) {
                     Toast.makeText(LineChart_Activity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Show the error message if the file couldn't be saved
                     Toast.makeText(LineChart_Activity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -412,6 +414,30 @@ public class LineChart_Activity extends AppCompatActivity {
         }
         return null;
     }
+    private boolean saveDownloadAsImage(Bitmap bitmap) {
+        // Save the bitmap to the gallery
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, "LineChartImage.png");
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+        values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+
+        Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        if (imageUri != null) {
+            try {
+                OutputStream outputStream = getContentResolver().openOutputStream(imageUri);
+                if (outputStream != null) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    outputStream.close();
+                    return true; // Successfully saved the image
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false; // Failed to save the image
+    }
+
+
     // Method to check if external storage is writable
     private boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
@@ -432,6 +458,21 @@ public class LineChart_Activity extends AppCompatActivity {
             }
         }
     }
+    // Method to capture the complete content of a ScrollView as a Bitmap
+    private Bitmap getScrollViewContentBitmap(ScrollView scrollView) {
+        // Set a white background color to the ScrollView's content
+        scrollView.getChildAt(0).setBackgroundColor(Color.WHITE);
+
+        Bitmap bitmap = Bitmap.createBitmap(
+                scrollView.getChildAt(0).getWidth(),
+                scrollView.getChildAt(0).getHeight(),
+                Bitmap.Config.ARGB_8888
+        );
+        Canvas canvas = new Canvas(bitmap);
+        scrollView.getChildAt(0).draw(canvas);
+        return bitmap;
+    }
+
     private void calculateAndDisplayData(String fieldName, int layoutId, Context context, Task<QuerySnapshot> task) {
         List<String> allData = new ArrayList<>();
 
