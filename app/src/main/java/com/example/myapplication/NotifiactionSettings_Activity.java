@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
     PendingIntent pending_intent;
     AlarmManager alarm_manager;
     private ImageView leftIcon;
+    private SwitchMaterial CommunityNotif, TestNotif,test ;
     private boolean isCommunityNotificationOn = false;
     private ListenerRegistration blogsListenerRegistration;
 
@@ -40,9 +42,15 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(this, NotificationReceiver.class), PendingIntent.FLAG_IMMUTABLE);
         alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        SwitchMaterial CommunityNotif = findViewById(R.id.communityNotifiSwitch);
-        SwitchMaterial TestNotif = findViewById(R.id.DiagTestSwitch);
-        SwitchMaterial test = findViewById(R.id.oneMinut);
+        CommunityNotif = findViewById(R.id.communityNotifiSwitch);
+        TestNotif = findViewById(R.id.DiagTestSwitch);
+        test = findViewById(R.id.oneMinut);
+
+        // Load the saved switch states from shared preferences and apply them
+        SharedPreferences sharedPreferences = getSharedPreferences("SwitchStates", MODE_PRIVATE);
+        CommunityNotif.setChecked(sharedPreferences.getBoolean("CommunityNotif", false));
+        TestNotif.setChecked(sharedPreferences.getBoolean("TestNotif", false));
+        test.setChecked(sharedPreferences.getBoolean("Test", false));
 
         // Assuming you have a reference to your Firestore collection "Blogs"
         CollectionReference blogsCollection = FirebaseFirestore.getInstance().collection("Blogs");
@@ -75,6 +83,8 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
                 cancel_notification_alarm("community");                // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Community notifications OFF", Toast.LENGTH_SHORT).show();
             }
+            // Save the switch state to shared preferences
+            sharedPreferences.edit().putBoolean("CommunityNotif", isCommunityNotificationOn).apply();
         });
         TestNotif.setOnClickListener(e->{
             if (TestNotif.isChecked()) {
@@ -88,6 +98,9 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications OFF", Toast.LENGTH_SHORT).show();
             }
+            // Save the switch state to shared preferences
+            sharedPreferences.edit().putBoolean("TestNotif", TestNotif.isChecked()).apply();
+
         });
         test.setOnClickListener(e->{
             if (test.isChecked()) {
@@ -100,6 +113,8 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications OFF", Toast.LENGTH_SHORT).show();
             }
+            // Save the switch state to shared preferences
+            sharedPreferences.edit().putBoolean("Test", test.isChecked()).apply();
         });
         leftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +166,14 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
     }
     @Override
     protected void onDestroy() {
+        // Save the current switch states to shared preferences
+        SharedPreferences sharedPreferences = getSharedPreferences("SwitchStates", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("CommunityNotif", CommunityNotif.isChecked());
+        editor.putBoolean("TestNotif", TestNotif.isChecked());
+        editor.putBoolean("Test", test.isChecked());
+        editor.apply();
+
         // Unregister the snapshot listener to avoid memory leaks
         if (blogsListenerRegistration != null) {
             blogsListenerRegistration.remove();
