@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    String title, desc, author, date, img, share_count,id,timestamp;
+    String title, desc, author, date, img, share_count,id,timestamp, ownerId;
     List<Comment> comments;
 
-    public Model(String title, String desc, String author, String date, String img, String share_count, String id, String timestamp) {
+    public Model(String userId,String title, String desc, String author, String date, String img, String share_count, String id, String timestamp) {
+        this.ownerId = userId;
         this.title = title;
         this.desc = desc;
         this.author = author;
@@ -28,6 +29,14 @@ public class Model {
     }
 
     public Model() {
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String userId) {
+        this.ownerId = userId;
     }
 
     public String getId() {

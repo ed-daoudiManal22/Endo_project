@@ -159,7 +159,8 @@ public class BlogDetail extends AppCompatActivity {
                                     .collection("Comments");
 
                             // Create a new comment document with the user's comment and user information
-                            commentsCollection.add(new Comment(commentText, userId, userName, userImage, Timestamp.now()))
+                            String commentId = commentsCollection.document().getId(); // Generate a new comment ID
+                            commentsCollection.add(new Comment(commentId,commentText, userId, userName, userImage, Timestamp.now()))
                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {

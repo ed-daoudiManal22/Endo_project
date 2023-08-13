@@ -25,7 +25,8 @@ public class Comment {
         this.commentText = commentText;
     }
 
-    public Comment(String commentText, String userId,String userName,String userImage, Timestamp timestamp) {
+    public Comment(String id ,String commentText, String userId,String userName,String userImage, Timestamp timestamp) {
+        this.commentId =id;
         this.commentText = commentText;
         this.userId = userId;
         this.timestamp = timestamp;
