@@ -27,7 +27,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
     PendingIntent pending_intent;
     AlarmManager alarm_manager;
     private ImageView leftIcon;
-    private SwitchMaterial CommunityNotif, TestNotif,test ;
+    private SwitchMaterial CommunityNotif, TestNotif,ReminderNotif,test ;
     private boolean isCommunityNotificationOn = false;
     private ListenerRegistration blogsListenerRegistration;
 
@@ -44,12 +44,15 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
 
         CommunityNotif = findViewById(R.id.communityNotifiSwitch);
         TestNotif = findViewById(R.id.DiagTestSwitch);
+        ReminderNotif = findViewById(R.id.reminderNotifSwitch);
         test = findViewById(R.id.oneMinut);
 
         // Load the saved switch states from shared preferences and apply them
         SharedPreferences sharedPreferences = getSharedPreferences("SwitchStates", MODE_PRIVATE);
+
         CommunityNotif.setChecked(sharedPreferences.getBoolean("CommunityNotif", false));
         TestNotif.setChecked(sharedPreferences.getBoolean("TestNotif", false));
+        ReminderNotif.setChecked(sharedPreferences.getBoolean("RemindersNotif", false));
         test.setChecked(sharedPreferences.getBoolean("Test", false));
 
         // Assuming you have a reference to your Firestore collection "Blogs"
