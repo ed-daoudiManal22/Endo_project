@@ -72,32 +72,31 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         CommunityNotif.setOnClickListener(e -> {
             isCommunityNotificationOn = CommunityNotif.isChecked();
             if (!isCommunityNotificationOn) {
-                cancel_notification_alarm();
-                // Show a toast message
+                cancel_notification_alarm("community");                // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Community notifications OFF", Toast.LENGTH_SHORT).show();
             }
         });
         TestNotif.setOnClickListener(e->{
             if (TestNotif.isChecked()) {
                 // Set the alarm to trigger once a month (30 days) with custom name and description
-                set_test_notification_alarm(30 * 24 * 60 * 60 * 1000, "Test Reminder", "Take diagnostic test");
+                set_test_notification_alarm(30 * 24 * 60 * 60 * 1000, "Test Reminder", "Take diagnostic test","Test");
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications ON", Toast.LENGTH_SHORT).show();
             } else {
                 // Test notifications are turned off
-                cancel_notification_alarm();
+                cancel_notification_alarm("Test");
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications OFF", Toast.LENGTH_SHORT).show();
             }
         });
         test.setOnClickListener(e->{
             if (test.isChecked()) {
-                set_test_notification_alarm (60 * 1000, "Test Reminder", "Test desc");
+                set_test_notification_alarm(60 * 1000, "Test Reminder", "Test desc", "test min");
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications ON", Toast.LENGTH_SHORT).show();
             } else {
                 // Test notifications are turned off
-                cancel_notification_alarm();
+                cancel_notification_alarm("test min");
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications OFF", Toast.LENGTH_SHORT).show();
             }
@@ -159,17 +158,32 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void cancel_notification_alarm() {
-        alarm_manager.cancel(pending_intent);
+    public void cancel_notification_alarm(String type) {
+        int requestCode = type.hashCode(); // Generate a unique request code based on the type
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(),
+                requestCode,
+                new Intent(this, NotificationReceiver.class),
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        alarm_manager.cancel(pendingIntent);
     }
-    public void set_test_notification_alarm(long intervalMillis, String name, String description) {
+
+    public void set_test_notification_alarm(long intervalMillis, String name, String description, String type) {
         long triggerAtMillis = System.currentTimeMillis() + intervalMillis;
 
         Intent notificationIntent = new Intent(this, NotificationReceiver.class);
         notificationIntent.putExtra("name", name);
         notificationIntent.putExtra("description", description);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int requestCode = type.hashCode(); // Generate a unique request code based on the type
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(),
+                requestCode,
+                notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
 
         alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAtMillis, intervalMillis, pendingIntent);
 
@@ -181,5 +195,4 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
 }
