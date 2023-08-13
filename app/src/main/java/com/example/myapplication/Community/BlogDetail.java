@@ -37,7 +37,7 @@ import java.util.List;
 public class BlogDetail extends AppCompatActivity {
     ActivityBlogDeatailBinding binding;
     private CommentsAdapter commentsAdapter;
-    String id;
+    String id,ownerId;
     String  title, desc,count;
     int n_count;
 
@@ -79,7 +79,7 @@ public class BlogDetail extends AppCompatActivity {
                 title= value.getString("tittle");
                 desc= value.getString("desc");
                 count= value.getString("share_count");
-
+                ownerId = value.getString("ownerId");
                 int i_count=Integer.parseInt(count);
                 n_count=i_count+1;
             }

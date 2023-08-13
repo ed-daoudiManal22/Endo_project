@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -78,7 +80,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    showDeleteDialog(getAdapterPosition());
+                    Comment comment = comments.get(getAdapterPosition());
+                    if (isCurrentUserOrOwner(comment.getUserId(), blogId)) {
+                        showDeleteDialog(getAdapterPosition());
+                    }
                     return true;
                 }
             });
@@ -106,5 +111,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                 .create()
                 .show();
     }
+    private boolean isCurrentUserOrOwner(String userId, String ownerId) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        String currentUserId = currentUser.getUid();
+
+        return currentUserId.equals(userId) || currentUserId.equals(ownerId);
+    }
+
 }
 
