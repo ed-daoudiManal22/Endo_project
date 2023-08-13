@@ -272,12 +272,17 @@ public class LineChart_Activity extends AppCompatActivity {
 
                     // Create a ValueFormatter to format the X-axis values as dates
                     ValueFormatter xAxisFormatter = new ValueFormatter() {
-                        private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM", Locale.US);
-
                         @Override
                         public String getFormattedValue(float value) {
                             long millis = (long) value;
                             Date date = new Date(millis);
+
+                            // Get the current language and create a locale
+                            String currentLanguage = getResources().getConfiguration().locale.getLanguage();
+                            Locale currentLocale = new Locale(currentLanguage);
+
+                            // Format the date using the current locale
+                            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM", currentLocale);
                             return dateFormatter.format(date);
                         }
                     };
@@ -286,8 +291,9 @@ public class LineChart_Activity extends AppCompatActivity {
                     XAxis xAxis = lineChart.getXAxis();
                     xAxis.setValueFormatter(xAxisFormatter);
 
+                    String painScoreString = getResourceString("pain_score");
                     // Create a dataset with the entries and customize it
-                    LineDataSet dataSet = new LineDataSet(entries, "Pain Scores");
+                    LineDataSet dataSet = new LineDataSet(entries, painScoreString);
                     dataSet.setColor(Color.RED);
                     dataSet.setValueTextColor(Color.BLACK);
 
@@ -332,16 +338,9 @@ public class LineChart_Activity extends AppCompatActivity {
                         int occurrences = painLocationOccurrences.get(location);
                         float percentage = (occurrences * 100f) / totalPainLocations;
 
-                        int resourceId = context.getResources().getIdentifier(location, "string", getPackageName());
-                        String localizedLocation;
-                        if (resourceId != 0) {
-                            // Use the localized name from the strings.xml if it exists
-                            localizedLocation = context.getString(resourceId);
-                        } else {
-                            // Use the original location string if the resource name is not found
-                            localizedLocation = location;
-                        }
-                        // Add the PieEntry for each pain location and percentage with the localized name
+                        // Use the localized name from strings.xml using getResourceString
+                        String localizedLocation = getResourceString(location);
+
                         pieEntries.add(new PieEntry(percentage, localizedLocation));
                     }
                     // Create a dataset for the PieChart with the entries and customize it

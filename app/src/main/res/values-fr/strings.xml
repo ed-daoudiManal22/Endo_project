@@ -42,6 +42,7 @@
 
     <string name="pain_evolution">Évolution de la douleur</string>
     <string name="pain_average">Moyenne des douleurs</string>
+    <string name="pain_score">score des douleurs</string>
     <string name="pain_locations">Localisation des douleurs</string>
     <string name="symptoms">Symptômes</string>
     <string name="pain_worse_title">Ce qui aggrave la douleur</string>

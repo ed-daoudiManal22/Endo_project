@@ -41,6 +41,7 @@
 
     <string name="pain_evolution">Pain evolution</string>
     <string name="pain_average">Pain Average :</string>
+    <string name="pain_score">Pain scores</string>
     <string name="pain_locations">Pain Locations</string>
     <string name="symptoms">Symptoms</string>
     <string name="pain_worse_title">What Makes Pain Worse?</string>
