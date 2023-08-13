@@ -92,6 +92,7 @@
     <string name="alarm">Alarm</string>
     <string name="edit_profile">Modifier le profil</string>
     <string name="change_language">Changer de langue</string>
+    <string name="notif_settings">Paramètres de notification</string>
     <string name="share_app">Partager l\'application</string>
     <string name="logout">Déconnecter</string>
     <string name="deleteAccount">Supprimer mon compte</string>

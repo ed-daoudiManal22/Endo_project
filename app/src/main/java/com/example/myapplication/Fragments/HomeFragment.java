@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
         menuIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), User_profile.class)));
 
         // Set click listeners for the notification icon
-        notificationIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), NotifiactionSettings_Activity.class)));
+        notificationIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), ReminderActivity.class)));
     }
 
     private void getCurrentUserName() {

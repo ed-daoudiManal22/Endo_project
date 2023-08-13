@@ -91,6 +91,7 @@
     <string name="alarm">Alarm</string>
     <string name="edit_profile">Edit profile</string>
     <string name="change_language">Change language</string>
+    <string name="notif_settings">Notifications settings</string>
     <string name="share_app">Share app</string>
     <string name="logout">Logout</string>
     <string name="deleteAccount">Delete Account</string>

@@ -63,6 +63,7 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout deleteAccountLayout = findViewById(R.id.deleteAccount);
         androidx.constraintlayout.widget.ConstraintLayout CalendarLayout = findViewById(R.id.calendar);
         androidx.constraintlayout.widget.ConstraintLayout AboutUsLayout = findViewById(R.id.AboutUs);
+        androidx.constraintlayout.widget.ConstraintLayout NotifLayout = findViewById(R.id.notification);
 
         // Initialize Firebase components
         firebaseAuth = FirebaseAuth.getInstance();
@@ -103,6 +104,13 @@ public class User_profile extends AppCompatActivity {
             public void onClick(View view) {
                 // Show the language selection dialog when the language layout is clicked
                 showLanguageSelectionDialog();
+            }
+        });
+        NotifLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(User_profile.this, NotifiactionSettings_Activity.class);
+                startActivity(intent);
             }
         });
         /*shareLayout.setOnClickListener(new View.OnClickListener() {

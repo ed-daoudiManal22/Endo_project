@@ -48,9 +48,9 @@
 
             <ImageView
                 android:id="@+id/notificationIcon"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/notificationsicon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/alarm"
                 android:contentDescription="Notification Icon"
                 android:padding="8dp"
                 android:layout_alignParentEnd="true"
