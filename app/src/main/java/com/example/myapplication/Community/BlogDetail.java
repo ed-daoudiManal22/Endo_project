@@ -64,8 +64,9 @@ public class BlogDetail extends AppCompatActivity {
         commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Comment> commentsList = new ArrayList<>();
         // Initialize the commentsAdapter
-        commentsAdapter = new CommentsAdapter(this, commentsList);
+        commentsAdapter = new CommentsAdapter(this, commentsList, id);
         commentsRecyclerView.setAdapter(commentsAdapter);
+
 
         id = getIntent().getStringExtra("id");
         FirebaseFirestore.getInstance().collection("Blogs").document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -122,9 +123,12 @@ public class BlogDetail extends AppCompatActivity {
                         // Clear the previous comments and add the new ones
                         commentsList.clear();
                         for (QueryDocumentSnapshot doc : value) {
+                            String commentId = doc.getId(); // Get the comment ID from Firestore
                             Comment comment = doc.toObject(Comment.class);
+                            comment.setCommentId(commentId); // Set the comment ID in the Comment object
                             commentsList.add(comment);
                         }
+
 
                         // Notify the adapter that the data has changed
                         commentsAdapter.notifyDataSetChanged();  // Use your CommentsAdapter instance here
@@ -173,6 +177,31 @@ public class BlogDetail extends AppCompatActivity {
                                         }
                                     });
                         }
+                    }
+                });
+    }
+    public void deleteCommentInFirestore(String commentId) {
+        // Get a reference to the "Comments" subcollection of the current blog post
+        CollectionReference commentsCollection = FirebaseFirestore.getInstance()
+                .collection("Blogs")
+                .document(id)
+                .collection("Comments");
+
+        // Delete the comment document from Firestore
+        commentsCollection.document(commentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Comment deleted successfully from Firestore
+                        Toast.makeText(BlogDetail.this, "Comment deleted", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle failure, show a toast or perform other error handling
+                        Toast.makeText(BlogDetail.this, "Failed to delete comment", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

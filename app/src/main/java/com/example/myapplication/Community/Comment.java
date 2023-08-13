@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.database.ServerValue;
 
 public class Comment {
+    private String commentId;
     private String commentText;
     private String userId;
     private String userName, userImage;
@@ -11,6 +12,13 @@ public class Comment {
 
     public Comment() {
         // Default constructor required for Firestore deserialization
+    }
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
     }
 
     public Comment(String commentText) {
