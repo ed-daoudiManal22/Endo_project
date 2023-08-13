@@ -106,6 +106,8 @@
         <activity android:name=".Quiz_main" />
         <activity android:name=".Quiz_Activity" />
 
+        <activity android:name=".AboutUs_Activity" />
+
         <activity android:name="com.example.myapplication.NewsLibrary.ArticlesDetailActivity"/>
 
         <activity android:name=".Community.BlogDetail"/>

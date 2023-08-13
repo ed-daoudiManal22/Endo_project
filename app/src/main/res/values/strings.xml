@@ -98,6 +98,11 @@
     <string name="Calendar">Calendar</string>
     <string name="AboutUs">About Us</string>
 
+    <string name="about_us_text">The PainCare m-Health solution was developed with the goal of providing comprehensive resources and assistance to women who are struggling with endometriosis. It aims to assist individuals by giving them access to customized symptom tracking, educational materials, and a supportive community. The main goal is to provide women with endometriosis with a user-friendly and accessible tool for pain-management, information, and emotional support in order to improve their overall wellness and quality of life. This includes women who suspect they may have the condition. With PainCare, women can take control of their condition and move towards a happier and healthier life.</string>
+    <string name="References">References</string>
+    <string name="link1_url">https://www.advancedgynaecologymelbourne.com.au/endometriosis/symptoms</string>
+    <string name="link2_url">https://www.mayoclinic.org/diseases-conditions/endometriosis/symptoms-causes/syc-20354656#:~:text=However%2C%20there%20are%20some%20factors,having%20a%20low%20body%20mass</string>
+    <string name="link3_url">https://my.clevelandclinic.org/health/diseases/10857-endometriosis</string>
     <string name="AddEvent">Add Event</string>
 
     <string name="delete_account_title">Delete Account</string>

@@ -146,7 +146,7 @@ public class User_profile extends AppCompatActivity {
         AboutUsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, EventCalendar_Activity.class);
+                Intent intent = new Intent(User_profile.this, AboutUs_Activity.class);
                 startActivity(intent);
             }
         });
