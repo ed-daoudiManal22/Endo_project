@@ -82,7 +82,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         });
         test.setOnClickListener(e->{
             if (test.isChecked()) {
-                set_notification_alarm(60 * 1000,"Test Reminder", "Test desc");
+                set_notification_alarm(60 * 1000, "Test Reminder", "Test desc");
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications ON", Toast.LENGTH_SHORT).show();
             } else {
@@ -92,6 +92,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications OFF", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void notification_channel() {
@@ -106,8 +107,8 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         }
     }
 
-    public void set_notification_alarm(long interval, String name, String description) {
-        long triggerAtMillis = System.currentTimeMillis() + interval;
+    public void set_notification_alarm(long delayMillis, String name, String description) {
+        long triggerAtMillis = System.currentTimeMillis() + delayMillis;
 
         Intent notificationIntent = new Intent(this, NotificationReceiver.class);
         notificationIntent.putExtra("name", name);
@@ -115,13 +116,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarm_manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarm_manager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
