@@ -309,7 +309,7 @@ public class LineChart_Activity extends AppCompatActivity {
 
                     for (DocumentSnapshot document : task.getResult()) {
                         // Get the pain Location array from the document
-                        List<String> painLocations = (List<String>) document.get("pain Location");
+                        List<String> painLocations = (List<String>) document.get("pain_locations");
 
                         // Add all pain locations to the list
                         if (painLocations != null) {
@@ -364,8 +364,8 @@ public class LineChart_Activity extends AppCompatActivity {
                     //end pain location Chart --------------------------------------------------
 
                     calculateAndDisplayData("symptoms", R.id.symptomsLayout, context, task);
-                    calculateAndDisplayData("What Made Your Pain Worse?", R.id.painWorseLayout, context, task);
-                    calculateAndDisplayData("How You Feel Today?", R.id.feelingsLayout, context, task);
+                    calculateAndDisplayData("pain_worse_title", R.id.painWorseLayout, context, task);
+                    calculateAndDisplayData("feelings", R.id.feelingsLayout, context, task);
                     //calculateAndDisplayData("What Medication Did You Try for Your Pain?", R.id.MedicationsLayout, context, task);
 
                 } else {
@@ -512,10 +512,21 @@ public class LineChart_Activity extends AppCompatActivity {
             ));
 
             dataTextView.setTypeface(null, Typeface.BOLD);
-            String dataInfo = dataItem + " : " + String.format(Locale.US, "%.1f%%", percentage);
+            String dataInfo = getResourceString(dataItem) + " : " + String.format(Locale.US, "%.1f%%", percentage);
             dataTextView.setText(dataInfo);
 
             dataLayout.addView(dataTextView);
+        }
+    }
+
+    private String getResourceString(String resourceName) {
+        int resId = getResources().getIdentifier(resourceName, "string", getPackageName());
+        if (resId != 0) {
+            return getString(resId);
+        } else {
+            // Handle the case when the resource is not found
+            Log.e("DiagTest_Activity", "Resource not found: " + resourceName);
+            return "Resource not found";
         }
     }
 }

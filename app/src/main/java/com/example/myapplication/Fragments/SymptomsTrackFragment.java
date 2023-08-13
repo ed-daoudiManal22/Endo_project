@@ -1,12 +1,14 @@
 package com.example.myapplication.Fragments;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -160,11 +162,12 @@ public class SymptomsTrackFragment extends Fragment {
 
         // Store the selected options in Firebase
         for (DataModel dataModel : mList) {
-            String optionTitle = dataModel.getTitle();
+            String optionTitle = getResourceName(dataModel.getTitle());
             List<Integer> selectedPositions = dataModel.getSelectedPositions();
             List<String> selectedOptions = new ArrayList<>();
             for (int position : selectedPositions) {
-                selectedOptions.add(dataModel.getOptionsList().get(position));
+                String optionValue = dataModel.getOptionsList().get(position);
+                selectedOptions.add(getResourceName(optionValue)); // Convert option value to resource name
             }
             symptomData.put(optionTitle, selectedOptions);
         }
@@ -186,4 +189,48 @@ public class SymptomsTrackFragment extends Fragment {
                     Toast.makeText(requireContext(), "Failed to submit symptoms.", Toast.LENGTH_SHORT).show();
                 });
     }
+    private String getResourceName(String resourceValue) {
+        // Create a map of resource values to resource names
+        Map<String, String> resourceValueToName = new HashMap<>();
+        resourceValueToName.put(getString(R.string.pain_locations), "pain_locations");
+        resourceValueToName.put(getString(R.string.symptoms), "symptoms");
+        resourceValueToName.put(getString(R.string.pain_worse_title), "pain_worse_title");
+        resourceValueToName.put(getString(R.string.feelings), "feelings");
+        resourceValueToName.put(getString(R.string.abdomen), "abdomen");
+        resourceValueToName.put(getString(R.string.back), "back");
+        resourceValueToName.put(getString(R.string.chest), "chest");
+        resourceValueToName.put(getString(R.string.head), "head");
+        resourceValueToName.put(getString(R.string.neck), "neck");
+        resourceValueToName.put(getString(R.string.hips), "hips");
+        resourceValueToName.put(getString(R.string.cramps), "cramps");
+        resourceValueToName.put(getString(R.string.tender_breasts), "tender_breasts");
+        resourceValueToName.put(getString(R.string.headache), "headache");
+        resourceValueToName.put(getString(R.string.acne), "acne");
+        resourceValueToName.put(getString(R.string.fatigue), "fatigue");
+        resourceValueToName.put(getString(R.string.bloating), "bloating");
+        resourceValueToName.put(getString(R.string.craving), "craving");
+        resourceValueToName.put(getString(R.string.lack_of_sleep), "lack_of_sleep");
+        resourceValueToName.put(getString(R.string.sitting), "sitting");
+        resourceValueToName.put(getString(R.string.standing), "standing");
+        resourceValueToName.put(getString(R.string.stress), "stress");
+        resourceValueToName.put(getString(R.string.walking), "walking");
+        resourceValueToName.put(getString(R.string.exercise), "exercise");
+        resourceValueToName.put(getString(R.string.urination), "urination");
+        resourceValueToName.put(getString(R.string.anxious), "anxious");
+        resourceValueToName.put(getString(R.string.depressed), "depressed");
+        resourceValueToName.put(getString(R.string.dizzy), "dizzy");
+        resourceValueToName.put(getString(R.string.vomiting), "vomiting");
+        resourceValueToName.put(getString(R.string.diarrhea), "diarrhea");
+        resourceValueToName.put(getString(R.string.nothing), "nothing");
+
+        String resourceName = resourceValueToName.get(resourceValue);
+        if (resourceName != null) {
+            return resourceName;
+        } else {
+            // Handle the case when the resource name is not found
+            Log.e("DiagTest_Activity", "Resource name not found for value: " + resourceValue);
+            return "Resource name not found";
+        }
+    }
+
 }
