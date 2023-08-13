@@ -66,7 +66,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
                 for (DocumentChange dc : value.getDocumentChanges()) {
                     if (dc.getType() == DocumentChange.Type.ADDED) {
                         // A new blog has been added, trigger the notification
-                        set_notification_alarm(0, "New Blog Added", "A member has added a new blog");
+                        set_notification_alarm(0, "New Blog Added", "A member has added a new blog", "community");
                         // Show a toast message
                         Toast.makeText(NotifiactionSettings_Activity.this, "Community notifications ON", Toast.LENGTH_SHORT).show();
                         // Exit the loop after the first added document is found
@@ -138,15 +138,20 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-    public void set_notification_alarm(long delayMillis, String name, String description) {
+    public void set_notification_alarm(long delayMillis, String name, String description, String type) {
         long triggerAtMillis = System.currentTimeMillis() + delayMillis;
 
         Intent notificationIntent = new Intent(this, NotificationReceiver.class);
         notificationIntent.putExtra("name", name);
         notificationIntent.putExtra("description", description);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int requestCode = type.hashCode(); // Generate a unique request code based on the type
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(),
+                requestCode,
+                notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarm_manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
