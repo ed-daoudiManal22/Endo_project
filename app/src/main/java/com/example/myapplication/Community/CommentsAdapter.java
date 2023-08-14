@@ -97,8 +97,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     }
     private void showDeleteDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Do you want to delete this comment?")
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setMessage(context.getString(R.string.confirm_delete_comment))
+                .setPositiveButton(context.getString(R.string.delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (context instanceof BlogDetail) {
@@ -107,7 +107,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                         }
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(context.getString(R.string.cancel), null)
                 .create()
                 .show();
     }

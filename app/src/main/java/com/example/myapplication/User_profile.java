@@ -160,7 +160,6 @@ public class User_profile extends AppCompatActivity {
                 if (document.exists()) {
                     // User data exists, update the TextViews
                     String userName = document.getString("name");
-                    String userEmail = document.getString("email");
 
                     // Set the user's name and email to the respective TextViews
                     userNameTextView.setText(userName);
@@ -173,7 +172,7 @@ public class User_profile extends AppCompatActivity {
         final String[] languages = {"English", "French"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(User_profile.this);
-        builder.setTitle("Choose a Language");
+        builder.setTitle(getString(R.string.choose_language));
         builder.setItems(languages, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

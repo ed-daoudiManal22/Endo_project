@@ -100,7 +100,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
                 adapter.notifyDataSetChanged();
             }
         });
-        adapter = new Adapter(list);
+        adapter = new Adapter(getContext(),list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);

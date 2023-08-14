@@ -2,6 +2,7 @@ package com.example.myapplication.Community;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -26,8 +27,10 @@ import java.util.HashMap;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     ArrayList<Model> list;
+    private Context context;
 
-    public Adapter(ArrayList<Model> list) {
+    public Adapter(Context context,ArrayList<Model> list) {
+        this.context = context;
         this.list = list;
         this.notifyDataSetChanged();
     }
@@ -49,7 +52,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.title.setText(model.getTitle());
         holder.date.setText(model.getDate());
         holder.description.setText(model.getDesc());
-        holder.share_count.setText(model.getShare_count() + " Shared");
+        holder.share_count.setText(model.getShare_count() + " " + context.getString(R.string.shared));
         holder.author.setText(model.getAuthor());
 
         Glide.with(holder.author.getContext()).load(model.getImg()).into(holder.img);

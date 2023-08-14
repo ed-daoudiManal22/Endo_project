@@ -5,7 +5,8 @@
     <string name="next">Next</string>
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
-    <string name="save_profile">Save Profile</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
 
     <string name="score_label">Score:</string>
     <string name="report_label">Report</string>
@@ -38,6 +39,8 @@
     <string name="Add">Add</string>
     <string name="Search_blogs">Search Blogs</string>
     <string name="share_btn">Share</string>
+    <string name="shared">Shared</string>
+    <string name="confirm_delete_comment">Do you want to delete this comment?</string>
 
     <string name="pain_evolution">Pain evolution</string>
     <string name="pain_average">Pain Average :</string>
@@ -60,6 +63,7 @@
     <string name="go">GO</string>
     <string name="diag_result">Test result</string>
 
+    <string name="add_reminder">Add Reminder</string>
     <string name="title...">Title&#8230;</string>
     <string name="monday">Mon</string>
     <string name="tuesday">Tue</string>
@@ -97,6 +101,8 @@
     <string name="deleteAccount">Delete Account</string>
     <string name="Calendar">Calendar</string>
     <string name="AboutUs">About Us</string>
+
+    <string name="choose_language">Choose a Language</string>
 
     <string name="about_us_text">The PainCare m-Health solution was developed with the goal of providing comprehensive resources and assistance to women who are struggling with endometriosis. It aims to assist individuals by giving them access to customized symptom tracking, educational materials, and a supportive community. The main goal is to provide women with endometriosis with a user-friendly and accessible tool for pain-management, information, and emotional support in order to improve their overall wellness and quality of life. This includes women who suspect they may have the condition. With PainCare, women can take control of their condition and move towards a happier and healthier life.</string>
     <string name="References">References</string>

@@ -5,7 +5,8 @@
     <string name="next">Suivant</string>
     <string name="cancel">Annuler</string>
     <string name="submit">Confirmer</string>
-    <string name="save_profile">Enregistrer le Profil</string>
+    <string name="save">Enregistrer</string>
+    <string name="delete">Supprimer</string>
 
     <string name="score_label">Score :</string>
     <string name="report_label">Rapport</string>
@@ -38,7 +39,8 @@
     <string name="Add">Ajouter</string>
     <string name="Search_blogs">Chercher un blog</string>
     <string name="share_btn">Partager</string>
-
+    <string name="shared">Partagé</string>
+    <string name="confirm_delete_comment">Voulez-vous supprimer ce commentaire ?</string>
 
     <string name="pain_evolution">Évolution de la douleur</string>
     <string name="pain_average">Moyenne des douleurs</string>
@@ -61,6 +63,7 @@
     <string name="go">ALLER</string>
     <string name="diag_result">Resultat du test</string>
 
+    <string name="add_reminder">Ajouter un rappel</string>
     <string name="title...">Titre&#8230;</string>
     <string name="monday">Lun</string>
     <string name="tuesday">Mar</string>
@@ -98,6 +101,8 @@
     <string name="deleteAccount">Supprimer mon compte</string>
     <string name="Calendar">Calendrier</string>
     <string name="AboutUs">A propos de nous</string>
+
+    <string name="choose_language">Choisissez une langue</string>
 
     <string name="about_us_text">La solution m-Health PainCare a été développée dans le but de fournir des ressources complètes et une assistance aux femmes qui luttent contre l\'endométriose. Elle vise à aider les individus en leur donnant accès à un suivi personnalisé des symptômes, à des documents éducatifs et à une communauté de soutien. L\'objectif principal est de fournir aux femmes atteintes d\'endométriose un outil convivial et accessible pour la gestion de la douleur, les informations et le soutien émotionnel afin d\'améliorer leur bien-être global et leur qualité de vie. Cela inclut les femmes qui soupçonnent d\'avoir la condition. Avec PainCare, les femmes peuvent prendre le contrôle de leur condition et avancer vers une vie plus heureuse et plus saine.</string>
     <string name="References">Références</string>

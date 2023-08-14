@@ -138,7 +138,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
     private void showAddReminderDialog() {
         // Show a dialog to add a new reminder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add Reminder");
+        builder.setTitle(getString(R.string.add_reminder));
 
         // Inflate the custom dialog layout
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_reminder, null);
@@ -156,7 +156,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         CheckBox Sun = dialogView.findViewById(R.id.checkBoxSu);
 
         // Add "Save" button to the dialog
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String title = titleEditText.getText().toString();
@@ -189,7 +189,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         });
 
         // Add "Cancel" button to the dialog
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
