@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,13 +29,21 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EventCalendar_Activity extends AppCompatActivity {
 
-    private CalendarView calendarView;
+    private MaterialCalendarView calendarView;
     private String stringDateSelected;
     private ImageView addEventButton;
     private FirebaseFirestore db;;
@@ -56,25 +65,45 @@ public class EventCalendar_Activity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         eventsCollection = db.collection("Users").document(currentUser.getUid()).collection("Events");
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        List<CalendarDay> eventDates = new ArrayList<>();
+        // Populate eventDates based on your event data
+
+        DotSpan dotSpan = new DotSpan(5, Color.RED); // Customize the dot size and color
+        // Get the available event dates from Firestore and populate the eventDates list
+        eventsCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String date = document.getId(); // Get the date string from the document ID
+                        String[] dateParts = date.split("-"); // Split the date into parts
+                        int year = Integer.parseInt(dateParts[2]);
+                        int month = Integer.parseInt(dateParts[1]) - 1; // Months are 0-indexed
+                        int day = Integer.parseInt(dateParts[0]);
+                        CalendarDay calendarDay = CalendarDay.from(year, month, day);
+                        eventDates.add(calendarDay);
+                    }
+
+                    // Apply the event decorators to the calendarView
+                    EventDecorator eventDecorator = new EventDecorator(eventDates, dotSpan);
+                    calendarView.addDecorator(eventDecorator);
+                }
+            }
+        });
+
+        // Initialize the MaterialCalendarView
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 // Format the date as "dd-mm-yyyy"
-                stringDateSelected = String.format("%02d-%02d-%d", dayOfMonth, month + 1, year);
-                calendarClicked();
+                stringDateSelected = String.format("%02d-%02d-%d", date.getDay(), date.getMonth() + 1, date.getYear());
+                calendarClicked(); // Call the method without passing any argument
             }
         });
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogToAddEvent();
-            }
-        });
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
-                stringDateSelected = String.format("%02d-%02d-%d", dayOfMonth, month + 1, year);
-                calendarClicked();
             }
         });
     }

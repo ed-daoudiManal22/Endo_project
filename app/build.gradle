@@ -77,5 +77,6 @@ dependencies {
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-
+    implementation 'com.applandeo:material-calendar-view:1.0.1'
+    implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
 }
