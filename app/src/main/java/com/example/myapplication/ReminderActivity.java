@@ -48,7 +48,7 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
 public class ReminderActivity extends AppCompatActivity implements ReminderAdapter.OnReminderDeleteListener, ReminderAdapter.OnReminderActiveStatusChangeListener{
-
+    private AlarmManager alarmManager;
     private ImageView leftIcon;
     private RecyclerView recyclerView;
     private ReminderAdapter reminderAdapter;
@@ -62,6 +62,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reminders_settings);
 
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         leftIcon = findViewById(R.id.leftIcon);
 
         recyclerView = findViewById(R.id.remindersRecyclerView);
@@ -275,4 +276,69 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     }
                 });
     }
+
+    private void scheduleReminderNotifications(Reminder reminder) {
+        if (reminder.isActive()) {
+            boolean[] repeatDays = reminder.getRepeatDays();
+            String time = reminder.getTime();
+            String[] timeParts = time.split(":");
+            int hour = Integer.parseInt(timeParts[0]);
+            int minute = Integer.parseInt(timeParts[1]);
+
+            for (int i = 0; i < repeatDays.length; i++) {
+                if (repeatDays[i]) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, minute);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+                    calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+
+                    Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+                    // Pass reminder data to the notification intent if needed
+
+                    int requestCode = (reminder.getId() + i).hashCode();
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                            getApplicationContext(),
+                            requestCode,
+                            notificationIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+                    long timeInMillis = calendar.getTimeInMillis();
+                    if (timeInMillis < System.currentTimeMillis()) {
+                        timeInMillis += AlarmManager.INTERVAL_DAY * 7; // Schedule for the next week
+                    }
+
+                    alarmManager.setRepeating(
+                            AlarmManager.RTC_WAKEUP,
+                            timeInMillis,
+                            AlarmManager.INTERVAL_DAY * 7,
+                            pendingIntent
+                    );
+                }
+            }
+        }
+    }
+
+    private void cancelReminderNotifications(Reminder reminder) {
+        boolean[] repeatDays = reminder.getRepeatDays();
+
+        for (int i = 0; i < repeatDays.length; i++) {
+            if (repeatDays[i]) {
+                int requestCode = (reminder.getId() + i).hashCode();
+
+                Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        getApplicationContext(),
+                        requestCode,
+                        notificationIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+
+                alarmManager.cancel(pendingIntent);
+            }
+        }
+    }
+
 }

@@ -69,13 +69,6 @@
             android:layout_height="wrap_content"
             android:text="Community notifications" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/reminderNotifSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reminders notifications"
-            android:layout_marginVertical="10dp"/>
-
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/oneMinut"
