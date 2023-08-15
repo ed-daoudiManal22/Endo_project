@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.CalendarFragment">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,38 +14,54 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
         android:background="@drawable/background"
         android:elevation="4dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
-        <!-- Left Icon -->
-        <ImageView
-            android:id="@+id/leftIcon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="8dp"
-            android:src="@drawable/ic_back_black" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Calendar"
-            android:textColor="#393E46"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_toEndOf="@id/leftIcon"
-            android:layout_toStartOf="@+id/notificationIcon"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            <ImageView
+                android:id="@+id/leftIcon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/menuicon"
+                android:contentDescription="Menu Icon"
+                android:padding="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
 
+            <TextView
+                android:id="@+id/calendarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calendar"
+                android:textColor="#393E46"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/leftIcon"
+                android:layout_toStartOf="@+id/notificationIcon"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <ImageView
+                android:id="@+id/notificationIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/alarm"
+                android:contentDescription="Notification Icon"
+                android:padding="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -104,3 +126,4 @@
 
     </LinearLayout>
 </RelativeLayout>
+</FrameLayout>

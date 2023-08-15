@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Fragments.CalendarFragment;
 import com.example.myapplication.Fragments.Community;
 import com.example.myapplication.Fragments.HomeFragment;
 import com.example.myapplication.Fragments.SymptomsTrackFragment;
@@ -25,14 +26,17 @@ public class HomeActivity extends AppCompatActivity {
         final LinearLayout homeLayout = findViewById(R.id.home);
         final LinearLayout trackLayout = findViewById(R.id.track);
         final LinearLayout communityLayout = findViewById(R.id.community);
+        final LinearLayout calendarLayout = findViewById(R.id.calendar);
 
         final ImageView homeImage = findViewById(R.id.home_img);
         final ImageView trackImage = findViewById(R.id.track_img);
         final ImageView communityImage = findViewById(R.id.community_img);
+        final ImageView calendarImage = findViewById(R.id.calendar_img);
 
         final TextView hometext = findViewById(R.id.home_txt);
         final TextView tracktext = findViewById(R.id.track_txt);
         final TextView communitytext = findViewById(R.id.community_txt);
+        final TextView calendartext = findViewById(R.id.calendar_txt);
 
         // Set home text visible by default
         hometext.setVisibility(View.VISIBLE);
@@ -57,12 +61,15 @@ public class HomeActivity extends AppCompatActivity {
                     //unselect other tabs expect home tab
                     communitytext.setVisibility(View.GONE);
                     tracktext.setVisibility(View.GONE);
+                    calendartext.setVisibility(View.GONE);
 
                     communityImage.setImageResource(R.drawable.community);
                     trackImage.setImageResource(R.drawable.tracking);
+                    calendarImage.setImageResource(R.drawable.calendr);
 
                     communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
                     //select home tab
                     hometext.setVisibility(View.VISIBLE);
@@ -94,12 +101,15 @@ public class HomeActivity extends AppCompatActivity {
                     //unselect other tabs expect home tab
                     communitytext.setVisibility(View.GONE);
                     hometext.setVisibility(View.GONE);
+                    calendartext.setVisibility(View.GONE);
 
                     communityImage.setImageResource(R.drawable.community);
                     homeImage.setImageResource(R.drawable.home);
+                    calendarImage.setImageResource(R.drawable.calendr);
 
                     communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
                     //select track tab
                     tracktext.setVisibility(View.VISIBLE);
@@ -131,12 +141,15 @@ public class HomeActivity extends AppCompatActivity {
                     //unselect other tabs expect home tab
                     hometext.setVisibility(View.GONE);
                     tracktext.setVisibility(View.GONE);
+                    calendartext.setVisibility(View.GONE);
 
                     homeImage.setImageResource(R.drawable.home);
                     trackImage.setImageResource(R.drawable.tracking);
+                    calendarImage.setImageResource(R.drawable.calendr);
 
                     homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
                     //select community tab
                     communitytext.setVisibility(View.VISIBLE);
@@ -151,6 +164,47 @@ public class HomeActivity extends AppCompatActivity {
 
                     //set 3rd tab as selected tab
                     selectedTab = 3 ;
+                }
+            }
+        });
+        calendarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check if the calendar tab is already selected or not
+                if(selectedTab != 4){
+                    // Handle the calendar tab click
+                    // For example, launch a new activity or fragment to display the calendar
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainer, CalendarFragment.class, null)
+                            .commit();
+
+                    // Unselect other tabs except the calendar tab
+                    hometext.setVisibility(View.GONE);
+                    tracktext.setVisibility(View.GONE);
+                    communitytext.setVisibility(View.GONE);
+
+                    homeImage.setImageResource(R.drawable.home);
+                    trackImage.setImageResource(R.drawable.tracking);
+                    communityImage.setImageResource(R.drawable.community);
+
+                    homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+                    // Select the calendar tab
+                    calendartext.setVisibility(View.VISIBLE);
+                    calendarImage.setImageResource(R.drawable.calendr);  // Selected icon
+                    calendarLayout.setBackgroundResource(R.drawable.menu_round_back);
+
+                    // Create animation
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+                    scaleAnimation.setDuration(200);
+                    scaleAnimation.setFillAfter(true);
+                    calendarLayout.startAnimation(scaleAnimation);
+
+                    // Set 4th tab as the selected tab
+                    selectedTab = 4;
                 }
             }
         });

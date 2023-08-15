@@ -116,5 +116,34 @@
                 android:textSize="16sp"/>
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/calendar"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/calendar_img"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/calendr"/>
+            <TextView
+                android:id="@+id/calendar_txt"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calendar"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
