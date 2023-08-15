@@ -67,7 +67,7 @@
     <LinearLayout
         android:id="@+id/FirstSection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:orientation="vertical"
         android:padding="16dp">
@@ -112,7 +112,11 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <ImageButton
             android:id="@+id/addEventButton"
@@ -123,7 +127,6 @@
             android:background="@drawable/add_reminder_button"
             android:src="@drawable/add"
             android:contentDescription="Add Reminder" />
-
-    </LinearLayout>
+    </FrameLayout>
 </RelativeLayout>
 </FrameLayout>
