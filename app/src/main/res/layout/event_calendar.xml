@@ -48,34 +48,49 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:orientation="vertical"
-        android:gravity="center"
         android:padding="16dp">
-
-        <!--<com.applandeo.materialcalendarview.CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="wrap_content"
-            android:layout_height="400dp"
-            android:layout_marginTop="3dp"
-            app:headerColor="@color/light_pink"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            app:mcv_selectionColor="@color/light_pink"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/eventDetailsTextView"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/eventDetailsCardView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:visibility="gone"
-            android:text="No events"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            app:cardBackgroundColor="@color/bgreenish_white"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/colored_line" />
+
+                <TextView
+                    android:id="@+id/eventDetailsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="No events"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
 
         <ImageButton
             android:id="@+id/addEventButton"

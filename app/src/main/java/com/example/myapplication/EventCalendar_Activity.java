@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -66,9 +68,9 @@ public class EventCalendar_Activity extends AppCompatActivity {
         eventsCollection = db.collection("Users").document(currentUser.getUid()).collection("Events");
 
         List<CalendarDay> eventDates = new ArrayList<>();
-        // Populate eventDates based on your event data
+        // Populate eventDates based on your event data  argb(100,255,91,116)
 
-        DotSpan dotSpan = new DotSpan(5, Color.RED); // Customize the dot size and color
+        DotSpan dotSpan = new DotSpan(5,  ContextCompat.getColor(EventCalendar_Activity.this, R.color.pink)); // Customize the dot size and color
         // Get the available event dates from Firestore and populate the eventDates list
         eventsCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -110,7 +112,7 @@ public class EventCalendar_Activity extends AppCompatActivity {
 
     private void calendarClicked(){
         TextView eventDetailsTextView = findViewById(R.id.eventDetailsTextView);
-
+        CardView eventDetailsCardView = findViewById(R.id.eventDetailsCardView);
         eventsCollection.document(stringDateSelected).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -119,10 +121,14 @@ public class EventCalendar_Activity extends AppCompatActivity {
                     if (document.exists()) {
                         String eventTitle = document.getString("title");
                         String eventNote = document.getString("note");
-                        String eventDetails = "Title: " + eventTitle + "\nNote: " + eventNote;
+                        String eventDetails = "Title: " + eventTitle + "\n\nNote: " + eventNote;
                         eventDetailsTextView.setText(eventDetails);
+                        // Show the event details TextView
+                        eventDetailsCardView.setVisibility(View.VISIBLE);
                     } else {
                         eventDetailsTextView.setText("No events");
+                        // Show the event details TextView
+                        eventDetailsCardView.setVisibility(View.VISIBLE);
                     }
                 } else {
                     Toast.makeText(EventCalendar_Activity.this, "Error getting document.", Toast.LENGTH_SHORT).show();

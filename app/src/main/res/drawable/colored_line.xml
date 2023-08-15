@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- colored_line.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/pink" /> <!-- Change the color as needed -->
+    <size android:width="4dp" />
+</shape>
