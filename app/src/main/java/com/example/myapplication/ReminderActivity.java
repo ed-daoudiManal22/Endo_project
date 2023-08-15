@@ -37,11 +37,16 @@ import android.content.Context;
 import android.os.Build;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import kotlin.Unit;
@@ -98,6 +103,16 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                 startActivity(intent);
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notifications";
+            String description = "Reminder notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("Notification", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
     }
 
     private void fetchUserReminders() {
@@ -121,6 +136,22 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                             Reminder reminder = new Reminder(id,title, time,isActive,repeatDaysArray);
                             reminders.add(reminder);
                         }
+                        // Sort the reminders by time
+                        Collections.sort(reminders, new Comparator<Reminder>() {
+                            @Override
+                            public int compare(Reminder reminder1, Reminder reminder2) {
+                                // Parse the time strings and compare them
+                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                                try {
+                                    Date time1 = sdf.parse(reminder1.getTime());
+                                    Date time2 = sdf.parse(reminder2.getTime());
+                                    return time1.compareTo(time2);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                    return 0;
+                                }
+                            }
+                        });
 
                         // Update the list of reminders
                         reminderAdapter.setReminders(reminders);
@@ -220,6 +251,10 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     public void onSuccess(DocumentReference documentReference) {
                         // Refresh the list of user reminders
                         fetchUserReminders();
+
+                        // Schedule notifications for the new reminder
+                        Reminder newReminder = new Reminder(documentReference.getId(), title, time, true, repeatDays);
+                        scheduleReminderNotifications(newReminder);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -267,6 +302,19 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     @Override
                     public void onSuccess(Void aVoid) {
                         // Successfully updated the isActive value
+                        // If the reminder is being activated, schedule notifications
+                        if (isActive) {
+                            fetchUserReminders(); // Refresh the reminders list
+                            Reminder updatedReminder = findReminderById(reminderId);
+                            if (updatedReminder != null) {
+                                scheduleReminderNotifications(updatedReminder);
+                            }
+                        }else {
+                            Reminder updatedReminder = findReminderById(reminderId);
+                            if (updatedReminder != null) {
+                                cancelReminderNotifications(updatedReminder);
+                            }
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -293,9 +341,12 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     calendar.set(Calendar.SECOND, 0);
                     calendar.set(Calendar.MILLISECOND, 0);
                     calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+                    Log.d("Notification__Debug", "Scheduled time: " + calendar.getTime());
 
                     Intent notificationIntent = new Intent(this, NotificationReceiver.class);
                     // Pass reminder data to the notification intent if needed
+                    notificationIntent.putExtra("name", reminder.getTitle()); // Replace with your actual title field
+                    notificationIntent.putExtra("description", "Dno't forget your task"); // Replace with your actual description
 
                     int requestCode = (reminder.getId() + i).hashCode();
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -309,6 +360,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     if (timeInMillis < System.currentTimeMillis()) {
                         timeInMillis += AlarmManager.INTERVAL_DAY * 7; // Schedule for the next week
                     }
+                    Log.d("Notification__Debug", "Scheduled time in milliseconds: " + timeInMillis);
 
                     alarmManager.setRepeating(
                             AlarmManager.RTC_WAKEUP,
@@ -316,6 +368,8 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                             AlarmManager.INTERVAL_DAY * 7,
                             pendingIntent
                     );
+                    Log.d("Notification__Debug", "Notification scheduled for day " + (i + 1));
+
                 }
             }
         }
@@ -339,6 +393,15 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                 alarmManager.cancel(pendingIntent);
             }
         }
+    }
+    private Reminder findReminderById(String reminderId) {
+        List<Reminder> reminders = reminderAdapter.getReminders();
+        for (Reminder reminder : reminders) {
+            if (reminder.getId().equals(reminderId)) {
+                return reminder;
+            }
+        }
+        return null; // Return null if no matching reminder is found
     }
 
 }
