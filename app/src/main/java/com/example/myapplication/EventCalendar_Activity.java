@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ public class EventCalendar_Activity extends AppCompatActivity {
     private MaterialCalendarView calendarView;
     private String stringDateSelected;
     private ImageView addEventButton;
-    private FirebaseFirestore db;;
+    private FirebaseFirestore db;
     private CollectionReference eventsCollection;
     private FirebaseUser currentUser;
 
@@ -110,9 +111,18 @@ public class EventCalendar_Activity extends AppCompatActivity {
         });
     }
 
-    private void calendarClicked(){
+    private void calendarClicked() {
         TextView eventDetailsTextView = findViewById(R.id.eventDetailsTextView);
         CardView eventDetailsCardView = findViewById(R.id.eventDetailsCardView);
+
+        eventDetailsCardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showUpdateDeleteDialog(stringDateSelected);
+                return true; // Return true to indicate that the event has been consumed
+            }
+        });
+
         eventsCollection.document(stringDateSelected).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -136,6 +146,7 @@ public class EventCalendar_Activity extends AppCompatActivity {
             }
         });
     }
+
     private void showDialogToAddEvent() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.dialog_add_event, null);
@@ -183,4 +194,111 @@ public class EventCalendar_Activity extends AppCompatActivity {
                     }
                 });
     }
+    private void showUpdateDeleteDialog(String date) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        String[] options = {getString(R.string.update_button_label), getString(R.string.delete)};
+        alertDialogBuilder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        showUpdateDialog(date);
+                        break;
+                    case 1:
+                        showDeleteDialog(date);
+                        break;
+                }
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+    private void showUpdateDialog(String date) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.dialog_update_event, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(dialogView);
+
+        EditText editTextUpdatedTitle = dialogView.findViewById(R.id.editTextUpdateTitle);
+        EditText editTextUpdatedNote = dialogView.findViewById(R.id.editTextUpdateNote);
+        Button buttonUpdateEvent = dialogView.findViewById(R.id.buttonUpdateEvent);
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+        buttonUpdateEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String updatedTitle = editTextUpdatedTitle.getText().toString();
+                String updatedNote = editTextUpdatedNote.getText().toString();
+                updateEventInFirestore(date, updatedTitle, updatedNote);
+
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+    private void showDeleteDialog(String date) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(R.string.delete_confirmation_title);
+        alertDialogBuilder.setMessage(R.string.delete_confirmation_message);
+        alertDialogBuilder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DocumentReference eventDocumentRef = eventsCollection.document(date);
+
+                eventDocumentRef.delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(EventCalendar_Activity.this, R.string.event_deleted_successfully, Toast.LENGTH_SHORT).show();
+                                // You might want to update your UI or event list here
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EventCalendar_Activity.this, R.string.error_deleting_event, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                dialog.dismiss();
+            }
+        });
+        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void updateEventInFirestore(String date, String updatedTitle, String updatedNote) {
+        DocumentReference eventDocumentRef = eventsCollection.document(date);
+
+        Map<String, Object> updatedEventMap = new HashMap<>();
+        updatedEventMap.put("title", updatedTitle);
+        updatedEventMap.put("note", updatedNote);
+
+        eventDocumentRef.update(updatedEventMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(EventCalendar_Activity.this, "Event updated successfully", Toast.LENGTH_SHORT).show();
+                        // You might want to update your UI or event list here
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(EventCalendar_Activity.this, "Error updating event", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }

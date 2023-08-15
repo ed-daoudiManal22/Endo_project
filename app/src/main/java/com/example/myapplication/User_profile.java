@@ -246,7 +246,7 @@ public class User_profile extends AppCompatActivity {
         });
 
         // Set a click listener for the positive button
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete_button_label), (dialogInterface, i) -> {
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialogInterface, i) -> {
             // Check which radio button is selected and perform the corresponding action
             int selectedId = ((RadioGroup) view.findViewById(R.id.radioGroup)).getCheckedRadioButtonId();
             if (selectedId == R.id.deleteDataRadioButton) {

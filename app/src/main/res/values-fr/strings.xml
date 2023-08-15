@@ -8,6 +8,15 @@
     <string name="save">Enregistrer</string>
     <string name="delete">Supprimer</string>
 
+    <string name="update_event_title_hint">Mettre à jour le titre de l\'événement</string>
+    <string name="update_event_note_hint">Mettre à jour la note de l\'événement</string>
+    <string name="update_button_label">Mettre à jour</string>
+
+    <string name="delete_confirmation_title">Confirmer la suppression</string>
+    <string name="delete_confirmation_message">Êtes-vous sûr de vouloir supprimer cet événement ?</string>
+    <string name="event_deleted_successfully">Événement supprimé avec succès</string>
+    <string name="error_deleting_event">Erreur lors de la suppression de l\'événement</string>
+
     <string name="score_label">Score :</string>
     <string name="report_label">Rapport</string>
     <string name="open_report_button_label">Ouvrir le rapport</string>
@@ -113,7 +122,6 @@
 
     <string name="delete_account_title">Supprimer le Compte</string>
     <string name="delete_account_message">Êtes-vous sûr(e) de vouloir supprimer votre compte ?</string>
-    <string name="delete_button_label">Supprimer</string>
     <string name="delete_data_radio_label">Supprimer les Données</string>
     <string name="keep_data_radio_label">Conserver les Données</string>
 

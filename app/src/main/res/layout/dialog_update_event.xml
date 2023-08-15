@@ -1,0 +1,29 @@
+<!-- res/layout/dialog_update_event.xml -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextUpdateTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/update_event_title_hint"/>
+
+    <EditText
+        android:id="@+id/editTextUpdateNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/update_event_note_hint"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonUpdateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        android:text="@string/update_button_label"/>
+
+</LinearLayout>
