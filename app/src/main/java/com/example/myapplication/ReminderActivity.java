@@ -322,7 +322,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     }
                 });
     }
-
+    // Inside the scheduleReminderNotifications() method
     private void scheduleReminderNotifications(Reminder reminder) {
         if (reminder.isActive()) {
             boolean[] repeatDays = reminder.getRepeatDays();
@@ -344,14 +344,13 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
                     Intent notificationIntent = new Intent(this, NotificationReceiver.class);
-                    // Pass reminder data to the notification intent if needed
                     notificationIntent.putExtra("name", reminder.getTitle()); // Replace with your actual title field
                     notificationIntent.putExtra("description", "Don't forget your task"); // Replace with your actual description
+                    notificationIntent.putExtra("requestCode", reminder.getId() + i); // Use a unique identifier for the pending intent
 
-                    int requestCode = (reminder.getId() + i).hashCode();
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(
                             getApplicationContext(),
-                            requestCode,
+                            (reminder.getId() + i).hashCode(), // Use a unique identifier for the pending intent
                             notificationIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
@@ -371,7 +370,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             }
         }
     }
-
 
     private void cancelReminderNotifications(Reminder reminder) {
         boolean[] repeatDays = reminder.getRepeatDays();
