@@ -70,56 +70,67 @@
                 android:textColor="#333333"
                 android:textSize="26sp"/>
 
-            <View
+            <!-- <View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
                 android:layout_marginTop="30dp"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/> -->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/reminders"
+            <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="50dp"
-                android:clickable="true">
+                android:background="@drawable/section_border">
 
-                <ImageView
-                    android:id="@+id/notificationsArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/reminders"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="50dp"
+                    android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/notificationsIcon"
-                    android:layout_width="49dp"
-                    android:layout_height="59dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_1" />
+                    <ImageView
+                        android:id="@+id/notificationsArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/arrow" />
 
-                <TextView
-                    android:id="@+id/notificationsTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/alarm"
-                    android:textStyle="bold"
-                    android:textSize="19sp"
-                    android:textColor="#333333"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
-                    app:layout_constraintTop_toTopOf="@+id/notificationsIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/notificationsIcon"
+                        android:layout_width="49dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/btn_1" />
 
-            <!-- Other sections with modified ids -->
+                    <TextView
+                        android:id="@+id/notificationsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/alarm"
+                        android:textStyle="bold"
+                        android:textSize="19sp"
+                        android:textColor="#333333"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
+                        app:layout_constraintTop_toTopOf="@+id/notificationsIcon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+
+
 
             <!--<androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/calendar"
@@ -162,151 +173,185 @@
                     app:layout_constraintStart_toEndOf="@+id/calendarIcon"
                     app:layout_constraintTop_toTopOf="@+id/calendarIcon" />
             </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--
             <View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/> -->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/editProfile"
+            <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="50dp"
-                android:clickable="true">
+                android:background="@drawable/section_border">
 
-                <ImageView
-                    android:id="@+id/editProfileIconArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/editProfile"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="50dp"
+                    android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/editProfileIconIcon"
-                    android:layout_width="49dp"
-                    android:layout_height="59dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_4" />
+                    <ImageView
+                        android:id="@+id/editProfileIconArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/arrow" />
 
-                <TextView
-                    android:id="@+id/editProfileIconTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/edit_profile"
-                    android:textColor="#333333"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/editProfileIconIcon"
-                    app:layout_constraintTop_toTopOf="@+id/editProfileIconIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/editProfileIconIcon"
+                        android:layout_width="49dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/btn_4" />
 
-            <View
+                    <TextView
+                        android:id="@+id/editProfileIconTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/edit_profile"
+                        android:textColor="#333333"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/editProfileIconIcon"
+                        app:layout_constraintTop_toTopOf="@+id/editProfileIconIcon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+            <!--<View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/>-->
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/language"
+            <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="50dp"
-                android:clickable="true">
+                android:background="@drawable/section_border">
 
-                <ImageView
-                    android:id="@+id/downloadArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/language"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="50dp"
+                    android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/downloadIcon"
-                    android:layout_width="49dp"
-                    android:layout_height="59dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_6" />
+                    <ImageView
+                        android:id="@+id/downloadArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/arrow" />
 
-                <TextView
-                    android:id="@+id/downloadTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/change_language"
-                    android:textColor="#333333"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/downloadIcon"
-                    app:layout_constraintTop_toTopOf="@+id/downloadIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/downloadIcon"
+                        android:layout_width="49dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/btn_6" />
 
-            <View
+                    <TextView
+                        android:id="@+id/downloadTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/change_language"
+                        android:textColor="#333333"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/downloadIcon"
+                        app:layout_constraintTop_toTopOf="@+id/downloadIcon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+
+           <!-- <View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/>-->
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/notification"
+            <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="50dp"
-                android:clickable="true">
+                android:background="@drawable/section_border">
 
-                <ImageView
-                    android:id="@+id/notificationArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notification"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="50dp"
+                    android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/notificationIcon"
-                    android:layout_width="49dp"
-                    android:layout_height="59dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_6" />
+                    <ImageView
+                        android:id="@+id/notificationArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/arrow" />
 
-                <TextView
-                    android:id="@+id/notificationTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/notif_settings"
-                    android:textColor="#333333"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/notificationIcon"
-                    app:layout_constraintTop_toTopOf="@+id/notificationIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/notificationIcon"
+                        android:layout_width="49dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/bell" />
+
+                    <TextView
+                        android:id="@+id/notificationTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/notif_settings"
+                        android:textColor="#333333"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/notificationIcon"
+                        app:layout_constraintTop_toTopOf="@+id/notificationIcon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
 
             <!--<View
                 android:layout_width="match_parent"
@@ -356,154 +401,186 @@
                     app:layout_constraintTop_toTopOf="@+id/shareIcon" />
             </androidx.constraintlayout.widget.ConstraintLayout> -->
 
-            <View
+            <!--<View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/> -->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/AboutUs"
+            <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="50dp"
-                android:clickable="true">
+                android:background="@drawable/section_border">
 
-                <ImageView
-                    android:id="@+id/CAboutUsArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/AboutUs"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="50dp"
+                    android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/AboutUsIcon"
-                    android:layout_width="49dp"
-                    android:layout_height="59dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_2" />
+                    <ImageView
+                        android:id="@+id/CAboutUsArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/arrow" />
 
-                <TextView
-                    android:id="@+id/AboutUsTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/AboutUs"
-                    android:textColor="#333333"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/AboutUsIcon"
-                    app:layout_constraintTop_toTopOf="@+id/AboutUsIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/AboutUsIcon"
+                        android:layout_width="49dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/about" />
 
-            <View
+                    <TextView
+                        android:id="@+id/AboutUsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/AboutUs"
+                        android:textColor="#333333"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/AboutUsIcon"
+                        app:layout_constraintTop_toTopOf="@+id/AboutUsIcon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+            <!-- <View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/> -->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/logout"
+            <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="50dp"
-                android:clickable="true">
+                android:background="@drawable/section_border">
 
-                <ImageView
-                    android:id="@+id/logoutArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="50dp"
+                    android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/logoutIcon"
-                    android:layout_width="49dp"
-                    android:layout_height="59dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_8" />
+                    <ImageView
+                        android:id="@+id/logoutArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/arrow" />
 
-                <TextView
-                    android:id="@+id/logoutTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/logout"
-                    android:textColor="#333333"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/logoutIcon"
-                    app:layout_constraintTop_toTopOf="@+id/logoutIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/logoutIcon"
+                        android:layout_width="49dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/btn_8" />
 
-            <View
+                    <TextView
+                        android:id="@+id/logoutTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/logout"
+                        android:textColor="#333333"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/logoutIcon"
+                        app:layout_constraintTop_toTopOf="@+id/logoutIcon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+
+            <!--  <View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/>  -->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/deleteAccount"
+            <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="50dp"
-                android:clickable="true">
+                android:background="@drawable/section_border">
 
-                <ImageView
-                    android:id="@+id/deleteAccountArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/deleteAccount"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="50dp"
+                    android:clickable="true">
 
-                <ImageView
-                    android:id="@+id/ldeleteAccountIcon"
-                    android:layout_width="49dp"
-                    android:layout_height="59dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_7" />
+                    <ImageView
+                        android:id="@+id/deleteAccountArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/arrow" />
 
-                <TextView
-                    android:id="@+id/deleteAccountTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/deleteAccount"
-                    android:textColor="#333333"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ldeleteAccountIcon"
-                    app:layout_constraintTop_toTopOf="@+id/ldeleteAccountIcon" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <View
+                    <ImageView
+                        android:id="@+id/deleteAccountIcon"
+                        android:layout_width="49dp"
+                        android:layout_height="59dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/btn_7" />
+
+                    <TextView
+                        android:id="@+id/deleteAccountTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/deleteAccount"
+                        android:textColor="#333333"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/deleteAccountIcon"
+                        app:layout_constraintTop_toTopOf="@+id/deleteAccountIcon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+            <!-- <View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
                 android:background="@color/verylight_grey"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="20dp"/> -->
 
         </LinearLayout>
     </ScrollView>
