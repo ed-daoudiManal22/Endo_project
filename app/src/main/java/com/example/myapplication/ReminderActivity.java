@@ -93,8 +93,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                 showAddReminderDialog();
             }
         });
-
-        // Set an OnClickListener to the leftIcon ImageView
         leftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -340,13 +338,15 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     calendar.set(Calendar.MINUTE, minute);
                     calendar.set(Calendar.SECOND, 0);
                     calendar.set(Calendar.MILLISECOND, 0);
-                    calendar.set(Calendar.DAY_OF_WEEK, i + 1);
-                    Log.d("Notification__Debug", "Scheduled time: " + calendar.getTime());
+
+                    // Map the repeatDays array index to the appropriate Calendar constant
+                    int dayOfWeek = (i + Calendar.MONDAY) % 7; // Use modulo to handle the transition from Sunday to Monday
+                    calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
                     Intent notificationIntent = new Intent(this, NotificationReceiver.class);
                     // Pass reminder data to the notification intent if needed
                     notificationIntent.putExtra("name", reminder.getTitle()); // Replace with your actual title field
-                    notificationIntent.putExtra("description", "Dno't forget your task"); // Replace with your actual description
+                    notificationIntent.putExtra("description", "Don't forget your task"); // Replace with your actual description
 
                     int requestCode = (reminder.getId() + i).hashCode();
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -360,7 +360,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     if (timeInMillis < System.currentTimeMillis()) {
                         timeInMillis += AlarmManager.INTERVAL_DAY * 7; // Schedule for the next week
                     }
-                    Log.d("Notification__Debug", "Scheduled time in milliseconds: " + timeInMillis);
 
                     alarmManager.setRepeating(
                             AlarmManager.RTC_WAKEUP,
@@ -368,12 +367,11 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                             AlarmManager.INTERVAL_DAY * 7,
                             pendingIntent
                     );
-                    Log.d("Notification__Debug", "Notification scheduled for day " + (i + 1));
-
                 }
             }
         }
     }
+
 
     private void cancelReminderNotifications(Reminder reminder) {
         boolean[] repeatDays = reminder.getRepeatDays();
