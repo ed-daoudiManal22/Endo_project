@@ -279,6 +279,8 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        // Cancel notifications for the deleted reminder
+                        cancelReminderNotifications(reminder);
                         // Refresh the list of user reminders
                         fetchUserReminders();
                     }
@@ -322,7 +324,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     }
                 });
     }
-
     private void scheduleReminderNotifications(Reminder reminder) {
         if (reminder.isActive()) {
             boolean[] repeatDays = reminder.getRepeatDays();
@@ -331,56 +332,76 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             int hour = Integer.parseInt(timeParts[0]);
             int minute = Integer.parseInt(timeParts[1]);
 
+            List<Integer> activeDays = new ArrayList<>();
             for (int i = 0; i < repeatDays.length; i++) {
                 if (repeatDays[i]) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    calendar.set(Calendar.SECOND, 0);
-                    calendar.set(Calendar.MILLISECOND, 0);
-
-                    // Map the repeatDays array index to the appropriate Calendar constant
-                    int dayOfWeek = (i + Calendar.MONDAY) % 7; // Use modulo to handle the transition from Sunday to Monday
-                    calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
-
-                    Intent notificationIntent = new Intent(this, NotificationReceiver.class);
-                    // Pass reminder data to the notification intent if needed
-                    notificationIntent.putExtra("name", reminder.getTitle()); // Replace with your actual title field
-                    notificationIntent.putExtra("description", "Don't forget your task"); // Replace with your actual description
-
-                    int requestCode = (reminder.getId() + i).hashCode();
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                            getApplicationContext(),
-                            requestCode,
-                            notificationIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    );
-
-                    long timeInMillis = calendar.getTimeInMillis();
-                    if (timeInMillis < System.currentTimeMillis()) {
-                        timeInMillis += AlarmManager.INTERVAL_DAY * 7; // Schedule for the next week
-                    }
-
-                    alarmManager.setRepeating(
-                            AlarmManager.RTC_WAKEUP,
-                            timeInMillis,
-                            AlarmManager.INTERVAL_DAY * 7,
-                            pendingIntent
-                    );
+                    activeDays.add(i);
                 }
+            }
+
+            Collections.sort(activeDays);
+
+            for (int dayIndex : activeDays) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+
+                // Map the repeatDays array index to the appropriate Calendar constant
+                int dayOfWeek = (dayIndex + Calendar.MONDAY) % 7; // Use modulo to handle the transition from Sunday to Monday
+                calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
+
+                Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+                notificationIntent.putExtra("name", reminder.getTitle());
+                notificationIntent.putExtra("description", "Don't forget your task");
+
+                int requestCode = (reminder.getId() + "_" + dayOfWeek).hashCode();
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        getApplicationContext(),
+                        requestCode,
+                        notificationIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+
+                long timeInMillis = calendar.getTimeInMillis();
+                if (timeInMillis < System.currentTimeMillis()) {
+                    timeInMillis += AlarmManager.INTERVAL_DAY; // Trigger immediately
+                }
+
+                // Schedule repeating alarm starting from the next instance
+                alarmManager.setRepeating(
+                        AlarmManager.RTC_WAKEUP,
+                        timeInMillis,
+                        AlarmManager.INTERVAL_DAY * 7,
+                        pendingIntent
+                );
             }
         }
     }
-
 
     private void cancelReminderNotifications(Reminder reminder) {
         boolean[] repeatDays = reminder.getRepeatDays();
 
         for (int i = 0; i < repeatDays.length; i++) {
             if (repeatDays[i]) {
-                int requestCode = (reminder.getId() + i).hashCode();
+                Calendar calendar = Calendar.getInstance();
+                String time = reminder.getTime();
+                String[] timeParts = time.split(":");
+                int hour = Integer.parseInt(timeParts[0]);
+                int minute = Integer.parseInt(timeParts[1]);
+
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+
+                // Map the repeatDays array index to the appropriate Calendar constant
+                int dayOfWeek = (i + Calendar.MONDAY) % 7; // Use modulo to handle the transition from Sunday to Monday
+                calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
                 Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+                int requestCode = (reminder.getId() + "_" + dayOfWeek).hashCode();
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(
                         getApplicationContext(),
                         requestCode,
@@ -392,6 +413,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             }
         }
     }
+
     private Reminder findReminderById(String reminderId) {
         List<Reminder> reminders = reminderAdapter.getReminders();
         for (Reminder reminder : reminders) {
