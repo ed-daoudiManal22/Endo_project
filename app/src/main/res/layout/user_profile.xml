@@ -93,7 +93,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:clickable="true">
 
                     <ImageView
@@ -197,7 +197,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:clickable="true">
 
                     <ImageView
@@ -256,7 +256,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:clickable="true">
 
                     <ImageView
@@ -316,7 +316,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:clickable="true">
 
                     <ImageView
@@ -423,7 +423,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:clickable="true">
 
                     <ImageView
@@ -481,7 +481,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:clickable="true">
 
                     <ImageView
@@ -540,7 +540,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:clickable="true">
 
                     <ImageView
