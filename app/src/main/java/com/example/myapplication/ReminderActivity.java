@@ -377,18 +377,15 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             }
         }
     }
-
     private void cancelReminderNotifications(Reminder reminder) {
         boolean[] repeatDays = reminder.getRepeatDays();
+        String[] timeParts = reminder.getTime().split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
 
         for (int i = 0; i < repeatDays.length; i++) {
             if (repeatDays[i]) {
                 Calendar calendar = Calendar.getInstance();
-                String time = reminder.getTime();
-                String[] timeParts = time.split(":");
-                int hour = Integer.parseInt(timeParts[0]);
-                int minute = Integer.parseInt(timeParts[1]);
-
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
@@ -410,7 +407,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             }
         }
     }
-
     private Reminder findReminderById(String reminderId) {
         List<Reminder> reminders = reminderAdapter.getReminders();
         for (Reminder reminder : reminders) {
