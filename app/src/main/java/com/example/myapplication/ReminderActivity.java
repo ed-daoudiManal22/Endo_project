@@ -348,8 +348,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
 
-                // Map the repeatDays array index to the appropriate Calendar constant
-                int dayOfWeek = (dayIndex + Calendar.MONDAY) % 7; // Use modulo to handle the transition from Sunday to Monday
+                int dayOfWeek = (dayIndex + Calendar.MONDAY) % 7;
                 calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
                 Intent notificationIntent = new Intent(this, NotificationReceiver.class);
@@ -369,7 +368,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     timeInMillis += AlarmManager.INTERVAL_DAY; // Trigger immediately
                 }
 
-                // Schedule repeating alarm starting from the next instance
                 alarmManager.setRepeating(
                         AlarmManager.RTC_WAKEUP,
                         timeInMillis,
@@ -396,8 +394,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
 
-                // Map the repeatDays array index to the appropriate Calendar constant
-                int dayOfWeek = (i + Calendar.MONDAY) % 7; // Use modulo to handle the transition from Sunday to Monday
+                int dayOfWeek = (i + Calendar.MONDAY) % 7;
                 calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
                 Intent notificationIntent = new Intent(this, NotificationReceiver.class);
