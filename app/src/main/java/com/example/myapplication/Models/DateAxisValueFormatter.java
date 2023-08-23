@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DateAxisValueFormatter extends ValueFormatter {
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.US);
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.US);
 
     @Override
     public String getAxisLabel(float value, AxisBase axis) {

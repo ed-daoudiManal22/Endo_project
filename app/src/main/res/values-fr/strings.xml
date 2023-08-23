@@ -24,7 +24,7 @@
     <string name="diagnostic_label">Test de diagnostic</string>
     <string name="weight_data">Entrez votre poids en kg</string>
     <string name="height_data">Entrez votre taille en cm</string>
-    <string name="RiskLevel">Niveau de risque</string>
+    <string name="RiskLevel">Niveau de risque : </string>
     <string name="UserAnswer">La reponse :</string>
     <string name="name_label">Nom :</string>
     <string name="email_label">Email :</string>

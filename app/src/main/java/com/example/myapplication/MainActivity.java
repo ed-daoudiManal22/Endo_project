@@ -17,8 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView appTitle, appName;
     private ImageView logo;
-    private View topView1, topView2, topView3;
-    private View bottomView1, bottomView2, bottomView3;
+    private View topView2;
+    private View topView3;
+    private View bottomView2;
+    private View bottomView3;
     private int count = 0;
 
     @Override
@@ -41,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         logo = findViewById(R.id.logo);
 
-        topView1 = findViewById(R.id.topView1);
+        View topView1 = findViewById(R.id.topView1);
         topView2 = findViewById(R.id.topView2);
         topView3 = findViewById(R.id.topView3);
 
-        bottomView1 = findViewById(R.id.bottomView1);
+        View bottomView1 = findViewById(R.id.bottomView1);
         bottomView2 = findViewById(R.id.bottomView2);
         bottomView3 = findViewById(R.id.bottomView3);
 
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 appName.setText("");
                 count = 0;
 
-                new CountDownTimer(animateTxt.length() * 100, 100) {
+                new CountDownTimer(animateTxt.length() * 100L, 100) {
                     @Override
                     public void onTick(long millisUntilFinished) {
 
@@ -177,13 +179,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onFinish() {
                         // All animations are finished, wait for 3 seconds before redirecting
                         Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(MainActivity.this, Authentification.class);
-                                startActivity(intent);
-                                finish(); // Optionally, you can finish the current activity to prevent going back
-                            }
+                        handler.postDelayed(() -> {
+                            Intent intent = new Intent(MainActivity.this, Authentification.class);
+                            startActivity(intent);
+                            finish(); // Optionally, you can finish the current activity to prevent going back
                         }, 500); // 1000 milliseconds = 1 second
                     }
                 }.start();

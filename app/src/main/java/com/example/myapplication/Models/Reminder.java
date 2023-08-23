@@ -1,7 +1,5 @@
 package com.example.myapplication.Models;
 
-import java.util.Date;
-
 public class Reminder {
     private String id;
     private String title;

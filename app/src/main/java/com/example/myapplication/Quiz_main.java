@@ -2,15 +2,12 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Quiz_main extends AppCompatActivity {
-
     private String selectedTopicName = "";
 
     @Override
@@ -26,80 +23,65 @@ public class Quiz_main extends AppCompatActivity {
 
         final Button startBtn = findViewById(R.id.startQuizBtn);
 
-        Endometriosis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Endometriosis.setOnClickListener(view -> {
 
-                selectedTopicName = "Endometriosis";
+            selectedTopicName = "Endometriosis";
 
-                Endometriosis.setBackgroundResource(R.drawable.round_back_white_stroke10);
+            Endometriosis.setBackgroundResource(R.drawable.round_back_white_stroke10);
 
-                Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white10);
-                Intimate_Health.setBackgroundResource(R.drawable.round_back_white10);
-                Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white10);
+            Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white10);
+            Intimate_Health.setBackgroundResource(R.drawable.round_back_white10);
+            Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white10);
 
-            }
         });
 
-        Fertility_Contraception.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Fertility_Contraception.setOnClickListener(view -> {
 
-                selectedTopicName = "Fertility and Contraception";
+            selectedTopicName = "Fertility and Contraception";
 
-                Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white_stroke10);
+            Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white_stroke10);
 
-                Endometriosis.setBackgroundResource(R.drawable.round_back_white10);
-                Intimate_Health.setBackgroundResource(R.drawable.round_back_white10);
-                Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white10);
+            Endometriosis.setBackgroundResource(R.drawable.round_back_white10);
+            Intimate_Health.setBackgroundResource(R.drawable.round_back_white10);
+            Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white10);
 
-            }
         });
 
-        Intimate_Health.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Intimate_Health.setOnClickListener(view -> {
 
-                selectedTopicName = "Intimate Health";
+            selectedTopicName = "Intimate Health";
 
-                Intimate_Health.setBackgroundResource(R.drawable.round_back_white_stroke10);
+            Intimate_Health.setBackgroundResource(R.drawable.round_back_white_stroke10);
 
-                Endometriosis.setBackgroundResource(R.drawable.round_back_white10);
-                Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white10);
-                Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white10);
+            Endometriosis.setBackgroundResource(R.drawable.round_back_white10);
+            Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white10);
+            Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white10);
 
-            }
         });
 
-        Menstrual_Cycle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Menstrual_Cycle.setOnClickListener(view -> {
 
-                selectedTopicName = "Menstrual Cycle";
+            selectedTopicName = "Menstrual Cycle";
 
-                Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white_stroke10);
+            Menstrual_Cycle.setBackgroundResource(R.drawable.round_back_white_stroke10);
 
-                Endometriosis.setBackgroundResource(R.drawable.round_back_white10);
-                Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white10);
-                Intimate_Health.setBackgroundResource(R.drawable.round_back_white10);
+            Endometriosis.setBackgroundResource(R.drawable.round_back_white10);
+            Fertility_Contraception.setBackgroundResource(R.drawable.round_back_white10);
+            Intimate_Health.setBackgroundResource(R.drawable.round_back_white10);
 
-            }
         });
 
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        startBtn.setOnClickListener(view -> {
 
-                if (selectedTopicName.isEmpty())
-                {
-                    Toast.makeText(Quiz_main.this, " Please select a topic ", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Intent intent = new Intent(Quiz_main.this, Quiz_Activity.class);
-                    intent.putExtra("selectedTopic", selectedTopicName);
-                    startActivity(intent);
-                }
+            if (selectedTopicName.isEmpty())
+            {
+                Toast.makeText(Quiz_main.this, " Please select a topic ", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Intent intent = new Intent(Quiz_main.this, Quiz_Activity.class);
+                intent.putExtra("selectedTopic", selectedTopicName);
+                startActivity(intent);
             }
         });
 

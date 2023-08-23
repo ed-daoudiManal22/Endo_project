@@ -1,48 +1,36 @@
 package com.example.myapplication;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EditProfile_Activity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
-    private ImageView profileImageView,selectImageButton;
+    private ImageView profileImageView;
     private EditText nameEditText;
     private EditText emailEditText;
     private EditText birthdayEditText;
-    private Button saveButton;
 
     private Uri imageUri;
     private FirebaseFirestore db;
@@ -57,66 +45,48 @@ public class EditProfile_Activity extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference("profile_images");
 
         profileImageView = findViewById(R.id.iv_profile_fragment);
-        selectImageButton = findViewById(R.id.btn_profile_image_change);
+        ImageView selectImageButton = findViewById(R.id.btn_profile_image_change);
         nameEditText = findViewById(R.id.nameTxt);
         emailEditText = findViewById(R.id.emailTxt);
         birthdayEditText = findViewById(R.id.birthdayTxt);
-        saveButton = findViewById(R.id.save_button);
+        Button saveButton = findViewById(R.id.save_button);
 
         // Populate user data into EditText fields
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = currentUser.getUid();
+        String userId = null;
         if (currentUser != null) {
-            DocumentReference userRef = db.collection("Users").document(userId);
-            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.exists()) {
-                        String name = documentSnapshot.getString("name");
-                        String email = documentSnapshot.getString("email");
-                        String birthday = documentSnapshot.getString("birthday");
-                        String imageUrl = documentSnapshot.getString("imageUrl");
-
-                        nameEditText.setText(name);
-                        emailEditText.setText(email);
-                        birthdayEditText.setText(birthday);
-
-                        if (imageUrl != null) {
-                            // Load the profile image using Glide or your preferred image loading library
-                            Glide.with(EditProfile_Activity.this)
-                                    .load(imageUrl)
-                                    .into(profileImageView);
-                        }
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditProfile_Activity.this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show();
-                }
-            });
+            userId = currentUser.getUid();
         }
+        DocumentReference userRef = null;
+        if (userId != null) {
+            userRef = db.collection("Users").document(userId);
+        }
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String name = documentSnapshot.getString("name");
+                String email = documentSnapshot.getString("email");
+                String birthday = documentSnapshot.getString("birthday");
+                String imageUrl = documentSnapshot.getString("imageUrl");
 
-        selectImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openImagePicker();
-            }
-        });
+                nameEditText.setText(name);
+                emailEditText.setText(email);
+                birthdayEditText.setText(birthday);
 
-        birthdayEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
+                if (imageUrl != null) {
+                    // Load the profile image using Glide or your preferred image loading library
+                    Glide.with(EditProfile_Activity.this)
+                            .load(imageUrl)
+                            .into(profileImageView);
+                }
             }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(EditProfile_Activity.this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show());
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveProfile(userId);
-            }
-        });
+        selectImageButton.setOnClickListener(v -> openImagePicker());
+
+        birthdayEditText.setOnClickListener(v -> showDatePicker());
+
+        String finalUserId = userId;
+        saveButton.setOnClickListener(v -> saveProfile(finalUserId));
     }
 
     private void openImagePicker() {
@@ -133,12 +103,9 @@ public class EditProfile_Activity extends AppCompatActivity {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                        birthdayEditText.setText(selectedDate);
-                    }
+                (view, year1, monthOfYear, dayOfMonth1) -> {
+                    String selectedDate = dayOfMonth1 + "/" + (monthOfYear + 1) + "/" + year1;
+                    birthdayEditText.setText(selectedDate);
                 }, year, month, dayOfMonth);
 
         datePickerDialog.show();
@@ -160,38 +127,22 @@ public class EditProfile_Activity extends AppCompatActivity {
 
             // Upload the new image
             UploadTask uploadTask = imageRef.putFile(imageUri);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String imageUrl = uri.toString();
+            uploadTask.addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                String imageUrl = uri.toString();
 
-                            // Get the old image URL from the document
-                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                            if (currentUser != null) {
-                                String userId = currentUser.getUid();
-                                DocumentReference userRef = db.collection("Users").document(userId);
-                                userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        String oldImageUrl = documentSnapshot.getString("imageUrl");
+                // Get the old image URL from the document
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    String userId1 = currentUser.getUid();
+                    DocumentReference userRef = db.collection("Users").document(userId1);
+                    userRef.get().addOnSuccessListener(documentSnapshot -> {
+                        String oldImageUrl = documentSnapshot.getString("imageUrl");
 
-                                        // Update the user data with the new image URL
-                                        saveUserData(name, email, birthday, imageUrl);
-                                    }
-                                });
-                            }
-                        }
+                        // Update the user data with the new image URL
+                        saveUserData(name, email, birthday, imageUrl);
                     });
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditProfile_Activity.this, "Failed to upload image.", Toast.LENGTH_SHORT).show();
-                }
-            });
+            })).addOnFailureListener(e -> Toast.makeText(EditProfile_Activity.this, "Failed to upload image.", Toast.LENGTH_SHORT).show());
         } else {
             // If no new image is selected, save user data without updating the image URL
             saveUserData(name, email, birthday, null);
@@ -212,30 +163,12 @@ public class EditProfile_Activity extends AppCompatActivity {
         }
 
         userRef.update(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(EditProfile_Activity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
-                        // Finish the activity and go back to the previous screen
-                        finish();
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(EditProfile_Activity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+                    // Finish the activity and go back to the previous screen
+                    finish();
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditProfile_Activity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private String getFileExtension(Uri uri) {
-        // For example, for "image.jpg", it returns "jpg".
-        String path = uri.getPath();
-        if (path != null && path.lastIndexOf(".") != -1) {
-            return path.substring(path.lastIndexOf(".") + 1);
-        } else {
-            return "";
-        }
+                .addOnFailureListener(e -> Toast.makeText(EditProfile_Activity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show());
     }
 
     @Override

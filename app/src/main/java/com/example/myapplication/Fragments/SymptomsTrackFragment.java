@@ -1,7 +1,6 @@
 package com.example.myapplication.Fragments;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -35,13 +34,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+
 public class SymptomsTrackFragment extends Fragment {
     private Slider painScoreSlider;
-    private RecyclerView recyclerView;
     private List<DataModel> mList;
-    private ItemAdapter adapter;
-    private ImageView leftIcon,notificationIcon ;
-    private Button submitButton;
     private String currentUserUid;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
@@ -61,7 +58,7 @@ public class SymptomsTrackFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_symptoms_track, container, false);
 
-        recyclerView = rootView.findViewById(R.id.main_recyclerview);
+        RecyclerView recyclerView = rootView.findViewById(R.id.main_recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -107,7 +104,7 @@ public class SymptomsTrackFragment extends Fragment {
         mList.add(new DataModel(painWorseOptions, getString(R.string.pain_worse_title)));
         mList.add(new DataModel(feelingOptions, getString(R.string.feelings)));
 
-        adapter = new ItemAdapter(requireContext(),mList);
+        ItemAdapter adapter = new ItemAdapter(requireContext(), mList);
         recyclerView.setAdapter(adapter);
 
         TextView currentDateTextView =  rootView.findViewById(R.id.currentDateTextView);
@@ -117,36 +114,25 @@ public class SymptomsTrackFragment extends Fragment {
         String currentDate = dateFormat.format(new Date());
         currentDateTextView.setText(currentDate);
 
-        leftIcon =  rootView.findViewById(R.id.leftIcon);
-        notificationIcon = rootView.findViewById(R.id.notificationIcon);
+        ImageView leftIcon = rootView.findViewById(R.id.leftIcon);
+        ImageView notificationIcon = rootView.findViewById(R.id.notificationIcon);
 
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        currentUserUid = firebaseAuth.getCurrentUser().getUid();
+        currentUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         painScoreSlider =  rootView.findViewById(R.id.painscore);
-        submitButton =  rootView.findViewById(R.id.submitButton);
+        Button submitButton = rootView.findViewById(R.id.submitButton);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitSymptoms();
-            }
-        });
-        leftIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), User_profile.class);
-                startActivity(intent);
-            }
+        submitButton.setOnClickListener(v -> submitSymptoms());
+        leftIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), User_profile.class);
+            startActivity(intent);
         });
 
-        notificationIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), ReminderActivity.class);
-                startActivity(intent);
-            }
+        notificationIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ReminderActivity.class);
+            startActivity(intent);
         });
 
         return rootView;
@@ -185,9 +171,7 @@ public class SymptomsTrackFragment extends Fragment {
                     startActivity(intent);
                     requireActivity().finish();
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(requireContext(), "Failed to submit symptoms.", Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e -> Toast.makeText(requireContext(), "Failed to submit symptoms.", Toast.LENGTH_SHORT).show());
     }
     private String getResourceName(String resourceValue) {
         // Create a map of resource values to resource names

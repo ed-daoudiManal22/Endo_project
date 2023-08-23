@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataModel {
-    private List<String> optionsList;
-    private String title;
+    private final List<String> optionsList;
+    private final String title;
     private boolean isExpandable;
-    private List<String> nestedList;
-    private List<Integer> selectedPositions = new ArrayList<>();
+    private final List<String> nestedList;
+    private List<Integer> selectedPositions;
     private NestedAdapter nestedAdapter;
     private List<String> selectedOptions = new ArrayList<>();
 

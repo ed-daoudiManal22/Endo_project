@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.example.myapplication.Diag_start;
 import com.example.myapplication.Endo_InfoActivity;
 import com.example.myapplication.LineChart_Activity;
-import com.example.myapplication.NotifiactionSettings_Activity;
 import com.example.myapplication.Quiz_main;
 import com.example.myapplication.R;
 import com.example.myapplication.ReminderActivity;
@@ -31,7 +30,6 @@ public class HomeFragment extends Fragment {
 
     private TextView currentUserText;
     private FirebaseAuth firebaseAuth;
-    private ImageView menuIcon, notificationIcon;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,8 +62,8 @@ public class HomeFragment extends Fragment {
         CardView card2 = view.findViewById(R.id.card2);
         CardView card3 = view.findViewById(R.id.card3);
         CardView card4 = view.findViewById(R.id.card4);
-        menuIcon = view.findViewById(R.id.menuIcon);
-        notificationIcon = view.findViewById(R.id.notificationIcon);
+        ImageView menuIcon = view.findViewById(R.id.menuIcon);
+        ImageView notificationIcon = view.findViewById(R.id.notificationIcon);
 
         getCurrentUserName();
         // Set the risk level in the scoreText TextView

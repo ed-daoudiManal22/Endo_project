@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class ArticlesRVAdapter extends RecyclerView.Adapter<ArticlesRVAdapter.ViewHolder> {
 
-    private ArrayList<Articles> articlesArrayList;
-    private Context context;
+    private final ArrayList<Articles> articlesArrayList;
+    private final Context context;
 
     public ArticlesRVAdapter(ArrayList<Articles> articlesArrayList, Context context) {
         this.articlesArrayList = articlesArrayList;
@@ -30,7 +30,7 @@ public class ArticlesRVAdapter extends RecyclerView.Adapter<ArticlesRVAdapter.Vi
     @Override
     public ArticlesRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.articles_rv_item, parent,false);
-        return new ArticlesRVAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -39,17 +39,14 @@ public class ArticlesRVAdapter extends RecyclerView.Adapter<ArticlesRVAdapter.Vi
         holder.subTitleTv.setText(articles.getDescription());
         holder.titleTV.setText(articles.getTitle());
         Picasso.get().load(articles.getUrlToImage()).into(holder.articlesIV);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context, ArticlesDetailActivity.class);
-                i.putExtra("title", articles.getTitle());
-                i.putExtra("content", articles.getContent());
-                i.putExtra("desc", articles.getDescription());
-                i.putExtra("image", articles.getUrlToImage());
-                i.putExtra("url", articles.getUrl());
-                context.startActivity(i);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent i = new Intent(context, ArticlesDetailActivity.class);
+            i.putExtra("title", articles.getTitle());
+            i.putExtra("content", articles.getContent());
+            i.putExtra("desc", articles.getDescription());
+            i.putExtra("image", articles.getUrlToImage());
+            i.putExtra("url", articles.getUrl());
+            context.startActivity(i);
         });
     }
 
@@ -58,9 +55,10 @@ public class ArticlesRVAdapter extends RecyclerView.Adapter<ArticlesRVAdapter.Vi
         return articlesArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView titleTV, subTitleTv;
-        private ImageView articlesIV;
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        private final TextView titleTV;
+        private final TextView subTitleTv;
+        private final ImageView articlesIV;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTV = itemView.findViewById(R.id.idTVArticlesHeading);

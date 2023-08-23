@@ -2,7 +2,6 @@ package com.example.myapplication.Authentification;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,8 +14,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText emailInput;
-    private Button resetPasswordButton;
-    private TextView backToLoginLink;
 
     private FirebaseAuth firebaseAuth;
 
@@ -28,28 +25,22 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         emailInput = findViewById(R.id.emailInput);
-        resetPasswordButton = findViewById(R.id.resetPasswordButton);
-        backToLoginLink = findViewById(R.id.backToLoginLink);
+        Button resetPasswordButton = findViewById(R.id.resetPasswordButton);
+        TextView backToLoginLink = findViewById(R.id.backToLoginLink);
 
-        resetPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailInput.getText().toString().trim();
-                if (email.isEmpty()) {
-                    Toast.makeText(ForgotPasswordActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-                } else {
-                    resetPassword(email);
-                }
+        resetPasswordButton.setOnClickListener(v -> {
+            String email = emailInput.getText().toString().trim();
+            if (email.isEmpty()) {
+                Toast.makeText(ForgotPasswordActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            } else {
+                resetPassword(email);
             }
         });
 
-        backToLoginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ForgotPasswordActivity.this, Authentification.class);
-                startActivity(intent);
-                finish();
-            }
+        backToLoginLink.setOnClickListener(v -> {
+            Intent intent = new Intent(ForgotPasswordActivity.this, Authentification.class);
+            startActivity(intent);
+            finish();
         });
     }
 

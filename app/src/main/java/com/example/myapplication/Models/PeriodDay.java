@@ -1,8 +1,8 @@
 package com.example.myapplication.Models;
 
 public class PeriodDay {
-    private String date;
-    private boolean isPeriodDay;
+    private final String date;
+    private final boolean isPeriodDay;
     private boolean isOvulationDay;
 
     public PeriodDay(String date, boolean isPeriodDay) {

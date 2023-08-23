@@ -20,12 +20,9 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
-    private List<DataModel> mList;
-    private Context context;
+    private final List<DataModel> mList;
+    private final Context context;
 
-    public ItemAdapter(List<DataModel> mList) {
-        this.mList = mList;
-    }
     public ItemAdapter(Context context, List<DataModel> mList) {
         this.context = context;
         this.mList = mList;
@@ -51,18 +48,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             holder.mArrowImage.setImageResource(R.drawable.arrow_down);
         }
 
-        NestedAdapter adapter = new NestedAdapter(model.getOptionsList(), model.getSelectedPositions(), model);
+        NestedAdapter adapter = new NestedAdapter(model.getOptionsList(), model.getSelectedPositions());
         holder.setNestedAdapter(adapter);
         holder.nestedRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.nestedRecyclerView.setAdapter(adapter);
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                model.setExpandable(!model.isExpandable());
-                updateDataModelSelections(model);
-                notifyItemChanged(holder.getAdapterPosition());
-            }
+        holder.linearLayout.setOnClickListener(view -> {
+            model.setExpandable(!model.isExpandable());
+            updateDataModelSelections(model);
+            notifyItemChanged(holder.getAdapterPosition());
         });
     }
     private String getResourceString(Context context, String resourceName) {
@@ -92,11 +86,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout linearLayout;
-        private RelativeLayout expandableLayout;
-        private TextView mTextView;
-        private ImageView mArrowImage;
-        private RecyclerView nestedRecyclerView;
+        private final LinearLayout linearLayout;
+        private final RelativeLayout expandableLayout;
+        private final TextView mTextView;
+        private final ImageView mArrowImage;
+        private final RecyclerView nestedRecyclerView;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);

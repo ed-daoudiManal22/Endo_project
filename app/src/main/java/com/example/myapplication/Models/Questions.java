@@ -1,10 +1,10 @@
 package com.example.myapplication.Models;
 
-import android.content.Context;
+import androidx.annotation.NonNull;
 
 public class Questions {
-    private String title;
-    private String answer;
+    private final String title;
+    private final String answer;
     private boolean expandable;
 
     public boolean isExpandable() {
@@ -36,6 +36,7 @@ public class Questions {
         return answer;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Questions{" +

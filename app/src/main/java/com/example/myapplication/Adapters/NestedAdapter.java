@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Models.DataModel;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -17,14 +16,12 @@ import java.util.List;
 
 public class NestedAdapter extends RecyclerView.Adapter<NestedAdapter.NestedViewHolder> {
 
-    private List<String> mList;
-    private List<Integer> selectedPositions = new ArrayList<>();
-    private DataModel dataModel;
+    private final List<String> mList;
+    private List<Integer> selectedPositions;
 
-    public NestedAdapter(List<String> mList, List<Integer> selectedPositions, DataModel dataModel) {
+    public NestedAdapter(List<String> mList, List<Integer> selectedPositions) {
         this.mList = mList;
         this.selectedPositions = selectedPositions;
-        this.dataModel = dataModel;
     }
 
     @NonNull
@@ -46,18 +43,15 @@ public class NestedAdapter extends RecyclerView.Adapter<NestedAdapter.NestedView
         boolean isChecked = selectedPositions.contains(position);
         holder.checkBox.setChecked(isChecked);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
-                    int selectedPosition = holder.getAdapterPosition();
-                    if (selectedPositions.contains(selectedPosition)) {
-                        selectedPositions.remove(Integer.valueOf(selectedPosition));
-                    } else {
-                        selectedPositions.add(selectedPosition);
-                    }
-                    notifyDataSetChanged();
+        holder.itemView.setOnClickListener(view -> {
+            if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
+                int selectedPosition = holder.getAdapterPosition();
+                if (selectedPositions.contains(selectedPosition)) {
+                    selectedPositions.remove(Integer.valueOf(selectedPosition));
+                } else {
+                    selectedPositions.add(selectedPosition);
                 }
+                notifyDataSetChanged();
             }
         });
     }
@@ -68,19 +62,15 @@ public class NestedAdapter extends RecyclerView.Adapter<NestedAdapter.NestedView
         return mList.size();
     }
 
-    public class NestedViewHolder extends RecyclerView.ViewHolder {
-        private TextView m1;
-        private CheckBox checkBox;
+    public static class NestedViewHolder extends RecyclerView.ViewHolder {
+        private final TextView m1;
+        private final CheckBox checkBox;
 
         public NestedViewHolder(@NonNull View itemView) {
             super(itemView);
             m1 = itemView.findViewById(R.id.nestedItem1);
             checkBox = itemView.findViewById(R.id.checkBox);
         }
-    }
-
-    public List<Integer> getSelectedPositions() {
-        return selectedPositions;
     }
 
     public List<String> getSelectedOptions() {

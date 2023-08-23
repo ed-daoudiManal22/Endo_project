@@ -9,10 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -21,12 +19,9 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 
-import java.util.Calendar;
-
 public class NotifiactionSettings_Activity extends AppCompatActivity {
     PendingIntent pending_intent;
     AlarmManager alarm_manager;
-    private ImageView leftIcon;
     private SwitchMaterial CommunityNotif, TestNotif,test ;
     private boolean isCommunityNotificationOn = false;
     private ListenerRegistration blogsListenerRegistration;
@@ -36,7 +31,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification_settings);
-        leftIcon = findViewById(R.id.leftIcon);
+        ImageView leftIcon = findViewById(R.id.leftIcon);
 
         notification_channel();
         pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(this, NotificationReceiver.class), PendingIntent.FLAG_IMMUTABLE);
@@ -64,14 +59,16 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
             }
 
             if (isCommunityNotificationOn) {
-                for (DocumentChange dc : value.getDocumentChanges()) {
-                    if (dc.getType() == DocumentChange.Type.ADDED) {
-                        // A new blog has been added, trigger the notification
-                        set_notification_alarm(0, "New Blog Added", "A member has added a new blog", "community");
-                        // Show a toast message
-                        Toast.makeText(NotifiactionSettings_Activity.this, "Community notifications ON", Toast.LENGTH_SHORT).show();
-                        // Exit the loop after the first added document is found
-                        break;
+                if (value != null) {
+                    for (DocumentChange dc : value.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+                            // A new blog has been added, trigger the notification
+                            set_notification_alarm(0, "New Blog Added", "A member has added a new blog", "community");
+                            // Show a toast message
+                            Toast.makeText(NotifiactionSettings_Activity.this, "Community notifications ON", Toast.LENGTH_SHORT).show();
+                            // Exit the loop after the first added document is found
+                            break;
+                        }
                     }
                 }
             }
@@ -90,7 +87,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         TestNotif.setOnClickListener(e->{
             if (TestNotif.isChecked()) {
                 // Set the alarm to trigger once a month (30 days) with custom name and description
-                set_test_notification_alarm(30 * 24 * 60 * 60 * 1000, "Test Reminder", "Take diagnostic test","Test");
+                set_test_notification_alarm(30L * 24 * 60 * 60 * 1000, "Test Reminder", "Take diagnostic test","Test");
                 // Show a toast message
                 Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications ON", Toast.LENGTH_SHORT).show();
             } else {
@@ -117,14 +114,11 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
             // Save the switch state to shared preferences
             sharedPreferences.edit().putBoolean("Test", test.isChecked()).apply();
         });
-        leftIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle the click event, navigate to HelloActivity
-                Intent intent = new Intent(NotifiactionSettings_Activity.this, HomeActivity.class);
-                startActivity(intent);
-                finish(); // Optional: Close the current activity after navigating
-            }
+        leftIcon.setOnClickListener(v -> {
+            // Handle the click event, navigate to HelloActivity
+            Intent intent = new Intent(NotifiactionSettings_Activity.this, HomeActivity.class);
+            startActivity(intent);
+            finish(); // Optional: Close the current activity after navigating
         });
     }
 
@@ -154,13 +148,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarm_manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarm_manager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        } else {
-            alarm_manager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        }
+        alarm_manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
 
         // Create a notification channel with the specified name and description
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

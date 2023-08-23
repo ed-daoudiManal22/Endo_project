@@ -1,14 +1,12 @@
 package com.example.myapplication.Community;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,24 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
-    private Context context;
-    private List<Comment> comments;
-    private String blogId;
+    private final Context context;
+    private final List<Comment> comments;
+    private final String blogId;
 
     public CommentsAdapter(Context context, List<Comment> comments,String blogId) {
         this.context = context;
@@ -77,34 +68,27 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             user_img = itemView.findViewById(R.id.comment_user_img);
             comment_username = itemView.findViewById(R.id.comment_username);
             comment_date = itemView.findViewById(R.id.comment_date);
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Comment comment = comments.get(getAdapterPosition());
-                    if (isCurrentUserOrOwner(comment.getUserId(), blogId)) {
-                        showDeleteDialog(getAdapterPosition());
-                    }
-                    return true;
+            itemView.setOnLongClickListener(v -> {
+                Comment comment = comments.get(getAdapterPosition());
+                if (isCurrentUserOrOwner(comment.getUserId(), blogId)) {
+                    showDeleteDialog(getAdapterPosition());
                 }
+                return true;
             });
         }
     }
     private String timestampToString(long time) {
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         calendar.setTimeInMillis(time);
-        String date = DateFormat.format("dd/MM hh:mm", calendar).toString();
-        return date;
+        return DateFormat.format("dd/MM hh:mm", calendar).toString();
     }
     private void showDeleteDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(context.getString(R.string.confirm_delete_comment))
-                .setPositiveButton(context.getString(R.string.delete), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (context instanceof BlogDetail) {
-                            Comment commentToDelete = comments.get(position);
-                            ((BlogDetail) context).deleteCommentInFirestore(commentToDelete.getCommentId());
-                        }
+                .setPositiveButton(context.getString(R.string.delete), (dialog, which) -> {
+                    if (context instanceof BlogDetail) {
+                        Comment commentToDelete = comments.get(position);
+                        ((BlogDetail) context).deleteCommentInFirestore(commentToDelete.getCommentId());
                     }
                 })
                 .setNegativeButton(context.getString(R.string.cancel), null)
@@ -114,9 +98,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private boolean isCurrentUserOrOwner(String userId, String ownerId) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        String currentUserId = currentUser.getUid();
+        String currentUserId = null;
+        if (currentUser != null) {
+            currentUserId = currentUser.getUid();
+        }
 
-        return currentUserId.equals(userId) || currentUserId.equals(ownerId);
+        if (currentUserId != null) {
+            return currentUserId.equals(userId) || currentUserId.equals(ownerId);
+        }
+        return false;
     }
 
 }
