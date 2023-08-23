@@ -19,10 +19,7 @@ import com.example.myapplication.Community.Model;
 import com.example.myapplication.Community.PublishActivity;
 import com.example.myapplication.databinding.FragmentCommunityBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 public class Community extends Fragment{FragmentCommunityBinding binding;
@@ -41,7 +38,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentCommunityBinding.inflate(inflater,container,false);
@@ -74,7 +71,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
     private void filter(String newText) {
         ArrayList<Model> filtered_list = new ArrayList<>();
         for(Model item:list){
-            if (item.getTitle().toString().toLowerCase().contains(newText)){
+            if (item.getTitle().toLowerCase().contains(newText)){
                 filtered_list.add(item);
             }
         }
@@ -88,17 +85,18 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
 
     private void setupRv() {
         list = new ArrayList<>();
-        FirebaseFirestore.getInstance().collection("Blogs").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                list.clear();
+        FirebaseFirestore.getInstance().collection("Blogs").orderBy("timestamp").addSnapshotListener((value, error) -> {
+            list.clear();
+            if (value != null) {
                 for (DocumentSnapshot snapshot:value.getDocuments()){
                     model = snapshot.toObject(Model.class);
-                    model.setId(snapshot.getId());
+                    if (model != null) {
+                        model.setId(snapshot.getId());
+                    }
                     list.add(model);
                 }
-                adapter.notifyDataSetChanged();
             }
+            adapter.notifyDataSetChanged();
         });
         adapter = new Adapter(getContext(),list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -114,12 +112,9 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
         binding=null;
     }
     private void setPublishButtonOnClick() {
-        binding.btnPublish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle button click, start the PublishActivity here
-                startActivity(new Intent(getActivity(), PublishActivity.class));
-            }
+        binding.btnPublish.setOnClickListener(v -> {
+            // Handle button click, start the PublishActivity here
+            startActivity(new Intent(getActivity(), PublishActivity.class));
         });
     }
 }

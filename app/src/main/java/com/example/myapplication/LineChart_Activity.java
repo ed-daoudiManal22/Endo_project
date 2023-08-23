@@ -10,12 +10,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,9 +35,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -62,18 +57,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
 public class LineChart_Activity extends AppCompatActivity {
-    private FirebaseFirestore firestore;
-    private FirebaseAuth firebaseAuth;
     private TextView averagePainTextView;
-    private ImageView leftIcon, shareIcon;
-    private String currentUserUid;
-    private Button download;
     private static final int PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
     private final int[] pastelColors = new int[]{
             Color.rgb(227, 227, 255),
             Color.rgb(223, 242, 253),
@@ -91,9 +82,9 @@ public class LineChart_Activity extends AppCompatActivity {
         // Get the context of the activity
         final Context context = getApplicationContext();
 
-        firestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUserUid = firebaseAuth.getCurrentUser().getUid();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String currentUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         // Calculate the date one month ago from the current date
         Calendar calendar = Calendar.getInstance();
@@ -103,87 +94,76 @@ public class LineChart_Activity extends AppCompatActivity {
         // Get the LineChart view from the layout
         LineChart lineChart = findViewById(R.id.lineChart);
         averagePainTextView = findViewById(R.id.averagePain);
-        leftIcon = findViewById(R.id.leftIcon);
-        shareIcon = findViewById(R.id.shareIcon);
-        download = findViewById(R.id.download);
+        ImageView leftIcon = findViewById(R.id.leftIcon);
+        ImageView shareIcon = findViewById(R.id.shareIcon);
+        Button download = findViewById(R.id.download);
 
-        leftIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle the click event, navigate to HelloActivity
-                Intent intent = new Intent(LineChart_Activity.this, HomeActivity.class);
-                startActivity(intent);
-                finish(); // Optional: Close the current activity after navigating
-            }
+        leftIcon.setOnClickListener(v -> {
+            // Handle the click event, navigate to HelloActivity
+            Intent intent = new Intent(LineChart_Activity.this, HomeActivity.class);
+            startActivity(intent);
+            finish(); // Optional: Close the current activity after navigating
         });
-        shareIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the ScrollView from the layout
-                ScrollView scrollView = findViewById(R.id.scrollView);
+        shareIcon.setOnClickListener(v -> {
+            // Get the ScrollView from the layout
+            ScrollView scrollView = findViewById(R.id.scrollView);
 
-                // Capture the complete content of the ScrollView as a Bitmap
-                Bitmap scrollViewBitmap = getScrollViewContentBitmap(scrollView);
+            // Capture the complete content of the ScrollView as a Bitmap
+            Bitmap scrollViewBitmap = getScrollViewContentBitmap(scrollView);
 
-                // Save the Bitmap as an image
-                File imageFile = saveBitmapAsImage(scrollViewBitmap);
+            // Save the Bitmap as an image
+            File imageFile = saveBitmapAsImage(scrollViewBitmap);
 
-                if (imageFile != null && imageFile.exists()) {
-                    // Create an intent to share the image
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("image/png");
-                    Uri imageUri = FileProvider.getUriForFile(
-                            LineChart_Activity.this,
-                            getApplicationContext().getPackageName() + ".provider",
-                            imageFile
-                    );
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            if (imageFile != null && imageFile.exists()) {
+                // Create an intent to share the image
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/png");
+                Uri imageUri = FileProvider.getUriForFile(
+                        LineChart_Activity.this,
+                        getApplicationContext().getPackageName() + ".provider",
+                        imageFile
+                );
+                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
 
-                    // Optionally, add a subject and text for the sharing intent
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share Chart");
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my chart!");
+                // Optionally, add a subject and text for the sharing intent
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share Chart");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my chart!");
 
-                    // Grant read permission to the sharing app
-                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                // Grant read permission to the sharing app
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                    // Start the sharing activity
-                    startActivity(Intent.createChooser(shareIntent, "Share chart using"));
-                } else {
-                    Toast.makeText(LineChart_Activity.this, "Failed to share chart", Toast.LENGTH_SHORT).show();
-                }
+                // Start the sharing activity
+                startActivity(Intent.createChooser(shareIntent, "Share chart using"));
+            } else {
+                Toast.makeText(LineChart_Activity.this, "Failed to share chart", Toast.LENGTH_SHORT).show();
             }
         });
 
-        download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the ScrollView from the layout
-                ScrollView scrollView = findViewById(R.id.scrollView);
+        download.setOnClickListener(v -> {
+            // Get the ScrollView from the layout
+            ScrollView scrollView = findViewById(R.id.scrollView);
 
-                // Capture the complete content of the ScrollView as a Bitmap
-                Bitmap scrollViewBitmap = getScrollViewContentBitmap(scrollView);
+            // Capture the complete content of the ScrollView as a Bitmap
+            Bitmap scrollViewBitmap = getScrollViewContentBitmap(scrollView);
 
-                // Save the Bitmap as an image
-                boolean isImageSaved = saveDownloadAsImage(scrollViewBitmap);
+            // Save the Bitmap as an image
+            boolean isImageSaved = saveDownloadAsImage(scrollViewBitmap);
 
-                // Show toast message based on the result
-                if (isImageSaved) {
-                    Toast.makeText(LineChart_Activity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(LineChart_Activity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
-                }
+            // Show toast message based on the result
+            if (isImageSaved) {
+                Toast.makeText(LineChart_Activity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(LineChart_Activity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Check if the WRITE_EXTERNAL_STORAGE permission is granted
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             // Request the permission if it is not granted
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE);
-        } else {
-            // Permission is already granted, you can proceed with saving the image
-        }
+        }  // Permission is already granted, you can proceed with saving the image
+
 
         // Create a list to store the pain score entries
         List<Entry> entries = new ArrayList<>();
@@ -197,192 +177,165 @@ public class LineChart_Activity extends AppCompatActivity {
                 .collection("symptoms");
 
         // Query the symptoms subcollection to retrieve the pain scores
-        symptomsCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        // Get the document name representing the date
-                        String documentName = document.getId();
+        symptomsCollection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot document : task.getResult()) {
+                    // Get the document name representing the date
+                    String documentName = document.getId();
 
-                        // Parse the date from the document name
-                        Date date = null;
-                        try {
-                            date = dateFormat.parse(documentName);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                    // Parse the date from the document name
+                    Date date = null;
+                    try {
+                        date = dateFormat.parse(documentName);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Filter out entries that fall within the past month
+                    if (date != null && date.after(oneMonthAgo)) {
+                        // Get the pain score from the document
+                        Double painScore = document.getDouble("painScore");
+
+                        // Add the pain score entry to the list
+                        if (painScore != null) {
+                            entries.add(new Entry(date.getTime(), painScore.floatValue()));
                         }
+                    }
 
-                        // Filter out entries that fall within the past month
-                        if (date != null && date.after(oneMonthAgo)) {
-                            // Get the pain score from the document
-                            Double painScore = document.getDouble("painScore");
+                    // Calculate the average pain score
+                    float totalPainScore = 0;
+                    for (Entry entry : entries) {
+                        totalPainScore += entry.getY();
+                    }
+                    float averagePainScore = totalPainScore / entries.size();
+                    // Format the averagePainScore to show only two decimal places
+                    String formattedAveragePainScore = String.format(Locale.US, "%.2f", averagePainScore);
 
-                            // Add the pain score entry to the list
-                            if (painScore != null) {
-                                entries.add(new Entry(date.getTime(), painScore.floatValue()));
-                            }
-                        }
+                    // Display the average pain score in the TextView
+                    String painAverageLabel = getString(R.string.pain_average_label);
+                    averagePainTextView.setText(painAverageLabel + " " + formattedAveragePainScore);
 
-                        // Calculate the average pain score
-                        float totalPainScore = 0;
-                        for (Entry entry : entries) {
-                            totalPainScore += entry.getY();
-                        }
-                        float averagePainScore = totalPainScore / entries.size();
-                        // Format the averagePainScore to show only two decimal places
-                        String formattedAveragePainScore = String.format(Locale.US, "%.2f", averagePainScore);
+                    // Store the formattedAveragePainScore in user's document in Firestore
+                    userDocumentRef.update("painAverage",formattedAveragePainScore )
+                            .addOnSuccessListener(aVoid -> {
+                                // The averagePainScore was successfully updated in the Firestore document
+                                Log.d("Pain evolution", "Average pain score updated in Firestore");
+                            })
+                            .addOnFailureListener(e -> {
+                                // Handle the error if updating the averagePainScore fails
+                                Log.e("Pain evolution", "Error updating average pain score in Firestore", e);
+                            });
+            }
+                // Sort the entries by their timestamps
+                Collections.sort(entries, Comparator.comparingLong(entry -> (long) entry.getX()));
 
-                        // Display the average pain score in the TextView
-                        String painAverageLabel = getString(R.string.pain_average_label);
-                        averagePainTextView.setText(painAverageLabel + " " + formattedAveragePainScore);
+                // Set the minimum and maximum values for the Y-axis
+                lineChart.getAxisLeft().setAxisMinimum(0f);
+                lineChart.getAxisLeft().setAxisMaximum(10f);
 
-                        // Store the formattedAveragePainScore in user's document in Firestore
-                        userDocumentRef.update("painAverage",formattedAveragePainScore )
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        // The averagePainScore was successfully updated in the Firestore document
-                                        Log.d("Pain evolution", "Average pain score updated in Firestore");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Handle the error if updating the averagePainScore fails
-                                        Log.e("Pain evolution", "Error updating average pain score in Firestore", e);
-                                    }
-                                });
+                // Create a ValueFormatter to format the X-axis values as dates
+                ValueFormatter xAxisFormatter = new ValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value) {
+                        long millis = (long) value;
+                        Date date = new Date(millis);
+
+                        // Get the current language and create a locale
+                        String currentLanguage = getResources().getConfiguration().locale.getLanguage();
+                        Locale currentLocale = new Locale(currentLanguage);
+
+                        // Format the date using the current locale
+                        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM", currentLocale);
+                        return dateFormatter.format(date);
+                    }
+                };
+
+                // Set the X-axis value formatter
+                XAxis xAxis = lineChart.getXAxis();
+                xAxis.setValueFormatter(xAxisFormatter);
+
+                String painScoreString = getResourceString("pain_score");
+                // Create a dataset with the entries and customize it
+                LineDataSet dataSet = new LineDataSet(entries, painScoreString);
+                dataSet.setColor(Color.RED);
+                dataSet.setValueTextColor(Color.BLACK);
+
+                // Create a LineData object with the dataset
+                LineData lineData = new LineData(dataSet);
+
+                // Set the LineData to the chart and refresh it
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                lineChart.setData(lineData);
+                lineChart.getXAxis().setDrawGridLines(false);
+                lineChart.getAxisLeft().setDrawGridLines(false);
+                lineChart.getAxisRight().setEnabled(false);
+                lineChart.invalidate();
+                // end of graph implementation ------------------------------------------------------------
+
+                // Create a list to store all pain locations from all documents and to store pie chart entries (slices)
+                List<String> allPainLocations = new ArrayList<>();
+                List<PieEntry> pieEntries = new ArrayList<>();
+
+                for (DocumentSnapshot document : task.getResult()) {
+                    // Get the pain Location array from the document
+                    List<String> painLocations = (List<String>) document.get("pain_locations");
+
+                    // Add all pain locations to the list
+                    if (painLocations != null) {
+                        allPainLocations.addAll(painLocations);
+                    }
                 }
-                    // Sort the entries by their timestamps
-                    Collections.sort(entries, new Comparator<Entry>() {
-                        @Override
-                        public int compare(Entry entry1, Entry entry2) {
-                            return Long.compare((long) entry1.getX(), (long) entry2.getX());
-                        }
-                    });
 
-                    // Set the minimum and maximum values for the X-axis to display data points from one month ago till the current day
-                    float minimumXValue = oneMonthAgo.getTime();
-                    float maximumXValue = System.currentTimeMillis();
-
-                    // Set the minimum and maximum values for the Y-axis
-                    lineChart.getAxisLeft().setAxisMinimum(0f);
-                    lineChart.getAxisLeft().setAxisMaximum(10f);
-
-                    // Create a ValueFormatter to format the X-axis values as dates
-                    ValueFormatter xAxisFormatter = new ValueFormatter() {
-                        @Override
-                        public String getFormattedValue(float value) {
-                            long millis = (long) value;
-                            Date date = new Date(millis);
-
-                            // Get the current language and create a locale
-                            String currentLanguage = getResources().getConfiguration().locale.getLanguage();
-                            Locale currentLocale = new Locale(currentLanguage);
-
-                            // Format the date using the current locale
-                            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM", currentLocale);
-                            return dateFormatter.format(date);
-                        }
-                    };
-
-                    // Set the X-axis value formatter
-                    XAxis xAxis = lineChart.getXAxis();
-                    xAxis.setValueFormatter(xAxisFormatter);
-
-                    String painScoreString = getResourceString("pain_score");
-                    // Create a dataset with the entries and customize it
-                    LineDataSet dataSet = new LineDataSet(entries, painScoreString);
-                    dataSet.setColor(Color.RED);
-                    dataSet.setValueTextColor(Color.BLACK);
-
-                    // Create a LineData object with the dataset
-                    LineData lineData = new LineData(dataSet);
-
-                    // Set the LineData to the chart and refresh it
-                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    lineChart.setData(lineData);
-                    lineChart.getXAxis().setDrawGridLines(false);
-                    lineChart.getAxisLeft().setDrawGridLines(false);
-                    lineChart.getAxisRight().setEnabled(false);
-                    lineChart.invalidate();
-                    // end of graph implementation ------------------------------------------------------------
-
-                    // Create a list to store all pain locations from all documents and to store pie chart entries (slices)
-                    List<String> allPainLocations = new ArrayList<>();
-                    List<PieEntry> pieEntries = new ArrayList<>();
-
-                    for (DocumentSnapshot document : task.getResult()) {
-                        // Get the pain Location array from the document
-                        List<String> painLocations = (List<String>) document.get("pain_locations");
-
-                        // Add all pain locations to the list
-                        if (painLocations != null) {
-                            allPainLocations.addAll(painLocations);
-                        }
-                    }
-
-                    // Calculate the occurrences of each pain location
-                    TreeMap<String, Integer> painLocationOccurrences = new TreeMap<>();
-                    for (String location : allPainLocations) {
-                        painLocationOccurrences.put(location, painLocationOccurrences.getOrDefault(location, 0) + 1);
-                    }
-
-                    // Calculate the total number of pain locations
-                    int totalPainLocations = allPainLocations.size();
-
-                    // Set the pain locations and their percentages in the respective TextViews
-                    Set<String> uniquePainLocations = new HashSet<>(allPainLocations);
-                    for (String location : uniquePainLocations) {
-                        int occurrences = painLocationOccurrences.get(location);
-                        float percentage = (occurrences * 100f) / totalPainLocations;
-
-                        // Use the localized name from strings.xml using getResourceString
-                        String localizedLocation = getResourceString(location);
-
-                        pieEntries.add(new PieEntry(percentage, localizedLocation));
-                    }
-                    // Create a dataset for the PieChart with the entries and customize it
-                    PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
-                    pieDataSet.setColors(pastelColors);
-
-                    // Create a PieData object with the dataset
-                    PieData pieData = new PieData(pieDataSet);
-                    pieData.setValueTextSize(12f); // Adjust the text size of the values inside the slices
-
-                    // Get the PieChart view from the layout
-                    PieChart pieChart = findViewById(R.id.pieChart);
-
-                    // Set the PieData to the chart and refresh it
-                    pieChart.setData(pieData);
-                    pieChart.getDescription().setEnabled(false); // Disable the description
-                    pieChart.setDrawEntryLabels(false); // Disable labels inside the slices
-                    pieChart.setDrawHoleEnabled(false); // Disable the center hole
-                    pieChart.invalidate();
-                    //end pain location Chart --------------------------------------------------
-
-                    calculateAndDisplayData("symptoms", R.id.symptomsLayout, context, task);
-                    calculateAndDisplayData("pain_worse_title", R.id.painWorseLayout, context, task);
-                    calculateAndDisplayData("feelings", R.id.feelingsLayout, context, task);
-                    //calculateAndDisplayData("What Medication Did You Try for Your Pain?", R.id.MedicationsLayout, context, task);
-
-                } else {
-                    Log.e("LineChart_Activity", "Error getting symptoms subcollection: ", task.getException());
+                // Calculate the occurrences of each pain location
+                TreeMap<String, Integer> painLocationOccurrences = new TreeMap<>();
+                for (String location : allPainLocations) {
+                    painLocationOccurrences.put(location, painLocationOccurrences.getOrDefault(location, 0) + 1);
                 }
+
+                // Calculate the total number of pain locations
+                int totalPainLocations = allPainLocations.size();
+
+                // Set the pain locations and their percentages in the respective TextViews
+                Set<String> uniquePainLocations = new HashSet<>(allPainLocations);
+                for (String location : uniquePainLocations) {
+                    int occurrences = painLocationOccurrences.get(location);
+                    float percentage = (occurrences * 100f) / totalPainLocations;
+
+                    // Use the localized name from strings.xml using getResourceString
+                    String localizedLocation = getResourceString(location);
+
+                    pieEntries.add(new PieEntry(percentage, localizedLocation));
+                }
+                // Create a dataset for the PieChart with the entries and customize it
+                PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
+                pieDataSet.setColors(pastelColors);
+
+                // Create a PieData object with the dataset
+                PieData pieData = new PieData(pieDataSet);
+                pieData.setValueTextSize(12f); // Adjust the text size of the values inside the slices
+
+                // Get the PieChart view from the layout
+                PieChart pieChart = findViewById(R.id.pieChart);
+
+                // Set the PieData to the chart and refresh it
+                pieChart.setData(pieData);
+                pieChart.getDescription().setEnabled(false); // Disable the description
+                pieChart.setDrawEntryLabels(false); // Disable labels inside the slices
+                pieChart.setDrawHoleEnabled(false); // Disable the center hole
+                pieChart.invalidate();
+                //end pain location Chart --------------------------------------------------
+
+                calculateAndDisplayData("symptoms", R.id.symptomsLayout, context, task);
+                calculateAndDisplayData("pain_worse_title", R.id.painWorseLayout, context, task);
+                calculateAndDisplayData("feelings", R.id.feelingsLayout, context, task);
+                //calculateAndDisplayData("What Medication Did You Try for Your Pain?", R.id.MedicationsLayout, context, task);
+
+            } else {
+                Log.e("LineChart_Activity", "Error getting symptoms subcollection: ", task.getException());
             }
         });
     }
-    // Method to convert a View to a Bitmap
-    private Bitmap getBitmapFromView(View view) {
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache(true);
 
-        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-        view.setDrawingCacheEnabled(false);
-
-        return bitmap;
-    }
     // Method to save the bitmap as an image
     private File saveBitmapAsImage(Bitmap bitmap) {
         // Check if external storage is available
@@ -481,9 +434,7 @@ public class LineChart_Activity extends AppCompatActivity {
             if (dataObject instanceof List) {
                 List<String> data = (List<String>) dataObject;
 
-                if (data != null) {
-                    allData.addAll(data);
-                }
+                allData.addAll(data);
             } else if (dataObject instanceof String) {
                 String singleData = (String) dataObject;
                 allData.add(singleData);

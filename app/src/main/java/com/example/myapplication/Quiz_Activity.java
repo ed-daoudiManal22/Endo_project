@@ -8,23 +8,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.myapplication.Models.Quiz_question;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Quiz_Activity extends AppCompatActivity {
     private TextView questions;
@@ -32,8 +25,7 @@ public class Quiz_Activity extends AppCompatActivity {
     private AppCompatButton option1, option2, option3, option4;
     private AppCompatButton nextBtn;
     //private Timer quizTimer;
-    private int totalTimeInMins = 1;
-    private boolean quizCompleted = false;
+    private final boolean quizCompleted = false;
     //private int seconds = 0;
     private List<Quiz_question> questionsList;
     private int currentQuestionPosition = 0;
@@ -69,102 +61,84 @@ public class Quiz_Activity extends AppCompatActivity {
 
         //startTimer(timer);
 
-        option1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectedOptionByUser.isEmpty())
-                {
-                    selectedOptionByUser = option1.getText().toString();
+        option1.setOnClickListener(view -> {
+            if (selectedOptionByUser.isEmpty())
+            {
+                selectedOptionByUser = option1.getText().toString();
 
-                    option1.setBackgroundResource(R.drawable.round_back_red10);
-                    option1.setTextColor(Color.WHITE);
+                option1.setBackgroundResource(R.drawable.round_back_red10);
+                option1.setTextColor(Color.WHITE);
 
-                    revealAnswer();
+                revealAnswer();
 
-                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
-                }
+                questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
             }
         });
 
-        option2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectedOptionByUser.isEmpty())
-                {
-                    selectedOptionByUser = option2.getText().toString();
+        option2.setOnClickListener(view -> {
+            if (selectedOptionByUser.isEmpty())
+            {
+                selectedOptionByUser = option2.getText().toString();
 
-                    option2.setBackgroundResource(R.drawable.round_back_red10);
-                    option2.setTextColor(Color.WHITE);
+                option2.setBackgroundResource(R.drawable.round_back_red10);
+                option2.setTextColor(Color.WHITE);
 
-                    revealAnswer();
+                revealAnswer();
 
-                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
-                }
+                questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+            }
 
+        });
+
+        option3.setOnClickListener(view -> {
+            if (selectedOptionByUser.isEmpty())
+            {
+                selectedOptionByUser = option3.getText().toString();
+
+                option3.setBackgroundResource(R.drawable.round_back_red10);
+                option3.setTextColor(Color.WHITE);
+
+                revealAnswer();
+
+                questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+            }
+
+        });
+
+        option4.setOnClickListener(view -> {
+            if (selectedOptionByUser.isEmpty())
+            {
+                selectedOptionByUser = option4.getText().toString();
+
+                option4.setBackgroundResource(R.drawable.round_back_red10);
+                option4.setTextColor(Color.WHITE);
+
+                revealAnswer();
+
+                questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+            }
+
+        });
+
+        nextBtn.setOnClickListener(view -> {
+
+            if (selectedOptionByUser.isEmpty())
+            {
+                Toast.makeText(Quiz_Activity.this, "Please select an option", Toast.LENGTH_SHORT).show();
+            }
+
+            else
+            {
+                changeNextQuestion();
             }
         });
 
-        option3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectedOptionByUser.isEmpty())
-                {
-                    selectedOptionByUser = option3.getText().toString();
+        backBtn.setOnClickListener(view -> {
+            //quizTimer.purge();
+            //quizTimer.cancel();
 
-                    option3.setBackgroundResource(R.drawable.round_back_red10);
-                    option3.setTextColor(Color.WHITE);
-
-                    revealAnswer();
-
-                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
-                }
-
-            }
-        });
-
-        option4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectedOptionByUser.isEmpty())
-                {
-                    selectedOptionByUser = option4.getText().toString();
-
-                    option4.setBackgroundResource(R.drawable.round_back_red10);
-                    option4.setTextColor(Color.WHITE);
-
-                    revealAnswer();
-
-                    questionsList.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
-                }
-
-            }
-        });
-
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (selectedOptionByUser.isEmpty())
-                {
-                    Toast.makeText(Quiz_Activity.this, "Please select an option", Toast.LENGTH_SHORT).show();
-                }
-
-                else
-                {
-                    changeNextQuestion();
-                }
-            }
-        });
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //quizTimer.purge();
-                //quizTimer.cancel();
-
-                startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
-                finish();
-            }
+            startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
+            finish();
         });
     }
 
@@ -214,7 +188,6 @@ public class Quiz_Activity extends AppCompatActivity {
             finish();
         }
     }
-
     /*private void startTimer(TextView timerTextView)
     {
         quizTimer = new Timer();
@@ -362,29 +335,21 @@ public class Quiz_Activity extends AppCompatActivity {
         CollectionReference topicsCollectionRef = firestore.collection("Quiz");
         topicsCollectionRef.document("Topics").collection(selectedTopic)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            questionsList = new ArrayList<>();
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                // Map the document snapshot to your Quiz_question model class
-                                Quiz_question question = documentSnapshot.toObject(Quiz_question.class);
-                                questionsList.add(question);
-                            }
-                            // Here, you have the list of questions for the selected topic
-                            // Set the initial question and options in the UI
-                            setInitialQuestion();
-                        } else {
-                            // Handle case when there are no questions for the selected topic
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        questionsList = new ArrayList<>();
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            // Map the document snapshot to your Quiz_question model class
+                            Quiz_question question = documentSnapshot.toObject(Quiz_question.class);
+                            questionsList.add(question);
                         }
+                        // Here, you have the list of questions for the selected topic
+                        // Set the initial question and options in the UI
+                        setInitialQuestion();
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Handle any errors that occurred while fetching the questions
-                    }
+                .addOnFailureListener(e -> {
+                    // Handle any errors that occurred while fetching the questions
                 });
     }
 

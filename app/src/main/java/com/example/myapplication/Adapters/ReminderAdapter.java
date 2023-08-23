@@ -3,9 +3,7 @@ package com.example.myapplication.Adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,11 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Models.Reminder;
 import com.example.myapplication.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder> {
     private List<Reminder> reminders;
@@ -70,28 +64,22 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         holder.repeatDaysTextView.setText(repeatDaysBuilder.toString());
 
         holder.activeCheckbox.setOnCheckedChangeListener(null); // Remove previous listener to avoid conflicts
-        holder.activeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int adapterPosition = holder.getAdapterPosition();
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    Reminder reminder = reminders.get(adapterPosition);
-                    reminder.setActive(isChecked);
-                    if (onReminderActiveStatusChangeListener != null) {
-                        onReminderActiveStatusChangeListener.onReminderActiveStatusChange(reminder);
-                    }
+        holder.activeCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int adapterPosition = holder.getAdapterPosition();
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                Reminder reminder1 = reminders.get(adapterPosition);
+                reminder1.setActive(isChecked);
+                if (onReminderActiveStatusChangeListener != null) {
+                    onReminderActiveStatusChangeListener.onReminderActiveStatusChange(reminder1);
                 }
             }
         });
 
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onReminderDeleteListener != null) {
-                    int adapterPosition = holder.getAdapterPosition();
-                    if (adapterPosition != RecyclerView.NO_POSITION) {
-                        onReminderDeleteListener.onReminderDelete(adapterPosition);
-                    }
+        holder.deleteButton.setOnClickListener(v -> {
+            if (onReminderDeleteListener != null) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    onReminderDeleteListener.onReminderDelete(adapterPosition);
                 }
             }
         });
@@ -102,7 +90,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         return reminders.size();
     }
 
-    class ReminderViewHolder extends RecyclerView.ViewHolder {
+    static class ReminderViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView repeatDaysTextView;
         TextView dateTextView;

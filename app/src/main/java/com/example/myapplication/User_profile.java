@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -15,21 +14,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Authentification.Authentification;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,7 +31,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.List;
 import java.util.Locale;
 
 public class User_profile extends AppCompatActivity {
@@ -76,41 +67,26 @@ public class User_profile extends AppCompatActivity {
             fetchUserDataFromFirestore(currentUser.getUid(), userNameTextView);
         }
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, HomeActivity.class);
-                startActivity(intent);
-            }
+        backButton.setOnClickListener(view -> {
+            Intent intent = new Intent(User_profile.this, HomeActivity.class);
+            startActivity(intent);
         });
 
-        remindersLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, ReminderActivity.class);
-                startActivity(intent);
-            }
+        remindersLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(User_profile.this, ReminderActivity.class);
+            startActivity(intent);
         });
-        editProfileLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, EditProfile_Activity.class);
-                startActivity(intent);
-            }
+        editProfileLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(User_profile.this, EditProfile_Activity.class);
+            startActivity(intent);
         });
-        languageLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Show the language selection dialog when the language layout is clicked
-                showLanguageSelectionDialog();
-            }
+        languageLayout.setOnClickListener(view -> {
+            // Show the language selection dialog when the language layout is clicked
+            showLanguageSelectionDialog();
         });
-        NotifLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, NotifiactionSettings_Activity.class);
-                startActivity(intent);
-            }
+        NotifLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(User_profile.this, NotifiactionSettings_Activity.class);
+            startActivity(intent);
         });
         /*shareLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,27 +96,18 @@ public class User_profile extends AppCompatActivity {
             }
         });*/
         // Inside onCreate method after other click listeners
-        logoutLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Call the logout method when the logout layout is clicked
-                logoutUser();
-            }
+        logoutLayout.setOnClickListener(view -> {
+            // Call the logout method when the logout layout is clicked
+            logoutUser();
         });
         // Inside onCreate method after other click listeners
-        deleteAccountLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Show the delete account dialog when the delete account layout is clicked
-                showDeleteAccountDialog();
-            }
+        deleteAccountLayout.setOnClickListener(view -> {
+            // Show the delete account dialog when the delete account layout is clicked
+            showDeleteAccountDialog();
         });
-        AboutUsLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, AboutUs_Activity.class);
-                startActivity(intent);
-            }
+        AboutUsLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(User_profile.this, AboutUs_Activity.class);
+            startActivity(intent);
         });
     }
     // Method to fetch user data from Firestore
@@ -165,15 +132,12 @@ public class User_profile extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(User_profile.this);
         builder.setTitle(getString(R.string.choose_language));
-        builder.setItems(languages, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String selectedLanguageCode = getLanguageCodeFromName(languages[i]);
-                if (selectedLanguageCode != null) {
-                    changeLanguage(selectedLanguageCode);
-                } else {
-                    Toast.makeText(User_profile.this, "Language selection failed", Toast.LENGTH_SHORT).show();
-                }
+        builder.setItems(languages, (dialogInterface, i) -> {
+            String selectedLanguageCode = getLanguageCodeFromName(languages[i]);
+            if (selectedLanguageCode != null) {
+                changeLanguage(selectedLanguageCode);
+            } else {
+                Toast.makeText(User_profile.this, "Language selection failed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -287,22 +251,14 @@ public class User_profile extends AppCompatActivity {
     }
     private void deleteAccount() {
         if (currentUser != null) {
-            if (currentUser != null) {
-                // Step 1: Delete the profile picture after account deletion
-                deleteProfilePicture(currentUser.getUid(), new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Profile picture deleted successfully, continue with the rest of the deletion process
-                        deleteUserData(currentUser.getUid());
-                    }
-                }, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Error deleting profile picture, show error message and do not proceed with data deletion
-                        Toast.makeText(User_profile.this, "Failed to delete profile picture.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+            // Step 1: Delete the profile picture after account deletion
+            deleteProfilePicture(currentUser.getUid(), aVoid -> {
+                // Profile picture deleted successfully, continue with the rest of the deletion process
+                deleteUserData(currentUser.getUid());
+            }, exception -> {
+                // Error deleting profile picture, show error message and do not proceed with data deletion
+                Toast.makeText(User_profile.this, "Failed to delete profile picture.", Toast.LENGTH_SHORT).show();
+            });
         }
     }
     private void deleteUserData(String userId) {
@@ -360,18 +316,6 @@ public class User_profile extends AppCompatActivity {
                         Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-        });
-    }
-
-
-    private void deleteCollection(CollectionReference collectionReference) {
-        // Delete documents in batches to handle large collections
-        collectionReference.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    document.getReference().delete();
-                }
             }
         });
     }

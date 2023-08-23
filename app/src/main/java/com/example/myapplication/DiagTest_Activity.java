@@ -1,9 +1,7 @@
 package com.example.myapplication;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -55,23 +53,18 @@ public class DiagTest_Activity extends AppCompatActivity {
     private TextView questionTextView,inputWeight,inputHeight;
     private RadioGroup optionsRadioGroup;
     private LinearLayout optionsLinearLayout;
-    private Button nextButton;
     private ProgressBar progressBar;
     private int totalQuestions;
-    private Context context;
-    private ImageButton exitButton, backButton;
     private List<Test_Questions> questions;
     private Map<String, Object> userAnswers;
     private int currentQuestionIndex = 0;
     private static final int pageWidth = 595;
     private static final int pageHeight = 842;
     private static final int leftMargin = 50;
-    private static final int topMargin = 50;
     private static final float lineSpacing = 12f;
-    private FirebaseUser currentUser;
-    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference questionsCollection = db.collection("Diagnostic_test");
+    private final FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference questionsCollection = db.collection("Diagnostic_test");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,30 +77,24 @@ public class DiagTest_Activity extends AppCompatActivity {
         optionsLinearLayout = findViewById(R.id.optionsLinearLayout);
         inputWeight = findViewById(R.id.inputWeight);
         inputHeight = findViewById(R.id.inputHeight);
-        nextButton = findViewById(R.id.nextButton);
+        Button nextButton = findViewById(R.id.nextButton);
         progressBar = findViewById(R.id.progressBar);
-        exitButton = findViewById(R.id.exitButton);
-        backButton = findViewById(R.id.backButton);
+        ImageButton exitButton = findViewById(R.id.exitButton);
+        ImageButton backButton = findViewById(R.id.backButton);
 
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DiagTest_Activity.this, HomeActivity.class);
-                startActivity(intent);
-            }
+        exitButton.setOnClickListener(v -> {
+            Intent intent = new Intent(DiagTest_Activity.this, HomeActivity.class);
+            startActivity(intent);
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // If there is a previous question, show it
-                if (currentQuestionIndex > 0) {
-                    currentQuestionIndex--;
-                    showQuestion(currentQuestionIndex);
-                }
-                // Update the progress bar
-                updateProgressBar();
+        backButton.setOnClickListener(v -> {
+            // If there is a previous question, show it
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
             }
+            // Update the progress bar
+            updateProgressBar();
         });
 
         questions = new ArrayList<>();
@@ -116,23 +103,20 @@ public class DiagTest_Activity extends AppCompatActivity {
         retrieveQuestionsFromFirestore();
 
         // Set click listener for the Next button
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Save user's answer
-                saveUserAnswer();
+        nextButton.setOnClickListener(v -> {
+            // Save user's answer
+            saveUserAnswer();
 
-                // Move to the next question
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.size()) {
-                    showQuestion(currentQuestionIndex);
-                } else {
-                    // All questions answered, generate report
-                    generateReport();
-                }
-                // Update the progress bar
-                updateProgressBar();
+            // Move to the next question
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.size()) {
+                showQuestion(currentQuestionIndex);
+            } else {
+                // All questions answered, generate report
+                generateReport();
             }
+            // Update the progress bar
+            updateProgressBar();
         });
     }
     @Override
@@ -167,9 +151,8 @@ public class DiagTest_Activity extends AppCompatActivity {
 
                 // Display the first question
                 showQuestion(currentQuestionIndex);
-            } else {
-                // Handle Firestore retrieval error
-            }
+            }  // Handle Firestore retrieval error
+
         });
     }
 
@@ -183,27 +166,31 @@ public class DiagTest_Activity extends AppCompatActivity {
         inputHeight.setVisibility(View.GONE);
 
         String questionType = question.getType();
-        if (questionType.equals("single-answer")) {
-            optionsRadioGroup.setVisibility(View.VISIBLE);
-            optionsRadioGroup.removeAllViews();
+        switch (questionType) {
+            case "single-answer":
+                optionsRadioGroup.setVisibility(View.VISIBLE);
+                optionsRadioGroup.removeAllViews();
 
-            for (String option : question.getOptions()) {
-                RadioButton radioButton = new RadioButton(this);
-                radioButton.setText(getResourceString(option));
-                optionsRadioGroup.addView(radioButton);
-            }
-        } else if (questionType.equals("input-answer")) {
-            inputWeight.setVisibility(View.VISIBLE);
-            inputHeight.setVisibility(View.VISIBLE);
-        } else if (questionType.equals("multi-answer")) {
-            optionsLinearLayout.setVisibility(View.VISIBLE);
-            optionsLinearLayout.removeAllViews();
+                for (String option : question.getOptions()) {
+                    RadioButton radioButton = new RadioButton(this);
+                    radioButton.setText(getResourceString(option));
+                    optionsRadioGroup.addView(radioButton);
+                }
+                break;
+            case "input-answer":
+                inputWeight.setVisibility(View.VISIBLE);
+                inputHeight.setVisibility(View.VISIBLE);
+                break;
+            case "multi-answer":
+                optionsLinearLayout.setVisibility(View.VISIBLE);
+                optionsLinearLayout.removeAllViews();
 
-            for (String option : question.getOptions()) {
-                CheckBox checkBox = new CheckBox(this);
-                checkBox.setText(getResourceString(option));
-                optionsLinearLayout.addView(checkBox);
-            }
+                for (String option : question.getOptions()) {
+                    CheckBox checkBox = new CheckBox(this);
+                    checkBox.setText(getResourceString(option));
+                    optionsLinearLayout.addView(checkBox);
+                }
+                break;
         }
     }
 
@@ -274,7 +261,7 @@ public class DiagTest_Activity extends AppCompatActivity {
             if (userAnswer != null) {
                 if (userAnswer instanceof String) {
                     String selectedOption = (String) userAnswer;
-                    if (selectedOption != null && question.getOptionScores().containsKey(selectedOption)) {
+                    if (question.getOptionScores().containsKey(selectedOption)) {
                         totalScore += question.getOptionScores().get(selectedOption);
                     }
                 } else if (userAnswer instanceof List<?>) {
@@ -305,7 +292,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         }
 
         //update user's risk level
-        currentUser = firebaseAuth.getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         String userId = currentUser.getUid();
         updateUserRiskLevelInFirestore(userId, riskLevel);
 
@@ -321,60 +308,54 @@ public class DiagTest_Activity extends AppCompatActivity {
         ImageView backBtn = reportLayout.findViewById(R.id.leftIcon);
 
         // Set the score and report text
-        scoreTextView.setText(getString(R.string.RiskLevel) + ": " + riskLevel);
+        scoreTextView.setText(getString(R.string.RiskLevel)+ riskLevel);
         reportTextView.setText(report);
 
         // Generate the PDF report
-        generatePdfReport(riskLevel, reportBuilder.toString(),userId);
+        generatePdfReport(riskLevel,userId);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DiagTest_Activity.this, HomeActivity.class);
-                startActivity(intent);
-            }
+        backBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(DiagTest_Activity.this, HomeActivity.class);
+            startActivity(intent);
         });
-        openReportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Request storage permission before opening the PDF
-                Dexter.withContext(DiagTest_Activity.this)
-                        .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .withListener(new PermissionListener() {
-                            @Override
-                            public void onPermissionGranted(PermissionGrantedResponse response) {
-                                // Open the generated PDF report
-                                String filePath = getExternalFilesDir(null) + "/report.pdf";
-                                File file = new File(filePath);
-                                if (file.exists()) {
-                                    Uri uri = FileProvider.getUriForFile(
-                                            DiagTest_Activity.this,
-                                            getPackageName() + ".provider",
-                                            file
-                                    );
-                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                                    intent.setDataAndType(uri, "application/pdf");
-                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    startActivity(intent);
-                                } else {
-                                    // Handle the case when the PDF file does not exist
-                                    Toast.makeText(DiagTest_Activity.this, "PDF file not found!", Toast.LENGTH_SHORT).show();
-                                }
+        openReportButton.setOnClickListener(v -> {
+            // Request storage permission before opening the PDF
+            Dexter.withContext(DiagTest_Activity.this)
+                    .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .withListener(new PermissionListener() {
+                        @Override
+                        public void onPermissionGranted(PermissionGrantedResponse response) {
+                            // Open the generated PDF report
+                            String filePath = getExternalFilesDir(null) + "/report.pdf";
+                            File file = new File(filePath);
+                            if (file.exists()) {
+                                Uri uri = FileProvider.getUriForFile(
+                                        DiagTest_Activity.this,
+                                        getPackageName() + ".provider",
+                                        file
+                                );
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setDataAndType(uri, "application/pdf");
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                startActivity(intent);
+                            } else {
+                                // Handle the case when the PDF file does not exist
+                                Toast.makeText(DiagTest_Activity.this, "PDF file not found!", Toast.LENGTH_SHORT).show();
                             }
+                        }
 
-                            @Override
-                            public void onPermissionDenied(PermissionDeniedResponse response) {
-                                // Handle permission denied
-                                Toast.makeText(DiagTest_Activity.this, "Storage permission denied!", Toast.LENGTH_SHORT).show();
-                            }
+                        @Override
+                        public void onPermissionDenied(PermissionDeniedResponse response) {
+                            // Handle permission denied
+                            Toast.makeText(DiagTest_Activity.this, "Storage permission denied!", Toast.LENGTH_SHORT).show();
+                        }
 
-                            @Override
-                            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                                // Handle permission rationale
-                                token.continuePermissionRequest();
-                            }
-                        }).check();
-            }
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                            // Handle permission rationale
+                            token.continuePermissionRequest();
+                        }
+                    }).check();
         });
 
         // Display the inflated layout containing the score and report
@@ -384,7 +365,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         int progress = (currentQuestionIndex + 1) * 100 / totalQuestions;
         progressBar.setProgress(progress);
     }
-    private void generatePdfReport(String riskLevel, String report, String userId) {
+    private void generatePdfReport(String riskLevel, String userId) {
         // Create a new PdfDocument instance
         PdfDocument pdfDocument = new PdfDocument();
 
@@ -413,8 +394,6 @@ public class DiagTest_Activity extends AppCompatActivity {
                     try {
                         // Start a new page
                         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-
-                        int linesPerPage = 25;
 
                         Canvas canvas = page.getCanvas();
                         Paint paint = new Paint();
@@ -458,7 +437,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         canvas.drawText("Test answers : ", 50, dividerY + 60 , paint);
 
                         // Draw the first 8 questions
-                        drawContent(canvas, page, questions, 0, 7, paint, reportPaint,340);
+                        drawContent(canvas, questions, 0, 7, reportPaint,340);
 
                         // Finish the first page
                         pdfDocument.finishPage(page);
@@ -469,7 +448,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         Canvas canvas2 = page2.getCanvas();
 
                         // Draw the rest of the questions (from 9 to the end)
-                        drawContent(canvas2, page2, questions, 8, questions.size() - 1, paint, reportPaint,80);
+                        drawContent(canvas2, questions, 8, questions.size() - 1, reportPaint,80);
 
                         // Finish the second page
                         pdfDocument.finishPage(page2);
@@ -520,7 +499,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                 });
     }
     // Add a new method to draw content for a single page
-    private void drawContent(Canvas canvas, PdfDocument.Page page, List<Test_Questions> questions, int startIndex, int endIndex, Paint paint, Paint reportPaint, int height) {
+    private void drawContent(Canvas canvas, List<Test_Questions> questions, int startIndex, int endIndex, Paint reportPaint, int height) {
         float reportY = height;
         for (int i = startIndex; i <= endIndex; i++) {
             Test_Questions question = questions.get(i);

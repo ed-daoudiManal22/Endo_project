@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,12 +34,9 @@ public class AboutUs_Activity extends AppCompatActivity {
         link2TextView.setMovementMethod(LinkMovementMethod.getInstance());
         link3TextView.setMovementMethod(LinkMovementMethod.getInstance());
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AboutUs_Activity.this, User_profile.class);
-                startActivity(intent);
-            }
+        backButton.setOnClickListener(view -> {
+            Intent intent = new Intent(AboutUs_Activity.this, User_profile.class);
+            startActivity(intent);
         });
     }
 }

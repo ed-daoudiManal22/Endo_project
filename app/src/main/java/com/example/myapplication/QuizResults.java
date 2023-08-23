@@ -5,10 +5,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
-
-import com.example.myapplication.R;
 
 public class QuizResults extends AppCompatActivity {
 
@@ -24,17 +21,12 @@ public class QuizResults extends AppCompatActivity {
         final int getCorrectAnswers = getIntent().getIntExtra("correct", 0);
         final int getIncorrectAnswers = getIntent().getIntExtra("incorrect", 0);
 
-        correctAnswers.setText("Correct Answers : " +String.valueOf(getCorrectAnswers));
-        incorrectAnswers.setText("Wrong Answers : " +String.valueOf(getIncorrectAnswers));
+        correctAnswers.setText("Correct Answers : " + getCorrectAnswers);
+        incorrectAnswers.setText("Wrong Answers : " + getIncorrectAnswers);
 
-        startNewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                startActivity(new Intent(QuizResults.this, Quiz_main.class));
-                finish();
-            }
-
+        startNewBtn.setOnClickListener(view -> {
+            startActivity(new Intent(QuizResults.this, Quiz_main.class));
+            finish();
         });
     }
 

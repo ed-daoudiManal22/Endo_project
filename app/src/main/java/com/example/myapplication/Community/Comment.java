@@ -1,8 +1,6 @@
 package com.example.myapplication.Community;
 
 import com.google.firebase.Timestamp;
-import com.google.firebase.database.ServerValue;
-
 public class Comment {
     private String commentId;
     private String commentText;

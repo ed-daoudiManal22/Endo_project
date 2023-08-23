@@ -3,7 +3,6 @@ package com.example.myapplication.Community;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ import java.util.HashMap;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     ArrayList<Model> list;
-    private Context context;
+    private final Context context;
 
     public Adapter(Context context,ArrayList<Model> list) {
         this.context = context;
@@ -57,97 +54,72 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         Glide.with(holder.author.getContext()).load(model.getImg()).into(holder.img);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.author.getContext(), BlogDetail.class);
-                intent.putExtra("id", model.getId());
-                holder.author.getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.author.getContext(), BlogDetail.class);
+            intent.putExtra("id", model.getId());
+            holder.author.getContext().startActivity(intent);
         });
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.author.getContext());
-                builder.setTitle("What you want to do?");
-                builder.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final Dialog u_dialog = new Dialog(holder.author.getContext());
-                        u_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        u_dialog.setCancelable(false);
-                        u_dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                        u_dialog.setContentView(R.layout.update_dialog);
-                        u_dialog.show();
+        holder.itemView.setOnLongClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(holder.author.getContext());
+            builder.setTitle("What you want to do?");
+            builder.setPositiveButton("UPDATE", (dialog, which) -> {
+                final Dialog u_dialog = new Dialog(holder.author.getContext());
+                u_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                u_dialog.setCancelable(false);
+                u_dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                u_dialog.setContentView(R.layout.update_dialog);
+                u_dialog.show();
 
-                        EditText title = u_dialog.findViewById(R.id.b_tittle);
-                        EditText desc = u_dialog.findViewById(R.id.b_desc);
+                EditText title = u_dialog.findViewById(R.id.b_tittle);
+                EditText desc = u_dialog.findViewById(R.id.b_desc);
 
-                        title.setText(model.getTitle());
-                        desc.setText(model.getDesc());
+                title.setText(model.getTitle());
+                desc.setText(model.getDesc());
 
-                        TextView dialogbutton = u_dialog.findViewById(R.id.btn_publish);
-                        TextView cancelbutton = u_dialog.findViewById(R.id.btn_cancel);
-                        dialogbutton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (title.getText().toString().equals("")) {
-                                    title.setError("Field is Required!!");
-                                } else if (desc.getText().toString().equals("")) {
-                                    desc.setError("Field is Required!!");
-                                } else {
+                TextView dialogbutton = u_dialog.findViewById(R.id.btn_publish);
+                TextView cancelbutton = u_dialog.findViewById(R.id.btn_cancel);
+                dialogbutton.setOnClickListener(v1 -> {
+                    if (title.getText().toString().equals("")) {
+                        title.setError("Field is Required!!");
+                    } else if (desc.getText().toString().equals("")) {
+                        desc.setError("Field is Required!!");
+                    } else {
 
 
-                                    HashMap<String, Object> map = new HashMap<>();
-                                    map.put("tittle", title.getText().toString());
-                                    map.put("desc", desc.getText().toString());
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("tittle", title.getText().toString());
+                        map.put("desc", desc.getText().toString());
 
-                                    FirebaseFirestore.getInstance().collection("Blogs").document(model.getId()).update(map)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        dialog.dismiss();
-                                                        u_dialog.dismiss();
-                                                    }
-                                                }
-                                            });
-                                }
-                            }
-                        });
-                        cancelbutton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                                u_dialog.dismiss();
-                            }
-                        });
-                    }
-                });
-                builder.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog.Builder builders = new AlertDialog.Builder(holder.author.
-                                getContext());
-                        builders.setTitle("Are you sure to Delete it??");
-                        builders.setPositiveButton("Yes! I am Sure", new
-                                DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        FirebaseFirestore.getInstance().collection("Blogs").
-                                                document(model.getId()).delete();
+                        FirebaseFirestore.getInstance().collection("Blogs").document(model.getId()).update(map)
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
                                         dialog.dismiss();
+                                        u_dialog.dismiss();
                                     }
                                 });
-                        AlertDialog dialogs = builders.create();
-                        dialogs.show();
                     }
                 });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                return false;
-            }
+                cancelbutton.setOnClickListener(v1 -> {
+                    dialog.dismiss();
+                    u_dialog.dismiss();
+                });
+            });
+            builder.setNegativeButton("DELETE", (dialog, which) -> {
+                AlertDialog.Builder builders = new AlertDialog.Builder(holder.author.
+                        getContext());
+                builders.setTitle("Are you sure to Delete it??");
+                builders.setPositiveButton("Yes! I am Sure", (dialog1, which1) -> {
+                    FirebaseFirestore.getInstance().collection("Blogs").
+                            document(model.getId()).delete();
+                    dialog1.dismiss();
+                });
+                AlertDialog dialogs = builders.create();
+                dialogs.show();
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            return false;
         });
     }
 
@@ -156,7 +128,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView date, title, share_count, author, description;
         Dialog updateDialog;

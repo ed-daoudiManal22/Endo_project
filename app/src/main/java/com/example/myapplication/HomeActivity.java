@@ -47,165 +47,153 @@ public class HomeActivity extends AppCompatActivity {
                         .replace(R.id.fragmentContainer, HomeFragment.class,null)
                         .commit();
 
-        homeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //check if home is already selected or not
-                if(selectedTab != 1){
-                    //set home fragment
-                    getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, HomeFragment.class,null)
-                            .commit();
+        homeLayout.setOnClickListener(view -> {
+            //check if home is already selected or not
+            if(selectedTab != 1){
+                //set home fragment
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, HomeFragment.class,null)
+                        .commit();
 
-                    //unselect other tabs expect home tab
-                    communitytext.setVisibility(View.GONE);
-                    tracktext.setVisibility(View.GONE);
-                    calendartext.setVisibility(View.GONE);
+                //unselect other tabs expect home tab
+                communitytext.setVisibility(View.GONE);
+                tracktext.setVisibility(View.GONE);
+                calendartext.setVisibility(View.GONE);
 
-                    communityImage.setImageResource(R.drawable.community);
-                    trackImage.setImageResource(R.drawable.tracking);
-                    calendarImage.setImageResource(R.drawable.calendr);
+                communityImage.setImageResource(R.drawable.community);
+                trackImage.setImageResource(R.drawable.tracking);
+                calendarImage.setImageResource(R.drawable.calendr);
 
-                    communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-                    //select home tab
-                    hometext.setVisibility(View.VISIBLE);
-                    homeImage.setImageResource(R.drawable.home);  //selected icon
-                    homeLayout.setBackgroundResource(R.drawable.menu_round_back);
+                //select home tab
+                hometext.setVisibility(View.VISIBLE);
+                homeImage.setImageResource(R.drawable.home);  //selected icon
+                homeLayout.setBackgroundResource(R.drawable.menu_round_back);
 
-                    //create animation
-                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,0.0f);
-                    scaleAnimation.setDuration(200);
-                    scaleAnimation.setFillAfter(true);
-                    homeLayout.startAnimation(scaleAnimation);
+                //create animation
+                ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,0.0f);
+                scaleAnimation.setDuration(200);
+                scaleAnimation.setFillAfter(true);
+                homeLayout.startAnimation(scaleAnimation);
 
-                    //set 1st tab as selected tab
-                    selectedTab = 1 ;
-                }
+                //set 1st tab as selected tab
+                selectedTab = 1 ;
             }
         });
-        trackLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //check if track is already selected or not
-                if(selectedTab != 2){
-                    //set track fragment
-                    getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, SymptomsTrackFragment.class,null)
-                            .commit();
+        trackLayout.setOnClickListener(view -> {
+            //check if track is already selected or not
+            if(selectedTab != 2){
+                //set track fragment
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, SymptomsTrackFragment.class,null)
+                        .commit();
 
-                    //unselect other tabs expect home tab
-                    communitytext.setVisibility(View.GONE);
-                    hometext.setVisibility(View.GONE);
-                    calendartext.setVisibility(View.GONE);
+                //unselect other tabs expect home tab
+                communitytext.setVisibility(View.GONE);
+                hometext.setVisibility(View.GONE);
+                calendartext.setVisibility(View.GONE);
 
-                    communityImage.setImageResource(R.drawable.community);
-                    homeImage.setImageResource(R.drawable.home);
-                    calendarImage.setImageResource(R.drawable.calendr);
+                communityImage.setImageResource(R.drawable.community);
+                homeImage.setImageResource(R.drawable.home);
+                calendarImage.setImageResource(R.drawable.calendr);
 
-                    communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-                    //select track tab
-                    tracktext.setVisibility(View.VISIBLE);
-                    trackImage.setImageResource(R.drawable.tracking);  //selected icon
-                    trackLayout.setBackgroundResource(R.drawable.menu_round_back);
+                //select track tab
+                tracktext.setVisibility(View.VISIBLE);
+                trackImage.setImageResource(R.drawable.tracking);  //selected icon
+                trackLayout.setBackgroundResource(R.drawable.menu_round_back);
 
-                    //create animation
-                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,0.0f);
-                    scaleAnimation.setDuration(200);
-                    scaleAnimation.setFillAfter(true);
-                    trackLayout.startAnimation(scaleAnimation);
+                //create animation
+                ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,0.0f);
+                scaleAnimation.setDuration(200);
+                scaleAnimation.setFillAfter(true);
+                trackLayout.startAnimation(scaleAnimation);
 
-                    //set 2nd tab as selected tab
-                    selectedTab = 2 ;
-                }
+                //set 2nd tab as selected tab
+                selectedTab = 2 ;
             }
         });
-        communityLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //check if community is already selected or not
-                if(selectedTab != 3){
-                    //set community fragment
-                    getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, Community.class,null)
-                            .commit();
+        communityLayout.setOnClickListener(view -> {
+            //check if community is already selected or not
+            if(selectedTab != 3){
+                //set community fragment
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, Community.class,null)
+                        .commit();
 
-                    //unselect other tabs expect home tab
-                    hometext.setVisibility(View.GONE);
-                    tracktext.setVisibility(View.GONE);
-                    calendartext.setVisibility(View.GONE);
+                //unselect other tabs expect home tab
+                hometext.setVisibility(View.GONE);
+                tracktext.setVisibility(View.GONE);
+                calendartext.setVisibility(View.GONE);
 
-                    homeImage.setImageResource(R.drawable.home);
-                    trackImage.setImageResource(R.drawable.tracking);
-                    calendarImage.setImageResource(R.drawable.calendr);
+                homeImage.setImageResource(R.drawable.home);
+                trackImage.setImageResource(R.drawable.tracking);
+                calendarImage.setImageResource(R.drawable.calendr);
 
-                    homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                calendarLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-                    //select community tab
-                    communitytext.setVisibility(View.VISIBLE);
-                    communityImage.setImageResource(R.drawable.community);  //selected icon
-                    communityLayout.setBackgroundResource(R.drawable.menu_round_back);
+                //select community tab
+                communitytext.setVisibility(View.VISIBLE);
+                communityImage.setImageResource(R.drawable.community);  //selected icon
+                communityLayout.setBackgroundResource(R.drawable.menu_round_back);
 
-                    //create animation
-                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,0.0f);
-                    scaleAnimation.setDuration(200);
-                    scaleAnimation.setFillAfter(true);
-                    communityLayout.startAnimation(scaleAnimation);
+                //create animation
+                ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f,1.0f,1f,1f, Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,0.0f);
+                scaleAnimation.setDuration(200);
+                scaleAnimation.setFillAfter(true);
+                communityLayout.startAnimation(scaleAnimation);
 
-                    //set 3rd tab as selected tab
-                    selectedTab = 3 ;
-                }
+                //set 3rd tab as selected tab
+                selectedTab = 3 ;
             }
         });
-        calendarLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Check if the calendar tab is already selected or not
-                if(selectedTab != 4){
-                    // Handle the calendar tab click
-                    // For example, launch a new activity or fragment to display the calendar
-                    getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, CalendarFragment.class, null)
-                            .commit();
+        calendarLayout.setOnClickListener(view -> {
+            // Check if the calendar tab is already selected or not
+            if(selectedTab != 4){
+                // Handle the calendar tab click
+                // For example, launch a new activity or fragment to display the calendar
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, CalendarFragment.class, null)
+                        .commit();
 
-                    // Unselect other tabs except the calendar tab
-                    hometext.setVisibility(View.GONE);
-                    tracktext.setVisibility(View.GONE);
-                    communitytext.setVisibility(View.GONE);
+                // Unselect other tabs except the calendar tab
+                hometext.setVisibility(View.GONE);
+                tracktext.setVisibility(View.GONE);
+                communitytext.setVisibility(View.GONE);
 
-                    homeImage.setImageResource(R.drawable.home);
-                    trackImage.setImageResource(R.drawable.tracking);
-                    communityImage.setImageResource(R.drawable.community);
+                homeImage.setImageResource(R.drawable.home);
+                trackImage.setImageResource(R.drawable.tracking);
+                communityImage.setImageResource(R.drawable.community);
 
-                    homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                homeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                trackLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                communityLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-                    // Select the calendar tab
-                    calendartext.setVisibility(View.VISIBLE);
-                    calendarImage.setImageResource(R.drawable.calendr);  // Selected icon
-                    calendarLayout.setBackgroundResource(R.drawable.menu_round_back);
+                // Select the calendar tab
+                calendartext.setVisibility(View.VISIBLE);
+                calendarImage.setImageResource(R.drawable.calendr);  // Selected icon
+                calendarLayout.setBackgroundResource(R.drawable.menu_round_back);
 
-                    // Create animation
-                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
-                    scaleAnimation.setDuration(200);
-                    scaleAnimation.setFillAfter(true);
-                    calendarLayout.startAnimation(scaleAnimation);
+                // Create animation
+                ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+                scaleAnimation.setDuration(200);
+                scaleAnimation.setFillAfter(true);
+                calendarLayout.startAnimation(scaleAnimation);
 
-                    // Set 4th tab as the selected tab
-                    selectedTab = 4;
-                }
+                // Set 4th tab as the selected tab
+                selectedTab = 4;
             }
         });
     }

@@ -24,7 +24,7 @@
     <string name="diagnostic_label">Diagnostic test:</string>
     <string name="weight_data">Enter your weight in kg </string>
     <string name="height_data">Enter your height in cm</string>
-    <string name="RiskLevel">Risk level</string>
+    <string name="RiskLevel">Risk level :</string>
     <string name="UserAnswer">User\'s Answer :</string>
     <string name="name_label">Name:</string>
     <string name="email_label">Email:</string>

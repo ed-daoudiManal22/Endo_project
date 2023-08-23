@@ -65,13 +65,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             linearLayout = itemView.findViewById(R.id.linear_layout);
             expandableLayout = itemView.findViewById(R.id.expanded_layout);
 
-            linearLayout.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Questions questions = QuestionsList.get(getAdapterPosition());
-                    questions.setExpandable(!questions.isExpandable());
-                    notifyItemChanged(getAdapterPosition());
-                }
+            linearLayout.setOnClickListener(v -> {
+                Questions questions = QuestionsList.get(getAdapterPosition());
+                questions.setExpandable(!questions.isExpandable());
+                notifyItemChanged(getAdapterPosition());
             });
         }
     }
