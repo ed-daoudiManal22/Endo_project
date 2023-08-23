@@ -66,7 +66,7 @@ public class  Endo_InfoActivity extends AppCompatActivity {
         String apiKey = "bb820970d3114ca1903eac14d6826b26";
         String query = "endometriosis women  health";  // Combine keywords
         String sortBy = "publishedAt";
-        String url = "https://newsapi.org/v2/everything?q=" + query + "&apiKey=" + apiKey;
+        String url = "https://newsapi.org/v2/everything?q=" + query + "&sortBy=" + sortBy + "&apiKey=" + apiKey;
         String BASE_URL = "https://newsapi.org/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

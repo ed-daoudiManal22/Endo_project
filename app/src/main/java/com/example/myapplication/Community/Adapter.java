@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,17 +109,31 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 });
             });
             builder.setNegativeButton("DELETE", (dialog, which) -> {
-                AlertDialog.Builder builders = new AlertDialog.Builder(holder.author.
-                        getContext());
+                AlertDialog.Builder builders = new AlertDialog.Builder(holder.author.getContext());
                 builders.setTitle("Are you sure to Delete it??");
                 builders.setPositiveButton("Yes! I am Sure", (dialog1, which1) -> {
-                    FirebaseFirestore.getInstance().collection("Blogs").
-                            document(model.getId()).delete();
-                    dialog1.dismiss();
+                    // Delete the subcollection first
+                    deleteSubcollections(model.getId(), new OnSubcollectionDeletedListener() {
+                        @Override
+                        public void onSubcollectionDeleted() {
+                            // Delete the main blog document after successful subcollection deletion
+                            FirebaseFirestore.getInstance().collection("Blogs")
+                                    .document(model.getId()).delete();
+                            dialog1.dismiss();
+                        }
+
+                        @Override
+                        public void onSubcollectionDeletionFailed() {
+                            Log.d("Blogs Deletion", "Error getting documents: Deletion Failed");
+                            dialog1.dismiss(); // Dismiss the dialog on deletion failure
+                        }
+                    });
                 });
                 AlertDialog dialogs = builders.create();
                 dialogs.show();
             });
+
+            // Create and show the main dialog
             AlertDialog dialog = builder.create();
             dialog.show();
             return false;
@@ -131,8 +148,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView date, title, share_count, author, description;
-        Dialog updateDialog;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -145,4 +160,27 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         }
     }
+    private void deleteSubcollections(String blogId, OnSubcollectionDeletedListener listener) {
+        CollectionReference subcollectionRef = FirebaseFirestore.getInstance()
+                .collection("Blogs").document(blogId).collection("Comments");
+
+        subcollectionRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    // Delete each document in the subcollection
+                    document.getReference().delete();
+                }
+                listener.onSubcollectionDeleted(); // Notify listener on successful deletion
+            } else {
+                Log.d("Blogs Deletion", "Error getting documents: ", task.getException());
+                listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
+            }
+        });
+    }
+
+    interface OnSubcollectionDeletedListener {
+        void onSubcollectionDeleted();
+        void onSubcollectionDeletionFailed();
+    }
+
 }

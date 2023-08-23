@@ -73,29 +73,7 @@ public class CalendarFragment extends Fragment {
         if (currentUser != null) {
             eventsCollection = db.collection("Users").document(currentUser.getUid()).collection("Events");
         }
-
-        List<CalendarDay> eventDates = new ArrayList<>();
-        // Populate eventDates based on your event data  argb(100,255,91,116)
-
-        DotSpan dotSpan = new DotSpan(5, ContextCompat.getColor(requireContext(), R.color.pink)); // Customize the dot size and color
-        // Get the available event dates from Firestore and populate the eventDates list
-        eventsCollection.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String date = document.getId(); // Get the date string from the document ID
-                    String[] dateParts = date.split("-"); // Split the date into parts
-                    int year = Integer.parseInt(dateParts[2]);
-                    int month = Integer.parseInt(dateParts[1]) - 1; // Months are 0-indexed
-                    int day = Integer.parseInt(dateParts[0]);
-                    CalendarDay calendarDay = CalendarDay.from(year, month, day);
-                    eventDates.add(calendarDay);
-                }
-
-                // Apply the event decorators to the calendarView
-                EventDecorator eventDecorator = new EventDecorator(eventDates, dotSpan);
-                calendarView.addDecorator(eventDecorator);
-            }
-        });
+        fetchAndUpdateDecorators(); // Fetch and apply decorators
 
         return view;
     }
@@ -170,7 +148,11 @@ public class CalendarFragment extends Fragment {
         DocumentReference eventDocumentRef = eventsCollection.document(stringDateSelected);
 
         eventDocumentRef.set(eventMap)
-                .addOnSuccessListener(aVoid -> Toast.makeText(requireContext(), "Event added successfully", Toast.LENGTH_SHORT).show())
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(requireContext(), "Event added successfully", Toast.LENGTH_SHORT).show();
+                    clearDecorators(); // Clear decorators before adding the event
+                    fetchAndUpdateDecorators(); // Fetch and apply decorators again after adding the event
+                })
                 .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error adding event", Toast.LENGTH_SHORT).show());
     }
     private void showUpdateDeleteDialog(String date) {
@@ -202,6 +184,21 @@ public class CalendarFragment extends Fragment {
         EditText editTextUpdatedNote = dialogView.findViewById(R.id.editTextUpdateNote);
         Button buttonUpdateEvent = dialogView.findViewById(R.id.buttonUpdateEvent);
 
+        // Fetch existing event details from Firestore
+        eventsCollection.document(date).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String eventTitle = document.getString("title");
+                    String eventNote = document.getString("note");
+
+                    // Populate EditText fields with existing data
+                    editTextUpdatedTitle.setText(eventTitle);
+                    editTextUpdatedNote.setText(eventNote);
+                }
+            }
+        });
+
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
@@ -210,6 +207,7 @@ public class CalendarFragment extends Fragment {
             String updatedNote = editTextUpdatedNote.getText().toString();
             updateEventInFirestore(date, updatedTitle, updatedNote);
 
+            resetEventDetailsTextView(); // Reset the event details view
             alertDialog.dismiss();
         });
     }
@@ -224,7 +222,9 @@ public class CalendarFragment extends Fragment {
             eventDocumentRef.delete()
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(requireContext(), R.string.event_deleted_successfully, Toast.LENGTH_SHORT).show();
-                        // You might want to update your UI or event list here
+                        clearDecorators(); // Clear decorators before deleting the event
+                        fetchAndUpdateDecorators(); // Fetch and apply decorators again
+                        resetEventDetailsTextView(); // Reset the event details view
                     })
                     .addOnFailureListener(e -> Toast.makeText(requireContext(), R.string.error_deleting_event, Toast.LENGTH_SHORT).show());
             dialog.dismiss();
@@ -248,6 +248,44 @@ public class CalendarFragment extends Fragment {
                     // You might want to update your UI or event list here
                 })
                 .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error updating event", Toast.LENGTH_SHORT).show());
+    }
+    private void clearDecorators() {
+        if (calendarView != null) {
+            calendarView.removeDecorators();
+        }
+    }
+    private void fetchAndUpdateDecorators() {
+        List<CalendarDay> eventDates = new ArrayList<>();
+        // Populate eventDates based on your event data
+
+        DotSpan dotSpan = new DotSpan(5, ContextCompat.getColor(requireContext(), R.color.pink));
+
+        eventsCollection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String date = document.getId();
+                    String[] dateParts = date.split("-");
+                    int year = Integer.parseInt(dateParts[2]);
+                    int month = Integer.parseInt(dateParts[1]) - 1;
+                    int day = Integer.parseInt(dateParts[0]);
+                    CalendarDay calendarDay = CalendarDay.from(year, month, day);
+                    eventDates.add(calendarDay);
+                }
+
+                calendarView.removeDecorators(); // Clear existing decorators
+                EventDecorator eventDecorator = new EventDecorator(eventDates, dotSpan);
+                calendarView.addDecorator(eventDecorator); // Apply updated decorators
+            }
+        });
+    }
+    private void resetEventDetailsTextView() {
+        View rootView = getView();
+        if (rootView != null) {
+            TextView eventDetailsTextView = rootView.findViewById(R.id.eventDetailsTextView);
+            eventDetailsTextView.setText(""); // Clear the text
+            CardView eventDetailsCardView = rootView.findViewById(R.id.eventDetailsCardView);
+            eventDetailsCardView.setVisibility(View.INVISIBLE); // Hide the card view
+        }
     }
 
 }
