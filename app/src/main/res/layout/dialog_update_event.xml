@@ -11,13 +11,15 @@
         android:id="@+id/editTextUpdateTitle"
         android:layout_width="380dp"
         android:layout_height="70dp"
-        android:hint="@string/update_event_title_hint"/>
+        android:hint="@string/update_event_title_hint"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextUpdateNote"
         android:layout_width="380dp"
         android:layout_height="70dp"
-        android:hint="@string/update_event_note_hint"/>
+        android:hint="@string/update_event_note_hint"
+        android:inputType="text" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonUpdateEvent"

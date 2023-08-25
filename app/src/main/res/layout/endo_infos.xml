@@ -8,8 +8,6 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -26,7 +24,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_back_black"
-                android:contentDescription="Menu Icon"
+                android:contentDescription="@string/go_back"
                 android:padding="8dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
@@ -35,7 +33,7 @@
                 android:id="@+id/currentDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Endo Aware"
+                android:text="@string/endometriosis_awareness"
                 android:textColor="#393E46"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -50,7 +48,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/alarm"
-                android:contentDescription="Notification Icon"
+                android:contentDescription="@string/notification_icon"
                 android:padding="8dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true" />
@@ -66,9 +64,8 @@
         android:scrollbars="vertical">
 
         <LinearLayout
-            android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!-- Box 1 -->
@@ -81,13 +78,15 @@
                 android:clickable="true"
                 app:cardElevation="8dp"
                 app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="8dp"
+                android:focusable="true">
 
             <ImageView
                 android:id="@+id/image1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/faq_background" />
+                android:src="@drawable/faq_background"
+                android:contentDescription="@string/image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +109,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="20dp"
-                android:layout_below="@+id/idToolbar"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -120,7 +118,6 @@
                 android:id="@+id/idPBLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>

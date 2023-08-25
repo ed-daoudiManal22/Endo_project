@@ -9,8 +9,6 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -26,11 +24,12 @@
                 android:id="@+id/leftIcon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/backward_icon"
-                android:contentDescription="Menu Icon"
-                android:padding="8dp"
                 android:layout_alignParentStart="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/go_back"
+                android:padding="8dp"
+                android:src="@drawable/backward_icon"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/toolbarTitle"
@@ -51,7 +50,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_share_icon"
-                android:contentDescription="Notification Icon"
+                android:contentDescription="@string/notification_icon"
                 android:padding="8dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true" />
@@ -75,13 +74,14 @@
                 android:id="@+id/averagePain"
                 android:layout_width="400dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:text="@string/pain_average"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="TextSizeCheck" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
@@ -93,20 +93,20 @@
                 android:id="@+id/painLocation"
                 android:layout_width="400dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:text="@string/pain_locations"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="TextSizeCheck" />
 
             <!-- Add PieChart to display pain location percentages -->
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
                 android:layout_width="300dp"
                 android:layout_height="200dp"
-                android:layout_below="@id/painLocation"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"/>
@@ -115,7 +115,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_margin="16dp"
                 android:elevation="4dp"
                 app:cardBackgroundColor="#e8fafe">
@@ -151,7 +150,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_margin="16dp"
                 android:elevation="4dp"
                 app:cardBackgroundColor="#e8fafe">
@@ -187,7 +185,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_margin="16dp"
                 android:elevation="4dp"
                 app:cardBackgroundColor="#e8fafe">
@@ -258,12 +255,12 @@
                 android:id="@+id/download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Download"
-                android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:layout_marginVertical="20dp"
+                android:background="@drawable/add_reminder_button"
                 android:padding="8dp"
-                android:background="@drawable/add_reminder_button"/>
+                android:text="@string/download"
+                android:textColor="#3E2723" />
 
         </LinearLayout>
     </ScrollView>

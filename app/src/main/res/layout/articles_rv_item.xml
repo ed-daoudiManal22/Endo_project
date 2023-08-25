@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:id="@+id/idIVArticles"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/image" />
 
         <TextView
             android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             android:id="@+id/idTVArticlesHeading"
             android:layout_below="@+id/idIVArticles"
             android:textColor="@color/green"
-            android:text="Info/Article Heading"
+            android:text="@string/title..."
             android:textStyle="bold"
             android:textSize="18sp"
             android:padding="3dp"
@@ -38,7 +39,7 @@
             android:layout_margin="3dp"
             android:maxLines="3"
             android:padding="3dp"
-            android:text="Sub heading"
+            android:text="@string/title..."
             android:textColor="@color/white" />
 
     </RelativeLayout>

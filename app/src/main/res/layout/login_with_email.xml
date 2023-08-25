@@ -16,7 +16,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo_main" />
+        android:src="@drawable/logo_main"
+        android:contentDescription="@string/image" />
 
     <!-- App Title -->
     <LinearLayout
@@ -31,7 +32,7 @@
             android:id="@+id/appTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login to "
+            android:text="@string/login_to"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="#333333" />
@@ -39,8 +40,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EndoAware"
+            android:text="@string/paincare"
             android:textSize="30sp"
+            android:layout_marginStart="4dp"
             android:textStyle="bold"
             android:textColor="@color/pink" />
 
@@ -52,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appTitleContainer"
-        android:text="LOGIN TO YOUR ACCOUNT"
+        android:text="@string/login_to_your_account"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -68,14 +70,15 @@
         android:layout_below="@id/appDescription"
         android:layout_marginTop="30dp"
         android:background="@drawable/edittext_bg"
-        android:hint="Enter Your E-mail..."
+        android:hint="@string/enter_your_e_mail"
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:textColor="@color/black"
         android:textColorHint="#D8D8D8"
         android:textSize="16sp"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <!-- Password Input -->
     <EditText
@@ -85,14 +88,15 @@
         android:layout_below="@id/emailinput"
         android:layout_marginTop="8dp"
         android:background="@drawable/edittext_bg"
-        android:hint="Enter Your Password..."
+        android:hint="@string/enter_your_password"
         android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:textColor="@color/black"
         android:textColorHint="#D8D8D8"
         android:textSize="16sp"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        tools:ignore="VisualLintTextFieldSize" />
 
 
 
@@ -104,9 +108,10 @@
         android:layout_below="@id/passwordinput"
         android:layout_marginTop="16dp"
         android:background="@drawable/third_btn"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:ignore="VisualLintButtonSize" />
 
     <!-- Forgot Password -->
     <TextView
@@ -115,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/loginbutton"
         android:layout_marginTop="30dp"
-        android:text="Forgot Password?"
+        android:text="@string/forgot_password"
         android:textColor="@color/pink"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -128,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/forgotpassword"
         android:layout_marginTop="20dp"
-        android:text="Don't have an account? Sign up"
+        android:text="@string/don_t_have_an_account_sign_up"
         android:textColor="@color/pink"
         android:textSize="16sp"
         android:textStyle="bold"

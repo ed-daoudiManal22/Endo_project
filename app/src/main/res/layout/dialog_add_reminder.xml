@@ -4,12 +4,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +29,9 @@
                 android:padding="12dp"
                 android:layout_marginTop="10dp"
                 android:textColorHint="#808080"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:inputType="text"
+                tools:ignore="VisualLintTextFieldSize" />
 
             <!--<EditText
                 android:id="@+id/descriptionEditText"
@@ -53,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="@string/Repeat"
                 />
@@ -77,16 +81,18 @@
                         android:layout_width="32dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
+                        android:text="@string/monday"
                         android:textAlignment="center"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:text="@string/monday" />
+                        tools:ignore="TextSizeCheck" />
 
                     <CheckBox
                         android:id="@+id/checkBoxMo"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="8dp" />
+                        android:layout_marginStart="8dp"
+                        tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -99,16 +105,18 @@
                         android:layout_width="32dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
+                        android:text="@string/tuesday"
                         android:textAlignment="center"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:text="@string/tuesday" />
+                        tools:ignore="TextSizeCheck" />
 
                     <CheckBox
                         android:id="@+id/checkBoxTu"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="8dp" />
+                        android:layout_marginStart="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -122,16 +130,18 @@
                         android:layout_width="32dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
+                        android:text="@string/wednesday"
                         android:textAlignment="center"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:text="@string/wednesday" />
+                        tools:ignore="TextSizeCheck" />
 
                     <CheckBox
                         android:id="@+id/checkBoxWe"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="8dp" />
+                        android:layout_marginStart="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -145,16 +155,18 @@
                         android:layout_width="32dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
+                        android:text="@string/thursday"
                         android:textAlignment="center"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:text="@string/thursday" />
+                        tools:ignore="TextSizeCheck" />
 
                     <CheckBox
                         android:id="@+id/checkBoxTh"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="8dp" />
+                        android:layout_marginStart="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -169,7 +181,7 @@
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
                         android:textAlignment="center"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:text="@string/friday" />
 
@@ -177,7 +189,8 @@
                         android:id="@+id/checkBoxFr"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="8dp" />
+                        android:layout_marginStart="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -192,7 +205,7 @@
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
                         android:textAlignment="center"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:text="@string/saturday" />
 
@@ -200,7 +213,8 @@
                         android:id="@+id/checkBoxSa"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="8dp" />
+                        android:layout_marginStart="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -214,16 +228,18 @@
                         android:layout_width="32dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
+                        android:text="@string/sunday"
                         android:textAlignment="center"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:text="@string/sunday" />
+                        tools:ignore="TextSizeCheck" />
 
                     <CheckBox
                         android:id="@+id/checkBoxSu"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="8dp" />
+                        android:layout_marginStart="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,42 +18,19 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
-            android:src="@drawable/ic_back"/>
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/image" />
 
         <TextView
             android:id="@+id/topicName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Selected Topic Name"
+            android:text="@string/topic_name"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <!--<ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/timer_icon"/>
-
-            <TextView
-                android:id="@+id/timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="00:59"
-                android:textColor="#FAA72F"/>-->
-        </LinearLayout>
-        
     </RelativeLayout>
 
     <TextView
@@ -68,7 +44,7 @@
         android:gravity="center"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:text="1/10"
+        android:text="@string/_1_10"
         android:textColor="@color/black"/>
 
     <TextView
@@ -81,7 +57,7 @@
         android:background="@drawable/round_back_light_yellow10"
         android:gravity="center"
         android:minHeight="100dp"
-        android:text="Question will appear here..."
+        android:text="@string/question_will_appear_here"
         android:padding="20dp"
         android:textColor="#CC000000"
         android:textSize="16sp"/>
@@ -103,7 +79,7 @@
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
-                android:text="Option 1"
+                android:text="@string/option"
                 android:background="@drawable/round_back_white_stroke2_10"
                 android:textAllCaps="false"
                 android:textColor="#1F6BB8"
@@ -117,7 +93,7 @@
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:text="Option 2"
+                android:text="@string/option"
                 android:background="@drawable/round_back_white_stroke2_10"
                 android:textAllCaps="false"
                 android:textColor="#1F6BB8"
@@ -131,7 +107,7 @@
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:text="Option 3"
+                android:text="@string/option"
                 android:background="@drawable/round_back_white_stroke2_10"
                 android:textAllCaps="false"
                 android:textColor="#1F6BB8"
@@ -145,7 +121,7 @@
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:text="Option 4"
+                android:text="@string/option"
                 android:background="@drawable/round_back_white_stroke2_10"
                 android:textAllCaps="false"
                 android:textColor="#1F6BB8"

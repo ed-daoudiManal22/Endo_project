@@ -17,14 +17,15 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:padding="5dp"
-        android:src="@drawable/ic_back" />
+        android:src="@drawable/ic_back"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/toolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Add a Reminder"
+        android:text="@string/add_reminder"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:textStyle="bold" />

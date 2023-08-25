@@ -16,14 +16,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo_main" />
+        android:src="@drawable/logo_main"
+        android:importantForAccessibility="no" />
 
     <!-- App Title -->
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login with Google"
+        android:text="@string/login_with_google"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#333333"
@@ -73,7 +74,7 @@
         android:id="@+id/orText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Or"
+        android:text="@string/or"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -89,7 +90,7 @@
         android:layout_below="@id/orText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="Login with E-mail"
+        android:text="@string/login_with_email"
         android:textColor="@color/pink"
         android:textSize="18sp"
         android:textStyle="bold" />

@@ -1,4 +1,4 @@
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -7,14 +7,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_height="400dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@drawable/background_design"/>
+            android:background="@drawable/background_design"
+            android:contentDescription="@string/background"
+            tools:ignore="ImageContrastCheck" />
 
         <!-- CardView to hold the profile image -->
         <androidx.cardview.widget.CardView
@@ -31,23 +31,26 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_centerInParent="true"
-                android:layout_margin="5dp"
                 android:layout_gravity="center"
+                android:layout_margin="5dp"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                tools:ignore="DuplicateClickableBoundsCheck">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_profile_fragment"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:clickable="true"
+                    android:contentDescription="@string/image"
                     android:focusable="true"
-                    android:src="@color/light_grey" />
+                    android:src="@color/light_grey"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <ImageView
                     android:id="@+id/btn_profile_image_change"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="2dp"
@@ -56,7 +59,7 @@
                     android:layout_marginBottom="2dp"
                     android:background="@drawable/camera_icon_background"
                     android:clickable="true"
-                    android:contentDescription="todo"
+                    android:contentDescription="@string/image"
                     android:focusable="true"
                     android:foregroundGravity="center"
                     android:padding="6dp"
@@ -84,23 +87,29 @@
                 android:id="@+id/nameTxt"
                 android:layout_width="380dp"
                 android:layout_height="58dp"
-                android:hint="Full Name"
-                android:padding="10dp"/>
+                android:hint="@string/full_name"
+                android:padding="10dp"
+                android:autofillHints=""
+                android:inputType="text"
+                tools:ignore="VisualLintBounds" />
 
             <EditText
                 android:id="@+id/emailTxt"
                 android:layout_width="380dp"
                 android:layout_height="58dp"
-                android:hint="Email"
-                android:layout_marginTop="60dp"/>
+                android:hint="@string/email"
+                android:layout_marginTop="60dp"
+                android:inputType="textEmailAddress"
+                tools:ignore="VisualLintBounds" />
 
             <EditText
                 android:id="@+id/birthdayTxt"
                 android:layout_width="380dp"
                 android:layout_height="58dp"
-                android:hint="Birthday Date"
+                android:hint="@string/birthday_date"
                 android:inputType="date"
-                android:layout_marginTop="120dp"/>
+                android:layout_marginTop="120dp"
+                tools:ignore="VisualLintBounds" />
 
             <!-- Save Profile Button -->
             <androidx.appcompat.widget.AppCompatButton
@@ -112,7 +121,8 @@
                 android:background="@drawable/next_btn_pink"
                 android:text="@string/save"
                 android:textStyle="bold"
-                android:textColor="@color/pink"/>
+                android:textColor="@color/pink"
+                tools:ignore="VisualLintButtonSize" />
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>

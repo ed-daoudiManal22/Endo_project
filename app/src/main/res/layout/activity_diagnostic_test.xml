@@ -17,8 +17,9 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
+            android:contentDescription="@string/go_back"
             android:src="@drawable/ic_back"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/questionContextTextView"
@@ -39,8 +40,9 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
+            android:contentDescription="@string/exit"
             android:src="@drawable/close"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,TouchTargetSizeCheck" />
 
     </RelativeLayout>
 
@@ -59,7 +61,7 @@
         android:id="@+id/questionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Question goes here"
+        android:text="@string/question_goes_here"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginTop="25dp"
@@ -95,7 +97,9 @@
             android:layout_height="58dp"
             android:layout_marginTop="25dp"
             android:hint="@string/weight_data"
-            android:inputType="text" />
+            android:inputType="text"
+            android:autofillHints=""
+            tools:ignore="TextFields" />
 
         <EditText
             android:id="@+id/inputHeight"
@@ -103,7 +107,9 @@
             android:layout_height="58dp"
             android:hint="@string/height_data"
             android:inputType="text"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            tools:ignore="TextFields"
+            android:autofillHints="" />
 
     </LinearLayout>
 
@@ -117,6 +123,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/pink"
-        android:background="@drawable/next_btn_pink" />
+        android:background="@drawable/next_btn_pink"
+        tools:ignore="VisualLintButtonSize" />
 
 </LinearLayout>

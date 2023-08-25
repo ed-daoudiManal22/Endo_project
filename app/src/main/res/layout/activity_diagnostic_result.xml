@@ -1,4 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -6,13 +8,10 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        android:elevation="4dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
         <RelativeLayout
@@ -23,11 +22,12 @@
                 android:id="@+id/leftIcon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/backward_icon"
-                android:contentDescription="Menu Icon"
-                android:padding="8dp"
                 android:layout_alignParentStart="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/go_back"
+                android:padding="8dp"
+                android:src="@drawable/backward_icon"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/toolbarTitle"

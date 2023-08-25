@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECF2FF">
@@ -31,7 +30,8 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_back"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -41,7 +41,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/arc_3" />
+                    app:srcCompat="@drawable/arc_3"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -65,7 +66,7 @@
                 android:textAlignment="center"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-20dp"
-                android:text="User Name"
+                android:text="@string/user_name"
                 android:textStyle="bold"
                 android:textColor="#333333"
                 android:textSize="26sp"/>
@@ -85,7 +86,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/notificationsArrow"
@@ -94,7 +96,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                    app:srcCompat="@drawable/arrow"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/notificationsIcon"
@@ -103,7 +106,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_1" />
+                    app:srcCompat="@drawable/btn_1"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/notificationsTitle"
@@ -176,7 +180,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/editProfileIconArrow"
@@ -185,7 +190,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                    app:srcCompat="@drawable/arrow"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/editProfileIconIcon"
@@ -194,7 +200,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_4" />
+                    app:srcCompat="@drawable/btn_4"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/editProfileIconTitle"
@@ -225,7 +232,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/downloadArrow"
@@ -234,7 +242,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                    app:srcCompat="@drawable/arrow"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/downloadIcon"
@@ -243,7 +252,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_6" />
+                    app:srcCompat="@drawable/btn_6"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/downloadTitle"
@@ -274,7 +284,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/notificationArrow"
@@ -283,7 +294,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                    app:srcCompat="@drawable/arrow"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/notificationIcon"
@@ -292,7 +304,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/bell" />
+                    app:srcCompat="@drawable/bell"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/notificationTitle"
@@ -370,7 +383,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/CAboutUsArrow"
@@ -379,7 +393,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                    app:srcCompat="@drawable/arrow"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/AboutUsIcon"
@@ -388,7 +403,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_2" />
+                    app:srcCompat="@drawable/btn_2"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/AboutUsTitle"
@@ -418,7 +434,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/logoutArrow"
@@ -427,7 +444,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                    app:srcCompat="@drawable/arrow"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/logoutIcon"
@@ -436,7 +454,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_8" />
+                    app:srcCompat="@drawable/btn_8"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/logoutTitle"
@@ -466,7 +485,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_height="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/deleteAccountArrow"
@@ -475,7 +495,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow" />
+                    app:srcCompat="@drawable/arrow"
+                    android:importantForAccessibility="no" />
 
                 <ImageView
                     android:id="@+id/ldeleteAccountIcon"
@@ -484,7 +505,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_7" />
+                    app:srcCompat="@drawable/btn_7"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/deleteAccountTitle"

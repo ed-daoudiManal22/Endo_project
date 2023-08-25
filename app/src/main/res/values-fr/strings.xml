@@ -125,7 +125,7 @@
     <string name="delete_data_radio_label">Supprimer les Données</string>
     <string name="keep_data_radio_label">Conserver les Données</string>
 
-    <string name="welcome_label">Commencez avec EndoAware</string>
+    <string name="welcome_label">Commencez avec PainCare</string>
 
     <string name="Endo_Symptoms">Quels sont les symptômes de l\'endométriose ?</string>
     <string name="Endometriosis">Qu\'est-ce que l\'endométriose ?</string>
@@ -547,6 +547,67 @@
     <string name="cycle_qst10_opt4">Cycles menstruels irréguliers.</string>
     <string name="cycle_qst10_answer">Saignements menstruels excessifs.</string>
     <string name="cycle_qst10_justif">La ménorragie désigne des saignements menstruels anormalement abondants ou prolongés qui peuvent avoir un impact sur la qualité de vie d\'une personne et peuvent être causés par des déséquilibres hormonaux ou certaines affections médicales.</string>
+
+    <string name="background">background</string>
+    <string name="go_back">go back</string>
+    <string name="logo">Logo</string>
+    <string name="paincare">PainCare</string>
+    <string name="image">Image</string>
+    <string name="description">Description</string>
+    <string name="content">Content</string>
+    <string name="read_full_articles">Lire l\'article complet</string>
+    <string name="exit">exit</string>
+    <string name="question_goes_here">Question goes here</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="birthday_date">Birthday Date</string>
+    <string name="notification_icon">Notification Icon</string>
+    <string name="download">Download</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="topic_name">Selected Topic Name</string>
+    <string name="option">Option</string>
+    <string name="_1_10">1/10</string>
+    <string name="question_will_appear_here">Question will appear here...</string>
+    <string name="correct_answers">Correct Answers : 0</string>
+    <string name="wrong_answers">Wrong Answers : 0</string>
+    <string name="start_new_quiz">Start New Quiz</string>
+    <string name="login_to">Login to </string>
+    <string name="login_with_email">Login with Email</string>
+    <string name="login_to_your_account">LOGIN TO YOUR ACCOUNT</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="listofthings">ListOfThings</string>
+    <string name="verify_your_email">Verify Your Email</string>
+    <string name="please_check_your_email_for_a_verification_link_to_verify_your_account">Please check your email for a verification link to verify your account.</string>
+    <string name="resend_verification_email">Resend verification email</string>
+    <string name="return_to_login_page">Return to Login page</string>
+    <string name="endometriosis_awareness">Endometriosis awareness</string>
+    <string name="no_events">No events</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="enter_your_email">Enter your Email...</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="lt_back_to_login"><![CDATA[<-- Back to Login]]></string>
+    <string name="hi_user_name">Hi User Name</string>
+    <string name="level">Level</string>
+    <string name="quiz">Quiz</string>
+    <string name="enter_your_password">Enter Your Password...</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign up</string>
+    <string name="enter_your_e_mail">Enter Your E-mail...</string>
+    <string name="or">Or</string>
+    <string name="notification_settings">Notification settings</string>
+    <string name="take_diagnostic_test_once_a_month">Take diagnostic test (once a month)</string>
+    <string name="community_notifications">Community notifications</string>
+    <string name="_12_oct">12 OCT</string>
+    <string name="enter_your_name">Enter your Name...</string>
+    <string name="confirm_password">Confirm Password...</string>
+    <string name="already_have_an_account_log_in">Already have an account? Log in</string>
+    <string name="sign_up_for">Sign up for</string>
+    <string name="update_blog">Update Blog</string>
+    <string name="update">Update</string>
+    <string name="add_your_birthday">Add your birthday ?</string>
+    <string name="user_name">User Name</string>
 
 
 </resources>

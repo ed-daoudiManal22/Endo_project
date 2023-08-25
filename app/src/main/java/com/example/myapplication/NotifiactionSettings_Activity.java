@@ -39,14 +39,12 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
 
         CommunityNotif = findViewById(R.id.communityNotifiSwitch);
         TestNotif = findViewById(R.id.DiagTestSwitch);
-        test = findViewById(R.id.oneMinut);
 
         // Load the saved switch states from shared preferences and apply them
         SharedPreferences sharedPreferences = getSharedPreferences("SwitchStates", MODE_PRIVATE);
 
         CommunityNotif.setChecked(sharedPreferences.getBoolean("CommunityNotif", false));
         TestNotif.setChecked(sharedPreferences.getBoolean("TestNotif", false));
-        test.setChecked(sharedPreferences.getBoolean("Test", false));
 
         // Assuming you have a reference to your Firestore collection "Blogs"
         CollectionReference blogsCollection = FirebaseFirestore.getInstance().collection("Blogs");
@@ -99,20 +97,6 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
             // Save the switch state to shared preferences
             sharedPreferences.edit().putBoolean("TestNotif", TestNotif.isChecked()).apply();
 
-        });
-        test.setOnClickListener(e->{
-            if (test.isChecked()) {
-                set_test_notification_alarm(60 * 1000, "Test Reminder", "Test desc", "test min");
-                // Show a toast message
-                Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications ON", Toast.LENGTH_SHORT).show();
-            } else {
-                // Test notifications are turned off
-                cancel_notification_alarm("test min");
-                // Show a toast message
-                Toast.makeText(NotifiactionSettings_Activity.this, "Test notifications OFF", Toast.LENGTH_SHORT).show();
-            }
-            // Save the switch state to shared preferences
-            sharedPreferences.edit().putBoolean("Test", test.isChecked()).apply();
         });
         leftIcon.setOnClickListener(v -> {
             // Handle the click event, navigate to HelloActivity

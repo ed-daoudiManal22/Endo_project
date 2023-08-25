@@ -27,7 +27,7 @@
         android:gravity="center"
         android:background="@color/light_green"
         android:layout_alignParentBottom="true"
-        tools:targetApi="lollipop">
+        android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/home"
@@ -45,7 +45,8 @@
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/home"/>
+                android:src="@drawable/home"
+                android:contentDescription="@string/image" />
             <TextView
                 android:id="@+id/home_txt"
                 android:visibility="gone"
@@ -74,7 +75,8 @@
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/tracking"/>
+                android:src="@drawable/tracking"
+                android:contentDescription="@string/image" />
             <TextView
                 android:id="@+id/track_txt"
                 android:visibility="gone"
@@ -103,7 +105,8 @@
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/community"/>
+                android:src="@drawable/community"
+                android:contentDescription="@string/image" />
             <TextView
                 android:id="@+id/community_txt"
                 android:visibility="gone"
@@ -132,7 +135,8 @@
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/calendr"/>
+                android:src="@drawable/calendr"
+                android:contentDescription="@string/image" />
             <TextView
                 android:id="@+id/calendar_txt"
                 android:visibility="gone"

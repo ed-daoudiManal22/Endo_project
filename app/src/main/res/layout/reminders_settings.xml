@@ -23,7 +23,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="8dp"
-            android:src="@drawable/ic_back_black" />
+            android:src="@drawable/ic_back_black"
+            android:importantForAccessibility="no" />
 
         <TextView
             android:id="@+id/Title"
@@ -79,7 +80,7 @@
             android:layout_margin="20dp"
             android:background="@drawable/add_reminder_button"
             android:src="@drawable/add"
-            android:contentDescription="Add Reminder" />
+            android:contentDescription="@string/add_reminder" />
     </FrameLayout>
 
 </RelativeLayout>

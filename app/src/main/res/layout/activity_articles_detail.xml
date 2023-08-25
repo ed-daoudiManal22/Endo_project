@@ -24,7 +24,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -32,12 +32,13 @@
                 android:scaleType="centerCrop"
                 android:id="@+id/idIVArticles"
                 android:layout_margin="3dp"
-                android:padding="3dp"/>
+                android:padding="3dp"
+                android:contentDescription="@string/image" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title"
+                android:text="@string/title..."
                 android:id="@+id/idTVTitle"
                 android:layout_below="@+id/idIVArticles"
                 android:textColor="@color/green"
@@ -49,7 +50,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sub Description"
+                android:text="@string/description"
                 android:layout_below="@+id/idTVTitle"
                 android:layout_margin="4dp"
                 android:padding="4dp"
@@ -62,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/idTVSubDesc"
                 android:id="@+id/idTVContent"
-                android:text="Content"
+                android:text="@string/content"
                 android:layout_margin="4dp"
                 android:padding="4dp"
                 android:textColor="@color/white"/>
@@ -73,11 +74,10 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-
         android:id="@+id/idBtnRead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Read Full Articles"
+        android:text="@string/read_full_articles"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -87,6 +87,5 @@
         android:layout_marginEnd="20dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp" />
-
 
 </RelativeLayout>

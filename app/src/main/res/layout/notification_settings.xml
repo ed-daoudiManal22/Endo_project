@@ -9,8 +9,6 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -27,7 +25,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/backward_icon"
-                android:contentDescription="Menu Icon"
+                android:contentDescription="@string/go_back"
                 android:padding="8dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
@@ -36,7 +34,7 @@
                 android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notification settings"
+                android:text="@string/notification_settings"
                 android:textColor="#393E46"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -59,7 +57,7 @@
             android:id="@+id/DiagTestSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Take diagnostic test (once a month)"
+            android:text="@string/take_diagnostic_test_once_a_month"
             android:layout_marginVertical="10dp"/>
 
         <!-- Switch for "Community notifications" -->
@@ -67,15 +65,7 @@
             android:id="@+id/communityNotifiSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Community notifications" />
-
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/oneMinut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test notifications"
-            android:layout_marginVertical="10dp"/>
+            android:text="@string/community_notifications" />
 
     </LinearLayout>
 </RelativeLayout>

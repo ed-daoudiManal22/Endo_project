@@ -20,7 +20,8 @@
         android:scaleType="centerInside"
         android:src="@drawable/baseline_mail_outline_24"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        android:contentDescription="@string/image" />
 
     <!-- Page Title -->
     <TextView
@@ -31,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
         android:gravity="center_horizontal"
-        android:text="Verify Your Email"
+        android:text="@string/verify_your_email"
         android:textColor="#333333"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -47,9 +48,9 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textColor="@color/white"
-        android:text="Please check your email for a verification link to verify your account." />
+        android:text="@string/please_check_your_email_for_a_verification_link_to_verify_your_account" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/resendEmailButton"
@@ -65,7 +66,8 @@
         android:drawablePadding="0dp"
         android:padding="12dp"
         android:paddingStart="12dp"
-        android:text="Resend verification email "
+        android:paddingEnd="12dp"
+        android:text="@string/resend_verification_email"
         android:textColor="#FF5B74"
         android:textSize="16sp"
         android:textStyle="bold"  />
@@ -84,7 +86,8 @@
         android:drawablePadding="0dp"
         android:padding="12dp"
         android:paddingStart="12dp"
-        android:text="Return to Login page "
+        android:paddingEnd="12dp"
+        android:text="@string/return_to_login_page"
         android:textColor="#FF5B74"
         android:textSize="16sp"
         android:textStyle="bold" />

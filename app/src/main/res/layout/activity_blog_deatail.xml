@@ -14,7 +14,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        app:srcCompat="@drawable/ic_back_black" />
+        app:srcCompat="@drawable/ic_back_black"
+        android:contentDescription="@string/go_back" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,7 +30,8 @@
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/description" />
 
     </androidx.cardview.widget.CardView>
 
@@ -44,7 +46,8 @@
         android:layout_marginBottom="-25dp"
         android:clickable="true"
         app:srcCompat="@drawable/ic_share_icon"
-        android:contentDescription="@string/share_btn"/>
+        android:contentDescription="@string/share_btn"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/textView4"
@@ -55,7 +58,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:text="by username"
+        android:text="@string/title..."
         android:textSize="15sp" />
 
     <TextView
@@ -67,7 +70,7 @@
         android:textColor="@color/black"
         android:textSize="23sp"
         android:layout_below="@+id/textView4"
-        android:text="This is the sample title" />
+        android:text="@string/description" />
 
     <TextView
         android:id="@+id/textView6"
@@ -76,7 +79,7 @@
         android:layout_below="@+id/textView5"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:text="Description goes here"
+        android:text="@string/description"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -109,7 +112,9 @@
             android:hint="@string/Write_comment"
             android:inputType="text"
             android:maxLines="4"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:autofillHints=""
+            tools:ignore="VisualLintTextFieldSize" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/post_detail_add_comment_btn"
