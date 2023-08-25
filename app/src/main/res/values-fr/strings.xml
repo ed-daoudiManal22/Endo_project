@@ -231,10 +231,10 @@
     <string name="Constipation">La constipation</string>
     <string name="Bloating">Des ballonnements abdominaux</string>
     <string name="Abuse">Avez-vous déjà été victime d\'abus physique ou sexuel ?</string>
-    <string name="one_two">0 - 2</string>
-    <string name="three_four">3 - 5</string>
-    <string name="five_eight">6 - 8</string>
-    <string name="nine_ten">9 - 10</string>
+    <string name="one_two">0 – 2</string>
+    <string name="three_four">3 – 5</string>
+    <string name="five_eight">6 – 8</string>
+    <string name="nine_ten">9 – 10</string>
 
     <!-- Quiz questions -->
 
@@ -343,10 +343,10 @@
     <string name="fc_qst4_justif">La contraception d\'urgence désigne les méthodes utilisées après un rapport sexuel non protégé ou en cas d\'échec contraceptif pour éviter une grossesse. Cela inclut des méthodes comme la prise de pilules du lendemain et l\'insertion d\'un DIU en cuivre dans un délai spécifique.</string>
     <string name="fc_qst5">Quel est le taux d\'échec en utilisation typique pour la plupart des contraceptifs ?</string>
     <string name="fc_qst5_opt1">Moins de 1% .</string>
-    <string name="fc_qst5_opt2">5-10% .</string>
-    <string name="fc_qst5_opt3">15-20% .</string>
+    <string name="fc_qst5_opt2">5–10% .</string>
+    <string name="fc_qst5_opt3">15–20% .</string>
     <string name="fc_qst5_opt4">Plus de 20% .</string>
-    <string name="fc_qst5_answer">5-10% .</string>
+    <string name="fc_qst5_answer">5–10% .</string>
     <string name="fc_qst5_justif">Le taux d\'échec en utilisation typique pour la plupart des contraceptifs se situe dans la fourchette de 5 à 10%. Cela inclut les variations dues à une utilisation inconstante, une application incorrecte ou des facteurs externes qui peuvent réduire leur efficacité.</string>
     <string name="fc_qst6">Qu\'est-ce que la planification familiale naturelle ?</string>
     <string name="fc_qst6_opt1">L\'utilisation de méthodes barrières de contraception.</string>
@@ -567,7 +567,7 @@
     <string name="topic_name">Selected Topic Name</string>
     <string name="option">Option</string>
     <string name="_1_10">1/10</string>
-    <string name="question_will_appear_here">Question will appear here...</string>
+    <string name="question_will_appear_here">Question will appear here…</string>
     <string name="correct_answers">Correct Answers : 0</string>
     <string name="wrong_answers">Wrong Answers : 0</string>
     <string name="start_new_quiz">Start New Quiz</string>
@@ -577,37 +577,36 @@
     <string name="sign_up">Sign Up</string>
     <string name="login_with_google">Login with Google</string>
     <string name="listofthings">ListOfThings</string>
-    <string name="verify_your_email">Verify Your Email</string>
-    <string name="please_check_your_email_for_a_verification_link_to_verify_your_account">Please check your email for a verification link to verify your account.</string>
-    <string name="resend_verification_email">Resend verification email</string>
-    <string name="return_to_login_page">Return to Login page</string>
+    <string name="verify_your_email">Vérifiez votre adresse e-mail</string>
+    <string name="please_check_your_email_for_a_verification_link_to_verify_your_account">Veuillez vérifier votre adresse e-mail pour trouver un lien de vérification afin de confirmer votre compte.</string>
+    <string name="resend_verification_email">Renvoyer l\'e-mail de vérification</string>
+    <string name="return_to_login_page">Retourner à la page de connexion</string>
     <string name="endometriosis_awareness">Endometriosis awareness</string>
-    <string name="no_events">No events</string>
+    <string name="no_events">Aucun évenement</string>
     <string name="forgot_your_password">Forgot your password?</string>
-    <string name="enter_your_email">Enter your Email...</string>
+    <string name="enter_your_email">Enter your Email…</string>
     <string name="reset_password">Reset Password</string>
-    <string name="lt_back_to_login"><![CDATA[<-- Back to Login]]></string>
+    <string name="lt_back_to_login"><![CDATA[<— Back to Login]]></string>
     <string name="hi_user_name">Hi User Name</string>
     <string name="level">Level</string>
     <string name="quiz">Quiz</string>
-    <string name="enter_your_password">Enter Your Password...</string>
+    <string name="enter_your_password">Enter Your Password…</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign up</string>
-    <string name="enter_your_e_mail">Enter Your E-mail...</string>
+    <string name="enter_your_e_mail">Enter Your E-mail…</string>
     <string name="or">Or</string>
     <string name="notification_settings">Notification settings</string>
     <string name="take_diagnostic_test_once_a_month">Take diagnostic test (once a month)</string>
     <string name="community_notifications">Community notifications</string>
     <string name="_12_oct">12 OCT</string>
-    <string name="enter_your_name">Enter your Name...</string>
-    <string name="confirm_password">Confirm Password...</string>
+    <string name="enter_your_name">Enter your Name…</string>
+    <string name="confirm_password">Confirm Password…</string>
     <string name="already_have_an_account_log_in">Already have an account? Log in</string>
     <string name="sign_up_for">Sign up for</string>
     <string name="update_blog">Update Blog</string>
     <string name="update">Update</string>
     <string name="add_your_birthday">Add your birthday ?</string>
     <string name="user_name">User Name</string>
-
 
 </resources>
