@@ -111,19 +111,24 @@
                 android:layout_marginTop="120dp"
                 tools:ignore="VisualLintBounds" />
 
-            <!-- Save Profile Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="250dp"
-                android:background="@drawable/next_btn_pink"
-                android:text="@string/save"
-                android:textStyle="bold"
-                android:textColor="@color/pink"
-                tools:ignore="VisualLintButtonSize" />
-
         </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Save Profile Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/next_btn_pink"
+            android:text="@string/save"
+            android:textStyle="bold"
+            android:textColor="@color/pink"
+            tools:ignore="VisualLintButtonSize" />
     </LinearLayout>
 </LinearLayout>

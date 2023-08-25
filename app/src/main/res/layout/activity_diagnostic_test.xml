@@ -54,6 +54,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:progress="0"
         android:progressDrawable="@drawable/custom_progress_bar" />
 
@@ -65,6 +66,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="16dp" />
 
     <RadioGroup
@@ -113,17 +115,23 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/next"
-        android:layout_marginTop="45dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginHorizontal="16dp"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/pink"
         android:background="@drawable/next_btn_pink"
-        tools:ignore="VisualLintButtonSize" />
+        android:gravity="center"
+        android:layout_gravity="bottom" />
 
 </LinearLayout>
