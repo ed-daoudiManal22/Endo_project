@@ -47,7 +47,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-15dp"
         android:text="@string/paincare"
-        android:textColor="#C51162"
+        android:textColor="@color/pink"
         android:textSize="20sp"
         android:textStyle="bold" />
 
