@@ -97,8 +97,7 @@ public class CalendarFragment extends Fragment {
                 if (document.exists()) {
                     String eventTitle = document.getString("title");
                     String eventNote = document.getString("note");
-                    String eventDetails = "Title: " + eventTitle + "\n\nNote: " + eventNote;
-                    eventDetailsTextView.setText(eventDetails);
+                    String eventDetails = getString(R.string.title_prefix) + eventTitle + "\n\n" + getString(R.string.note_prefix) + eventNote;                    eventDetailsTextView.setText(eventDetails);
                     // Show the event details TextView
                     eventDetailsCardView.setVisibility(View.VISIBLE);
                 } else {

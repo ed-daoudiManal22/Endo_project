@@ -10,6 +10,8 @@
 
     <string name="update_event_title_hint">Mettre à jour le titre de l\'événement</string>
     <string name="update_event_note_hint">Mettre à jour la note de l\'événement</string>
+    <string name="title_prefix">Titre : </string>
+    <string name="note_prefix">Note: </string>
     <string name="update_button_label">Mettre à jour</string>
 
     <string name="delete_confirmation_title">Confirmer la suppression</string>

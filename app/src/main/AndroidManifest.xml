@@ -92,12 +92,8 @@
         <activity android:name=".DiagTest_Activity" />
 
         <activity android:name=".BasicUsersInfos.UserAge_Activity" />
-        <activity android:name=".BasicUsersInfos.LastPeriod_Activity" />
-        <activity android:name=".BasicUsersInfos.Choices_Activity" />
 
         <activity android:name=".LineChart_Activity" />
-
-        <activity android:name=".EventCalendar_Activity" />
 
         <activity android:name=".ReminderActivity" />
         <activity android:name=".EditProfile_Activity"/>

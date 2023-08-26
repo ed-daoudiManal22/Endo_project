@@ -7,8 +7,7 @@
 
 <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EventCalendar_Activity">
+    android:layout_height="match_parent">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,7 +36,7 @@
                 android:id="@+id/calendarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/calendar"
+                android:text="@string/Calendar"
                 android:textColor="#393E46"
                 android:textSize="18sp"
                 android:textStyle="bold"
