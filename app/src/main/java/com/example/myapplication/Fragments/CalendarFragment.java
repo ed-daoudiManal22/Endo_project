@@ -31,8 +31,10 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -81,6 +83,23 @@ public class CalendarFragment extends Fragment {
         Locale locale = getResources().getConfiguration().locale;
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL yyyy", locale);
         calendarView.setTitleFormatter(day -> dateFormat.format(day.getDate()));
+
+        // Set localized day names
+        SimpleDateFormat dayNameFormat = new SimpleDateFormat("EEE", locale);
+        String[] dayNames = new String[7];
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        for (int i = 0; i < 7; i++) {
+            dayNames[i] = dayNameFormat.format(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+        }
+        calendarView.setWeekDayLabels(dayNames);
+
+        // Set localized day numbers
+        calendarView.setDayFormatter((day) -> {
+            SimpleDateFormat dayNumberFormat = new SimpleDateFormat("d", locale);
+            return dayNumberFormat.format(day.getDate());
+        });
 
         fetchAndUpdateDecorators(); // Fetch and apply decorators
 
