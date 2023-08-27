@@ -3,6 +3,7 @@ package com.example.myapplication.Fragments;
 import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,11 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 public class CalendarFragment extends Fragment {
     private MaterialCalendarView calendarView;
@@ -73,6 +76,12 @@ public class CalendarFragment extends Fragment {
         if (currentUser != null) {
             eventsCollection = db.collection("Users").document(currentUser.getUid()).collection("Events");
         }
+
+        // Initialize the calendar with localized month names
+        Locale locale = getResources().getConfiguration().locale;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL yyyy", locale);
+        calendarView.setTitleFormatter(day -> dateFormat.format(day.getDate()));
+
         fetchAndUpdateDecorators(); // Fetch and apply decorators
 
         return view;

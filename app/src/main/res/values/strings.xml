@@ -10,8 +10,8 @@
 
     <string name="update_event_title_hint">Update Event Title</string>
     <string name="update_event_note_hint">Update Event Note</string>
-    <string name="title_prefix">Title: </string>
-    <string name="note_prefix">Note: </string>
+    <string name="title_prefix">Title : </string>
+    <string name="note_prefix">Note : </string>
     <string name="update_button_label">Update</string>
 
     <string name="delete_confirmation_title">Confirm Delete</string>
