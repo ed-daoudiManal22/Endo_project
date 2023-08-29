@@ -154,6 +154,13 @@
     <string name="menu_slideshow">Perfil</string>
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
 
+    <string name="pain_level_non">Aucune douleur</string>
+    <string name="pain_level_mild">Légère</string>
+    <string name="pain_level_moderate">Modérée</string>
+    <string name="pain_level_severe">Sévère</string>
+    <string name="pain_level_very_severe">Très sévère</string>
+    <string name="pain_level_worst">Pire douleur</string>
+
     <!-- Pain Location Options -->
     <string name="abdomen">Abdomen</string>
     <string name="back">Dos</string>

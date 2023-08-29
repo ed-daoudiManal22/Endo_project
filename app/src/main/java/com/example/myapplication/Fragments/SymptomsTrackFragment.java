@@ -1,13 +1,16 @@
 package com.example.myapplication.Fragments;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,9 +124,18 @@ public class SymptomsTrackFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         currentUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        painScoreSlider =  rootView.findViewById(R.id.painscore);
-        Button submitButton = rootView.findViewById(R.id.submitButton);
+        painScoreSlider = rootView.findViewById(R.id.painscore);
+        painScoreSlider.addOnChangeListener((slider, value, fromUser) -> {
+            Pair<String, Integer> painLevelInfo = getPainLevelText(value);
+            TextView painLevelTextView = rootView.findViewById(R.id.painLevelTextView);
+            painLevelTextView.setText(painLevelInfo.first);
 
+            // Set text color based on the color resource ID
+            int color = ContextCompat.getColor(requireContext(), painLevelInfo.second);
+            painLevelTextView.setTextColor(color);
+        });
+
+        Button submitButton = rootView.findViewById(R.id.submitButton);
         submitButton.setOnClickListener(v -> submitSymptoms());
         leftIcon.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), User_profile.class);
@@ -216,5 +228,22 @@ public class SymptomsTrackFragment extends Fragment {
             return "Resource name not found";
         }
     }
+    private Pair<String, Integer> getPainLevelText(float painScore) {
+        Resources resources = getResources();
+        int colorResourceId;
 
+        if (painScore == 0) {
+            return new Pair<>(resources.getString(R.string.pain_level_non), R.color.blue);
+        } else if (painScore >= 1 && painScore <= 3) {
+            return new Pair<>(resources.getString(R.string.pain_level_mild), R.color.green);
+        } else if (painScore >= 4 && painScore <= 5) {
+            return new Pair<>(resources.getString(R.string.pain_level_moderate), R.color.yellow);
+        } else if (painScore >= 6 && painScore <= 7) {
+            return new Pair<>(resources.getString(R.string.pain_level_severe), R.color.orange1);
+        } else if (painScore >= 8 && painScore <= 9) {
+            return new Pair<>(resources.getString(R.string.pain_level_very_severe), R.color.calm_red);
+        } else {
+            return new Pair<>(resources.getString(R.string.pain_level_worst), R.color.red);
+        }
+    }
 }

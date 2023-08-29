@@ -76,15 +76,32 @@
                 android:paddingHorizontal="16dp"
                 android:paddingTop="16dp">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/painLevelLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pain_level"
-                    android:textColor="#333333"
-                    android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="12dp" />
+                    android:orientation="horizontal"
+                    android:layout_below="@id/painscore"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pain_level"
+                        android:textColor="#333333"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/painLevelTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/green"
+                        android:textSize="18sp"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
