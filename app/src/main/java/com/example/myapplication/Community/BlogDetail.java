@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -27,8 +31,8 @@ import java.util.List;
 public class BlogDetail extends AppCompatActivity {
     ActivityBlogDeatailBinding binding;
     private CommentsAdapter commentsAdapter;
-    String id,ownerId;
-    String  title, desc,count;
+    String id, ownerId;
+    String title, desc, count;
     int n_count;
 
     @Override
@@ -44,6 +48,8 @@ public class BlogDetail extends AppCompatActivity {
                 addCommentToFirestore(commentText);
             }
         });
+
+        binding.imageView3.setOnClickListener(v -> showImagePreviewDialog());
     }
 
     private void showdata() {
@@ -58,15 +64,15 @@ public class BlogDetail extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         FirebaseFirestore.getInstance().collection("Blogs").document(id).addSnapshotListener((value, error) -> {
             Glide.with(getApplicationContext()).load(value.getString("img")).into(binding.imageView3);
-            binding.textView4.setText(Html.fromHtml("<font color='B7B7B7'>By </font> <font color='#000000'>"+value.getString("author")));
+            binding.textView4.setText(Html.fromHtml("<font color='B7B7B7'>By </font> <font color='#000000'>" + value.getString("author")));
             binding.textView5.setText(value.getString("tittle"));
             binding.textView6.setText(value.getString("desc"));
-            title= value.getString("tittle");
-            desc= value.getString("desc");
-            count= value.getString("share_count");
+            title = value.getString("tittle");
+            desc = value.getString("desc");
+            count = value.getString("share_count");
             ownerId = value.getString("ownerId");
-            int i_count=Integer.parseInt(count);
-            n_count=i_count+1;
+            int i_count = Integer.parseInt(count);
+            n_count = i_count + 1;
         });
         binding.floatingActionButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SEND);
@@ -74,9 +80,9 @@ public class BlogDetail extends AppCompatActivity {
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_SUBJECT, title);
             intent.putExtra(Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(intent,"Share Using"));
+            startActivity(Intent.createChooser(intent, "Share Using"));
 
-            HashMap<String,Object> map = new HashMap<>();
+            HashMap<String, Object> map = new HashMap<>();
             map.put("share_count", String.valueOf(n_count));
             FirebaseFirestore.getInstance().collection("Blogs").document(id).update(map);
         });
@@ -110,6 +116,7 @@ public class BlogDetail extends AppCompatActivity {
         commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentsRecyclerView.setAdapter(commentsAdapter);
     }
+
     private void addCommentToFirestore(String commentText) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -131,7 +138,7 @@ public class BlogDetail extends AppCompatActivity {
 
                         // Create a new comment document with the user's comment and user information
                         String commentId = commentsCollection.document().getId(); // Generate a new comment ID
-                        commentsCollection.add(new Comment(commentId,commentText, userId, userName, userImage, Timestamp.now()))
+                        commentsCollection.add(new Comment(commentId, commentText, userId, userName, userImage, Timestamp.now()))
                                 .addOnSuccessListener(documentReference -> {
                                     // Comment added successfully, you can show a toast or perform other actions
                                     Toast.makeText(BlogDetail.this, "Comment added!", Toast.LENGTH_SHORT).show();
@@ -145,6 +152,7 @@ public class BlogDetail extends AppCompatActivity {
                     }
                 });
     }
+
     public void deleteCommentInFirestore(String commentId) {
         // Get a reference to the "Comments" subcollection of the current blog post
         CollectionReference commentsCollection = FirebaseFirestore.getInstance()
@@ -165,4 +173,38 @@ public class BlogDetail extends AppCompatActivity {
                 });
     }
 
+    private void showImagePreviewDialog() {
+        FirebaseFirestore.getInstance().collection("Blogs").document(id)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    String imageUrl = documentSnapshot.getString("img");
+
+                    Dialog imagePreviewDialog = new Dialog(this);
+                    imagePreviewDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    imagePreviewDialog.setContentView(R.layout.dialog_image_preview);
+
+                    ImageView previewImageView = imagePreviewDialog.findViewById(R.id.previewImageView);
+
+                    // Load the image using the URL fetched from the database
+                    Glide.with(this).load(imageUrl).into(previewImageView);
+
+                    // Make the dialog window full screen
+                    Window window = imagePreviewDialog.getWindow();
+                    if (window != null) {
+                        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                        window.setBackgroundDrawableResource(android.R.color.transparent);
+                    }
+
+                    // Close the dialog when the user clicks anywhere outside the image
+                    imagePreviewDialog.setCancelable(true);
+                    imagePreviewDialog.setCanceledOnTouchOutside(true);
+
+                    // Show the dialog
+                    imagePreviewDialog.show();
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failure, show a toast or perform other error handling
+                    Toast.makeText(BlogDetail.this, "Failed to fetch image data.", Toast.LENGTH_SHORT).show();
+                });
+    }
 }
