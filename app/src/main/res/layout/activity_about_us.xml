@@ -71,8 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/References"
-            android:textColor="#F06292"
-            android:textStyle="bold" />
+            android:textColor="@color/pink" />
 
         <TextView
             android:id="@+id/link1"

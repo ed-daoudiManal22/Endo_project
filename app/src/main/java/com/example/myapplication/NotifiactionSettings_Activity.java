@@ -22,7 +22,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 public class NotifiactionSettings_Activity extends AppCompatActivity {
     PendingIntent pending_intent;
     AlarmManager alarm_manager;
-    private SwitchMaterial CommunityNotif, TestNotif,test ;
+    private SwitchMaterial CommunityNotif, TestNotif ;
     private boolean isCommunityNotificationOn = false;
     private ListenerRegistration blogsListenerRegistration;
 
@@ -100,7 +100,7 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         });
         leftIcon.setOnClickListener(v -> {
             // Handle the click event, navigate to HelloActivity
-            Intent intent = new Intent(NotifiactionSettings_Activity.this, HomeActivity.class);
+            Intent intent = new Intent(NotifiactionSettings_Activity.this, User_profile.class);
             startActivity(intent);
             finish(); // Optional: Close the current activity after navigating
         });
@@ -149,7 +149,6 @@ public class NotifiactionSettings_Activity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("CommunityNotif", CommunityNotif.isChecked());
         editor.putBoolean("TestNotif", TestNotif.isChecked());
-        editor.putBoolean("Test", test.isChecked());
         editor.apply();
 
         // Unregister the snapshot listener to avoid memory leaks

@@ -41,7 +41,7 @@
             android:id="@+id/notificationIcon"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/alarm"
+            android:src="@drawable/alarm_icon"
             android:contentDescription="@string/notification_icon"
             android:padding="8dp"
             android:layout_alignParentEnd="true"

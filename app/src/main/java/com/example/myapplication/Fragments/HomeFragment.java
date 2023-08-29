@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
 
         getCurrentUserName();
         // Set the risk level in the scoreText TextView
-        setRiskLevelForCurrentUser(scoreText);
+        setRiskLevelForCurrentUser(scoreText, requireContext());
 
         // Set click listeners for the cards
         card1.setOnClickListener(v -> startActivity(new Intent(requireContext(), Diag_start.class)));
@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void setRiskLevelForCurrentUser(TextView scoreText) {
+    private void setRiskLevelForCurrentUser(TextView scoreText, Context context) {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -123,12 +123,12 @@ public class HomeFragment extends Fragment {
                         if (documentSnapshot.exists()) {
                             String riskLevel = documentSnapshot.getString("riskLevel");
                             if (riskLevel != null) {
-                                scoreText.setText(getResourceString(requireContext(),riskLevel));
+                                scoreText.setText(getResourceString(context,riskLevel));
                             } else {
-                                scoreText.setText(getResourceString(requireContext(),"No_Risk"));
+                                scoreText.setText(getResourceString(context,"No_Risk"));
                             }
                         } else {
-                            scoreText.setText(getResourceString(requireContext(),"No_Risk"));
+                            scoreText.setText(getResourceString(context,"No_Risk"));
                         }
                     })
                     .addOnFailureListener(e -> {

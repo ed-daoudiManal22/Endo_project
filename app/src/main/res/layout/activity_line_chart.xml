@@ -260,7 +260,7 @@
                 android:background="@drawable/add_reminder_button"
                 android:padding="8dp"
                 android:text="@string/download"
-                android:textColor="#3E2723" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </ScrollView>

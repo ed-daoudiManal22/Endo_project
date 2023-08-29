@@ -75,9 +75,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
             showAddReminderDialog();
         });
         leftIcon.setOnClickListener(v -> {
-            // Handle the click event and redirect to UserPage_Activity
-            Intent intent = new Intent(ReminderActivity.this, HomeActivity.class);
-            startActivity(intent);
+            super.onBackPressed(); // This calls the default behavior (navigating back)
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notifications";

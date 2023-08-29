@@ -93,24 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            // Check if the user's email is verified
-            if (currentUser.isEmailVerified()) {
-                // If email is verified, proceed to the main activity
-                Intent intent = new Intent(SignUpActivity.this, Email_verification.class);
-                startActivity(intent);
-                finish();
-            } else {
-                // If email is not verified, show a message and sign out the user
-                Toast.makeText(SignUpActivity.this, "Please verify your email before accessing the app.", Toast.LENGTH_LONG).show();
-                mAuth.signOut();
-            }
-        }
-    }
     private void signUpUser(String name, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
