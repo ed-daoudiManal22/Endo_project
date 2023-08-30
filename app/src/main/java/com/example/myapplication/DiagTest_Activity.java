@@ -254,8 +254,8 @@ public class DiagTest_Activity extends AppCompatActivity {
         StringBuilder reportBuilder = new StringBuilder();
         for (Test_Questions question : questions) {
             Object userAnswer = userAnswers.get(question.getText());
-            reportBuilder.append("Question: ").append(question.getText()).append("\n");
-            reportBuilder.append(getString(R.string.UserAnswer)).append(userAnswer).append("\n\n");
+            reportBuilder.append("Question: ").append(getResourceString(question.getText())).append("\n");
+            reportBuilder.append(getString(R.string.UserAnswer)).append(getUserAnswerText(question, userAnswer)).append("\n\n");
 
             // Calculate score based on the answer
             if (userAnswer != null) {
@@ -308,7 +308,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         ImageView backBtn = reportLayout.findViewById(R.id.leftIcon);
 
         // Set the score and report text
-        scoreTextView.setText(getString(R.string.RiskLevel)+ riskLevel);
+        scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
         reportTextView.setText(report);
 
         // Generate the PDF report
@@ -539,5 +539,21 @@ public class DiagTest_Activity extends AppCompatActivity {
             Log.e("DiagTest_Activity", "Resource not found: " + resourceName);
             return "Resource not found";
         }
+    }
+    private String getUserAnswerText(Test_Questions question, Object userAnswer) {
+        String userAnswerText = "";
+
+        if (userAnswer != null) {
+            if (userAnswer instanceof String) {
+                userAnswerText = (String) userAnswer;
+            } else if (userAnswer instanceof List<?>) {
+                List<String> selectedOptions = (List<String>) userAnswer;
+                userAnswerText = TextUtils.join(", ", selectedOptions);
+            } else if (userAnswer instanceof Double) {
+                userAnswerText = String.valueOf(userAnswer);
+            }
+        }
+
+        return userAnswerText;
     }
 }
