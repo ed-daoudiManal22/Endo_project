@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -170,7 +176,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     // Delete each document in the subcollection
                     document.getReference().delete();
                 }
-                listener.onSubcollectionDeleted(); // Notify listener on successful deletion
+                // Once comments subcollection is deleted, delete the main blog document and associated image
+                deleteBlogDocumentAndImage(blogId, listener);
             } else {
                 Log.d("Blogs Deletion", "Error getting documents: ", task.getException());
                 listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
@@ -182,5 +189,40 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         void onSubcollectionDeleted();
         void onSubcollectionDeletionFailed();
     }
+    private void deleteBlogDocumentAndImage(String blogId, OnSubcollectionDeletedListener listener) {
+        // Get the blog data to obtain the image URL
+        FirebaseFirestore.getInstance().collection("Blogs").document(blogId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String imageUrl = documentSnapshot.getString("img");
 
+                        // Delete the image from Firebase Storage
+                        StorageReference storageRef = FirebaseStorage.getInstance()
+                                .getReferenceFromUrl(imageUrl);
+                        storageRef.delete().addOnSuccessListener(aVoid -> {
+                            // Image deleted successfully, now delete the blog document
+                            FirebaseFirestore.getInstance().collection("Blogs")
+                                    .document(blogId).delete()
+                                    .addOnSuccessListener(aVoid1 -> {
+                                        listener.onSubcollectionDeleted(); // Notify listener on successful deletion
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.d("Blogs Deletion", "Error deleting document: ", e);
+                                        listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
+                                    });
+                        }).addOnFailureListener(e -> {
+                            Log.d("Blogs Deletion", "Error deleting image: ", e);
+                            listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
+                        });
+                    } else {
+                        Log.d("Blogs Deletion", "Blog document not found");
+                        listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.d("Blogs Deletion", "Error getting blog document: ", e);
+                    listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
+                });
+    }
 }
