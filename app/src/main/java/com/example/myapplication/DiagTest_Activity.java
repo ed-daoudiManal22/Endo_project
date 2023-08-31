@@ -61,7 +61,7 @@ public class DiagTest_Activity extends AppCompatActivity {
     private static final int pageWidth = 595;
     private static final int pageHeight = 842;
     private static final int leftMargin = 50;
-    private static final float lineSpacing = 12f;
+    private static final float lineSpacing = 10f;
     private final FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final CollectionReference questionsCollection = db.collection("Diagnostic_test");
@@ -405,11 +405,11 @@ public class DiagTest_Activity extends AppCompatActivity {
 
                         // Calculate the center of the page for the title
                         float centerX = canvas.getWidth() / 2;
-                        float titleY = 80;
+                        float titleY = 60;
                         float titleWidth = titlePaint.measureText("Diagnostic Test Report");
 
                         paint.setColor(Color.BLACK);
-                        paint.setTextSize(15);
+                        paint.setTextSize(12);
                         paint.setTypeface(Typeface.DEFAULT);
 
                         titlePaint.setColor(Color.BLACK);
@@ -418,33 +418,33 @@ public class DiagTest_Activity extends AppCompatActivity {
 
                         scorePaint.setTextSize(15);
                         scorePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                        reportPaint.setTextSize(12f);
+                        reportPaint.setTextSize(11f);
 
                         // Add main title "Diagnostic Test Report"
                         String diagnosticReportTitle = getString(R.string.diagnostic_report_title);
                         canvas.drawText(diagnosticReportTitle, centerX - titleWidth / 2, titleY, titlePaint);
                         // Add user information
-                        float userInfoY = titleY + 50;
+                        float userInfoY = titleY + 40;
                         canvas.drawText(nameLabel + " " + name, 50, userInfoY, paint);
-                        canvas.drawText(emailLabel + " " + email, 50, userInfoY + 30, paint);
-                        canvas.drawText(birthdayLabel + " " + birthday, 50, userInfoY + 60, paint);
-                        canvas.drawText(painAverageLabel + " " + painAverage, 50, userInfoY + 90, paint);
+                        canvas.drawText(emailLabel + " " + email, 50, userInfoY + 25, paint);
+                        canvas.drawText(birthdayLabel + " " + birthday, 50, userInfoY + 50, paint);
+                        canvas.drawText(painAverageLabel + " " + painAverage, 50, userInfoY + 75, paint);
 
                         // Draw a divider line under the user information
-                        float dividerY = userInfoY + 120;
+                        float dividerY = userInfoY + 85;
                         canvas.drawLine(50, dividerY, page.getInfo().getPageWidth() - 50, dividerY, paint);
 
-                        canvas.drawText("Risk Level : " + riskLevel, 50, dividerY + 30 , scorePaint);
+                        canvas.drawText("Risk Level : " + riskLevel, 50, dividerY + 40 , scorePaint);
 
-                        canvas.drawText("Test answers : ", 50, dividerY + 60 , paint);
+                        //canvas.drawText("Test answers : ", 50, dividerY + 60 , paint);
 
                         // Draw the first 8 questions
-                        drawContent(canvas, questions, 0, 7, reportPaint,340);
+                        drawContent(canvas, questions, 0, 14, reportPaint,260);
 
                         // Finish the first page
                         pdfDocument.finishPage(page);
 
-                        // Create a PageInfo for the second page of the PDF
+                        /* Create a PageInfo for the second page of the PDF
                         PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 2).create();
                         PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
                         Canvas canvas2 = page2.getCanvas();
@@ -453,7 +453,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         drawContent(canvas2, questions, 8, questions.size() - 1, reportPaint,80);
 
                         // Finish the second page
-                        pdfDocument.finishPage(page2);
+                        pdfDocument.finishPage(page2); */
 
                         // Define the output file path
                         String filePath = getExternalFilesDir(null) + "/report.pdf";
@@ -506,10 +506,6 @@ public class DiagTest_Activity extends AppCompatActivity {
             Test_Questions question = questions.get(i);
             Object userAnswer = userAnswers.get(question.getText());
 
-            // Draw the question
-            canvas.drawText("Question: " + getResourceString(question.getText()), leftMargin, reportY, reportPaint);
-            reportY += reportPaint.descent() - reportPaint.ascent();
-
             // Draw the user's answer
             String userAnswerText = "";
 
@@ -523,12 +519,13 @@ public class DiagTest_Activity extends AppCompatActivity {
                     userAnswerText = String.valueOf(userAnswer);
                 }
             }
-
-            canvas.drawText("User's Answer: " + userAnswerText, leftMargin, reportY, reportPaint);
+            // Draw the question
+            canvas.drawText(getResourceString(question.getText())+ "   " + userAnswerText, leftMargin, reportY, reportPaint);
             reportY += reportPaint.descent() - reportPaint.ascent();
 
-            // Draw a separator line between questions
-            reportY += lineSpacing + 10;
+            //canvas.drawText("User's Answer: " + userAnswerText, leftMargin, reportY, reportPaint);
+            reportY += reportPaint.descent() - reportPaint.ascent();
+
         }
     }
     private String getResourceString(String resourceName) {
