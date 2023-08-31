@@ -255,7 +255,7 @@ public class DiagTest_Activity extends AppCompatActivity {
         StringBuilder reportBuilder = new StringBuilder();
         for (Test_Questions question : questions) {
             Object userAnswer = userAnswers.get(question.getText());
-            reportBuilder.append("Question: ").append(getResourceString(question.getText())).append("\n");
+            reportBuilder.append(getResourceString(question.getText())).append("\n");
             reportBuilder.append(getString(R.string.UserAnswer)).append(getUserAnswerText(question, userAnswer)).append("\n\n");
 
             // Calculate score based on the answer
@@ -310,7 +310,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
         // Set the score and report text
         //scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
-        scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel + ": " + totalScore);
+        scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
         reportTextView.setText(report);
 
         // Generate the PDF report
