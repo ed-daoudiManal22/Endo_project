@@ -308,6 +308,13 @@ public class DiagTest_Activity extends AppCompatActivity {
         Button openReportButton = reportLayout.findViewById(R.id.openReportButton);
         ImageView backBtn = reportLayout.findViewById(R.id.leftIcon);
 
+        backBtn.setOnClickListener(v -> {
+            // Handle the click event, navigate to HelloActivity
+            Intent intent = new Intent(DiagTest_Activity.this, Diag_start.class);
+            startActivity(intent);
+            finish(); // Optional: Close the current activity after navigating
+        });
+
         // Set the score and report text
         //scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
         scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
