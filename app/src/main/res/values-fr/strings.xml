@@ -117,9 +117,13 @@
 
     <string name="about_us_text">La solution m-Health PainCare a été développée dans le but de fournir des ressources complètes et une assistance aux femmes qui luttent contre l\'endométriose. Elle vise à aider les individus en leur donnant accès à un suivi personnalisé des symptômes, à des documents éducatifs et à une communauté de soutien. L\'objectif principal est de fournir aux femmes atteintes d\'endométriose un outil convivial et accessible pour la gestion de la douleur, les informations et le soutien émotionnel afin d\'améliorer leur bien-être global et leur qualité de vie. Cela inclut les femmes qui soupçonnent d\'avoir la condition. Avec PainCare, les femmes peuvent prendre le contrôle de leur condition et avancer vers une vie plus heureuse et plus saine.</string>
     <string name="References">Références</string>
+    <string name="link1_label">advancedgynaecologymelbourne</string>
+    <string name="link2_label">mayoclinic</string>
+    <string name="link3_label">clevelandclinic</string>
     <string name="link1_url">https://www.advancedgynaecologymelbourne.com.au/endometriosis/symptoms</string>
     <string name="link2_url">https://www.mayoclinic.org/diseases-conditions/endometriosis/symptoms-causes/syc-20354656#:~:text=However%2C%20there%20are%20some%20factors,having%20a%20low%20body%20mass</string>
     <string name="link3_url">https://my.clevelandclinic.org/health/diseases/10857-endometriosis</string>
+
     <string name="AddEvent">Ajouter</string>
 
     <string name="delete_account_title">Supprimer le Compte</string>

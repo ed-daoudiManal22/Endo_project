@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/References"
+            android:textStyle="bold"
             android:textColor="@color/pink" />
 
         <TextView
@@ -79,8 +80,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autoLink="web"
-            android:minHeight="48dp"
-            android:text="@string/link1_url"/>
+            android:textStyle="italic"
+            android:textColor="@color/dark_green"
+            android:text="@string/link1_label"/>
 
         <TextView
             android:id="@+id/link2"
@@ -88,7 +90,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autoLink="web"
-            android:text="@string/link2_url"/>
+            android:textStyle="italic"
+            android:textColor="@color/dark_green"
+            android:text="@string/link2_label"/>
 
         <TextView
             android:id="@+id/link3"
@@ -96,8 +100,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autoLink="web"
+            android:textStyle="italic"
             android:minHeight="48dp"
-            android:text="@string/link3_url"/>
+            android:textColor="@color/dark_green"
+            android:text="@string/link3_label"/>
 
     </LinearLayout>
 </RelativeLayout>
