@@ -559,6 +559,8 @@
     <string name="cycle_qst10_opt4">Irregular menstrual cycles.</string>
     <string name="cycle_qst10_answer">Excessive menstrual bleeding.</string>
     <string name="cycle_qst10_justif">Menorrhagia refers to abnormally heavy or prolonged menstrual bleeding that can impact an individual\'s quality of life and may be caused by factors such as hormonal imbalances or certain medical conditions.</string>
+
+
     <string name="background">background</string>
     <string name="go_back">go back</string>
     <string name="logo">Logo</string>

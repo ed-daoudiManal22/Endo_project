@@ -232,6 +232,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
                 // Calculate BMI
                 double bmi = weight / Math.pow((height * 0.01), 2);
+                double roundedBmi = Math.round(bmi * 1000.0) / 1000.0;
 
                 // Assign score based on BMI
                 int score;
@@ -240,7 +241,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                 } else {
                     score = 1; // Assign score of 1 for normal BMI
                 }
-                userAnswers.put("Body mass index : calculate your BMI ", bmi);
+                userAnswers.put("BMIqst", roundedBmi);
                 userAnswers.put("BMI Score", score);
             }
         }
@@ -272,7 +273,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         }
                     }
                 } else if (userAnswer instanceof Double) {
-                    if (question.getText().equals("Body mass index : calculate your BMI ")) {
+                    if (question.getText().equals("BMIqst")) {
                         int bmiAnswer = (int) userAnswers.get("BMI Score");
                         Log.d("DiagTest_Activity", "BMI Score: " + bmiAnswer); // Add this line to log the value
                         // Get the score assigned to the BMI answer
@@ -308,7 +309,8 @@ public class DiagTest_Activity extends AppCompatActivity {
         ImageView backBtn = reportLayout.findViewById(R.id.leftIcon);
 
         // Set the score and report text
-        scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
+        //scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
+        scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel + ": " + totalScore);
         reportTextView.setText(report);
 
         // Generate the PDF report
@@ -468,7 +470,6 @@ public class DiagTest_Activity extends AppCompatActivity {
                         // Close the PdfDocument
                         pdfDocument.close();
 
-                        // TODO: Add code to handle the generated PDF report (e.g., send it via email or display a notification)
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
