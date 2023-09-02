@@ -18,6 +18,8 @@ import com.example.myapplication.Community.Adapter;
 import com.example.myapplication.Community.Model;
 import com.example.myapplication.Community.PublishActivity;
 import com.example.myapplication.databinding.FragmentCommunityBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,6 +28,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
     ArrayList<Model> list;
     Adapter adapter;
     Model model;
+    private String currentUserId;
 
     public Community() {
         // Required empty public constructor
@@ -34,6 +37,11 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            currentUserId = currentUser.getUid();
+        }
 
     }
 
@@ -98,7 +106,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
             }
             adapter.notifyDataSetChanged();
         });
-        adapter = new Adapter(getContext(),list);
+        adapter = new Adapter(getContext(),list, currentUserId);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);

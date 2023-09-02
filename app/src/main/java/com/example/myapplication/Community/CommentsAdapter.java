@@ -102,7 +102,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         if (currentUser != null) {
             currentUserId = currentUser.getUid();
         }
-
         if (currentUserId != null) {
             return currentUserId.equals(userId) || currentUserId.equals(ownerId);
         }
