@@ -31,14 +31,14 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class BlogsAdapter extends RecyclerView.Adapter<BlogsAdapter.ViewHolder> {
     ArrayList<Model> list;
     private final Context context;
     private String currentUserId;
     private static final String BLOGS = "Blogs";
     private static final String BLOGDELETION = "Blog Deletion";
 
-    public Adapter(Context context, ArrayList<Model> list, String currentUserId) {
+    public BlogsAdapter(Context context, ArrayList<Model> list, String currentUserId) {
         this.context = context;
         this.list = list;
         this.currentUserId = currentUserId;

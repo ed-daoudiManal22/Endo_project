@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         Animation logoAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_animation);
         Animation titleAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_animation);
-        Animation nameAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_animation);
 
         Animation topView1Animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_views_animation);
         Animation topView2Animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_views_animation);
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         topView1Animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                // Animation start callback
             }
 
             @Override
@@ -85,19 +84,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
+                // Animation repeat callback
             }
         });
 
         topView2Animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                // Animation start callback
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                // Animation end callback
                 topView3.setVisibility(View.VISIBLE);
                 bottomView3.setVisibility(View.VISIBLE);
 
@@ -108,19 +107,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
+                // Animation repeat callback
             }
         });
 
         topView3Animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                // Animation start callback
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                // Animation end callback
                 logo.setVisibility(View.VISIBLE);
                 logo.startAnimation(logoAnimation);
 
@@ -128,19 +127,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
+                // Animation repeat callback
             }
         });
 
         logoAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                // Animation start callback
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                // Animation end callback
                 appTitle.setVisibility(View.VISIBLE);
                 appTitle.startAnimation(titleAnimation);
 
@@ -148,14 +147,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
+                // Animation repeat callback
             }
         });
 
         titleAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                // Animation start callback
             }
 
             @Override
@@ -191,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
+                // Animation repeat callback
             }
         });
 

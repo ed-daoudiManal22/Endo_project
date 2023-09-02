@@ -13,6 +13,7 @@ import com.example.myapplication.Models.Questions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,66 +27,78 @@ public class EndoFAQ_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.endo_faq);
 
+        setupNavigationButtons();
+        setupRecyclerView();
+        loadFAQData();
+    }
+
+    private void setupNavigationButtons() {
         ImageView leftIcon = findViewById(R.id.leftIcon);
         ImageView notificationIcon = findViewById(R.id.notificationIcon);
-        leftIcon.setOnClickListener(v -> {
-            // Handle the click event, navigate to HelloActivity
-            Intent intent = new Intent(EndoFAQ_Activity.this, Endo_InfoActivity.class);
-            startActivity(intent);
-            finish(); // Optional: Close the current activity after navigating
-        });
-        notificationIcon.setOnClickListener(v -> {
-            // Handle the click event, navigate to HelloActivity
-            Intent intent = new Intent(EndoFAQ_Activity.this, ReminderActivity.class);
-            startActivity(intent);
-            finish(); // Optional: Close the current activity after navigating
-        });
 
+        leftIcon.setOnClickListener(v -> navigateToActivity(Endo_InfoActivity.class));
+        notificationIcon.setOnClickListener(v -> navigateToActivity(ReminderActivity.class));
+    }
+
+    private void navigateToActivity(Class<?> activityClass) {
+        Intent intent = new Intent(EndoFAQ_Activity.this, activityClass);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.endo_Questions);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        recyclerView.setHasFixedSize(true);
 
         QuestionList = new ArrayList<>();
         questionAdapter = new QuestionAdapter(QuestionList);
-
         recyclerView.setAdapter(questionAdapter);
-        recyclerView.setHasFixedSize(true);
+    }
 
-        recyclerView = findViewById(R.id.endo_Questions);
-
-        QuestionList = new ArrayList<>();
-
-        // Reference to the Firestore collection
+    private void loadFAQData() {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         CollectionReference endoInfosCollection = firestore.collection("Endo_FAQ");
-        // Fetch the data from Firestore
+
         endoInfosCollection.addSnapshotListener((queryDocumentSnapshots, e) -> {
             if (e != null) {
-                Log.e("Firestore", "Error fetching data: " + e.getMessage());
+                handleFirestoreError(e);
                 return;
             }
 
-            QuestionList.clear(); // Clear the existing list before adding new questions
+            List<Questions> newQuestions = extractQuestionsFromSnapshot(queryDocumentSnapshots);
 
-            // Iterate through the documents and extract question and answer data
-            if (queryDocumentSnapshots != null) {
-                for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                    if (doc.exists()) {
-                        String question = doc.getString("question");
-                        String answer = doc.getString("answer");
+            updateQuestionList(newQuestions);
+        });
+    }
 
-                        // Add the question to the QuestionList
-                        if (question != null && answer != null) {
-                            QuestionList.add(new Questions(question, answer,false));
-                        }
+    private void handleFirestoreError(Exception e) {
+        Log.e("Firestore", "Error fetching data: " + e.getMessage());
+    }
+
+    private List<Questions> extractQuestionsFromSnapshot(QuerySnapshot queryDocumentSnapshots) {
+        List<Questions> newQuestions = new ArrayList<>();
+
+        if (queryDocumentSnapshots != null) {
+            for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                if (doc.exists()) {
+                    String question = doc.getString("question");
+                    String answer = doc.getString("answer");
+
+                    if (question != null && answer != null) {
+                        newQuestions.add(new Questions(question, answer, false));
                     }
                 }
             }
+        }
 
-            // Notify the adapter about the data change
-            questionAdapter.notifyDataSetChanged();
-        });
-        questionAdapter = new QuestionAdapter(QuestionList);
-
-        recyclerView.setAdapter(questionAdapter);
-        recyclerView.setHasFixedSize(true);
+        return newQuestions;
     }
+
+    private void updateQuestionList(List<Questions> newQuestions) {
+        QuestionList.clear(); // Clear the existing list before adding new questions
+        QuestionList.addAll(newQuestions);
+        questionAdapter.notifyDataSetChanged();
+    }
+
+
 }

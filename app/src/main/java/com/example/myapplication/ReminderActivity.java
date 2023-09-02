@@ -45,6 +45,10 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
     private ReminderAdapter reminderAdapter;
     private FirebaseFirestore firestore;
     private String currentUserUid;
+    private static final String USERS_COLLECTION = "Users";
+    private static final String REMINDERS_COLLECTION = "reminders";
+    private static final String FIELD_IS_ACTIVE = "isActive";
+    private static final String TAG = "ReminderActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +94,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
     }
 
     private void fetchUserReminders() {
-        firestore.collection("Users").document(currentUserUid).collection("reminders")
+        firestore.collection(USERS_COLLECTION).document(currentUserUid).collection(REMINDERS_COLLECTION)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<Reminder> reminders = new ArrayList<>();
@@ -98,7 +102,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                         String id = documentSnapshot.getId(); // Retrieve the document ID
                         String title = documentSnapshot.getString("title");
                         String time = documentSnapshot.getString("time");
-                        boolean isActive = Boolean.TRUE.equals(documentSnapshot.getBoolean("isActive"));
+                        boolean isActive = Boolean.TRUE.equals(documentSnapshot.getBoolean(FIELD_IS_ACTIVE));
                         List<Boolean> repeatDays = (List<Boolean>) documentSnapshot.get("repeatDays");
                         boolean[] repeatDaysArray = new boolean[0];
                         if (repeatDays != null) {
@@ -133,7 +137,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     // Notify the adapter that the dataset has changed
                     reminderAdapter.notifyDataSetChanged();
                 })
-                .addOnFailureListener(e -> Log.e("ReminderActivity", "Error fetching user reminders", e));
+                .addOnFailureListener(e -> Log.e(TAG, "Error fetching user reminders", e));
     }
     private void showAddReminderDialog() {
         // Show a dialog to add a new reminder
@@ -196,7 +200,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         Map<String, Object> reminderData = new HashMap<>();
         reminderData.put("title", title);
         reminderData.put("time", time);
-        reminderData.put("isActive", true);
+        reminderData.put(FIELD_IS_ACTIVE, true);
         // Convert the boolean array to a List
         List<Boolean> repeatDaysList = new ArrayList<>();
         for (boolean repeatDay : repeatDays) {
@@ -204,7 +208,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         }
         reminderData.put("repeatDays", repeatDaysList);
 
-        firestore.collection("Users").document(currentUserUid).collection("reminders")
+        firestore.collection(USERS_COLLECTION).document(currentUserUid).collection(REMINDERS_COLLECTION)
                 .add(reminderData)
                 .addOnSuccessListener(documentReference -> {
                     // Refresh the list of user reminders
@@ -214,9 +218,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     Reminder newReminder = new Reminder(documentReference.getId(), title, time, true, repeatDays);
                     scheduleReminderNotifications(newReminder);
                 })
-                .addOnFailureListener(e -> Log.e("ReminderActivity", "Error saving reminder", e));
-
-        //scheduleNotification(title, timeString, description);
+                .addOnFailureListener(e -> Log.e(TAG, "Error saving reminder", e));
     }
     @Override
     public void onReminderActiveStatusChange(Reminder reminder) {
@@ -227,7 +229,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
         String reminderId = reminder.getId(); // Assuming you have an "id" field in the Reminder model
 
         // Delete the reminder from Firestore
-        firestore.collection("Users").document(currentUserUid).collection("reminders")
+        firestore.collection(USERS_COLLECTION).document(currentUserUid).collection(REMINDERS_COLLECTION)
                 .document(reminderId)
                 .delete()
                 .addOnSuccessListener(aVoid -> {
@@ -236,14 +238,14 @@ public class ReminderActivity extends AppCompatActivity implements ReminderAdapt
                     // Refresh the list of user reminders
                     fetchUserReminders();
                 })
-                .addOnFailureListener(e -> Log.e("ReminderActivity", "Error deleting reminder", e));
+                .addOnFailureListener(e -> Log.e(TAG, "Error deleting reminder", e));
     }
     private void updateReminderActiveStatus(String reminderId, boolean isActive) {
-        firestore.collection("Users")
+        firestore.collection(USERS_COLLECTION)
                 .document(currentUserUid)
-                .collection("reminders")
+                .collection(REMINDERS_COLLECTION)
                 .document(reminderId)
-                .update("isActive", isActive)
+                .update(FIELD_IS_ACTIVE, isActive)
                 .addOnSuccessListener(aVoid -> {
                     // Successfully updated the isActive value
                     // If the reminder is being activated, schedule notifications

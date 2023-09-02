@@ -75,8 +75,7 @@
             android:label="Forgot Password" />
 
         <activity
-            android:name=".Authentification.Email_verification"
-            android:exported="true">
+            android:name=".Authentification.Email_verification">
         </activity>
 
         <activity

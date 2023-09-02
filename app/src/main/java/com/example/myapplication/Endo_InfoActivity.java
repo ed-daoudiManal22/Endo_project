@@ -62,7 +62,6 @@ public class  Endo_InfoActivity extends AppCompatActivity {
         articlesArrayList.clear();
 
         // Use the URL to fetch articles related to endometriosis
-        //String url = "https://newsapi.org/v2/everything?q=endometriosis&sortBy=publishedAt&apiKey=bb820970d3114ca1903eac14d6826b26";
         String apiKey = "bb820970d3114ca1903eac14d6826b26";
         String query = "endometriosis women  health";  // Combine keywords
         String sortBy = "publishedAt";

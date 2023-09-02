@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -34,6 +35,8 @@ public class BlogDetail extends AppCompatActivity {
     String id, ownerId;
     String title, desc, count;
     int n_count;
+    private static final String BLOGS = "Blogs";
+    private static final String COMMENTS = "Comments";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class BlogDetail extends AppCompatActivity {
         List<Comment> commentsList = new ArrayList<>();
 
         id = getIntent().getStringExtra("id");
-        FirebaseFirestore.getInstance().collection("Blogs").document(id).addSnapshotListener((value, error) -> {
+        FirebaseFirestore.getInstance().collection(BLOGS).document(id).addSnapshotListener((value, error) -> {
             Glide.with(getApplicationContext()).load(value.getString("img")).into(binding.imageView3);
             binding.textView4.setText(Html.fromHtml("<font color='B7B7B7'>By </font> <font color='#000000'>" + value.getString("author")));
             binding.textView5.setText(value.getString("tittle"));
@@ -85,14 +88,14 @@ public class BlogDetail extends AppCompatActivity {
 
             HashMap<String, Object> map = new HashMap<>();
             map.put("share_count", String.valueOf(n_count));
-            FirebaseFirestore.getInstance().collection("Blogs").document(id).update(map);
+            FirebaseFirestore.getInstance().collection(BLOGS).document(id).update(map);
         });
         binding.imageView4.setOnClickListener(v -> onBackPressed());
         // Fetch the comments from the subcollection, sorted by timestamp
         CollectionReference commentsCollection = FirebaseFirestore.getInstance()
-                .collection("Blogs")
+                .collection(BLOGS)
                 .document(id)
-                .collection("Comments");
+                .collection(COMMENTS);
 
         commentsCollection.orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp in descending order
                 .addSnapshotListener((value, error) -> {
@@ -131,11 +134,11 @@ public class BlogDetail extends AppCompatActivity {
                         String userName = documentSnapshot.getString("name");
                         String userImage = documentSnapshot.getString("imageUrl");
 
-                        // Get a reference to the "Comments" subcollection of the current blog post
+                        // Get a reference to the "COMMENTS" subcollection of the current blog post
                         CollectionReference commentsCollection = FirebaseFirestore.getInstance()
-                                .collection("Blogs")
+                                .collection(BLOGS)
                                 .document(id)
-                                .collection("Comments");
+                                .collection(COMMENTS);
 
                         // Create a new comment document with the user's comment and user information
                         String commentId = commentsCollection.document().getId(); // Generate a new comment ID
@@ -155,11 +158,11 @@ public class BlogDetail extends AppCompatActivity {
     }
 
     public void deleteCommentInFirestore(String commentId) {
-        // Get a reference to the "Comments" subcollection of the current blog post
+        // Get a reference to the "COMMENTS" subcollection of the current blog post
         CollectionReference commentsCollection = FirebaseFirestore.getInstance()
-                .collection("Blogs")
+                .collection(BLOGS)
                 .document(id)
-                .collection("Comments");
+                .collection(COMMENTS);
 
         // Delete the comment document from Firestore
         commentsCollection.document(commentId)
@@ -175,7 +178,7 @@ public class BlogDetail extends AppCompatActivity {
     }
 
     private void showImagePreviewDialog() {
-        FirebaseFirestore.getInstance().collection("Blogs").document(id)
+        FirebaseFirestore.getInstance().collection(BLOGS).document(id)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     String imageUrl = documentSnapshot.getString("img");
@@ -192,7 +195,7 @@ public class BlogDetail extends AppCompatActivity {
                     // Make the dialog window full screen
                     Window window = imagePreviewDialog.getWindow();
                     if (window != null) {
-                        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                         window.setBackgroundDrawableResource(android.R.color.transparent);
                     }
 

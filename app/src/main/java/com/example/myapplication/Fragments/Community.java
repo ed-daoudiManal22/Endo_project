@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.Community.Adapter;
+import com.example.myapplication.Community.BlogsAdapter;
 import com.example.myapplication.Community.Model;
 import com.example.myapplication.Community.PublishActivity;
 import com.example.myapplication.databinding.FragmentCommunityBinding;
@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 public class Community extends Fragment{FragmentCommunityBinding binding;
     ArrayList<Model> list;
-    Adapter adapter;
+    BlogsAdapter adapter;
     Model model;
     private String currentUserId;
 
@@ -106,7 +106,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
             }
             adapter.notifyDataSetChanged();
         });
-        adapter = new Adapter(getContext(),list, currentUserId);
+        adapter = new BlogsAdapter(getContext(),list, currentUserId);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);

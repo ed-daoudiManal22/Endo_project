@@ -11,15 +11,16 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 public class NotificationReceiver extends BroadcastReceiver {
+    private static final String TAG = "NotificationReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         String name = intent.getStringExtra("name");
         String description = intent.getStringExtra("description");
 
-        Log.d("NotificationReceiver", "Received notification request");
-        Log.d("NotificationReceiver", "Name: " + name);
-        Log.d("NotificationReceiver", "Description: " + description);
+        Log.d(TAG, "Received notification request");
+        Log.d(TAG, "Name: " + name);
+        Log.d(TAG, "Description: " + description);
 
         Intent repeating_intent = new Intent(context, NotifiactionSettings_Activity.class);
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -36,7 +37,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(200, builder.build());
 
-        Log.d("NotificationReceiver", "Notification shown");
+        Log.d(TAG, "Notification shown");
 
     }
 }

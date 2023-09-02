@@ -7,18 +7,6 @@ public class Model {
     String title, desc, author, date, img, share_count,id,timestamp, ownerId;
     List<Comment> comments;
 
-    public Model(String userId,String title, String desc, String author, String date, String img, String share_count, String id, String timestamp) {
-        this.ownerId = userId;
-        this.title = title;
-        this.desc = desc;
-        this.author = author;
-        this.date = date;
-        this.img = img;
-        this.share_count = share_count;
-        this.id = id;
-        this.timestamp = timestamp;
-        this.comments = new ArrayList<>(); // Initialize the comments list
-    }
 
     public String getTimestamp() {
         return timestamp;
@@ -29,6 +17,7 @@ public class Model {
     }
 
     public Model() {
+        // Empty constructor
     }
 
     public String getOwnerId() {

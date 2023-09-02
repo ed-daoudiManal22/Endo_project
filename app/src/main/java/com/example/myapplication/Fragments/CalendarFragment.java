@@ -43,6 +43,7 @@ public class CalendarFragment extends Fragment {
     private MaterialCalendarView calendarView;
     private String stringDateSelected;
     private CollectionReference eventsCollection;
+    private static final String TITLE = "title";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class CalendarFragment extends Fragment {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    String eventTitle = document.getString("title");
+                    String eventTitle = document.getString(TITLE);
                     String eventNote = document.getString("note");
                     String eventDetails = getString(R.string.title_prefix) + eventTitle + "\n\n" + getString(R.string.note_prefix) + eventNote;                    eventDetailsTextView.setText(eventDetails);
                     // Show the event details TextView
@@ -167,21 +168,26 @@ public class CalendarFragment extends Fragment {
         });
     }
     private void addEventToFirestore(String title, String note) {
-        Map<String, Object> eventMap = new HashMap<>();
-        eventMap.put("title", title);
-        eventMap.put("note", note);
+        if (stringDateSelected != null) {
+            Map<String, Object> eventMap = new HashMap<>();
+            eventMap.put(TITLE, title);
+            eventMap.put("note", note);
 
-        // Construct the document reference for the specific date
-        DocumentReference eventDocumentRef = eventsCollection.document(stringDateSelected);
+            // Construct the document reference for the specific date
+            DocumentReference eventDocumentRef = eventsCollection.document(stringDateSelected);
 
-        eventDocumentRef.set(eventMap)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(requireContext(), "Event added successfully", Toast.LENGTH_SHORT).show();
-                    clearDecorators(); // Clear decorators before adding the event
-                    fetchAndUpdateDecorators(); // Fetch and apply decorators again after adding the event
-                })
-                .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error adding event", Toast.LENGTH_SHORT).show());
+            eventDocumentRef.set(eventMap)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(requireContext(), "Event added successfully", Toast.LENGTH_SHORT).show();
+                        clearDecorators(); // Clear decorators before adding the event
+                        fetchAndUpdateDecorators(); // Fetch and apply decorators again after adding the event
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(requireContext(), "Error adding event", Toast.LENGTH_SHORT).show());
+        } else {
+            Toast.makeText(requireContext(), "Date is null", Toast.LENGTH_SHORT).show();
+        }
     }
+
     private void showUpdateDeleteDialog(String date) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(requireContext());
         String[] options = {getString(R.string.update_button_label), getString(R.string.delete)};
@@ -192,6 +198,9 @@ public class CalendarFragment extends Fragment {
                     break;
                 case 1:
                     showDeleteDialog(date);
+                    break;
+                default:
+                    // Handle unexpected value (optional)
                     break;
             }
             dialog.dismiss();
@@ -216,7 +225,7 @@ public class CalendarFragment extends Fragment {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    String eventTitle = document.getString("title");
+                    String eventTitle = document.getString(TITLE);
                     String eventNote = document.getString("note");
 
                     // Populate EditText fields with existing data
@@ -266,7 +275,7 @@ public class CalendarFragment extends Fragment {
         DocumentReference eventDocumentRef = eventsCollection.document(date);
 
         Map<String, Object> updatedEventMap = new HashMap<>();
-        updatedEventMap.put("title", updatedTitle);
+        updatedEventMap.put(TITLE, updatedTitle);
         updatedEventMap.put("note", updatedNote);
 
         eventDocumentRef.update(updatedEventMap)

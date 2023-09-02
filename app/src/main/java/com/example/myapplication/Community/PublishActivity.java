@@ -86,65 +86,7 @@ public class PublishActivity extends AppCompatActivity {
                             }  else if (filepath == null) {
                                 Toast.makeText(PublishActivity.this, "Select an Image!!", Toast.LENGTH_SHORT).show();
                             } else {
-                                ProgressDialog pd = new ProgressDialog(PublishActivity.this);
-                                pd.setTitle("Uploading...");
-                                pd.setMessage("Please wait for a while until we upload this data to our Firebase Storage and Firestore");
-                                pd.setCancelable(false);
-                                pd.show();
-
-                                // Get the current user's username from Firebase Authentication
-                                firebaseAuth = FirebaseAuth.getInstance();
-                                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                                String userId = null;
-                                if (currentUser != null) {
-                                    userId = currentUser.getUid();
-                                }
-
-                                String finalUserId = userId;
-                                FirebaseFirestore.getInstance().collection("Users").document(currentUser.getUid())
-                                        .get()
-                                        .addOnSuccessListener(documentSnapshot -> {
-                                            if (documentSnapshot.exists()) {
-                                                String userName = documentSnapshot.getString("name");
-
-                                                // Continue with the rest of the upload process
-                                                FirebaseStorage storage = FirebaseStorage.getInstance();
-                                                StorageReference reference = storage.getReference().child("images/" + filepath.getLastPathSegment() + ".jpg");
-                                                reference.putFile(filepath).addOnSuccessListener(taskSnapshot -> reference.getDownloadUrl().addOnCompleteListener(task -> {
-                                                    String file_url = task.getResult().toString();
-                                                    String date = (String) DateFormat.format("dd", new Date());
-                                                    String month = (String) DateFormat.format("MMM", new Date());
-                                                    String final_date = date + " " + month;
-
-                                                    HashMap<String, String> map = new HashMap<>();
-                                                    map.put("ownerId", finalUserId);
-                                                    map.put("title", title);
-                                                    map.put("desc", desc);
-                                                    map.put("author", userName); // Using fetched userName
-                                                    map.put("date", final_date);
-                                                    map.put("img", file_url);
-                                                    map.put("timestamp", String.valueOf(System.currentTimeMillis()));
-                                                    map.put("share_count", "0");
-
-                                                    FirebaseFirestore.getInstance().collection("Blogs").document().set(map).addOnCompleteListener(task1 -> {
-                                                        if (task1.isSuccessful()) {
-                                                            pd.dismiss();
-                                                            Toast.makeText(PublishActivity.this, "Post Uploaded!!!", Toast.LENGTH_SHORT).show();
-                                                            Intent intent = new Intent(PublishActivity.this, Community.class);
-                                                            startActivity(intent);
-                    /*binding.imgThumbnail.setVisibility(View.INVISIBLE);
-                    binding.view2.setVisibility(View.VISIBLE);
-                    binding.bSelectImage.setVisibility(View.VISIBLE);
-                    binding.bTitle.setText("");
-                    binding.bDesc.setText("");
-                    binding.bAuthor.setText("");*/
-                                                        }
-                                                    });
-                                                }));
-                                            } else {
-                                                Toast.makeText(PublishActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                uploadDataWithProgressDialog(title, desc);
                             }
                         }
 
@@ -179,5 +121,60 @@ public class PublishActivity extends AppCompatActivity {
             finish();
         });
         builder.show();
+    }
+    private void uploadDataWithProgressDialog(String title, String desc) {
+        ProgressDialog pd = new ProgressDialog(PublishActivity.this);
+        pd.setTitle("Uploading...");
+        pd.setMessage("Please wait for a while until we upload this data to our Firebase Storage and Firestore");
+        pd.setCancelable(false);
+        pd.show();
+
+        // Get the current user's username from Firebase Authentication
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        String userId = null;
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+            String finalUserId = userId;
+            FirebaseFirestore.getInstance().collection("Users").document(currentUser.getUid())
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String userName = documentSnapshot.getString("name");
+
+                            // Continue with the rest of the upload process
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference reference = storage.getReference().child("images/" + filepath.getLastPathSegment() + ".jpg");
+                            reference.putFile(filepath).addOnSuccessListener(taskSnapshot -> reference.getDownloadUrl().addOnCompleteListener(task -> {
+                                String file_url = task.getResult().toString();
+                                String date = (String) DateFormat.format("dd", new Date());
+                                String month = (String) DateFormat.format("MMM", new Date());
+                                String final_date = date + " " + month;
+
+                                HashMap<String, String> map = new HashMap<>();
+                                map.put("ownerId", finalUserId);
+                                map.put("title", title);
+                                map.put("desc", desc);
+                                map.put("author", userName); // Using fetched userName
+                                map.put("date", final_date);
+                                map.put("img", file_url);
+                                map.put("timestamp", String.valueOf(System.currentTimeMillis()));
+                                map.put("share_count", "0");
+
+                                FirebaseFirestore.getInstance().collection("Blogs").document().set(map).addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        pd.dismiss();
+                                        Toast.makeText(PublishActivity.this, "Post Uploaded!!!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(PublishActivity.this, Community.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }));
+                        } else {
+                            pd.dismiss();
+                            Toast.makeText(PublishActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

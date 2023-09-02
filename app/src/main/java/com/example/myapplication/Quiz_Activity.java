@@ -24,12 +24,10 @@ public class Quiz_Activity extends AppCompatActivity {
     private TextView question, explanationText;
     private AppCompatButton option1, option2, option3, option4;
     private AppCompatButton nextBtn;
-    //private Timer quizTimer;
-    private final boolean quizCompleted = false;
-    //private int seconds = 0;
     private List<Quiz_question> questionsList;
     private int currentQuestionPosition = 0;
     private String selectedOptionByUser = "";
+    private static final String OPTION_COLOR = "#1F6BB8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +36,6 @@ public class Quiz_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         final ImageView backBtn = findViewById(R.id.backBtn);
-        //final TextView timer = findViewById(R.id.timer);
         final TextView selectedTopicName =findViewById(R.id.topicName);
 
         questions = findViewById(R.id.questions);
@@ -58,8 +55,6 @@ public class Quiz_Activity extends AppCompatActivity {
 
         // Load questions from Firestore for the selected topic
         loadQuestionsFromFirestore(getSelectedTopicName);
-
-        //startTimer(timer);
 
         option1.setOnClickListener(view -> {
             if (selectedOptionByUser.isEmpty())
@@ -134,8 +129,6 @@ public class Quiz_Activity extends AppCompatActivity {
         });
 
         backBtn.setOnClickListener(view -> {
-            //quizTimer.purge();
-            //quizTimer.cancel();
 
             startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
             finish();
@@ -156,16 +149,16 @@ public class Quiz_Activity extends AppCompatActivity {
             selectedOptionByUser = "";
 
             option1.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
-            option1.setTextColor(Color.parseColor("#1F6BB8"));
+            option1.setTextColor(Color.parseColor(OPTION_COLOR));
 
             option2.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
-            option2.setTextColor(Color.parseColor("#1F6BB8"));
+            option2.setTextColor(Color.parseColor(OPTION_COLOR));
 
             option3.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
-            option3.setTextColor(Color.parseColor("#1F6BB8"));
+            option3.setTextColor(Color.parseColor(OPTION_COLOR));
 
             option4.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
-            option4.setTextColor(Color.parseColor("#1F6BB8"));
+            option4.setTextColor(Color.parseColor(OPTION_COLOR));
 
             questions.setText((currentQuestionPosition+1)+"/"+questionsList.size());
             question.setText(getResourceString(questionsList.get(currentQuestionPosition).getQst()));
@@ -188,67 +181,6 @@ public class Quiz_Activity extends AppCompatActivity {
             finish();
         }
     }
-    /*private void startTimer(TextView timerTextView)
-    {
-        quizTimer = new Timer();
-        totalTimeInMins = 2; // Set the total time to 2 minutes
-        seconds = 0;
-        quizTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (seconds == 0 && totalTimeInMins == 0) {
-                    // Timer finished, handle the end of the quiz here
-                    quizTimer.purge();
-                    quizTimer.cancel();
-                    quizCompleted = true;
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            timerTextView.setText("00:00");
-
-                            // Display a toast indicating time's up
-                            Toast.makeText(Quiz_Activity.this, "Time Over", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(Quiz_Activity.this, QuizResults.class);
-                            intent.putExtra("correct", getCorrectAnswers());
-                            intent.putExtra("incorrect", getInCorrectAnswers());
-                            startActivity(intent);
-
-                            finish();
-                        }
-                    });
-                } else {
-                    // Update the timer display
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String finalMinutes = String.valueOf(totalTimeInMins);
-                            String finalSeconds = String.valueOf(seconds);
-
-                            if (finalMinutes.length() == 1) {
-                                finalMinutes = "0" + finalMinutes;
-                            }
-                            if (finalSeconds.length() == 1) {
-                                finalSeconds = "0" + finalSeconds;
-                            }
-
-                            timerTextView.setText(finalMinutes + ":" + finalSeconds);
-                        }
-                    });
-
-                    // Decrement the timer
-                    if (seconds == 0) {
-                        totalTimeInMins--;
-                        seconds = 59;
-                    } else {
-                        seconds--;
-                    }
-                }
-            }
-        }, 1000, 1000);
-    }*/
-
     private int getCorrectAnswers() {
         int correctAnswers = 0;
 
@@ -286,9 +218,6 @@ public class Quiz_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        //quizTimer.purge();
-        //quizTimer.cancel();
-
         startActivity(new Intent(Quiz_Activity.this, Quiz_main.class));
         finish();
     }
@@ -343,8 +272,6 @@ public class Quiz_Activity extends AppCompatActivity {
                             Quiz_question question = documentSnapshot.toObject(Quiz_question.class);
                             questionsList.add(question);
                         }
-                        // Here, you have the list of questions for the selected topic
-                        // Set the initial question and options in the UI
                         setInitialQuestion();
                     }
                 })

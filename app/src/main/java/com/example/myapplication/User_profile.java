@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -38,7 +39,11 @@ public class User_profile extends AppCompatActivity {
     private FirebaseStorage storage;
     private FirebaseFirestore firestore;
     private FirebaseUser currentUser;
+    private static final String USERS_COLLECTION = "Users";
+    private static final String BLOGS_COLLECTION = "Blogs";
     private static final String TAG = "DeleteUserData";
+    private static final String DELETION_TAG = "DeleteProfile";
+    private static final String FAILURE_MESSAGE = "Failed to delete account and data.";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +54,6 @@ public class User_profile extends AppCompatActivity {
         androidx.constraintlayout.widget.ConstraintLayout remindersLayout = findViewById(R.id.reminders);
         androidx.constraintlayout.widget.ConstraintLayout editProfileLayout = findViewById(R.id.editProfile);
         androidx.constraintlayout.widget.ConstraintLayout languageLayout = findViewById(R.id.language);
-        //androidx.constraintlayout.widget.ConstraintLayout shareLayout = findViewById(R.id.share);
         androidx.constraintlayout.widget.ConstraintLayout logoutLayout = findViewById(R.id.logout);
         androidx.constraintlayout.widget.ConstraintLayout deleteAccountLayout = findViewById(R.id.deleteAccount);
         androidx.constraintlayout.widget.ConstraintLayout AboutUsLayout = findViewById(R.id.AboutUs);
@@ -88,13 +92,6 @@ public class User_profile extends AppCompatActivity {
             Intent intent = new Intent(User_profile.this, NotifiactionSettings_Activity.class);
             startActivity(intent);
         });
-        /*shareLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(User_profile.this, UserPage_Activity.class);
-                startActivity(intent);
-            }
-        });*/
         // Inside onCreate method after other click listeners
         logoutLayout.setOnClickListener(view -> {
             // Call the logout method when the logout layout is clicked
@@ -112,7 +109,7 @@ public class User_profile extends AppCompatActivity {
     }
     // Method to fetch user data from Firestore
     private void fetchUserDataFromFirestore(String userId, TextView userNameTextView) {
-        DocumentReference userRef = firestore.collection("Users").document(userId);
+        DocumentReference userRef = firestore.collection(USERS_COLLECTION).document(userId);
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -198,11 +195,11 @@ public class User_profile extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.setOnShowListener(dialogInterface -> {
             // Disable the positive button initially until the user selects a radio button
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
         });
 
         // Set a click listener for the positive button
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialogInterface, i) -> {
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.delete), (dialogInterface, i) -> {
             // Check which radio button is selected and perform the corresponding action
             int selectedId = ((RadioGroup) view.findViewById(R.id.radioGroup)).getCheckedRadioButtonId();
             if (selectedId == R.id.deleteDataRadioButton) {
@@ -218,21 +215,19 @@ public class User_profile extends AppCompatActivity {
         });
 
         // Set a click listener for the negative button (Cancel button)
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel), (dialogInterface, i) -> {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), (dialogInterface, i) -> {
             // Dismiss the dialog when the "Cancel" button is clicked
             alertDialog.dismiss();
         });
-
-        // Set a click listener for the radio buttons
         deleteDataRadioButton.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             // Enable the positive button when the user selects a radio button
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(isChecked || keepDataRadioButton.isChecked());
-        });
-        keepDataRadioButton.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            // Enable the positive button when the user selects a radio button
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(isChecked || deleteDataRadioButton.isChecked());
+            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(isChecked || keepDataRadioButton.isChecked());
         });
 
+        keepDataRadioButton.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            // Enable the positive button when the user selects a radio button
+            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(isChecked || deleteDataRadioButton.isChecked());
+        });
         alertDialog.show();
     }
     private void keepAccountData() {
@@ -263,67 +258,75 @@ public class User_profile extends AppCompatActivity {
     }
     private void deleteUserData(String userId) {
         // Step 1: Delete all comments made by the user
-        CollectionReference blogsCollectionRef = FirebaseFirestore.getInstance().collection("Blogs");
+        CollectionReference blogsCollectionRef = FirebaseFirestore.getInstance().collection(BLOGS_COLLECTION);
 
         blogsCollectionRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    CollectionReference commentsCollectionRef = blogsCollectionRef.document(document.getId()).collection("Comments");
-
-                    Query userCommentsQuery = commentsCollectionRef.whereEqualTo("userId", userId);
-                    userCommentsQuery.get().addOnCompleteListener(commentsTask -> {
-                        if (commentsTask.isSuccessful()) {
-                            for (QueryDocumentSnapshot commentDocument : commentsTask.getResult()) {
-                                commentsCollectionRef.document(commentDocument.getId()).delete();
-                            }
-                        }
-                    });
+                    deleteCommentsByUser(document.getId(), userId);
                 }
-
                 // Step 2: Delete user's posts from "Blogs" collection
-                Query userPostsQuery = blogsCollectionRef.whereEqualTo("userId", userId);
-                userPostsQuery.get().addOnCompleteListener(postsTask -> {
-                    if (postsTask.isSuccessful()) {
-                        for (QueryDocumentSnapshot postDocument : postsTask.getResult()) {
-                            DocumentReference postDocumentRef = blogsCollectionRef.document(postDocument.getId());
-                            postDocumentRef.delete();
-                        }
-
-                        // Step 3: Delete subcollections (e.g., "reminders", "symptoms", "events")
-                        deleteSubcollections(userId, "reminders");
-                        deleteSubcollections(userId, "symptoms");
-                        deleteSubcollections(userId, "events");
-
-                        // Step 4: Delete the main document from the "Users" collection
-                        DocumentReference userDocumentRef = FirebaseFirestore.getInstance().collection("Users").document(userId);
-                        userDocumentRef.delete().addOnCompleteListener(task2 -> {
-                            if (task2.isSuccessful()) {
-                                // Step 5: Delete the user's account
-                                currentUser.delete().addOnCompleteListener(accountDeletionTask -> {
-                                    if (accountDeletionTask.isSuccessful()) {
-                                        // Call the logout method to sign out the user and redirect to the login page
-                                        logoutUser();
-                                        Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(User_profile.this, "Failed to delete account and data.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                deleteUsersPosts(userId);
             }
         });
     }
+    private void deleteCommentsByUser(String blogId, String userId) {
+        CollectionReference commentsCollectionRef = FirebaseFirestore.getInstance().collection(BLOGS_COLLECTION).document(blogId).collection("Comments");
 
+        Query userCommentsQuery = commentsCollectionRef.whereEqualTo("userId", userId);
+        userCommentsQuery.get().addOnCompleteListener(commentsTask -> {
+            if (commentsTask.isSuccessful()) {
+                for (QueryDocumentSnapshot commentDocument : commentsTask.getResult()) {
+                    commentsCollectionRef.document(commentDocument.getId()).delete();
+                }
+            }
+        });
+    }
+    private void deleteUsersPosts(String userId) {
+        CollectionReference blogsCollectionRef = FirebaseFirestore.getInstance().collection("BLOGS_COLLECTION");
+        Query userPostsQuery = blogsCollectionRef.whereEqualTo("userId", userId);
 
+        userPostsQuery.get().addOnCompleteListener(postsTask -> {
+            if (postsTask.isSuccessful()) {
+                for (QueryDocumentSnapshot postDocument : postsTask.getResult()) {
+                    DocumentReference postDocumentRef = blogsCollectionRef.document(postDocument.getId());
+                    postDocumentRef.delete();
+                }
+
+                // Step 3: Delete subcollections (e.g., "reminders", "symptoms", "events")
+                deleteSubcollections(userId, "reminders");
+                deleteSubcollections(userId, "symptoms");
+                deleteSubcollections(userId, "Events");
+
+                // Step 4: Delete the main document from the "Users" collection
+                deleteMainUserDocument(userId);
+            } else {
+                Toast.makeText(User_profile.this, FAILURE_MESSAGE, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void deleteMainUserDocument(String userId) {
+        DocumentReference userDocumentRef = FirebaseFirestore.getInstance().collection(USERS_COLLECTION).document(userId);
+        userDocumentRef.delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Step 5: Delete the user's account
+                currentUser.delete().addOnCompleteListener(accountDeletionTask -> {
+                    if (accountDeletionTask.isSuccessful()) {
+                        // Call the logout method to sign out the user and redirect to the login page
+                        logoutUser();
+                        Toast.makeText(User_profile.this, "Account and data deleted successfully.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(User_profile.this, FAILURE_MESSAGE, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(User_profile.this, FAILURE_MESSAGE, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void deleteSubcollections(String userId, String subcollectionName) {
         CollectionReference subcollectionRef = FirebaseFirestore.getInstance()
-                .collection("Users").document(userId).collection(subcollectionName);
+                .collection(USERS_COLLECTION).document(userId).collection(subcollectionName);
 
         subcollectionRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -338,31 +341,32 @@ public class User_profile extends AppCompatActivity {
     }
     private void deleteProfilePicture(String userId, OnSuccessListener<Void> successListener, OnFailureListener failureListener) {
         // Get the user document from Firestore
-        DocumentReference userRef = FirebaseFirestore.getInstance().collection("Users").document(userId);
+        DocumentReference userRef = FirebaseFirestore.getInstance().collection(USERS_COLLECTION).document(userId);
         userRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 String imageUrl = documentSnapshot.getString("imageUrl");
-                Log.d("DeleteProfile", "imageUrl: " + imageUrl);
+                Log.d(DELETION_TAG, "imageUrl: " + imageUrl);
                 // Check if the image URL is the default image URL
                 String defaultImageUrl = "https://firebasestorage.googleapis.com/v0/b/endo-project-1acae.appspot.com/o/profile_images%2Funknown_pic.jpg?alt=media&token=41f82f66-f50e-44d3-b020-07487bedeba7";
                 if (!TextUtils.isEmpty(imageUrl) && !imageUrl.equals(defaultImageUrl)) {
                     StorageReference storageRef = storage.getReference();
                     StorageReference photoRef = storageRef.child("profile_images/" + userId + ".jpg");
-                    Log.d("DeleteProfile", "photoRef: " + photoRef.getPath());
+                    Log.d(DELETION_TAG, "photoRef: " + photoRef.getPath());
                     photoRef.delete().addOnSuccessListener(successListener).addOnFailureListener(failureListener);
                 } else {
                     // The image is the default image or empty, so we don't need to delete it
-                    Log.d("DeleteProfile", "Profile picture is the default image or empty.");
+                    Log.d(DELETION_TAG, "Profile picture is the default image or empty.");
                     successListener.onSuccess(null); // Call successListener directly since there's no deletion needed
                 }
             } else {
-                Log.d("DeleteProfile", "User document does not exist.");
+                Log.d(DELETION_TAG, "User document does not exist.");
                 failureListener.onFailure(new Exception("User document does not exist.")); // Call failureListener with an error message
             }
         }).addOnFailureListener(e -> {
             // An error occurred while retrieving the user document
-            Log.d("DeleteProfile", "Error retrieving user document: " + e.getMessage());
+            Log.d(DELETION_TAG, "Error retrieving user document: " + e.getMessage());
             failureListener.onFailure(e); // Call failureListener with the exception
         });
     }
+
 }

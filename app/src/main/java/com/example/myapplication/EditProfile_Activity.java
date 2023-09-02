@@ -31,10 +31,12 @@ public class EditProfile_Activity extends AppCompatActivity {
     private EditText nameEditText;
     private EditText emailEditText;
     private EditText birthdayEditText;
-
     private Uri imageUri;
     private FirebaseFirestore db;
     private StorageReference storageRef;
+    private static final String USERS = "Users";
+    private static final String IMAGEURL = "imageUrl";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +61,14 @@ public class EditProfile_Activity extends AppCompatActivity {
         }
         DocumentReference userRef = null;
         if (userId != null) {
-            userRef = db.collection("Users").document(userId);
+            userRef = db.collection(USERS).document(userId);
         }
         userRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 String name = documentSnapshot.getString("name");
                 String email = documentSnapshot.getString("email");
                 String birthday = documentSnapshot.getString("birthday");
-                String imageUrl = documentSnapshot.getString("imageUrl");
+                String imageUrl = documentSnapshot.getString(IMAGEURL);
 
                 nameEditText.setText(name);
                 emailEditText.setText(email);
@@ -134,9 +136,9 @@ public class EditProfile_Activity extends AppCompatActivity {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
                     String userId1 = currentUser.getUid();
-                    DocumentReference userRef = db.collection("Users").document(userId1);
+                    DocumentReference userRef = db.collection(USERS).document(userId1);
                     userRef.get().addOnSuccessListener(documentSnapshot -> {
-                        String oldImageUrl = documentSnapshot.getString("imageUrl");
+                        String oldImageUrl = documentSnapshot.getString(IMAGEURL);
 
                         // Update the user data with the new image URL
                         saveUserData(name, email, birthday, imageUrl);
@@ -151,7 +153,7 @@ public class EditProfile_Activity extends AppCompatActivity {
 
     private void saveUserData(String name, String email, String birthday, @Nullable String imageUrl) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference userRef = db.collection("Users").document(userId);
+        DocumentReference userRef = db.collection(USERS).document(userId);
 
         Map<String, Object> user = new HashMap<>();
         user.put("name", name);
@@ -159,7 +161,7 @@ public class EditProfile_Activity extends AppCompatActivity {
         user.put("birthday", birthday);
 
         if (imageUrl != null) {
-            user.put("imageUrl", imageUrl);
+            user.put(IMAGEURL, imageUrl);
         }
 
         userRef.update(user)

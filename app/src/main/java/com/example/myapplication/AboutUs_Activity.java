@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,26 +21,13 @@ public class AboutUs_Activity extends AppCompatActivity {
         TextView link2TextView = findViewById(R.id.link2);
         TextView link3TextView = findViewById(R.id.link3);
 
-        link1TextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUrl(getString(R.string.link1_url));
-            }
-        });
+        backButton.setOnClickListener(v -> onBackPressed());
 
-        link2TextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUrl(getString(R.string.link2_url));
-            }
-        });
+        link1TextView.setOnClickListener(v -> openUrl(getString(R.string.link1_url)));
 
-        link3TextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUrl(getString(R.string.link3_url));
-            }
-        });
+        link2TextView.setOnClickListener(v -> openUrl(getString(R.string.link2_url)));
+
+        link3TextView.setOnClickListener(v -> openUrl(getString(R.string.link3_url)));
     }
 
     private void openUrl(String url) {

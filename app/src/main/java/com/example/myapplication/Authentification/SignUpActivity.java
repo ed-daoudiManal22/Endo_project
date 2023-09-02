@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -92,73 +94,87 @@ public class SignUpActivity extends AppCompatActivity {
             Intent intent = new Intent(SignUpActivity.this, logInActivity.class);
             startActivity(intent);
         });
-    }
-    private void signUpUser(String name, String email, String password) {
+    }private void signUpUser(String name, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            // Update user's display name
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(name)
-                                    .build();
-
-                            user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            // Send email verification
-                                            user.sendEmailVerification()
-                                                    .addOnCompleteListener(task11 -> {
-                                                        if (task11.isSuccessful()) {
-                                                            Toast.makeText(SignUpActivity.this, "Verification email sent. Please check your email to verify your account.", Toast.LENGTH_LONG).show();
-                                                            // Create a user object with name and email
-                                                            Map<String, Object> newUser = new HashMap<>();
-                                                            newUser.put("name", name);
-                                                            newUser.put("email", email);
-                                                            newUser.put("imageUrl", DEFAULT_PROFILE_IMAGE_URL);
-
-                                                            // Add the user object to the "users" collection
-                                                            db.collection("Users")
-                                                                    .document(user.getUid())
-                                                                    .set(newUser)
-                                                                    .addOnCompleteListener(task111 -> {
-                                                                        if (task111.isSuccessful()) {
-                                                                            Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
-                                                                            Intent intent = new Intent(SignUpActivity.this, Email_verification.class);
-                                                                            startActivity(intent);
-                                                                            finish();
-                                                                        } else {
-                                                                            Toast.makeText(SignUpActivity.this, "Failed to register user in Firestore", Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    });
-                                                        } else {
-                                                            Toast.makeText(SignUpActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-
-                                        } else {
-                                            Toast.makeText(SignUpActivity.this, "Failed to update user profile", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                            updateUserProfile(name, user);
                         }
                     } else {
-                        // Handle exceptions
-                        try {
-                            throw Objects.requireNonNull(task.getException());
-                        } catch (FirebaseAuthWeakPasswordException e) {
-                            passwordInput.setError("Weak password. Please enter a stronger password.");
-                            passwordInput.requestFocus();
-                        } catch (FirebaseAuthInvalidCredentialsException e) {
-                            emailInput.setError("Invalid email address");
-                            emailInput.requestFocus();
-                        } catch (FirebaseAuthUserCollisionException e) {
-                            emailInput.setError("Email address already in use");
-                            emailInput.requestFocus();
-                        } catch (Exception e) {
-                            Toast.makeText(SignUpActivity.this, "Sign up failed", Toast.LENGTH_SHORT).show();
-                        }
+                        handleSignUpException(task);
                     }
                 });
     }
+
+    private void updateUserProfile(String name, FirebaseUser user) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        sendEmailVerification(user);
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Failed to update user profile", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void sendEmailVerification(FirebaseUser user) {
+        user.sendEmailVerification()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        createUserInFirestore(user);
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void createUserInFirestore(FirebaseUser user) {
+        String name = user.getDisplayName();
+        String email = user.getEmail();
+
+        // Create a user object with name and email
+        Map<String, Object> newUser = new HashMap<>();
+        newUser.put("name", name);
+        newUser.put("email", email);
+        newUser.put("imageUrl", DEFAULT_PROFILE_IMAGE_URL);
+
+        // Add the user object to the "users" collection
+        db.collection("Users")
+                .document(user.getUid())
+                .set(newUser)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpActivity.this, Email_verification.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Failed to register user in Firestore", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void handleSignUpException(Task<AuthResult> task) {
+        try {
+            throw Objects.requireNonNull(task.getException());
+        } catch (FirebaseAuthWeakPasswordException e) {
+            passwordInput.setError("Weak password. Please enter a stronger password.");
+            passwordInput.requestFocus();
+        } catch (FirebaseAuthInvalidCredentialsException e) {
+            emailInput.setError("Invalid email address");
+            emailInput.requestFocus();
+        } catch (FirebaseAuthUserCollisionException e) {
+            emailInput.setError("Email address already in use");
+            emailInput.requestFocus();
+        } catch (Exception e) {
+            Toast.makeText(SignUpActivity.this, "Sign up failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

@@ -33,8 +33,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     public void onBindViewHolder(@NonNull QuestionVH holder, int position) {
         Questions question = QuestionsList.get(position);
         Context context = holder.itemView.getContext();
-        //holder.titleTxt.setText(question.getTitle());
-        //holder.answerTxt.setText(question.getAnswer());
         holder.titleTxt.setText(getResourceString(context,question.getTitle()));
         holder.answerTxt.setText(getResourceString(context,question.getAnswer()));
 

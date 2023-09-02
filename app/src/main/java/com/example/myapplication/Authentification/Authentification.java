@@ -16,7 +16,6 @@ public class Authentification extends AppCompatActivity {
         AppCompatButton loginWithEmailButton = findViewById(R.id.loginWithEmailButton);
         AppCompatButton loginWithGoogleButton = findViewById(R.id.loginWithGoogleButton);
         AppCompatButton signUpButton = findViewById(R.id.signUpButton);
-        //contactUsTextView = findViewById(R.id.contactus);
 
         loginWithEmailButton.setOnClickListener(v -> {
             // Redirect to login_with_email view
@@ -35,14 +34,5 @@ public class Authentification extends AppCompatActivity {
             Intent intent = new Intent(Authentification.this, SignUpActivity.class);
             startActivity(intent);
         });
-
-        /*contactUsTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Redirect to ContactUs view
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });*/
     }
 }
