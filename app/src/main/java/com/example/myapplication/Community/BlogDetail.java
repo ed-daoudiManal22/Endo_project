@@ -56,10 +56,6 @@ public class BlogDetail extends AppCompatActivity {
         RecyclerView commentsRecyclerView = findViewById(R.id.commentsRecyclerView);
         commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Comment> commentsList = new ArrayList<>();
-        // Initialize the commentsAdapter
-        commentsAdapter = new CommentsAdapter(this, commentsList, id);
-        commentsRecyclerView.setAdapter(commentsAdapter);
-
 
         id = getIntent().getStringExtra("id");
         FirebaseFirestore.getInstance().collection("Blogs").document(id).addSnapshotListener((value, error) -> {
@@ -73,7 +69,12 @@ public class BlogDetail extends AppCompatActivity {
             ownerId = value.getString("ownerId");
             int i_count = Integer.parseInt(count);
             n_count = i_count + 1;
+
+            // Initialize the commentsAdapter
+            commentsAdapter = new CommentsAdapter(this, commentsList, ownerId);
+            commentsRecyclerView.setAdapter(commentsAdapter);
         });
+
         binding.floatingActionButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SEND);
             String shareBody = desc;

@@ -2,6 +2,7 @@ package com.example.myapplication.Community;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +25,12 @@ import java.util.Locale;
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
     private final Context context;
     private final List<Comment> comments;
-    private final String blogId;
+    private final String ownerId;
 
-    public CommentsAdapter(Context context, List<Comment> comments,String blogId) {
+    public CommentsAdapter(Context context, List<Comment> comments,String ownerId) {
         this.context = context;
         this.comments = comments;
-        this.blogId = blogId;
+        this.ownerId = ownerId;
     }
 
     @NonNull
@@ -70,7 +71,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             comment_date = itemView.findViewById(R.id.comment_date);
             itemView.setOnLongClickListener(v -> {
                 Comment comment = comments.get(getAdapterPosition());
-                if (isCurrentUserOrOwner(comment.getUserId(), blogId)) {
+                Log.d("Comment__Holder", "Comment UserID: " + comment.getUserId());
+                Log.d("Comment__Holder", "Owner ID: " + ownerId);
+                if (isCurrentUserOrOwner(comment.getUserId(), ownerId)) {
                     showDeleteDialog(getAdapterPosition());
                 }
                 return true;
