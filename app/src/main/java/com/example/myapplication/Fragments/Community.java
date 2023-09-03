@@ -87,7 +87,7 @@ public class Community extends Fragment{FragmentCommunityBinding binding;
             //
         }
         else{
-            adapter.filter_list(filtered_list);
+            adapter.filterList(filtered_list);
         }
     }
 

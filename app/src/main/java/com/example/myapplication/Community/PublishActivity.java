@@ -165,8 +165,12 @@ public class PublishActivity extends AppCompatActivity {
                                     if (task1.isSuccessful()) {
                                         pd.dismiss();
                                         Toast.makeText(PublishActivity.this, "Post Uploaded!!!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(PublishActivity.this, Community.class);
+                                        // Navigate back to the Community fragment within HomeActivity
+                                        Intent intent = new Intent(PublishActivity.this, HomeActivity.class);
+                                        intent.putExtra("fragment_to_load", "community"); // Add this line to indicate which fragment to load
                                         startActivity(intent);
+                                        finish(); // Finish the PublishActivity
+
                                     }
                                 });
                             }));

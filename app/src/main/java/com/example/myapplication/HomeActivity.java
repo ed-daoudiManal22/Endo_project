@@ -196,6 +196,17 @@ public class HomeActivity extends AppCompatActivity {
                 selectedTab = 4;
             }
         });
+        // Check for the fragment to load
+        String fragmentToLoad = getIntent().getStringExtra("fragment_to_load");
+        if (fragmentToLoad != null && fragmentToLoad.equals("community")) {
+            loadCommunityFragment(); // Load the Community fragment
+        }
+    }
+    private void loadCommunityFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, new Community()) // Replace with your container view ID
+                .commit();
     }
 }
 

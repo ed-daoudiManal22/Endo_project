@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -44,8 +40,8 @@ public class BlogsAdapter extends RecyclerView.Adapter<BlogsAdapter.ViewHolder> 
         this.currentUserId = currentUserId;
         this.notifyDataSetChanged();
     }
-    public void filter_list(ArrayList<Model> filter_list){
-        list = filter_list;
+    public void filterList(ArrayList<Model> filterList){
+        list = filterList;
         notifyDataSetChanged();
     }
 
@@ -62,7 +58,7 @@ public class BlogsAdapter extends RecyclerView.Adapter<BlogsAdapter.ViewHolder> 
         holder.title.setText(model.getTitle());
         holder.date.setText(model.getDate());
         holder.description.setText(model.getDesc());
-        holder.share_count.setText(model.getShare_count() + " " + context.getString(R.string.shared));
+        holder.shareCount.setText(model.getShare_count() + " " + context.getString(R.string.shared));
         holder.author.setText(model.getAuthor());
 
         Glide.with(holder.author.getContext()).load(model.getImg()).into(holder.img);
@@ -121,28 +117,27 @@ public class BlogsAdapter extends RecyclerView.Adapter<BlogsAdapter.ViewHolder> 
                 builder.setNegativeButton("DELETE", (dialog, which) -> {
                     AlertDialog.Builder builders = new AlertDialog.Builder(holder.author.getContext());
                     builders.setTitle("Are you sure to Delete it??");
-                    builders.setPositiveButton("Yes! I am Sure", (dialog1, which1) -> {
-                        // Delete the subcollection first
-                        deleteSubcollections(model.getId(), new OnSubcollectionDeletedListener() {
-                            @Override
-                            public void onSubcollectionDeleted() {
-                                // Delete the main blog document after successful subcollection deletion
-                                FirebaseFirestore.getInstance().collection(BLOGS)
-                                        .document(model.getId()).delete();
-                                dialog1.dismiss();
-                            }
+                    builders.setPositiveButton("Yes! I am Sure", (dialog1, which1) ->
+                            // Delete the subcollection first
+                            deleteSubcollections(model.getId(), new OnSubcollectionDeletedListener() {
+                                @Override
+                                public void onSubcollectionDeleted() {
+                                    // Delete the main blog document after successful subcollection deletion
+                                    FirebaseFirestore.getInstance().collection(BLOGS)
+                                            .document(model.getId()).delete();
+                                    dialog1.dismiss();
+                                }
 
-                            @Override
-                            public void onSubcollectionDeletionFailed() {
-                                Log.d(BLOGDELETION, "Error getting documents: Deletion Failed");
-                                dialog1.dismiss(); // Dismiss the dialog on deletion failure
-                            }
-                        });
-                    });
+                                @Override
+                                public void onSubcollectionDeletionFailed() {
+                                    Log.d(BLOGDELETION, "Error getting documents: Deletion Failed");
+                                    dialog1.dismiss(); // Dismiss the dialog on deletion failure
+                                }
+                            })
+                    );
                     AlertDialog dialogs = builders.create();
                     dialogs.show();
                 });
-
                 // Create and show the main dialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -158,7 +153,12 @@ public class BlogsAdapter extends RecyclerView.Adapter<BlogsAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
-        TextView date, title, share_count, author, description;
+        TextView date;
+        TextView title;
+        TextView shareCount;
+        TextView author;
+        TextView description;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -166,7 +166,7 @@ public class BlogsAdapter extends RecyclerView.Adapter<BlogsAdapter.ViewHolder> 
             date = itemView.findViewById(R.id.t_date);
             title = itemView.findViewById(R.id.textView9);
             description = itemView.findViewById(R.id.textViewDescription);
-            share_count = itemView.findViewById(R.id.textView10);
+            shareCount = itemView.findViewById(R.id.textView10);
             author = itemView.findViewById(R.id.textView8);
 
         }
@@ -205,18 +205,18 @@ public class BlogsAdapter extends RecyclerView.Adapter<BlogsAdapter.ViewHolder> 
                         // Delete the image from Firebase Storage
                         StorageReference storageRef = FirebaseStorage.getInstance()
                                 .getReferenceFromUrl(imageUrl);
-                        storageRef.delete().addOnSuccessListener(aVoid -> {
-                            // Image deleted successfully, now delete the blog document
-                            FirebaseFirestore.getInstance().collection(BLOGS)
-                                    .document(blogId).delete()
-                                    .addOnSuccessListener(aVoid1 -> {
-                                        listener.onSubcollectionDeleted(); // Notify listener on successful deletion
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Log.d(BLOGDELETION, "Error deleting document: ", e);
-                                        listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
-                                    });
-                        }).addOnFailureListener(e -> {
+                        storageRef.delete().addOnSuccessListener(aVoid ->
+                                // Image deleted successfully, now delete the blog document
+                                FirebaseFirestore.getInstance().collection(BLOGS)
+                                        .document(blogId).delete()
+                                        .addOnSuccessListener(aVoid1 ->
+                                                listener.onSubcollectionDeleted() // Notify listener on successful deletion
+                                        )
+                                        .addOnFailureListener(e -> {
+                                            Log.d(BLOGDELETION, "Error deleting document: ", e);
+                                            listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
+                                        })
+                        ).addOnFailureListener(e -> {
                             Log.d(BLOGDELETION, "Error deleting image: ", e);
                             listener.onSubcollectionDeletionFailed(); // Notify listener on deletion failure
                         });
