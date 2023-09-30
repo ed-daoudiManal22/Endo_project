@@ -34,7 +34,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <receiver android:name=".NotificationReceiver" android:enabled="true" android:exported="false">
+        <receiver android:name="com.spmenais.paincare.NotificationReceiver" android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name="com.yourapp.NOTIFICATION_ACTION" />
             </intent-filter>
@@ -42,7 +42,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.spmenais.paincare.MainActivity"
             android:exported="true"
             android:label="@string/paincare"
             android:theme="@style/Theme.MyApplication">
@@ -55,59 +55,59 @@
 
         <!-- Add activity declarations for the redirected activities -->
         <activity
-            android:name=".Authentification.Authentification"
+            android:name="com.spmenais.paincare.Authentification.Authentification"
             android:label="Authentification" />
 
         <activity
-            android:name=".Authentification.logInActivity"
+            android:name="com.spmenais.paincare.Authentification.logInActivity"
             android:label="Login with Email" />
 
         <activity
-            android:name=".Authentification.GoogleLoginActivity"
+            android:name="com.spmenais.paincare.Authentification.GoogleLoginActivity"
             android:label="Login with Google" />
 
         <activity
-            android:name=".Authentification.SignUpActivity"
+            android:name="com.spmenais.paincare.Authentification.SignUpActivity"
             android:label="Sign Up" />
 
         <activity
-            android:name=".Authentification.ForgotPasswordActivity"
+            android:name="com.spmenais.paincare.Authentification.ForgotPasswordActivity"
             android:label="Forgot Password" />
 
         <activity
-            android:name=".Authentification.Email_verification">
+            android:name="com.spmenais.paincare.Authentification.Email_verification">
         </activity>
 
         <activity
-            android:name=".HomeActivity"
+            android:name="com.spmenais.paincare.HomeActivity"
             android:configChanges="locale|orientation|screenSize"/>
 
-        <activity android:name=".User_profile" />
-        <activity android:name=".NotifiactionSettings_Activity"/>
+        <activity android:name="com.spmenais.paincare.User_profile" />
+        <activity android:name="com.spmenais.paincare.NotifiactionSettings_Activity"/>
 
-        <activity android:name=".Endo_InfoActivity" />
-        <activity android:name=".EndoFAQ_Activity" />
+        <activity android:name="com.spmenais.paincare.Endo_InfoActivity" />
+        <activity android:name="com.spmenais.paincare.EndoFAQ_Activity" />
 
-        <activity android:name=".Diag_start" />
-        <activity android:name=".DiagTest_Activity" />
+        <activity android:name="com.spmenais.paincare.Diag_start" />
+        <activity android:name="com.spmenais.paincare.DiagTest_Activity" />
 
-        <activity android:name=".BasicUsersInfos.UserAge_Activity" />
+        <activity android:name="com.spmenais.paincare.BasicUsersInfos.UserAge_Activity" />
 
-        <activity android:name=".LineChart_Activity" />
+        <activity android:name="com.spmenais.paincare.LineChart_Activity" />
 
-        <activity android:name=".ReminderActivity" />
-        <activity android:name=".EditProfile_Activity"/>
+        <activity android:name="com.spmenais.paincare.ReminderActivity" />
+        <activity android:name="com.spmenais.paincare.EditProfile_Activity"/>
 
-        <activity android:name=".QuizResults" />
-        <activity android:name=".Quiz_main" />
-        <activity android:name=".Quiz_Activity" />
+        <activity android:name="com.spmenais.paincare.QuizResults" />
+        <activity android:name="com.spmenais.paincare.Quiz_main" />
+        <activity android:name="com.spmenais.paincare.Quiz_Activity" />
 
-        <activity android:name=".AboutUs_Activity" />
+        <activity android:name="com.spmenais.paincare.AboutUs_Activity" />
 
-        <activity android:name="com.example.myapplication.NewsLibrary.ArticlesDetailActivity"/>
+        <activity android:name="com.spmenais.paincare.NewsLibrary.ArticlesDetailActivity"/>
 
-        <activity android:name=".Community.BlogDetail"/>
-        <activity android:name=".Community.PublishActivity"/>
+        <activity android:name="com.spmenais.paincare.Community.BlogDetail"/>
+        <activity android:name="com.spmenais.paincare.Community.PublishActivity"/>
 
     </application>
 

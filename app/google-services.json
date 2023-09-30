@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1063873527410",
+    "firebase_url": "https://endo-project-1acae-default-rtdb.firebaseio.com",
     "project_id": "endo-project-1acae",
     "storage_bucket": "endo-project-1acae.appspot.com"
   },
@@ -22,7 +23,7 @@
           }
         },
         {
-          "client_id": "1063873527410-sb1t1ncm837n20p16eaeih6q4bnu6ei0.apps.googleusercontent.com",
+          "client_id": "1063873527410-q0p0c7aehhlvesdnklehuji6a17ffn0n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,7 +36,44 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1063873527410-sb1t1ncm837n20p16eaeih6q4bnu6ei0.apps.googleusercontent.com",
+              "client_id": "1063873527410-q0p0c7aehhlvesdnklehuji6a17ffn0n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063873527410:android:20c434de14e1c0570acceb",
+        "android_client_info": {
+          "package_name": "com.spmenais.paincare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063873527410-htvh7flomc112j28qa01gjghglk3450b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spmenais.paincare",
+            "certificate_hash": "ba9f843f447eb3007eeb5ee659b43fee066d642c"
+          }
+        },
+        {
+          "client_id": "1063873527410-q0p0c7aehhlvesdnklehuji6a17ffn0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADd6GGsKqKdEDkkrUOzEwVJaGqvmN8GXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063873527410-q0p0c7aehhlvesdnklehuji6a17ffn0n.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

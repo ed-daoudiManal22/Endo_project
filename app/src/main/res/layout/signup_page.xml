@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@drawable/background"
-    tools:context=".Authentification.SignUpActivity">
+    tools:context="com.spmenais.paincare.Authentification.SignUpActivity">
 
     <ImageView
         android:id="@+id/appImage"

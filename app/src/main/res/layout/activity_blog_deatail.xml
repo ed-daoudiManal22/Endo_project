@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Community.BlogDetail">
+    tools:context="com.spmenais.paincare.Community.BlogDetail">
 
     <ImageView
         android:id="@+id/imageView4"

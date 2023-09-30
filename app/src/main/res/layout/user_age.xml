@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@drawable/background"
-    tools:context=".BasicUsersInfos.UserAge_Activity">
+    tools:context="com.spmenais.paincare.BasicUsersInfos.UserAge_Activity">
 
     <!-- Back Button -->
     <ImageButton

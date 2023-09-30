@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
-    tools:context=".NotifiactionSettings_Activity">
+    tools:context="com.spmenais.paincare.NotifiactionSettings_Activity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar

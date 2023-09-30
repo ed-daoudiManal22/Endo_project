@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@drawable/background"
-    tools:context=".Authentification.Email_verification">
+    tools:context="com.spmenais.paincare.Authentification.Email_verification">
 
     <ImageButton
         android:id="@+id/circularButton"

@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Community.PublishActivity">
+        tools:context="com.spmenais.paincare.Community.PublishActivity">
 
         <TextView
             android:id="@+id/textView3"
