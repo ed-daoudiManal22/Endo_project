@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="default_web_client_id">1063873527410-4pte50gh9jnn116dirrl6qm3q1ffc3o0.apps.googleusercontent.com</string>
     <string name="app_name">myApplication</string>
     <string name="action_settings">Paramètres</string>
     <string name="next">Suivant</string>
@@ -15,7 +16,7 @@
     <string name="update_button_label">Mettre à jour</string>
 
     <string name="delete_confirmation_title">Confirmer la suppression</string>
-    <string name="delete_confirmation_message">Êtes-vous sûr de vouloir supprimer cet événement ?</string>
+    <string name="delete_confirmation_message">Voulez-vous supprimer cet événement ?</string>
     <string name="event_deleted_successfully">Événement supprimé avec succès</string>
     <string name="error_deleting_event">Erreur lors de la suppression de l\'événement</string>
 
@@ -23,7 +24,7 @@
     <string name="report_label">Rapport</string>
     <string name="open_report_button_label">Ouvrir le rapport</string>
 
-    <string name="diagnostic_label">Test de diagnostic</string>
+    <string name="diagnostic_label">Test de diagnostique</string>
     <string name="weight_data">Entrez votre poids en kg</string>
     <string name="height_data">Entrez votre taille en cm</string>
     <string name="RiskLevel">Niveau de risque : </string>
@@ -127,7 +128,7 @@
     <string name="AddEvent">Ajouter</string>
 
     <string name="delete_account_title">Supprimer le Compte</string>
-    <string name="delete_account_message">Êtes-vous sûr(e) de vouloir supprimer votre compte ?</string>
+    <string name="delete_account_message">Êtes-vous sûre de vouloir supprimer votre compte ?</string>
     <string name="delete_data_radio_label">Supprimer les Données</string>
     <string name="keep_data_radio_label">Conserver les Données</string>
 

@@ -27,7 +27,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.spmenais.paincare.Models.Test_Questions;
-import com.spmenais.paincare.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -41,7 +40,6 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.spmenais.paincare.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,10 +48,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DiagTest_Activity extends AppCompatActivity {
     private TextView questionTextView;
-
     private TextView inputWeight;
     TextView inputHeight;
     private RadioGroup optionsRadioGroup;
@@ -145,10 +143,23 @@ public class DiagTest_Activity extends AppCompatActivity {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String text = document.getString("text");
                     String type = document.getString("type");
-                    List<String> options = (List<String>) document.get("options");
-                    Map<String, Long> optionScores = (Map<String, Long>) document.get("optionScores");
 
-                    Test_Questions question = new Test_Questions(text, options,optionScores,type);
+                    // Safely cast options to List<String>
+                    List<String> options = null;
+                    Object optionsObj = document.get("options");
+                    if (optionsObj instanceof List<?>) {
+                        options = (List<String>) optionsObj;
+                    }
+
+                    // Safely cast optionScores to Map<String, Long>
+                    Map<String, Long> optionScores = null;
+                    Object optionScoresObj = document.get("optionScores");
+                    if (optionScoresObj instanceof Map<?, ?>) {
+                        optionScores = (Map<String, Long>) optionScoresObj;
+                    }
+
+                    // Create the Test_Questions object
+                    Test_Questions question = new Test_Questions(text, options, optionScores, type);
                     questions.add(question);
                 }
                 // Update the progress bar after retrieving questions
@@ -156,10 +167,13 @@ public class DiagTest_Activity extends AppCompatActivity {
 
                 // Display the first question
                 showQuestion(currentQuestionIndex);
-            }  // Handle Firestore retrieval error
-
+            } else {
+                // Handle Firestore retrieval error
+                Log.e(TAG, "Error retrieving questions: " + task.getException());
+            }
         });
     }
+
 
     private void showQuestion(int questionIndex) {
         Test_Questions question = questions.get(questionIndex);
@@ -283,6 +297,7 @@ public class DiagTest_Activity extends AppCompatActivity {
 
         // Update user's risk level
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        assert currentUser != null;
         String userId = currentUser.getUid();
         updateUserRiskLevelInFirestore(userId, riskLevel);
 
@@ -319,25 +334,37 @@ public class DiagTest_Activity extends AppCompatActivity {
 
     private int calculateScore(Test_Questions question, Object userAnswer) {
         int score = 0;
-        if (userAnswer instanceof String) {
-            String selectedOption = (String) userAnswer;
-            if (question.getOptionScores().containsKey(selectedOption)) {
-                score += question.getOptionScores().get(selectedOption);
+
+        if (userAnswer instanceof String selectedOption) {
+            Long scoreValue = question.getOptionScores().getOrDefault(selectedOption, 0L);
+            if (scoreValue != null) {
+                score += scoreValue.intValue();
             }
-        } else if (userAnswer instanceof List<?>) {
-            List<String> selectedOptions = (List<String>) userAnswer;
+        } else if (userAnswer instanceof List<?> rawList) {
+            List<String> selectedOptions = rawList.stream()
+                    .filter(item -> item instanceof String)
+                    .map(String.class::cast)
+                    .collect(Collectors.toList());
             for (String option : selectedOptions) {
-                if (option != null && question.getOptionScores().containsKey(option)) {
-                    score += question.getOptionScores().get(option);
+                if (option != null) {
+                    Long scoreValue = question.getOptionScores().getOrDefault(option, 0L);
+                    if (scoreValue != null) {
+                        score += scoreValue.intValue();
+                    }
                 }
             }
         } else if (userAnswer instanceof Double && question.getText().equals("BMIqst")) {
-            int bmiAnswer = (int) userAnswers.get("BMI Score");
-            Log.d(TAG, "BMI Score: " + bmiAnswer);
-            score += bmiAnswer;
+            Integer bmiAnswer = (Integer) userAnswers.getOrDefault("BMI Score", 0);
+            if (bmiAnswer != null) {
+                Log.d(TAG, "BMI Score: " + bmiAnswer);
+                score += bmiAnswer;
+            }
         }
+
         return score;
     }
+
+
 
     private String calculateRiskLevel(int totalScore) {
         if (totalScore >= 0 && totalScore <= 12) {
@@ -431,7 +458,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         Paint reportPaint = new Paint();
 
                         // Calculate the center of the page for the title
-                        float centerX = canvas.getWidth() / 2;
+                        float centerX = (float) canvas.getWidth() / 2;
                         float titleY = 60;
                         float titleWidth = titlePaint.measureText("Diagnostic Test Report");
 
@@ -464,7 +491,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         canvas.drawText("Risk Level : " + riskLevel, 50, dividerY + 40 , scorePaint);
 
                         // Draw the first 8 questions
-                        drawContent(canvas, questions, 0, 14, reportPaint,260);
+                        drawContent(canvas, questions, reportPaint);
 
                         // Finish the first page
                         pdfDocument.finishPage(page);
@@ -485,7 +512,7 @@ public class DiagTest_Activity extends AppCompatActivity {
                         pdfDocument.close();
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e(TAG, "Error generating PDF report: ", e);
                     }
                 } else {
                     // Handle the case when the user document does not exist
@@ -514,9 +541,9 @@ public class DiagTest_Activity extends AppCompatActivity {
                 });
     }
     // Add a new method to draw content for a single page
-    private void drawContent(Canvas canvas, List<Test_Questions> questions, int startIndex, int endIndex, Paint reportPaint, int height) {
-        float reportY = height;
-        for (int i = startIndex; i <= endIndex; i++) {
+    private void drawContent(Canvas canvas, List<Test_Questions> questions, Paint reportPaint) {
+        float reportY = 260;
+        for (int i = 0; i <= 14; i++) {
             Test_Questions question = questions.get(i);
             Object userAnswer = userAnswers.get(question.getText());
 
@@ -527,20 +554,25 @@ public class DiagTest_Activity extends AppCompatActivity {
                 if (userAnswer instanceof String) {
                     userAnswerText = (String) userAnswer;
                 } else if (userAnswer instanceof List<?>) {
-                    List<String> selectedOptions = (List<String>) userAnswer;
+                    // Safely filter and cast the list elements
+                    List<String> selectedOptions = ((List<?>) userAnswer).stream()
+                            .filter(item -> item instanceof String)
+                            .map(String.class::cast)
+                            .collect(Collectors.toList());
                     userAnswerText = TextUtils.join(", ", selectedOptions);
                 } else if (userAnswer instanceof Double) {
                     userAnswerText = String.valueOf(userAnswer);
                 }
             }
-            // Draw the question
-            canvas.drawText(getResourceString(question.getText())+ "   " + userAnswerText, LEFTMARGIN, reportY, reportPaint);
+
+            // Draw the question and user's answer
+            canvas.drawText(getResourceString(question.getText()) + "   " + userAnswerText, LEFTMARGIN, reportY, reportPaint);
             reportY += reportPaint.descent() - reportPaint.ascent();
 
             reportY += reportPaint.descent() - reportPaint.ascent();
-
         }
     }
+
     private String getResourceString(String resourceName) {
         int resId = getResources().getIdentifier(resourceName, "string", getPackageName());
         if (resId != 0) {
@@ -558,7 +590,11 @@ public class DiagTest_Activity extends AppCompatActivity {
             if (userAnswer instanceof String) {
                 userAnswerText = (String) userAnswer;
             } else if (userAnswer instanceof List<?>) {
-                List<String> selectedOptions = (List<String>) userAnswer;
+                // Safely filter and cast elements in the list
+                List<String> selectedOptions = ((List<?>) userAnswer).stream()
+                        .filter(item -> item instanceof String)
+                        .map(String.class::cast)
+                        .collect(Collectors.toList());
                 userAnswerText = TextUtils.join(", ", selectedOptions);
             } else if (userAnswer instanceof Double) {
                 userAnswerText = String.valueOf(userAnswer);

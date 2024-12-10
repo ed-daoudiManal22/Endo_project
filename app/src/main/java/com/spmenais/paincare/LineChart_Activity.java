@@ -1,5 +1,7 @@
 package com.spmenais.paincare;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,8 +45,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.spmenais.paincare.R;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -157,7 +157,7 @@ public class LineChart_Activity extends AppCompatActivity {
 
                     Toast.makeText(LineChart_Activity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Failed to save image", e);
                     Toast.makeText(LineChart_Activity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
                 }
                 // Return the file that was saved
@@ -181,11 +181,12 @@ public class LineChart_Activity extends AppCompatActivity {
         if (imageUri != null) {
             try {
                 OutputStream outputStream = getContentResolver().openOutputStream(imageUri);
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                assert outputStream != null;
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                     outputStream.close();
                     return true; // Successfully saved the image
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error saving the image", e);
             }
         }
         return false; // Failed to save the image
@@ -235,8 +236,7 @@ public class LineChart_Activity extends AppCompatActivity {
                 List<String> data = (List<String>) dataObject;
 
                 allData.addAll(data);
-            } else if (dataObject instanceof String) {
-                String singleData = (String) dataObject;
+            } else if (dataObject instanceof String singleData) {
                 allData.add(singleData);
             }
         }
@@ -395,7 +395,7 @@ public class LineChart_Activity extends AppCompatActivity {
         try {
             return dateFormat.parse(documentName);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(TAG, "", e);
             return null;
         }
     }
