@@ -179,6 +179,10 @@ public class SymptomsTrackFragment extends Fragment {
         userSymptomRef.set(symptomData)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(requireContext(), "Symptoms submitted successfully!", Toast.LENGTH_SHORT).show();
+                    
+                    // Trigger AI analysis after successful symptom submission
+                    performAIAnalysis(symptomData);
+                    
                     Intent intent = new Intent(requireContext(), HomeActivity.class);
                     startActivity(intent);
                     requireActivity().finish();
@@ -244,6 +248,40 @@ public class SymptomsTrackFragment extends Fragment {
             return new Pair<>(resources.getString(R.string.pain_level_very_severe), R.color.calm_red);
         } else {
             return new Pair<>(resources.getString(R.string.pain_level_worst), R.color.red);
+        }
+    }
+
+    /**
+     * Perform AI analysis after symptom submission
+     */
+    private void performAIAnalysis(Map<String, Object> symptomData) {
+        try {
+            // Import the AI service at the top of your class if needed
+            com.spmenais.paincare.AI.integration.AIIntegrationService aiService = 
+                com.spmenais.paincare.AI.integration.AIIntegrationService.getInstance(requireContext());
+            
+            // Add timestamp for AI processing
+            symptomData.put("timestamp", new Date());
+            
+            // Log the AI analysis trigger
+            android.util.Log.d("SymptomsTrack", "Triggering AI analysis for submitted symptoms");
+            
+            // Trigger actual AI analysis
+            aiService.analyzeCurrentSymptoms(symptomData)
+                .thenAccept(aiDecision -> {
+                    // AI analysis completed successfully
+                    android.util.Log.i("AI_INTEGRATION", "AI analysis completed: Risk Level = " + 
+                        aiDecision.getRiskLevel() + ", Score = " + aiDecision.getRiskScore());
+                })
+                .exceptionally(throwable -> {
+                    // Handle AI analysis error gracefully
+                    android.util.Log.w("AI_INTEGRATION", "AI analysis failed: " + throwable.getMessage());
+                    return null; // Don't interrupt user flow
+                });
+                
+        } catch (Exception e) {
+            android.util.Log.e("SymptomsTrack", "Error during AI analysis trigger", e);
+            // Fail silently - don't interrupt the user experience
         }
     }
 }

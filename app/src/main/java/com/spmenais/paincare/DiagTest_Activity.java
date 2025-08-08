@@ -152,10 +152,10 @@ public class DiagTest_Activity extends AppCompatActivity {
                     }
 
                     // Safely cast optionScores to Map<String, Long>
-                    Map<String, Long> optionScores = null;
+                    Map<String, Object> optionScores = null;
                     Object optionScoresObj = document.get("optionScores");
                     if (optionScoresObj instanceof Map<?, ?>) {
-                        optionScores = (Map<String, Long>) optionScoresObj;
+                        optionScores = (Map<String, Object>) optionScoresObj;
                     }
 
                     // Create the Test_Questions object
@@ -301,45 +301,32 @@ public class DiagTest_Activity extends AppCompatActivity {
         String userId = currentUser.getUid();
         updateUserRiskLevelInFirestore(userId, riskLevel);
 
-        String report = reportBuilder.toString();
-
-        // Inflate the layout for the score and report
-        View reportLayout = getLayoutInflater().inflate(R.layout.activity_diagnostic_result, null);
-
-        // Find the TextViews within the inflated layout
-        TextView scoreTextView = reportLayout.findViewById(R.id.scoreTextView);
-        TextView reportTextView = reportLayout.findViewById(R.id.reportTextView);
-        Button openReportButton = reportLayout.findViewById(R.id.openReportButton);
-        ImageView backBtn = reportLayout.findViewById(R.id.leftIcon);
-
-        backBtn.setOnClickListener(v -> {
-            // Handle the click event, navigate to HelloActivity
-            Intent intent = new Intent(DiagTest_Activity.this, Diag_start.class);
-            startActivity(intent);
-            finish(); // Optional: Close the current activity after navigating
-        });
-
-        // Set the score and report text
-        scoreTextView.setText(getString(R.string.RiskLevel)+ " " +riskLevel);
-        reportTextView.setText(report);
-
-        // Generate the PDF report
+        // Generate the PDF report (kept for backup/export functionality)
         generatePdfReport(riskLevel, userId);
 
-        setReportButtonListeners(openReportButton);
-
-        // Display the inflated layout containing the score and report
-        setContentView(reportLayout);
+        // Launch AI-Enhanced Diagnostic Activity with results
+        Intent intent = new Intent(DiagTest_Activity.this, com.spmenais.paincare.AI.ui.AIEnhancedDiagnosticActivity.class);
+        intent.putExtra("diagnostic_score", totalScore);
+        intent.putExtra("diagnostic_risk_level", riskLevel);
+        intent.putExtra("user_id", userId);
+        // Convert user answers to serializable HashMap with string values
+        HashMap<String, String> serializableAnswers = new HashMap<>();
+        for (Map.Entry<String, Object> entry : userAnswers.entrySet()) {
+            if (entry.getValue() != null) {
+                serializableAnswers.put(entry.getKey(), entry.getValue().toString());
+            }
+        }
+        intent.putExtra("user_answers", serializableAnswers);
+        startActivity(intent);
+        finish();
     }
 
     private int calculateScore(Test_Questions question, Object userAnswer) {
         int score = 0;
 
         if (userAnswer instanceof String selectedOption) {
-            Long scoreValue = question.getOptionScores().getOrDefault(selectedOption, 0L);
-            if (scoreValue != null) {
-                score += scoreValue.intValue();
-            }
+            Object scoreValue = question.getOptionScores().getOrDefault(selectedOption, 0);
+            score += convertToInt(scoreValue);
         } else if (userAnswer instanceof List<?> rawList) {
             List<String> selectedOptions = rawList.stream()
                     .filter(item -> item instanceof String)
@@ -347,10 +334,8 @@ public class DiagTest_Activity extends AppCompatActivity {
                     .collect(Collectors.toList());
             for (String option : selectedOptions) {
                 if (option != null) {
-                    Long scoreValue = question.getOptionScores().getOrDefault(option, 0L);
-                    if (scoreValue != null) {
-                        score += scoreValue.intValue();
-                    }
+                    Object scoreValue = question.getOptionScores().getOrDefault(option, 0);
+                    score += convertToInt(scoreValue);
                 }
             }
         } else if (userAnswer instanceof Double && question.getText().equals("BMIqst")) {
@@ -362,6 +347,26 @@ public class DiagTest_Activity extends AppCompatActivity {
         }
 
         return score;
+    }
+    
+    private int convertToInt(Object value) {
+        if (value == null) return 0;
+        
+        if (value instanceof Integer) {
+            return (Integer) value;
+        } else if (value instanceof Long) {
+            return ((Long) value).intValue();
+        } else if (value instanceof Double) {
+            return ((Double) value).intValue();
+        } else if (value instanceof String) {
+            try {
+                return Integer.parseInt((String) value);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+        
+        return 0;
     }
 
 

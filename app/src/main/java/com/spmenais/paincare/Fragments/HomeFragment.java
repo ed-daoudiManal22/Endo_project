@@ -3,6 +3,7 @@ package com.spmenais.paincare.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 import com.spmenais.paincare.Diag_start;
 import com.spmenais.paincare.Endo_InfoActivity;
@@ -64,6 +67,7 @@ public class HomeFragment extends Fragment {
         CardView card4 = view.findViewById(R.id.card4);
         ImageView menuIcon = view.findViewById(R.id.menuIcon);
         ImageView notificationIcon = view.findViewById(R.id.notificationIcon);
+        ImageView aiInsightsIcon = view.findViewById(R.id.aiInsightsIcon);
 
         getCurrentUserName();
         // Set the risk level in the scoreText TextView
@@ -83,6 +87,12 @@ public class HomeFragment extends Fragment {
 
         // Set click listeners for the notification icon
         notificationIcon.setOnClickListener(v -> startActivity(new Intent(requireContext(), ReminderActivity.class)));
+        
+        // Set click listener for the AI insights icon
+        aiInsightsIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), com.spmenais.paincare.AI.ui.AIInsightsActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void getCurrentUserName() {

@@ -16,7 +16,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="84dp"
         android:layout_marginTop="65dp"
-        android:background="@drawable/circle_button"
         android:scaleType="centerInside"
         android:src="@drawable/baseline_mail_outline_24"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
