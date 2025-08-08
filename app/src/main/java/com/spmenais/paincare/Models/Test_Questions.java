@@ -6,13 +6,13 @@ import java.util.Map;
 public class Test_Questions {
     private String text;
     private List<String> options;
-    private Map<String, Long> optionScores;
+    private Map<String, Object> optionScores; // Changed from Long to Object to handle mixed types
     private String type;
 
     public Test_Questions() {
     }
 
-    public Test_Questions(String text, List<String> options, Map<String, Long> optionScores, String type) {
+    public Test_Questions(String text, List<String> options, Map<String, Object> optionScores, String type) {
         this.text = text;
         this.options = options;
         this.optionScores = optionScores;
@@ -42,11 +42,11 @@ public class Test_Questions {
     public void setOptions(List<String> options) {
         this.options = options;
     }
-    public Map<String, Long> getOptionScores() {
+    public Map<String, Object> getOptionScores() {
         return optionScores;
     }
 
-    public void setOptionScores(Map<String, Long> optionScores) {
+    public void setOptionScores(Map<String, Object> optionScores) {
         this.optionScores = optionScores;
     }
 }

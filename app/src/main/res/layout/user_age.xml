@@ -30,7 +30,6 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="65dp"
         android:layout_toEndOf="@id/backButton"
-        android:background="@drawable/circle_button"
         android:scaleType="centerInside"
         android:src="@drawable/calendar"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"

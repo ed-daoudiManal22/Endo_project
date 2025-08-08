@@ -82,4 +82,11 @@ dependencies {
     implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
 
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    
+    // AI and Machine Learning Dependencies
+    implementation 'com.google.code.gson:gson:2.10.1'  // For JSON processing in AI module
+    
+    // For future ML integration (TensorFlow Lite)
+    // implementation 'org.tensorflow:tensorflow-lite:2.13.0'
+    // implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
 }

@@ -23,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31"
         tools:replace="android:label">
 
@@ -110,6 +111,18 @@
 
         <activity android:name="com.spmenais.paincare.Community.BlogDetail"/>
         <activity android:name="com.spmenais.paincare.Community.PublishActivity"/>
+
+        <!-- AI Insights Activity -->
+        <activity 
+            android:name="com.spmenais.paincare.AI.ui.AIInsightsActivity"
+            android:label="AI Insights"
+            android:parentActivityName="com.spmenais.paincare.HomeActivity" />
+
+        <!-- AI Enhanced Diagnostic Activity -->
+        <activity 
+            android:name="com.spmenais.paincare.AI.ui.AIEnhancedDiagnosticActivity"
+            android:label="AI Enhanced Diagnostic Results"
+            android:parentActivityName="com.spmenais.paincare.DiagTest_Activity" />
 
     </application>
 

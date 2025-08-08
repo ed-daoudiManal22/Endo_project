@@ -20,5 +20,11 @@
     <color name="calm_red">#F34E4E</color>
     <color name="red">#EF2121</color>
     <color name="blue">#4F3CF4</color>
+    
+    <!-- AI Module Colors -->
+    <color name="primary_color">#89CCC5</color>
+    <color name="gray">#73777B</color>
+    <color name="light_gray">#A9ABAC</color>
+    <color name="light_background">#F6FFFE</color>
 
 </resources>
